@@ -9,6 +9,8 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@supabase/supabase-js": "^2.99.2",
+    "@tremor/react": "^4.0.0-beta-tremor-v4.4",
     "next": "16.1.7",
     "react": "19.2.3",
     "react-dom": "19.2.3"
