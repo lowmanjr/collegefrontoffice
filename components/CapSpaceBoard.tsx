@@ -4,7 +4,7 @@ import CapSpaceBoardClient, { type Team } from "@/components/CapSpaceBoardClient
 export default async function CapSpaceBoard() {
   const { data, error } = await supabase
     .from("teams")
-    .select("id, university_name, conference, estimated_cap_space, active_payroll")
+    .select("id, university_name, conference, estimated_cap_space, active_payroll, logo_url")
     .order("active_payroll", { ascending: false });
 
   if (error) {

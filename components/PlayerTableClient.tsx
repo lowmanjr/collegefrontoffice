@@ -95,13 +95,13 @@ export default function PlayerTableClient({ initialPlayers }: Props) {
       </p>
 
       <Table>
-        <TableHead>
+        <TableHead className="bg-slate-900">
           <TableRow>
-            <TableHeaderCell>Name</TableHeaderCell>
-            <TableHeaderCell>Position</TableHeaderCell>
-            <TableHeaderCell>Stars</TableHeaderCell>
-            <TableHeaderCell>Experience</TableHeaderCell>
-            <TableHeaderCell className="text-right">CFO Valuation</TableHeaderCell>
+            <TableHeaderCell className="text-white">Name</TableHeaderCell>
+            <TableHeaderCell className="text-white">Position</TableHeaderCell>
+            <TableHeaderCell className="text-white">Stars</TableHeaderCell>
+            <TableHeaderCell className="text-white">Experience</TableHeaderCell>
+            <TableHeaderCell className="text-right text-white">CFO Valuation</TableHeaderCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -141,7 +141,10 @@ export default function PlayerTableClient({ initialPlayers }: Props) {
                     {player.experience_level}
                   </span>
                 </TableCell>
-                <TableCell className="text-right font-semibold text-gray-900">
+                <TableCell
+                  className="text-right font-semibold text-gray-900"
+                  style={{ fontFamily: "var(--font-oswald), sans-serif", fontSize: "1.05rem", letterSpacing: "0.02em" }}
+                >
                   {formatCurrency(player.cfo_valuation)}
                 </TableCell>
               </TableRow>

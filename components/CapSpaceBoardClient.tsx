@@ -8,6 +8,7 @@ export interface Team {
   conference: string;
   estimated_cap_space: number;
   active_payroll: number;
+  logo_url?: string;
 }
 
 interface Props {
@@ -37,14 +38,25 @@ export default function CapSpaceBoardClient({ initialTeams }: Props) {
         const color     = capColor(pct);
 
         return (
-          <Card key={team.id}>
+          <Card key={team.id} className="bg-white shadow-md border border-gray-100">
             {/* Header */}
             <div className="mb-1 flex items-start justify-between">
-              <div>
-                <p className="text-lg font-semibold text-gray-900">
-                  {team.university_name}
-                </p>
-                <p className="text-xs text-gray-500">{team.conference}</p>
+              <div className="flex items-center gap-3">
+                {team.logo_url && (
+                  <img
+                    src={team.logo_url}
+                    alt={`${team.university_name} logo`}
+                    width={40}
+                    height={40}
+                    className="h-10 w-10 object-contain"
+                  />
+                )}
+                <div>
+                  <p className="text-lg font-semibold text-gray-900">
+                    {team.university_name}
+                  </p>
+                  <p className="text-xs text-gray-500">{team.conference}</p>
+                </div>
               </div>
               <span
                 className={`rounded-full px-2.5 py-0.5 text-xs font-semibold ${
@@ -59,11 +71,17 @@ export default function CapSpaceBoardClient({ initialTeams }: Props) {
               </span>
             </div>
 
-            {/* Payroll metric */}
-            <p className="mt-3 text-2xl font-bold text-gray-900">
+            {/* Payroll metric — Oswald font for that heavy sports-ticker look */}
+            <p
+              className="mt-3 text-3xl font-bold text-gray-900"
+              style={{ fontFamily: "var(--font-oswald), sans-serif" }}
+            >
               {formatCurrency(team.active_payroll)}
             </p>
-            <p className="mb-3 text-xs text-gray-500">
+            <p
+              className="mb-3 text-xs text-gray-500"
+              style={{ fontFamily: "var(--font-oswald), sans-serif" }}
+            >
               of {formatCurrency(team.estimated_cap_space)} cap
             </p>
 
@@ -72,7 +90,10 @@ export default function CapSpaceBoardClient({ initialTeams }: Props) {
 
             {/* Remaining cap */}
             <p className="mt-2 text-xs text-gray-500">
-              <span className="font-medium text-gray-700">
+              <span
+                className="font-medium text-gray-700"
+                style={{ fontFamily: "var(--font-oswald), sans-serif" }}
+              >
                 {formatCurrency(remaining)}
               </span>{" "}
               remaining
