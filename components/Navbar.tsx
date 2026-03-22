@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import GlobalSearch from "@/components/GlobalSearch";
 
 const NAV_LINKS = [
   { label: "Home",    href: "/" },
@@ -49,18 +50,21 @@ export default function Navbar() {
           </span>
         </Link>
 
-        {/* Desktop links */}
-        <nav className="hidden md:flex items-center gap-6">
-          {NAV_LINKS.map(({ label, href }) => (
-            <Link
-              key={href}
-              href={href}
-              className="text-sm font-medium text-gray-300 hover:text-white transition-colors"
-            >
-              {label}
-            </Link>
-          ))}
-        </nav>
+        {/* Desktop links + search */}
+        <div className="hidden md:flex items-center gap-6">
+          <nav className="flex items-center gap-6">
+            {NAV_LINKS.map(({ label, href }) => (
+              <Link
+                key={href}
+                href={href}
+                className="text-sm font-medium text-gray-300 hover:text-white transition-colors"
+              >
+                {label}
+              </Link>
+            ))}
+          </nav>
+          <GlobalSearch />
+        </div>
 
         {/* Hamburger button — mobile only */}
         <button

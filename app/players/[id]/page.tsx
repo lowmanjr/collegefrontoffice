@@ -59,11 +59,17 @@ export default async function PlayerProfilePage({ params }: PageProps) {
 
   const { data: player, error } = await supabase
     .from("players")
-    .select("*, teams(university_name, logo_url), reported_nil_deal")
+    .select("*, teams(university_name, logo_url), reported_nil_deal, status, is_public")
     .eq("id", id)
     .single();
 
   if (error) console.error("Supabase Error:", error);
+
+  const { data: events } = await supabase
+    .from("player_events")
+    .select("*")
+    .eq("player_id", id)
+    .order("event_date", { ascending: false });
 
   if (error || !player) {
     return (
@@ -83,7 +89,9 @@ export default async function PlayerProfilePage({ params }: PageProps) {
   const expMult    = experienceMultiplier(player.experience_level);
   const base       = baseRate(player.star_rating);
   const team       = player.teams as { university_name: string; logo_url?: string } | null;
+  const isPrivate   = player.is_public === false;
   const hasReported = player.reported_nil_deal != null;
+  const isFrozen    = !isPrivate && (player.status === "Medical Exemption" || player.status === "Inactive");
 
   return (
     <main className="min-h-screen bg-gray-100">
@@ -149,50 +157,78 @@ export default async function PlayerProfilePage({ params }: PageProps) {
             {/* Valuation column — CFO Baseline + Reported Deal stacked */}
             <div className="mt-4 sm:mt-0 sm:text-right space-y-4 shrink-0">
 
-              {/* CFO Baseline */}
-              <div>
-                <p className="text-xs uppercase tracking-widest text-slate-400 mb-1">
-                  CFO Baseline Value
-                </p>
-                <p
-                  className="text-4xl sm:text-5xl font-bold text-white leading-none"
-                  style={{ fontFamily: "var(--font-oswald), sans-serif" }}
-                >
-                  {formatCurrency(player.cfo_valuation)}
-                </p>
-                <p className="mt-1 text-xs text-slate-500">
-                  Algorithmic value based on talent and positional scarcity.
-                </p>
-              </div>
-
-              {/* Reported Market Deal */}
-              <div>
-                <p className="text-xs uppercase tracking-widest text-slate-400 mb-1">
-                  Reported Market Deal
-                </p>
-                {hasReported ? (
-                  <>
+              {isPrivate ? (
+                <div>
+                  <p className="text-xs uppercase tracking-widest text-slate-400 mb-1">
+                    Financial Data
+                  </p>
+                  <p className="text-2xl font-semibold text-slate-400 leading-none">
+                    Financial Data Private
+                  </p>
+                  <p className="mt-1 text-xs text-slate-500">
+                    This athlete or their representatives have opted out of public financial estimations and disclosures.
+                  </p>
+                </div>
+              ) : isFrozen ? (
+                <div>
+                  <p className="text-xs uppercase tracking-widest text-slate-400 mb-1">
+                    CFO Baseline Value
+                  </p>
+                  <p className="text-2xl font-semibold text-slate-400 leading-none">
+                    Valuation Frozen
+                  </p>
+                  <p className="mt-1 text-xs text-slate-500">
+                    Algorithmic valuation paused due to medical exemption or inactive status.
+                  </p>
+                </div>
+              ) : (
+                <>
+                  {/* CFO Baseline */}
+                  <div>
+                    <p className="text-xs uppercase tracking-widest text-slate-400 mb-1">
+                      CFO Baseline Value
+                    </p>
                     <p
-                      className="text-4xl sm:text-5xl font-black text-emerald-400 leading-none"
+                      className="text-4xl sm:text-5xl font-bold text-white leading-none"
                       style={{ fontFamily: "var(--font-oswald), sans-serif" }}
                     >
-                      {formatCurrency(player.reported_nil_deal)}
+                      {formatCurrency(player.cfo_valuation)}
                     </p>
                     <p className="mt-1 text-xs text-slate-500">
-                      Publicly reported third-party NIL or collective agreement.
+                      Algorithmic value based on talent and positional scarcity.
                     </p>
-                  </>
-                ) : (
-                  <>
-                    <p className="text-2xl font-semibold text-slate-500 leading-none">
-                      Undisclosed
+                  </div>
+
+                  {/* Reported Market Deal */}
+                  <div>
+                    <p className="text-xs uppercase tracking-widest text-slate-400 mb-1">
+                      Reported Market Deal
                     </p>
-                    <p className="mt-1 text-xs text-slate-500">
-                      Publicly reported third-party NIL or collective agreement.
-                    </p>
-                  </>
-                )}
-              </div>
+                    {hasReported ? (
+                      <>
+                        <p
+                          className="text-4xl sm:text-5xl font-black text-emerald-400 leading-none"
+                          style={{ fontFamily: "var(--font-oswald), sans-serif" }}
+                        >
+                          {formatCurrency(player.reported_nil_deal)}
+                        </p>
+                        <p className="mt-1 text-xs text-slate-500">
+                          Publicly reported third-party NIL or collective agreement.
+                        </p>
+                      </>
+                    ) : (
+                      <>
+                        <p className="text-2xl font-semibold text-slate-500 leading-none">
+                          Undisclosed
+                        </p>
+                        <p className="mt-1 text-xs text-slate-500">
+                          Publicly reported third-party NIL or collective agreement.
+                        </p>
+                      </>
+                    )}
+                  </div>
+                </>
+              )}
 
             </div>
           </div>
@@ -326,48 +362,160 @@ export default async function PlayerProfilePage({ params }: PageProps) {
             Market Valuation
           </h2>
 
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
-
-            {/* CFO Baseline */}
-            <div className="border-b border-slate-700 pb-6 sm:border-b-0 sm:border-r sm:pb-0 sm:pr-6">
-              <p className="text-xs uppercase tracking-widest text-slate-500 mb-2">CFO Baseline Value</p>
-              <p
-                className="text-4xl font-bold text-white leading-none"
-                style={{ fontFamily: "var(--font-oswald), sans-serif" }}
-              >
-                {formatCurrency(player.cfo_valuation)}
+          {isPrivate ? (
+            <div className="flex flex-col gap-2">
+              <p className="text-2xl font-semibold text-slate-400 leading-none">
+                Financial Data Private
               </p>
-              <p className="mt-2 text-xs text-slate-500 leading-relaxed">
-                Algorithmic value based on talent and positional scarcity.
+              <p className="text-xs text-slate-500 leading-relaxed">
+                This athlete or their representatives have opted out of public financial estimations and disclosures.
               </p>
             </div>
-
-            {/* Reported Deal */}
-            <div className="sm:pl-6">
-              <p className="text-xs uppercase tracking-widest text-slate-500 mb-2">Reported Market Deal</p>
-              {hasReported ? (
-                <>
-                  <p
-                    className="text-4xl font-black text-emerald-400 leading-none"
-                    style={{ fontFamily: "var(--font-oswald), sans-serif" }}
-                  >
-                    {formatCurrency(player.reported_nil_deal)}
-                  </p>
-                  <p className="mt-2 text-xs text-slate-500 leading-relaxed">
-                    Publicly reported third-party NIL or collective agreement.
-                  </p>
-                </>
-              ) : (
-                <>
-                  <p className="text-2xl font-semibold text-slate-500 leading-none">Undisclosed</p>
-                  <p className="mt-2 text-xs text-slate-500 leading-relaxed">
-                    Publicly reported third-party NIL or collective agreement.
-                  </p>
-                </>
-              )}
+          ) : isFrozen ? (
+            <div className="flex flex-col gap-2">
+              <p className="text-2xl font-semibold text-slate-400 leading-none">
+                Valuation Frozen
+              </p>
+              <p className="text-xs text-slate-500 leading-relaxed">
+                Algorithmic valuation paused due to medical exemption or inactive status.
+              </p>
             </div>
+          ) : (
+            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
 
-          </div>
+              {/* CFO Baseline */}
+              <div className="border-b border-slate-700 pb-6 sm:border-b-0 sm:border-r sm:pb-0 sm:pr-6">
+                <p className="text-xs uppercase tracking-widest text-slate-500 mb-2">CFO Baseline Value</p>
+                <p
+                  className="text-4xl font-bold text-white leading-none"
+                  style={{ fontFamily: "var(--font-oswald), sans-serif" }}
+                >
+                  {formatCurrency(player.cfo_valuation)}
+                </p>
+                <p className="mt-2 text-xs text-slate-500 leading-relaxed">
+                  Algorithmic value based on talent and positional scarcity.
+                </p>
+              </div>
+
+              {/* Reported Deal */}
+              <div className="sm:pl-6">
+                <p className="text-xs uppercase tracking-widest text-slate-500 mb-2">Reported Market Deal</p>
+                {hasReported ? (
+                  <>
+                    <p
+                      className="text-4xl font-black text-emerald-400 leading-none"
+                      style={{ fontFamily: "var(--font-oswald), sans-serif" }}
+                    >
+                      {formatCurrency(player.reported_nil_deal)}
+                    </p>
+                    <p className="mt-2 text-xs text-slate-500 leading-relaxed">
+                      Publicly reported third-party NIL or collective agreement.
+                    </p>
+                  </>
+                ) : (
+                  <>
+                    <p className="text-2xl font-semibold text-slate-500 leading-none">Undisclosed</p>
+                    <p className="mt-2 text-xs text-slate-500 leading-relaxed">
+                      Publicly reported third-party NIL or collective agreement.
+                    </p>
+                  </>
+                )}
+              </div>
+
+            </div>
+          )}
+        </div>
+
+        {/* ── Valuation Timeline — full width ──────────────────────────── */}
+        <div className="md:col-span-2">
+          <h2
+            className="mb-4 text-2xl font-bold text-slate-900 uppercase tracking-wide"
+            style={{ fontFamily: "var(--font-oswald), sans-serif" }}
+          >
+            Valuation Timeline
+          </h2>
+
+          {isPrivate ? (
+            <div className="bg-white rounded-xl shadow-md border border-gray-100 p-8 text-center">
+              <p className="text-sm font-semibold text-slate-500">
+                Timeline hidden due to privacy settings.
+              </p>
+            </div>
+          ) : !events || events.length === 0 ? (
+            <div className="bg-white rounded-xl shadow-md border border-gray-100 p-8 text-center">
+              <p className="text-sm font-semibold text-slate-500">
+                No historical valuation events logged for this player yet.
+              </p>
+            </div>
+          ) : (
+            <div className="relative border-l-2 border-slate-200 ml-3 space-y-8">
+              {events.map((event) => {
+                const date = new Date(event.event_date).toLocaleDateString("en-US", {
+                  year: "numeric", month: "long", day: "numeric",
+                });
+                const hasValuationChange = event.new_valuation != null;
+                const hasPrevious        = event.previous_valuation != null;
+                const hasReportedDeal    = event.reported_deal != null;
+
+                return (
+                  <div key={event.id} className="relative pl-8">
+                    {/* Timeline dot */}
+                    <span className="absolute -left-[25px] top-1 h-4 w-4 rounded-full border-4 border-white bg-blue-600 shadow-sm" />
+
+                    <div className="bg-white rounded-xl shadow-md border border-gray-100 p-5">
+                      {/* Date + type row */}
+                      <div className="flex flex-wrap items-center gap-3 mb-3">
+                        <span className="text-xs font-bold uppercase tracking-widest text-slate-400">
+                          {date}
+                        </span>
+                        <span
+                          className="rounded bg-slate-900 text-white px-2 py-0.5 text-xs font-bold uppercase tracking-wide"
+                          style={{ fontFamily: "var(--font-oswald), sans-serif" }}
+                        >
+                          {event.event_type}
+                        </span>
+                        {hasReportedDeal && (
+                          <span className="rounded-full bg-emerald-100 text-emerald-700 px-2.5 py-0.5 text-xs font-bold">
+                            Reported Deal: {formatCurrency(event.reported_deal)}
+                          </span>
+                        )}
+                      </div>
+
+                      {/* Valuation change */}
+                      {hasValuationChange && (
+                        <div className="flex items-center gap-2 mb-3">
+                          {hasPrevious && (
+                            <>
+                              <span
+                                className="text-xl font-bold text-slate-400 line-through"
+                                style={{ fontFamily: "var(--font-oswald), sans-serif" }}
+                              >
+                                {formatCurrency(event.previous_valuation)}
+                              </span>
+                              <span className="text-slate-300 font-bold">→</span>
+                            </>
+                          )}
+                          <span
+                            className="text-2xl font-black text-gray-900"
+                            style={{ fontFamily: "var(--font-oswald), sans-serif" }}
+                          >
+                            {formatCurrency(event.new_valuation)}
+                          </span>
+                        </div>
+                      )}
+
+                      {/* Description */}
+                      {event.description && (
+                        <p className="text-sm text-slate-500 leading-relaxed">
+                          {event.description}
+                        </p>
+                      )}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          )}
         </div>
 
       </div>
