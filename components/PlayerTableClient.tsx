@@ -49,15 +49,24 @@ function renderStars(rating: number): string {
   return filled + empty;
 }
 
+const ITEMS_PER_PAGE = 50;
+
 export default function PlayerTableClient({ initialPlayers }: Props) {
-  const [searchQuery, setSearchQuery]     = useState("");
+  const [searchQuery, setSearchQuery]       = useState("");
   const [positionFilter, setPositionFilter] = useState("All");
+  const [currentPage, setCurrentPage]       = useState(1);
 
   const filteredPlayers = initialPlayers.filter((player) => {
     const matchesSearch   = player.name.toLowerCase().includes(searchQuery.toLowerCase());
     const matchesPosition = positionFilter === "All" || player.position === positionFilter;
     return matchesSearch && matchesPosition;
   });
+
+  const totalPages      = Math.ceil(filteredPlayers.length / ITEMS_PER_PAGE);
+  const paginatedPlayers = filteredPlayers.slice(
+    (currentPage - 1) * ITEMS_PER_PAGE,
+    currentPage * ITEMS_PER_PAGE,
+  );
 
   return (
     <Card>
@@ -73,12 +82,12 @@ export default function PlayerTableClient({ initialPlayers }: Props) {
             type="text"
             placeholder="Search by name..."
             value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
+            onChange={(e) => { setSearchQuery(e.target.value); setCurrentPage(1); }}
             className="rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm text-gray-900 shadow-sm placeholder:text-gray-400 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
           />
           <select
             value={positionFilter}
-            onChange={(e) => setPositionFilter(e.target.value)}
+            onChange={(e) => { setPositionFilter(e.target.value); setCurrentPage(1); }}
             className="rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm text-gray-900 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
           >
             {POSITIONS.map((pos) => (
@@ -92,7 +101,8 @@ export default function PlayerTableClient({ initialPlayers }: Props) {
 
       {/* Result count */}
       <p className="mb-3 text-xs text-gray-400">
-        Showing {filteredPlayers.length} of {initialPlayers.length} players
+        Showing {paginatedPlayers.length} of {filteredPlayers.length} players
+        {filteredPlayers.length !== initialPlayers.length && ` (${initialPlayers.length} total)`}
       </p>
 
       {/* ── Desktop table (md+) ─────────────────────────────────────────── */}
@@ -115,7 +125,7 @@ export default function PlayerTableClient({ initialPlayers }: Props) {
                 </TableCell>
               </TableRow>
             ) : (
-              filteredPlayers.map((player) => (
+              paginatedPlayers.map((player) => (
                 <TableRow key={player.id} className="hover:bg-slate-50 transition-colors">
                   <TableCell className="font-medium">
                     <Link
@@ -169,7 +179,7 @@ export default function PlayerTableClient({ initialPlayers }: Props) {
             No players match your search.
           </p>
         ) : (
-          filteredPlayers.map((player) => (
+          paginatedPlayers.map((player) => (
             <div
               key={player.id}
               className="bg-white rounded-lg border border-gray-200 p-4 shadow-sm"
@@ -217,6 +227,31 @@ export default function PlayerTableClient({ initialPlayers }: Props) {
           ))
         )}
       </div>
+      {/* ── Pagination controls ──────────────────────────────────────────── */}
+      {totalPages > 1 && (
+        <div className="mt-6 flex items-center justify-between gap-4">
+          <button
+            onClick={() => setCurrentPage((p) => p - 1)}
+            disabled={currentPage === 1}
+            className="px-4 py-2 text-sm font-medium border border-gray-200 rounded-md hover:bg-slate-50 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+          >
+            ← Previous
+          </button>
+
+          <span className="text-sm text-gray-500">
+            Page <span className="font-semibold text-gray-900">{currentPage}</span> of{" "}
+            <span className="font-semibold text-gray-900">{totalPages}</span>
+          </span>
+
+          <button
+            onClick={() => setCurrentPage((p) => p + 1)}
+            disabled={currentPage === totalPages}
+            className="px-4 py-2 text-sm font-medium border border-gray-200 rounded-md hover:bg-slate-50 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+          >
+            Next →
+          </button>
+        </div>
+      )}
     </Card>
   );
 }
