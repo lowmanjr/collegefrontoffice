@@ -24,9 +24,9 @@ function renderStars(rating: number) {
 // ─── positional multiplier label (mirrors V1.0 algorithm) ───────────────────
 
 function positionalMultiplier(position: string): { label: string; value: string } {
-  if (position === "QB")                          return { label: "Franchise QB", value: "2.5×" };
-  if (position === "LT" || position === "EDGE")   return { label: "Premium Protector / Pass-Rusher", value: "1.5×" };
-  if (["WR", "CB", "DT"].includes(position))      return { label: "Skill / Coverage / Interior", value: "1.2×" };
+  if (position === "QB")                        return { label: "Franchise QB", value: "2.5×" };
+  if (position === "LT" || position === "EDGE") return { label: "Premium Protector / Pass-Rusher", value: "1.5×" };
+  if (["WR", "CB", "DT"].includes(position))   return { label: "Skill / Coverage / Interior", value: "1.2×" };
   return { label: "Standard", value: "1.0×" };
 }
 
@@ -59,9 +59,11 @@ export default async function PlayerProfilePage({ params }: PageProps) {
 
   const { data: player, error } = await supabase
     .from("players")
-    .select("*")
+    .select("*, teams(university_name, logo_url), reported_nil_deal")
     .eq("id", id)
     .single();
+
+  if (error) console.error("Supabase Error:", error);
 
   if (error || !player) {
     return (
@@ -69,10 +71,7 @@ export default async function PlayerProfilePage({ params }: PageProps) {
         <div className="text-center">
           <p className="text-6xl font-bold text-slate-700 mb-4">404</p>
           <p className="text-slate-400 mb-6">Player not found.</p>
-          <Link
-            href="/"
-            className="text-blue-400 hover:underline text-sm"
-          >
+          <Link href="/" className="text-blue-400 hover:underline text-sm">
             ← Back to Dashboard
           </Link>
         </div>
@@ -80,9 +79,11 @@ export default async function PlayerProfilePage({ params }: PageProps) {
     );
   }
 
-  const posMult = positionalMultiplier(player.position);
-  const expMult = experienceMultiplier(player.experience_level);
-  const base    = baseRate(player.star_rating);
+  const posMult    = positionalMultiplier(player.position);
+  const expMult    = experienceMultiplier(player.experience_level);
+  const base       = baseRate(player.star_rating);
+  const team       = player.teams as { university_name: string; logo_url?: string } | null;
+  const hasReported = player.reported_nil_deal != null;
 
   return (
     <main className="min-h-screen bg-gray-100">
@@ -91,7 +92,6 @@ export default async function PlayerProfilePage({ params }: PageProps) {
       <div className="bg-slate-900 text-white px-6 py-10">
         <div className="mx-auto max-w-4xl">
 
-          {/* Back link */}
           <Link
             href="/"
             className="inline-block mb-6 text-slate-400 hover:text-white text-sm transition-colors"
@@ -101,7 +101,7 @@ export default async function PlayerProfilePage({ params }: PageProps) {
 
           <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
             <div>
-              {/* Badges */}
+              {/* Position + experience badges */}
               <div className="mb-3 flex flex-wrap gap-2">
                 <span className="rounded px-2.5 py-0.5 text-xs font-semibold bg-slate-700 text-slate-300 uppercase tracking-widest">
                   {player.position}
@@ -125,20 +125,75 @@ export default async function PlayerProfilePage({ params }: PageProps) {
 
               {/* Stars */}
               <div className="mt-3">{renderStars(player.star_rating)}</div>
+
+              {/* Commitment badge */}
+              {team && (
+                <div className="mt-4 inline-flex items-center gap-2 rounded-lg bg-slate-800 border border-slate-700 px-3 py-2">
+                  {team.logo_url && (
+                    <img
+                      src={team.logo_url}
+                      alt={`${team.university_name} logo`}
+                      width={20}
+                      height={20}
+                      className="h-5 w-5 object-contain"
+                    />
+                  )}
+                  <span className="text-xs font-semibold text-slate-300 uppercase tracking-wide">
+                    Committed to{" "}
+                    <span className="text-white">{team.university_name}</span>
+                  </span>
+                </div>
+              )}
             </div>
 
-            {/* CFO Valuation hero number */}
-            <div className="mt-4 sm:mt-0 sm:text-right">
-              <p className="text-xs uppercase tracking-widest text-slate-400 mb-1">
-                C.F.O. Valuation
-              </p>
-              <p
-                className="text-5xl sm:text-6xl font-bold text-white leading-none"
-                style={{ fontFamily: "var(--font-oswald), sans-serif" }}
-              >
-                {formatCurrency(player.cfo_valuation)}
-              </p>
-              <p className="mt-1 text-xs text-slate-500">V1.0 Algorithm</p>
+            {/* Valuation column — CFO Baseline + Reported Deal stacked */}
+            <div className="mt-4 sm:mt-0 sm:text-right space-y-4 shrink-0">
+
+              {/* CFO Baseline */}
+              <div>
+                <p className="text-xs uppercase tracking-widest text-slate-400 mb-1">
+                  CFO Baseline Value
+                </p>
+                <p
+                  className="text-4xl sm:text-5xl font-bold text-white leading-none"
+                  style={{ fontFamily: "var(--font-oswald), sans-serif" }}
+                >
+                  {formatCurrency(player.cfo_valuation)}
+                </p>
+                <p className="mt-1 text-xs text-slate-500">
+                  Algorithmic value based on talent and positional scarcity.
+                </p>
+              </div>
+
+              {/* Reported Market Deal */}
+              <div>
+                <p className="text-xs uppercase tracking-widest text-slate-400 mb-1">
+                  Reported Market Deal
+                </p>
+                {hasReported ? (
+                  <>
+                    <p
+                      className="text-4xl sm:text-5xl font-black text-emerald-400 leading-none"
+                      style={{ fontFamily: "var(--font-oswald), sans-serif" }}
+                    >
+                      {formatCurrency(player.reported_nil_deal)}
+                    </p>
+                    <p className="mt-1 text-xs text-slate-500">
+                      Publicly reported third-party NIL or collective agreement.
+                    </p>
+                  </>
+                ) : (
+                  <>
+                    <p className="text-2xl font-semibold text-slate-500 leading-none">
+                      Undisclosed
+                    </p>
+                    <p className="mt-1 text-xs text-slate-500">
+                      Publicly reported third-party NIL or collective agreement.
+                    </p>
+                  </>
+                )}
+              </div>
+
             </div>
           </div>
         </div>
@@ -230,40 +285,88 @@ export default async function PlayerProfilePage({ params }: PageProps) {
               </dd>
             </div>
 
-            <div className="flex items-center justify-between border-b border-slate-100 pb-3">
+            <div className={`flex items-center justify-between ${player.high_school || team ? "border-b border-slate-100 pb-3" : ""}`}>
               <dt className="text-xs text-slate-500 uppercase tracking-wide">Star Rating</dt>
               <dd className="text-sm">{renderStars(player.star_rating)}</dd>
             </div>
 
             {player.high_school && (
-              <div className="flex items-center justify-between">
+              <div className={`flex items-center justify-between ${team ? "border-b border-slate-100 pb-3" : ""}`}>
                 <dt className="text-xs text-slate-500 uppercase tracking-wide">High School</dt>
                 <dd className="text-sm font-medium text-slate-800">{player.high_school}</dd>
+              </div>
+            )}
+
+            {team && (
+              <div className="flex items-center justify-between">
+                <dt className="text-xs text-slate-500 uppercase tracking-wide">Commitment</dt>
+                <dd className="flex items-center gap-1.5">
+                  {team.logo_url && (
+                    <img
+                      src={team.logo_url}
+                      alt={team.university_name}
+                      width={16}
+                      height={16}
+                      className="h-4 w-4 object-contain"
+                    />
+                  )}
+                  <span className="text-sm font-medium text-slate-800">{team.university_name}</span>
+                </dd>
               </div>
             )}
           </dl>
         </div>
 
-        {/* Valuation context card — full width */}
+        {/* Market Valuation card — full width */}
         <div className="bg-slate-900 text-white rounded-xl shadow-md p-6 md:col-span-2">
           <h2
-            className="text-xs uppercase tracking-widest text-slate-400 mb-4"
+            className="text-xs uppercase tracking-widest text-slate-400 mb-5"
             style={{ fontFamily: "var(--font-oswald), sans-serif" }}
           >
             Market Valuation
           </h2>
-          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-            <p className="text-slate-400 text-sm max-w-lg">
-              This valuation is calculated by the C.F.O. V1.0 algorithm, which weights positional
-              scarcity and experience premium against a star-rating base rate to approximate
-              fair-market NIL compensation.
-            </p>
-            <p
-              className="text-5xl font-bold text-white shrink-0"
-              style={{ fontFamily: "var(--font-oswald), sans-serif" }}
-            >
-              {formatCurrency(player.cfo_valuation)}
-            </p>
+
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+
+            {/* CFO Baseline */}
+            <div className="border-b border-slate-700 pb-6 sm:border-b-0 sm:border-r sm:pb-0 sm:pr-6">
+              <p className="text-xs uppercase tracking-widest text-slate-500 mb-2">CFO Baseline Value</p>
+              <p
+                className="text-4xl font-bold text-white leading-none"
+                style={{ fontFamily: "var(--font-oswald), sans-serif" }}
+              >
+                {formatCurrency(player.cfo_valuation)}
+              </p>
+              <p className="mt-2 text-xs text-slate-500 leading-relaxed">
+                Algorithmic value based on talent and positional scarcity.
+              </p>
+            </div>
+
+            {/* Reported Deal */}
+            <div className="sm:pl-6">
+              <p className="text-xs uppercase tracking-widest text-slate-500 mb-2">Reported Market Deal</p>
+              {hasReported ? (
+                <>
+                  <p
+                    className="text-4xl font-black text-emerald-400 leading-none"
+                    style={{ fontFamily: "var(--font-oswald), sans-serif" }}
+                  >
+                    {formatCurrency(player.reported_nil_deal)}
+                  </p>
+                  <p className="mt-2 text-xs text-slate-500 leading-relaxed">
+                    Publicly reported third-party NIL or collective agreement.
+                  </p>
+                </>
+              ) : (
+                <>
+                  <p className="text-2xl font-semibold text-slate-500 leading-none">Undisclosed</p>
+                  <p className="mt-2 text-xs text-slate-500 leading-relaxed">
+                    Publicly reported third-party NIL or collective agreement.
+                  </p>
+                </>
+              )}
+            </div>
+
           </div>
         </div>
 

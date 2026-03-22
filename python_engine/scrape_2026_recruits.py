@@ -124,13 +124,61 @@ POSITION_ALIASES: dict[str, str] = {
     "DB":  "CB",
 }
 
+# Common abbreviation expansions used on 247Sports commitment logos/alt text
+SCHOOL_ALIASES: dict[str, str] = {
+    "ohio st":        "ohio state",
+    "osu":            "ohio state",
+    "uga":            "georgia",
+    "bama":           "alabama",
+    "tex":            "texas",
+    "oregon ducks":   "oregon",
+    "penn st":        "penn state",
+    "michigan st":    "michigan state",
+    "miss st":        "mississippi state",
+    "ole miss":       "mississippi",
+    "miami (fl)":     "miami",
+    "usc":            "southern california",
+    "lsu":            "louisiana state",
+}
+
 
 def normalise_position(raw: str) -> str:
     pos = raw.strip().upper()
     return POSITION_ALIASES.get(pos, pos) or "ATH"
 
 
-def scrape_players(html: str) -> list[dict]:
+def normalise_school(raw: str) -> str:
+    """Lowercase + strip, then apply known aliases for fuzzy team matching."""
+    cleaned = raw.strip().lower()
+    return SCHOOL_ALIASES.get(cleaned, cleaned)
+
+
+def resolve_team_id(commitment_raw: str, teams_map: dict[str, str]) -> str | None:
+    """Return the Supabase UUID for a committed school, or None if unmatched.
+
+    Matching strategy (most → least strict):
+      1. Exact match after normalisation
+      2. teams_map key starts with the commitment string (e.g. 'georgia' → 'georgia')
+      3. Commitment string starts with a teams_map key (handles suffixes like 'bulldogs')
+    """
+    if not commitment_raw:
+        return None
+
+    needle = normalise_school(commitment_raw)
+
+    # 1. Exact
+    if needle in teams_map:
+        return teams_map[needle]
+
+    # 2 & 3. Partial prefix matching
+    for key, uid in teams_map.items():
+        if key.startswith(needle) or needle.startswith(key):
+            return uid
+
+    return None
+
+
+def scrape_players(html: str, teams_map: dict[str, str]) -> list[dict]:
     soup  = BeautifulSoup(html, "html.parser")
     items = soup.select("li.rankings-page__list-item")
     print(f"  Found {len(items)} list items on the page.")
@@ -172,6 +220,34 @@ def scrape_players(html: str) -> list[dict]:
             ".rankings-page__school-name",
         ) or "Unknown"
 
+        # ── Commitment / signed school ────────────────────────────────────
+        # 247Sports renders the committed school as an <img> whose alt/title
+        # attribute holds the university name inside .status or .commit-school.
+        # We try several selectors and fall back to None (uncommitted).
+        commitment_raw = ""
+        for sel in (".status img", ".commit-school img", ".clearance img",
+                    ".rankings-page__commit img"):
+            el = item.select_one(sel)
+            if el:
+                commitment_raw = (
+                    (el.get("alt") or el.get("title") or "").strip()
+                )
+                if commitment_raw:
+                    break
+
+        # Also try plain text fallbacks (some markup puts the name in a span)
+        if not commitment_raw:
+            commitment_raw = safe_text(
+                item,
+                ".status .school",
+                ".commit-school",
+                ".rankings-page__commit-school",
+            )
+
+        team_id = resolve_team_id(commitment_raw, teams_map)
+        if commitment_raw and team_id is None:
+            print(f"  Info: commitment '{commitment_raw}' for '{name}' not in teams map — team_id=None")
+
         star_rating   = derive_star_rating(composite_score)
         cfo_valuation = calculate_cfo_valuation(star_rating, position)
 
@@ -184,6 +260,7 @@ def scrape_players(html: str) -> list[dict]:
             "experience_level": "High School",
             "composite_score":  composite_score,
             "cfo_valuation":    cfo_valuation,
+            "team_id":          team_id,
         })
 
     return players
@@ -201,6 +278,15 @@ def main() -> None:
     if not supabase_url or not supabase_key:
         raise EnvironmentError("Missing Supabase credentials in .env.local")
     supabase: Client = create_client(supabase_url, supabase_key)
+
+    # ── Build teams map ────────────────────────────────────────────────────
+    print("Fetching teams from Supabase ...")
+    teams_resp = supabase.table("teams").select("id, university_name").execute()
+    teams_map: dict[str, str] = {
+        normalise_school(row["university_name"]): row["id"]
+        for row in (teams_resp.data or [])
+    }
+    print(f"  Loaded {len(teams_map)} teams: {list(teams_map.keys())}")
 
     # ── Pagination loop ────────────────────────────────────────────────────
     all_players: list[dict] = []
@@ -220,7 +306,7 @@ def main() -> None:
             )
         resp.raise_for_status()
 
-        page_players = scrape_players(resp.text)
+        page_players = scrape_players(resp.text, teams_map)
 
         if not page_players:
             debug_path = os.path.join(os.path.dirname(__file__), f"debug_2026_page{page}.html")
@@ -247,9 +333,13 @@ def main() -> None:
     # ── Preview ────────────────────────────────────────────────────────────
     df = pd.DataFrame(all_players)
     print(f"\nTotal collected: {len(all_players)} players.")
+
+    matched = df["team_id"].notna().sum()
+    print(f"Team matches: {matched}/{len(all_players)} players linked to a team.")
+
     print("\nSample (top 10):")
     print(
-        df[["name", "position", "star_rating", "composite_score", "cfo_valuation"]]
+        df[["name", "position", "star_rating", "composite_score", "cfo_valuation", "team_id"]]
         .head(10)
         .to_string(index=False)
     )
