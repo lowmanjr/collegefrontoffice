@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Inter, Oswald } from "next/font/google";
 import "./globals.css";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -14,8 +16,22 @@ const oswald = Oswald({
 });
 
 export const metadata: Metadata = {
-  title: "CollegeFrontOffice.com",
-  description: "Data dashboard and valuation tool for the modern college sports economy.",
+  title: "CollegeFrontOffice | Mapping the College Sports Economy",
+  description:
+    "Proprietary estimates, player valuations, and team cap space projections for the modern NIL era.",
+  openGraph: {
+    title: "CollegeFrontOffice | Mapping the College Sports Economy",
+    description:
+      "Proprietary estimates, player valuations, and team cap space projections for the modern NIL era.",
+    siteName: "CollegeFrontOffice",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "CollegeFrontOffice | Mapping the College Sports Economy",
+    description:
+      "Proprietary estimates, player valuations, and team cap space projections for the modern NIL era.",
+  },
 };
 
 export default function RootLayout({
@@ -26,10 +42,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${inter.variable} ${oswald.variable} antialiased`}
+        className={`${inter.variable} ${oswald.variable} antialiased min-h-screen flex flex-col`}
         style={{ fontFamily: "var(--font-inter), sans-serif" }}
       >
-        {children}
+        <Navbar />
+        <main className="flex-grow">
+          {children}
+        </main>
+        <Footer />
       </body>
     </html>
   );

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import {
   Card,
   Table,
@@ -94,64 +95,128 @@ export default function PlayerTableClient({ initialPlayers }: Props) {
         Showing {filteredPlayers.length} of {initialPlayers.length} players
       </p>
 
-      <Table>
-        <TableHead className="bg-slate-900">
-          <TableRow>
-            <TableHeaderCell className="text-white">Name</TableHeaderCell>
-            <TableHeaderCell className="text-white">Position</TableHeaderCell>
-            <TableHeaderCell className="text-white">Stars</TableHeaderCell>
-            <TableHeaderCell className="text-white">Experience</TableHeaderCell>
-            <TableHeaderCell className="text-right text-white">CFO Valuation</TableHeaderCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {filteredPlayers.length === 0 ? (
+      {/* ── Desktop table (md+) ─────────────────────────────────────────── */}
+      <div className="hidden md:block">
+        <Table>
+          <TableHead className="bg-slate-900">
             <TableRow>
-              <TableCell colSpan={5} className="py-8 text-center text-sm text-gray-400">
-                No players match your search.
-              </TableCell>
+              <TableHeaderCell className="text-white">Name</TableHeaderCell>
+              <TableHeaderCell className="text-white">Position</TableHeaderCell>
+              <TableHeaderCell className="text-white">Stars</TableHeaderCell>
+              <TableHeaderCell className="text-white">Experience</TableHeaderCell>
+              <TableHeaderCell className="text-right text-white">CFO Valuation</TableHeaderCell>
             </TableRow>
-          ) : (
-            filteredPlayers.map((player) => (
-              <TableRow key={player.id}>
-                <TableCell className="font-medium text-gray-900">
-                  {player.name}
-                </TableCell>
-                <TableCell>
-                  <span className="rounded bg-gray-100 px-2 py-0.5 text-xs font-semibold text-gray-700">
-                    {player.position}
-                  </span>
-                </TableCell>
-                <TableCell>
-                  <span className="tracking-tight">
-                    <span className="text-yellow-500">
-                      {"★".repeat(Math.min(Math.max(player.star_rating, 0), 5))}
-                    </span>
-                    <span className="text-gray-300">
-                      {"☆".repeat(5 - Math.min(Math.max(player.star_rating, 0), 5))}
-                    </span>
-                  </span>
-                </TableCell>
-                <TableCell>
-                  <span
-                    className={`rounded-full px-2.5 py-0.5 text-xs font-medium ${
-                      EXPERIENCE_BADGE[player.experience_level] ?? "bg-gray-100 text-gray-600"
-                    }`}
-                  >
-                    {player.experience_level}
-                  </span>
-                </TableCell>
-                <TableCell
-                  className="text-right font-semibold text-gray-900"
-                  style={{ fontFamily: "var(--font-oswald), sans-serif", fontSize: "1.05rem", letterSpacing: "0.02em" }}
-                >
-                  {formatCurrency(player.cfo_valuation)}
+          </TableHead>
+          <TableBody>
+            {filteredPlayers.length === 0 ? (
+              <TableRow>
+                <TableCell colSpan={5} className="py-8 text-center text-sm text-gray-400">
+                  No players match your search.
                 </TableCell>
               </TableRow>
-            ))
-          )}
-        </TableBody>
-      </Table>
+            ) : (
+              filteredPlayers.map((player) => (
+                <TableRow key={player.id} className="hover:bg-slate-50 transition-colors">
+                  <TableCell className="font-medium">
+                    <Link
+                      href={`/players/${player.id}`}
+                      className="text-blue-600 hover:underline hover:text-blue-800"
+                    >
+                      {player.name}
+                    </Link>
+                  </TableCell>
+                  <TableCell>
+                    <span className="rounded bg-gray-100 px-2 py-0.5 text-xs font-semibold text-gray-700">
+                      {player.position}
+                    </span>
+                  </TableCell>
+                  <TableCell>
+                    <span className="tracking-tight">
+                      <span className="text-yellow-500">
+                        {"★".repeat(Math.min(Math.max(player.star_rating, 0), 5))}
+                      </span>
+                      <span className="text-gray-300">
+                        {"☆".repeat(5 - Math.min(Math.max(player.star_rating, 0), 5))}
+                      </span>
+                    </span>
+                  </TableCell>
+                  <TableCell>
+                    <span
+                      className={`rounded-full px-2.5 py-0.5 text-xs font-medium ${
+                        EXPERIENCE_BADGE[player.experience_level] ?? "bg-gray-100 text-gray-600"
+                      }`}
+                    >
+                      {player.experience_level}
+                    </span>
+                  </TableCell>
+                  <TableCell
+                    className="text-right font-semibold text-gray-900"
+                    style={{ fontFamily: "var(--font-oswald), sans-serif", fontSize: "1.05rem", letterSpacing: "0.02em" }}
+                  >
+                    {formatCurrency(player.cfo_valuation)}
+                  </TableCell>
+                </TableRow>
+              ))
+            )}
+          </TableBody>
+        </Table>
+      </div>
+
+      {/* ── Mobile trading cards (below md) ─────────────────────────────── */}
+      <div className="block md:hidden space-y-4">
+        {filteredPlayers.length === 0 ? (
+          <p className="py-8 text-center text-sm text-gray-400">
+            No players match your search.
+          </p>
+        ) : (
+          filteredPlayers.map((player) => (
+            <div
+              key={player.id}
+              className="bg-white rounded-lg border border-gray-200 p-4 shadow-sm"
+            >
+              {/* Top row: name (link) + valuation */}
+              <div className="flex items-start justify-between gap-2">
+                <Link
+                  href={`/players/${player.id}`}
+                  className="text-base font-bold text-blue-600 hover:underline hover:text-blue-800 leading-tight"
+                >
+                  {player.name}
+                </Link>
+                <span
+                  className="text-lg font-bold text-gray-900 shrink-0"
+                  style={{ fontFamily: "var(--font-oswald), sans-serif", letterSpacing: "0.02em" }}
+                >
+                  {formatCurrency(player.cfo_valuation)}
+                </span>
+              </div>
+
+              {/* Middle row: star rating */}
+              <div className="mt-1 tracking-tight">
+                <span className="text-yellow-500">
+                  {"★".repeat(Math.min(Math.max(player.star_rating, 0), 5))}
+                </span>
+                <span className="text-gray-300">
+                  {"☆".repeat(5 - Math.min(Math.max(player.star_rating, 0), 5))}
+                </span>
+              </div>
+
+              {/* Bottom row: position + experience badges */}
+              <div className="mt-3 flex flex-wrap gap-2">
+                <span className="rounded bg-slate-900 text-white px-2.5 py-0.5 text-xs font-semibold uppercase">
+                  {player.position}
+                </span>
+                <span
+                  className={`rounded-full px-2.5 py-0.5 text-xs font-medium ${
+                    EXPERIENCE_BADGE[player.experience_level] ?? "bg-gray-100 text-gray-600"
+                  }`}
+                >
+                  {player.experience_level}
+                </span>
+              </div>
+            </div>
+          ))
+        )}
+      </div>
     </Card>
   );
 }
