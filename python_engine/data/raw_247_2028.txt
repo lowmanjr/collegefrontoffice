@@ -1,0 +1,1537 @@
+Rank
+Player
+Pos
+Ht / Wt
+Rating
+Team
+1
+2
+Jalanie George
+Jalanie George
+Desert Edge (Goodyear, AZ)
+Edge
+6-4.5 / 245
+0.9996
+1 1 1
+N/A
+2
+4
+Brysen Wright
+Brysen Wright
+Mandarin (Jacksonville, FL)
+WR
+6-3.5 / 215
+0.9991
+2 1 1
+N/A
+3
+5
+A'mir Sears
+A'mir Sears
+Miami Columbus (Miami, FL)
+CB
+6-1 / 178
+0.9987
+3 1 2
+N/A
+4
+8
+Jett Harrison
+Jett Harrison
+St. Joseph's Prep (Philadelphia, PA)
+WR
+6-1 / 175
+0.9986
+4 2 1
+N/A
+5
+9
+Christopher Vargas
+Christopher Vargas
+St. John's Prep (Danvers, MA)
+QB
+6-4 / 175
+0.9961
+5 1 1
+N/A
+6
+10
+Casey Barner
+Casey Barner
+McEachern (Powder Springs, GA)
+S
+5-11 / 190
+0.9953
+6 1 1
+N/A
+7
+1
+Jayden Wade
+Jayden Wade
+IMG Academy (Bradenton, FL)
+QB
+6-3 / 190
+0.9950
+7 2 3
+Georgia
+8
+25
+Braylon Clark
+Braylon Clark
+Charlotte Country Day (Charlotte, NC)
+WR
+6-2.5 / 188
+0.9943
+8 3 1
+N/A
+9
+15
+Lorenzo McMullen Jr.
+Lorenzo McMullen Jr.
+Taft (Cincinnati, OH)
+WR
+6-1 / 170
+0.9942
+9 4 1
+N/A
+10
+27
+Asher Ghioto
+Asher Ghioto
+The Bolles School (Jacksonville, FL)
+DL
+6-4.5 / 240
+0.9938
+10 1 4
+N/A
+11
+20
+Kellan Hall
+Kellan Hall
+Christian Academy of Louisville (Louisville, KY)
+DL
+6-4 / 265
+0.9937
+11 2 1
+N/A
+12
+21
+George Selvie III
+George Selvie III
+Sumner (Riverview, FL)
+IOL
+6-3 / 265
+0.9933
+12 1 5
+N/A
+13
+30
+Jaylen Addai
+Jaylen Addai
+Shadow Creek (Pearland, TX)
+WR
+6-1 / 170
+0.9920
+13 5 1
+N/A
+14
+35
+Tyzon Swann
+Tyzon Swann
+Henry E. Lackey (Indian Head, MD)
+DL
+6-4 / 245
+0.9920
+14 3 1
+N/A
+15
+3
+R'Monie Edwards
+R'Monie Edwards
+Cy Ranch (Cypress, TX)
+OT
+6-4.5 / 310
+0.9919
+15 1 2
+N/A
+16
+11
+Deandre Bidden
+Deandre Bidden
+Harper Woods (Harper Woods, MI)
+WR
+6-1 / 170
+0.9911
+16 6 1
+N/A
+17
+34
+Darieon Prescott
+Darieon Prescott
+Bolingbrook (Bolingbrook, IL)
+Edge
+6-6 / 220
+0.9900
+17 2 1
+N/A
+18
+26
+Nehemiah McCary
+Nehemiah McCary
+Maplesville (Maplesville, AL)
+LB
+6-2.5 / 220
+0.9896
+18 1 1
+N/A
+19
+17
+Jayden Bell
+Jayden Bell
+Brother Rice (Bloomfield Hills, MI)
+Edge
+6-4 / 210
+0.9894
+19 3 2
+N/A
+20
+13
+Kameron McGee
+Kameron McGee
+Brother Rice (Chicago, IL)
+Edge
+6-3 / 234
+0.9889
+20 4 2
+N/A
+21
+24
+Giovanni Tuggle
+Giovanni Tuggle
+Winder-Barrow (Winder, GA)
+S
+6-0 / 175
+0.9882
+21 2 2
+N/A
+22
+39
+Tahj Gray
+Tahj Gray
+St. Joseph Regional (Montvale, NJ)
+LB
+6-3 / 225
+0.9880
+22 2 1
+N/A
+23
+16
+Kweli Fielder
+Kweli Fielder
+Carrollton (Carrollton, GA)
+OT
+6-4 / 310
+0.9875
+23 2 3
+N/A
+24
+12
+Tytan McNeal
+Tytan McNeal
+Eastside Catholic (Sammamish, WA)
+TE
+6-5 / 210
+0.9874
+24 1 1
+N/A
+25
+40
+Zaiden Jernigan
+Zaiden Jernigan
+Louisville (Louisville, MS)
+RB
+5-10.5 / 195
+0.9873
+25 1 1
+N/A
+26
+60
+Gaige Weddle
+Gaige Weddle
+Rancho Bernardo (San Diego, CA)
+ATH
+6-2 / 175
+0.9861
+26 1 1
+N/A
+27
+7
+Jameer Whyce
+Jameer Whyce
+Trotwood-Madison (Dayton, OH)
+DL
+6-4 / 270
+0.9861
+27 4 2
+Ohio State
+28
+36
+Langston Pridgeon
+Langston Pridgeon
+Stone Bridge (Ashburn, VA)
+CB
+6-2 / 175
+0.9859
+28 2 1
+N/A
+29
+18
+Kingston Preyear
+Kingston Preyear
+Benjamin Russell (Alexander City, AL)
+QB
+6-3 / 195
+0.9854
+29 3 2
+N/A
+30
+29
+Cory Cunningham
+Cory Cunningham
+Providence (Charlotte, NC)
+DL
+6-3 / 265
+0.9852
+30 5 2
+N/A
+31
+48
+Donald Tabron II
+Donald Tabron II
+Cass Technical (Detroit, MI)
+QB
+6-3.5 / 180
+0.9844
+31 4 3
+N/A
+32
+51
+James Foster III
+James Foster III
+Lancaster (Lancaster, TX)
+S
+6-1 / 195
+0.9833
+32 3 3
+N/A
+33
+78
+Amiir Woodward
+Amiir Woodward
+Bergen Catholic (Oradell, NJ)
+CB
+5-11 / 165
+0.9832
+33 3 2
+N/A
+34
+45
+Aden Johnson
+Aden Johnson
+Miami Carol City (Pembroke Pines, FL)
+ATH
+6-5 / 200
+0.9830
+34 2 6
+N/A
+35
+28
+Micah Rhodes
+Micah Rhodes
+Klein Oak (Spring, TX)
+RB
+5-9.5 / 180
+0.9827
+35 2 4
+N/A
+36
+38
+Neimann Lawrence
+Neimann Lawrence
+American Heritage (Plantation, FL)
+QB
+6-0.5 / 202
+0.9819
+36 5 7
+N/A
+37
+49
+Grayson Williams
+Grayson Williams
+Southeast Raleigh (Raleigh, NC)
+OT
+6-4 / 280
+0.9818
+37 3 3
+N/A
+38
+31
+Jermaine Cobbins
+Jermaine Cobbins
+Springfield (Springfield, TN)
+CB
+6-0 / 180
+0.9788
+38 4 1
+N/A
+39
+73
+Damarion Mays
+Damarion Mays
+North Crowley (Fort Worth, TX)
+WR
+6-2 / 180
+0.9775
+39 7 5
+N/A
+40
+61
+Elijah Newman-Hall
+Elijah Newman-Hall
+IMG Academy (Bradenton, FL)
+ATH
+5-11 / 195
+0.9774
+40 3 8
+Ohio State
+41
+14
+Jamarios Canton
+Jamarios Canton
+IMG Academy (Bradenton, FL)
+OT
+6-5 / 305
+0.9757
+41 4 9
+N/A
+42
+43
+Tromon Isaac Jr.
+Tromon Isaac Jr.
+Chaminade-Madonna (Hollywood, FL)
+WR
+5-11 / 170
+0.9755
+42 8 10
+N/A
+43
+96
+Roye Oliver III
+Roye Oliver III
+Hamilton (Chandler, AZ)
+WR
+5-11 / 165
+0.9754
+43 9 2
+USC
+44
+64
+Cam Toomey
+Cam Toomey
+Saratoga Springs (Saratoga Springs, NY)
+Edge
+6-4 / 245
+0.9753
+44 5 1
+N/A
+45
+32
+Tahmere Brown
+Tahmere Brown
+The Pennington School (Pennington, NJ)
+RB
+5-11 / 188
+0.9752
+45 3 3
+N/A
+46
+93
+Braylen Bedford
+Braylen Bedford
+Brentwood Academy (Brentwood, TN)
+ATH
+5-10.5 / 170
+0.9732
+46 4 2
+N/A
+47
+44
+Bryce Smalls
+Bryce Smalls
+Archbishop Spalding (Severn, MD)
+OT
+6-4 / 290
+0.9726
+47 5 2
+N/A
+48
+41
+Derrell Hines Jr.
+Derrell Hines Jr.
+Hillsborough (Tampa, FL)
+WR
+6-1 / 170
+0.9719
+48 10 11
+N/A
+49
+37
+Azhir Waddell
+Azhir Waddell
+IMG Academy (Bradenton, FL)
+DL
+6-5 / 275
+0.9717
+49 6 12
+N/A
+50
+62
+Kamieon Compton-Nero
+Kamieon Compton-Nero
+Rejoice Christian (Owasso, OK)
+ATH
+6-1.5 / 175
+0.9715
+50 5 1
+N/A
+51
+63
+Acely Brown
+Acely Brown
+Petal (Petal, MS)
+RB
+6-0 / 175
+0.9712
+51 4 2
+N/A
+52
+75
+Baron Marshall
+Baron Marshall
+Blue Valley Northwest (Overland Park, KS)
+WR
+6-3 / 175
+0.9709
+52 11 1
+N/A
+53
+74
+Jamarcus Johnson
+Jamarcus Johnson
+Toombs County (Lyons, GA)
+DL
+6-5 / 308
+0.9706
+53 7 4
+N/A
+54
+99
+Nation Farmer
+Nation Farmer
+IMG Academy (Bradenton, FL)
+OT
+6-4.5 / 285
+0.9693
+54 6 13
+N/A
+55
+98
+Jameer Miles
+Jameer Miles
+Carmel Catholic (Mundelein, IL)
+LB
+6-3 / 190
+0.9683
+55 3 3
+N/A
+56
+55
+Elisha Mueller
+Elisha Mueller
+St. John Bosco (Bellflower, CA)
+IOL
+6-4 / 295
+0.9683
+56 2 2
+N/A
+57
+84
+Judah Blair
+Judah Blair
+Lakota West (West Chester, OH)
+LB
+6-1 / 200
+0.9679
+57 4 3
+N/A
+58
+52
+Dennis Tua'one
+Dennis Tua'one
+Timpview (Provo, UT)
+WR
+6-1 / 185
+0.9679
+58 12 1
+N/A
+59
+23
+Mataio Fano
+Mataio Fano
+Orem (Orem, UT)
+OT
+6-4.5 / 235
+0.9675
+59 7 2
+N/A
+60
+66
+CJ Whaley
+CJ Whaley
+Atlanta (Atlanta, TX)
+ATH
+6-4 / 185
+0.9674
+60 6 6
+N/A
+61
+50
+Adrian Woodward
+Adrian Woodward
+Bergen Catholic (Oradell, NJ)
+CB
+6-0 / 165
+0.9669
+61 5 4
+N/A
+62
+72
+Tayaun Lawrence
+Tayaun Lawrence
+Bishop Gorman (Las Vegas, NV)
+DL
+6-3 / 250
+0.9655
+62 8 1
+N/A
+63
+58
+Jevyn Severson
+Jevyn Severson
+Madrid (Madrid, IA)
+TE
+6-5 / 230
+0.9651
+63 2 1
+N/A
+64
+47
+Tyree Mannings Jr.
+Tyree Mannings Jr.
+Venice (Venice, FL)
+WR
+6-0 / 170
+0.9648
+64 13 14
+N/A
+65
+67
+Elijah Tillman
+Elijah Tillman
+Grayson (Loganville, GA)
+Edge
+6-7 / 210
+0.9638
+65 6 5
+N/A
+66
+19
+Jackson Vaughn
+Jackson Vaughn
+Bergen Catholic (Oradell, NJ)
+Edge
+6-4 / 225
+0.9626
+66 7 5
+N/A
+67
+70
+Jermaine Smith Jr.
+Jermaine Smith Jr.
+St. Frances Academy (Baltimore, MD)
+ATH
+6-5 / 215
+0.9624
+67 7 3
+N/A
+68
+57
+Carter St. Junious
+Carter St. Junious
+Manvel (Manvel, TX)
+WR
+6-3 / 185
+0.9617
+68 14 7
+N/A
+69
+76
+Kaden Craft
+Kaden Craft
+Lake Norman (Mooresville, NC)
+QB
+6-4 / 210
+0.9594
+69 6 4
+N/A
+70
+83
+Toa Feinga
+Toa Feinga
+Herriman (Herriman, UT)
+IOL
+6-5 / 280
+0.9591
+70 3 3
+N/A
+71
+69
+George Parkinson IV
+George Parkinson IV
+Malvern Prep (Malvern, PA)
+Edge
+6-4 / 228
+0.9589
+71 8 2
+N/A
+72
+71
+Elijah Cromwell
+Elijah Cromwell
+Cherry Creek (Englewood, CO)
+RB
+5-11 / 180
+0.9562
+72 5 1
+N/A
+73
+46
+Ke'Drid Smith
+Ke'Drid Smith
+Pleasant Grove (Texarkana, TX)
+LB
+6-2 / 215
+0.9553
+73 5 8
+N/A
+74
+54
+King Pitts
+King Pitts
+Kapa'a (Kapa'a, HI)
+OT
+6-5 / 255
+0.9547
+74 8 1
+N/A
+75
+68
+Maxx Jones
+Maxx Jones
+IMG Academy (Bradenton, FL)
+OT
+6-5 / 325
+0.9531
+75 9 15
+N/A
+76
+82
+Caleb Tucker
+Caleb Tucker
+Mount Carmel (Chicago, IL)
+DL
+6-3 / 355
+0.9528
+76 9 4
+N/A
+77
+56
+Nate Dollard
+Nate Dollard
+Charlotte Country Day (Charlotte, NC)
+CB
+5-10.5 / 152
+0.9522
+77 6 5
+N/A
+78
+22
+Phoenix Evans
+Phoenix Evans
+IMG Academy (Bradenton, FL)
+S
+5-10 / 160
+0.9501
+78 4 16
+N/A
+79
+6
+Major Green
+Major Green
+IMG Academy (Bradenton, FL)
+IOL
+6-5 / 350
+0.9490
+79 4 17
+N/A
+80
+97
+Carter Zingelmann
+Carter Zingelmann
+Coppell (Coppell, TX)
+QB
+6-4.5 / 220
+0.9463
+80 7 9
+N/A
+81
+89
+Lance Ciechanowski
+Lance Ciechanowski
+Sierra Canyon (Chatsworth, CA)
+OT
+6-6 / 270
+0.9460
+81 10 3
+N/A
+82
+92
+Ayden Woodruff
+Ayden Woodruff
+Battle Ground Academy (Franklin, TN)
+DL
+6-5 / 284
+0.9456
+82 10 3
+N/A
+83
+59
+Cayden Lancelin
+Cayden Lancelin
+Westgate (New Iberia, LA)
+ATH
+6-0 / 180
+0.9454
+83 8 1
+N/A
+84
+86
+Aiden Ezeiruaku
+Aiden Ezeiruaku
+Williamstown (Williamstown, NJ)
+LB
+6-1 / 185
+0.9453
+84 6 6
+N/A
+85
+53
+Jaden Hurndon
+Jaden Hurndon
+Longview (Longview, TX)
+WR
+6-1 / 185
+0.9452
+85 15 10
+N/A
+86
+88
+Trison Satele
+Trison Satele
+Mililani (Mililani, HI)
+DL
+6-1 / 270
+0.9451
+86 11 2
+N/A
+87
+90
+Zayre Thomas
+Zayre Thomas
+Raytown South (Kansas City, MO)
+DL
+6-3 / 240
+0.9438
+87 12 1
+N/A
+88
+Nasir Richardson
+Nasir Richardson
+Malcolm X Shabazz (Newark, NJ)
+CB
+6-0.5 / 160
+0.9432
+88 7 7
+N/A
+89
+42
+Braxton Rein
+Braxton Rein
+Baylor School (Chattanooga, TN)
+Edge
+6-6 / 230
+0.9426
+89 9 4
+N/A
+90
+Kevin Hartsfield
+Kevin Hartsfield
+Newton (Covington, GA)
+ATH
+6-0 / 190
+0.9413
+90 9 6
+N/A
+91
+Antijuan Wilkes
+Antijuan Wilkes
+Cass Technical (Detroit, MI)
+OT
+6-6 / 280
+0.9393
+91 11 4
+N/A
+92
+Tyrone Elee
+Tyrone Elee
+Joppatowne (Joppa, MD)
+DL
+6-3 / 240
+0.9393
+92 13 4
+N/A
+93
+65
+Izayah Vickers
+Izayah Vickers
+Florida State University School (Tallahassee, FL)
+CB
+5-11.5 / 170
+0.9392
+93 8 18
+N/A
+94
+Sean Simon
+Sean Simon
+La Porte (La Porte, TX)
+RB
+5-10 / 185
+0.9385
+94 6 11
+N/A
+95
+80
+Dawson Jacobs
+Dawson Jacobs
+Blessed Trinity Catholic (Roswell, GA)
+DL
+6-3 / 240
+0.9381
+95 14 7
+N/A
+96
+Dillon Mitchell
+Dillon Mitchell
+C.E. King (Houston, TX)
+WR
+5-8 / 155
+0.9371
+96 16 12
+N/A
+97
+77
+Jai'Storm Knight
+Jai'Storm Knight
+Cornerstone Christian (San Antonio, TX)
+OT
+6-8.5 / 335
+0.9369
+97 12 13
+N/A
+98
+Marshaun Thornton
+Marshaun Thornton
+Mount Carmel (Chicago, IL)
+WR
+6-2 / 180
+0.9360
+98 17 5
+N/A
+99
+87
+Elijah Tuua
+Elijah Tuua
+St. John Bosco (Bellflower, CA)
+Edge
+6-6 / 205
+0.9357
+99 10 4
+N/A
+100
+Antonio Thomas Jr.
+Antonio Thomas Jr.
+Carrollwood Day (Tampa, FL)
+Edge
+6-3 / 235
+0.9355
+100 11 19
+N/A
+101
+Maui Tonata
+Maui Tonata
+Orem (Orem, UT)
+IOL
+6-5 / 280
+0.9341
+101 5 4
+N/A
+102
+33
+Jordan Gorham
+Jordan Gorham
+Timberland (St. Stephen, SC)
+WR
+6-3.5 / 175
+0.9336
+102 18 1
+N/A
+103
+Aedyn Havili
+Aedyn Havili
+Eastside Catholic (Sammamish, WA)
+DL
+6-2 / 275
+0.9320
+103 15 2
+N/A
+104
+Ridge Janes
+Ridge Janes
+De Smet Jesuit (St. Louis, MO)
+TE
+6-5 / 225
+0.9316
+104 3 2
+N/A
+105
+Carter Barrett
+Carter Barrett
+Dowling Catholic (West Des Moines, IA)
+OT
+6-6 / 288
+0.9311
+105 13 2
+N/A
+106
+Keaton Fields
+Keaton Fields
+Hamilton (Chandler, AZ)
+ATH
+6-3 / 185
+0.9301
+106 10 3
+N/A
+107
+Jaelyn Easterling-Flores
+Jaelyn Easterling-Flores
+Desert Edge (Goodyear, AZ)
+S
+6-2 / 180
+0.9291
+107 5 4
+N/A
+108
+Tristin Gaines
+Tristin Gaines
+Waller (Waller, TX)
+QB
+6-1 / 180
+0.9291
+108 8 14
+N/A
+109
+Andre Alexander Jr.
+Andre Alexander Jr.
+IMG Academy (Bradenton, FL)
+LB
+6-1 / 210
+0.9285
+109 7 20
+N/A
+110
+Xevien Brinson
+Xevien Brinson
+Stephenson (Stone Mountain, GA)
+TE
+6-6 / 235
+0.9279
+110 4 8
+N/A
+111
+Brayden Bonik
+Brayden Bonik
+Fort Bend Ridge Point (Missouri City, TX)
+ATH
+6-1 / 195
+0.9268
+111 11 15
+N/A
+112
+Jalen Flowers
+Jalen Flowers
+Palos Verdes (Palos Verdes Peninsula, CA)
+S
+6-2 / 185
+0.9255
+112 6 5
+N/A
+113
+Josiah Boyd
+Josiah Boyd
+Vista Del Lago (Moreno Valley, CA)
+QB
+6-3 / 165
+0.9253
+113 9 6
+N/A
+114
+Man Robinson
+Man Robinson
+IMG Academy (Bradenton, FL)
+CB
+5-11 / 185
+0.9251
+114 9 21
+N/A
+115
+Christian Webb-Scott
+Christian Webb-Scott
+Westside (Anderson, SC)
+DL
+6-5 / 220
+0.9246
+115 16 2
+N/A
+116
+Grayden Reid
+Grayden Reid
+Atherton (Louisville, KY)
+S
+6-3 / 185
+0.9244
+116 7 2
+N/A
+117
+81
+Kylen Johnson
+Kylen Johnson
+Coosa Christian School (Gadsden, AL)
+CB
+5-10 / 165
+0.9239
+117 10 3
+N/A
+118
+Brendyn Jackson
+Brendyn Jackson
+Midlothian (Midlothian, TX)
+WR
+5-11 / 170
+0.9229
+118 19 16
+N/A
+119
+Zyon Robinson
+Zyon Robinson
+Stockbridge (Stockbridge, GA)
+WR
+6-1 / 175
+0.9228
+119 20 9
+N/A
+120
+Deonte Flemings Jr.
+Deonte Flemings Jr.
+McDowell (Erie, PA)
+CB
+6-3 / 190
+0.9228
+120 11 3
+Penn State
+121
+91
+Keith Nolen Jr.
+Keith Nolen Jr.
+Stone Bridge (Ashburn, VA)
+ATH
+6-1.5 / 190
+0.9219
+121 12 2
+N/A
+122
+94
+Jacolby Campbell
+Jacolby Campbell
+Abbeville (Abbeville, LA)
+WR
+6-0 / 170
+0.9213
+122 21 2
+N/A
+123
+95
+Aiden Opore
+Aiden Opore
+Walton (Marietta, GA)
+ATH
+6-3 / 180
+0.9211
+123 13 10
+N/A
+124
+Tysir Young
+Tysir Young
+Middletown (Middletown, DE)
+LB
+6-2 / 200
+0.9211
+124 8 1
+N/A
+125
+Brandon Nash
+Brandon Nash
+St. John Bosco (Bellflower, CA)
+S
+6-2 / 185
+0.9199
+125 8 7
+Ohio State
+126
+Landon Miller
+Landon Miller
+De La Salle (Concord, CA)
+LB
+6-2 / 195
+0.9193
+126 9 8
+N/A
+127
+Malakhi Dudley
+Malakhi Dudley
+Heritage (Conyers, GA)
+OT
+6-5 / 310
+0.9182
+127 14 11
+N/A
+128
+85
+Calvin Ursin
+Calvin Ursin
+Dunham School (Baton Rouge, LA)
+WR
+6-1 / 195
+0.9181
+128 22 3
+N/A
+129
+Xavier Bowman
+Xavier Bowman
+Knoxville Catholic (Knoxville, TN)
+CB
+5-11 / 165
+0.9174
+129 12 5
+N/A
+130
+Deshawn Simmons
+Deshawn Simmons
+Harlan (San Antonio, TX)
+LB
+6-3 / 215
+0.9164
+130 10 17
+N/A
+131
+Taihj Moore
+Taihj Moore
+DeLand (DeLand, FL)
+RB
+5-10 / 170
+0.9161
+131 7 22
+N/A
+132
+Dedrick Kimbrough
+Dedrick Kimbrough
+Thompson (Alabaster, AL)
+WR
+6-3 / 180
+0.9159
+132 23 4
+N/A
+133
+100
+Geraci Carson
+Geraci Carson
+Lanier (Jackson, MS)
+DL
+6-4.5 / 300
+0.9151
+133 17 3
+N/A
+134
+Zion Anderson
+Zion Anderson
+Long Beach Poly (Long Beach, CA)
+ATH
+6-0 / 160
+0.9146
+134 14 9
+N/A
+135
+79
+Braylyn Brown
+Braylyn Brown
+Joe T. Robinson (Little Rock, AR)
+ATH
+6-1 / 190
+0.9143
+135 15 1
+N/A
+136
+Chance Archangel
+Chance Archangel
+Westgate (New Iberia, LA)
+Edge
+6-3 / 230
+0.9136
+136 12 4
+N/A
+137
+Zachary Belyeu
+Zachary Belyeu
+North Cobb (Kennesaw, GA)
+RB
+5-11 / 210
+0.9117
+137 8 12
+N/A
+138
+Graham Simpson
+Graham Simpson
+Westview (Martin, TN)
+QB
+5-11.5 / 182
+0.9114
+138 10 6
+N/A
+139
+Ace Leutele
+Ace Leutele
+Mater Dei (Santa Ana, CA)
+S
+6-1 / 195
+0.9111
+139 9 10
+N/A
+140
+Ca'ron Williams
+Ca'ron Williams
+Santa Margarita Catholic (Rancho Santa Margarita, CA)
+CB
+5-11 / 175
+0.9106
+140 13 11
+N/A
+141
+Samiu Taukiuvea
+Samiu Taukiuvea
+Hunter (Salt Lake City, UT)
+OT
+6-5 / 270
+0.9089
+141 15 5
+N/A
+142
+Chase Foster II
+Chase Foster II
+IMG Academy (Bradenton, FL)
+DL
+6-4 / 260
+0.9084
+142 18 23
+N/A
+143
+Kaiden Buchanan
+Kaiden Buchanan
+Tupelo (Tupelo, MS)
+LB
+6-0 / 220
+0.9071
+143 11 4
+N/A
+144
+Kingston Brown
+Kingston Brown
+Carver (Columbus, GA)
+DL
+6-3 / 265
+0.9066
+144 19 13
+N/A
+145
+Jack McNamara
+Jack McNamara
+Brother Rice (Chicago, IL)
+TE
+6-5 / 235
+0.9059
+145 5 6
+N/A
+146
+CJ Davis III
+CJ Davis III
+Hewitt-Trussville (Trussville, AL)
+RB
+5-9 / 165
+0.9057
+146 9 5
+N/A
+147
+Isaiah Taylor
+Isaiah Taylor
+Keller Central (Keller, TX)
+CB
+6-2 / 160
+0.9052
+147 14 18
+N/A
+148
+Liam Conlon
+Liam Conlon
+Tabor Academy (Marion, MA)
+LB
+6-2 / 215
+0.9049
+148 12 2
+N/A
+149
+Hayden Koo
+Hayden Koo
+Tustin (Tustin, CA)
+WR
+6-1 / 170
+0.9044
+149 24 12
+N/A
+150
+Anthony Howard Jr.
+Anthony Howard Jr.
+IMG Academy (Bradenton, FL)
+RB
+6-0 / 205
+0.9031
+150 10 24
+N/A
+151
+Trace Hawkins
+Trace Hawkins
+Calhoun (Calhoun, GA)
+QB
+6-0 / 180
+0.9030
+151 11 14
+N/A
+152
+Major Stokes
+Major Stokes
+Crimson Cliffs (Washington, UT)
+Edge
+6-4 / 205
+0.9029
+152 13 6
+N/A
+153
+Peter Pierre
+Peter Pierre
+Chaminade-Madonna (Hollywood, FL)
+ATH
+6-3 / 215
+0.9015
+153 16 25
+N/A
+154
+Tory Clark
+Tory Clark
+Woodward Academy (Atlanta, GA)
+DL
+6-4 / 260
+0.8997
+154 20 15
+N/A
+155
+Jamir Lee
+Jamir Lee
+Carrollton (Carrollton, GA)
+DL
+6-2 / 260
+0.8975
+155 21 16
+N/A
+156
+Jayden Evans
+Jayden Evans
+Harper Woods (Harper Woods, MI)
+S
+6-1 / 170
+0.8955
+156 10 5
+N/A
+157
+Kacey Allen
+Kacey Allen
+Hamilton (Chandler, AZ)
+S
+6-1 / 180
+0.8904
+157 11 5
+N/A
+158
+Jordan Hicks
+Jordan Hicks
+Mission Viejo (Mission Viejo, CA)
+CB
+6-1 / 180
+0.8903
+158 15 13
+N/A
+159
+Jaxson Sculley
+Jaxson Sculley
+Hamilton (Chandler, AZ)
+QB
+6-3 / 175
+0.8901
+159 12 6
+N/A

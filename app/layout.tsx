@@ -18,11 +18,11 @@ const oswald = Oswald({
 export const metadata: Metadata = {
   title: "CollegeFrontOffice | Mapping the College Sports Economy",
   description:
-    "Proprietary estimates, player valuations, and team cap space projections for the modern NIL era.",
+    "Proprietary NIL valuations for Power 4 college football programs, players, and recruits.",
   openGraph: {
     title: "CollegeFrontOffice | Mapping the College Sports Economy",
     description:
-      "Proprietary estimates, player valuations, and team cap space projections for the modern NIL era.",
+      "Proprietary NIL valuations for Power 4 college football programs, players, and recruits.",
     siteName: "CollegeFrontOffice",
     type: "website",
   },
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "CollegeFrontOffice | Mapping the College Sports Economy",
     description:
-      "Proprietary estimates, player valuations, and team cap space projections for the modern NIL era.",
+      "Proprietary NIL valuations for Power 4 college football programs, players, and recruits.",
   },
 };
 
@@ -41,14 +41,16 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <link rel="preconnect" href="https://a.espncdn.com" />
+        <link rel="dns-prefetch" href="https://a.espncdn.com" />
+      </head>
       <body
         className={`${inter.variable} ${oswald.variable} antialiased min-h-screen flex flex-col`}
         style={{ fontFamily: "var(--font-inter), sans-serif" }}
       >
         <Navbar />
-        <main className="flex-grow">
-          {children}
-        </main>
+        <main className="flex-grow">{children}</main>
         <Footer />
       </body>
     </html>

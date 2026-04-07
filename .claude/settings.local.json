@@ -1,0 +1,42 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python3 -c \":*)",
+      "Bash(python -c \":*)",
+      "Bash(python:*)",
+      "WebFetch(domain:www.nflmockdraftdatabase.com)",
+      "Bash(curl -s -H \"User-Agent: Mozilla/5.0 \\(Windows NT 10.0; Win64; x64\\) AppleWebKit/537.36 \\(KHTML, like Gecko\\) Chrome/91.0.4472.124 Safari/537.36\" \"https://www.nflmockdraftdatabase.com/big-boards/2026/consensus-big-board-2026\")",
+      "Bash(curl -sL -H \"User-Agent: Mozilla/5.0 \\(Windows NT 10.0; Win64; x64\\) AppleWebKit/537.36 \\(KHTML, like Gecko\\) Chrome/91.0.4472.124 Safari/537.36\" \"https://www.nflmockdraftdatabase.com/big-boards/2026/consensus-big-board-2026\")",
+      "Bash(curl -v -H \"User-Agent: Mozilla/5.0 \\(Windows NT 10.0; Win64; x64\\) AppleWebKit/537.36 \\(KHTML, like Gecko\\) Chrome/91.0.4472.124 Safari/537.36\" \"https://www.nflmockdraftdatabase.com/big-boards/2026/consensus-big-board-2026\")",
+      "Bash(curl -sL -H \"User-Agent: Mozilla/5.0 \\(Windows NT 10.0; Win64; x64\\) AppleWebKit/537.36 \\(KHTML, like Gecko\\) Chrome/91.0.4472.124 Safari/537.36\" \"https://www.nflmockdraftdatabase.com/restricted\")",
+      "WebFetch(domain:www.tankathon.com)",
+      "Bash(curl -s -L --max-time 20 -H 'User-Agent: Mozilla/5.0 \\(Windows NT 10.0; Win64; x64\\) AppleWebKit/537.36 \\(KHTML, like Gecko\\) Chrome/124.0.0.0 Safari/537.36' -H 'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8' -H 'Accept-Language: en-US,en;q=0.9' https://www.tankathon.com/nfl/big_board)",
+      "Bash(python_engine/venv/Scripts/python.exe -c ':*)",
+      "Bash(py -3 -c ':*)",
+      "Bash(py -3 python_engine/seed_overrides.py)",
+      "Bash(py -3 python_engine/calculate_cfo_valuations.py)",
+      "Bash(py -3 python_engine/sync_transfer_portal.py)",
+      "Bash(py -3 python_engine/sync_ourlads_depth_charts.py)",
+      "Bash(npm install:*)",
+      "Bash(node -e \"const p = require\\('./node_modules/recharts/package.json'\\); console.log\\(p.version\\)\")",
+      "Bash(npx tsc:*)",
+      "Bash(npm run:*)",
+      "Bash(mv calculate_valuations.py _deprecated_calculate_valuations_v2.py)",
+      "Bash(mv generate_sandbox.py _deprecated_generate_sandbox.py)",
+      "Bash(mv push_to_supabase.py _deprecated_push_to_supabase.py)",
+      "Bash(mv push_teams.py _deprecated_push_teams.py)",
+      "Bash(rm:*)",
+      "Bash(pip install:*)",
+      "Bash(npx vitest:*)",
+      "Bash(sed 's/=.*//')",
+      "WebFetch(domain:www.drafttek.com)",
+      "Bash(curl -s -L -A \"Mozilla/5.0\" \"https://www.drafttek.com/2026-NFL-Draft-Big-Board/Top-NFL-Draft-Prospects-2026-Page-1.asp\")",
+      "Bash(curl -s -L -A \"Mozilla/5.0\" \"https://www.drafttek.com/2026-NFL-Draft-Big-Board/Top-NFL-Draft-Prospects-2026-Page-2.asp\")",
+      "Bash(curl -s -L -A \"Mozilla/5.0 \\(Windows NT 10.0; Win64; x64\\) AppleWebKit/537.36\" \"https://www.ourlads.com/ncaa-football-depth-charts/depth-chart/georgia/90590\")",
+      "Bash(echo \"EXIT: $?\")",
+      "WebFetch(domain:www.ea.com)",
+      "Bash(curl -s \"https://drop-api.ea.com/rating/ea-sports-college-football-25/iterations/1/teams/33?limit=5\" -H \"Accept: application/json\" -H \"User-Agent: Mozilla/5.0\")",
+      "Bash(npm uninstall:*)"
+    ]
+  }
+}

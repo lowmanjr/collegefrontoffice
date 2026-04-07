@@ -1,5 +1,7 @@
+import Link from "next/link";
 import { supabase } from "@/lib/supabase";
 import ProposalCard from "./ProposalCard";
+import type { ProposedEventWithPlayer } from "@/lib/database.types";
 
 export default async function AdminPage() {
   const { data: proposals, error } = await supabase
@@ -14,7 +16,6 @@ export default async function AdminPage() {
 
   return (
     <div className="min-h-screen bg-gray-100">
-
       {/* ── Hero ───────────────────────────────────────────────────────────── */}
       <section className="bg-slate-900 text-white py-12 px-4">
         <div className="mx-auto max-w-4xl">
@@ -35,6 +36,12 @@ export default async function AdminPage() {
 
       {/* ── Inbox ──────────────────────────────────────────────────────────── */}
       <div className="mx-auto max-w-4xl px-4 py-10">
+        <div className="flex gap-3 mb-6">
+          <Link href="/admin/overrides"
+            className="rounded-lg bg-emerald-500 hover:bg-emerald-600 text-white font-semibold px-4 py-2 text-sm transition-colors">
+            Manage Overrides
+          </Link>
+        </div>
 
         {/* Count badge */}
         <div className="mb-6 flex items-center gap-3">
@@ -55,22 +62,35 @@ export default async function AdminPage() {
           <div className="bg-white rounded-xl shadow-md border border-gray-100 p-12 flex flex-col items-center gap-3 text-center">
             {/* Checkmark icon */}
             <div className="h-12 w-12 rounded-full bg-emerald-100 flex items-center justify-center">
-              <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                <path d="M4 11.5L9 16.5L18 6" stroke="#059669" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+              <svg
+                width="22"
+                height="22"
+                viewBox="0 0 22 22"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                aria-hidden="true"
+              >
+                <path
+                  d="M4 11.5L9 16.5L18 6"
+                  stroke="#059669"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
               </svg>
             </div>
-            <p className="text-base font-semibold text-slate-700">Inbox Zero: No pending valuation updates.</p>
+            <p className="text-base font-semibold text-slate-700">
+              Inbox Zero: No pending valuation updates.
+            </p>
             <p className="text-sm text-slate-400">All proposals have been reviewed.</p>
           </div>
         ) : (
           <div className="space-y-5">
-            {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-            {queue.map((proposal: any) => (
+            {(queue as ProposedEventWithPlayer[]).map((proposal) => (
               <ProposalCard key={proposal.id} proposal={proposal} />
             ))}
           </div>
         )}
-
       </div>
     </div>
   );

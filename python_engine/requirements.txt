@@ -1,0 +1,21 @@
+# python_engine/requirements.txt
+# Install with: pip install -r requirements.txt
+
+# Supabase Python client
+supabase>=2.0.0
+
+# Environment variable loading (.env.local)
+python-dotenv>=1.0.0
+
+# Data manipulation (production scores, EADA finances)
+pandas>=2.0.0
+
+# HTML scraping (OurLads depth charts, ESPN rosters)
+beautifulsoup4>=4.12.0
+lxml>=4.9.0
+
+# HTTP requests (CFBD API, OurLads, ESPN, URL verification)
+requests>=2.31.0
+
+# Testing
+pytest>=8.0.0

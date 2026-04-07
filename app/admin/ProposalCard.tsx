@@ -1,63 +1,57 @@
 "use client";
 
-import { useTransition } from "react";
+import { useState, useTransition } from "react";
 import Link from "next/link";
 import { approveProposal, rejectProposal } from "./actions";
+import { formatCurrency } from "@/lib/utils";
+import type { ProposedEventWithPlayer } from "@/lib/database.types";
 
-interface Proposal {
-  id: string;
-  player_id: string;
-  event_type: string;
-  event_date: string;
-  proposed_valuation: number;
-  current_valuation: number | null;
-  reported_deal: number | null;
-  description: string | null;
-  players: { name: string; cfo_valuation: number } | null;
-}
-
-function formatCurrency(value: number): string {
-  return new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: "USD",
-    maximumFractionDigits: 0,
-  }).format(value);
-}
-
-export default function ProposalCard({ proposal }: { proposal: Proposal }) {
+export default function ProposalCard({ proposal }: { proposal: ProposedEventWithPlayer }) {
   const [isPending, startTransition] = useTransition();
+  const [actionError, setActionError] = useState<string | null>(null);
 
-  const currentVal  = proposal.current_valuation ?? proposal.players?.cfo_valuation ?? 0;
+  const currentVal = proposal.current_valuation ?? proposal.players?.cfo_valuation ?? 0;
   const proposedVal = proposal.proposed_valuation;
-  const diff        = proposedVal - currentVal;
-  const isPositive  = diff >= 0;
+  const diff = proposedVal - currentVal;
+  const isPositive = diff >= 0;
 
   const date = new Date(proposal.event_date).toLocaleDateString("en-US", {
-    year: "numeric", month: "long", day: "numeric",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
   });
 
   function handleReject() {
-    startTransition(() => rejectProposal(proposal.id));
+    setActionError(null);
+    startTransition(async () => {
+      const result = await rejectProposal(proposal.id);
+      if (!result.success) setActionError(result.error ?? "Rejection failed.");
+    });
   }
 
   function handleApprove() {
-    startTransition(() =>
-      approveProposal({
-        id:                 proposal.id,
-        player_id:          proposal.player_id,
-        event_type:         proposal.event_type,
-        event_date:         proposal.event_date,
+    setActionError(null);
+    startTransition(async () => {
+      const result = await approveProposal({
+        id: proposal.id,
+        player_id: proposal.player_id,
+        event_type: proposal.event_type,
+        event_date: proposal.event_date,
         proposed_valuation: proposal.proposed_valuation,
-        current_valuation:  currentVal,
-        reported_deal:      proposal.reported_deal,
-        description:        proposal.description,
-      })
-    );
+        current_valuation: currentVal,
+        reported_deal: proposal.reported_deal,
+        description: proposal.description,
+      });
+      if (!result.success) setActionError(result.error ?? "Approval failed.");
+    });
   }
 
   return (
-    <div className={`bg-white rounded-xl border border-gray-100 shadow-md p-6 transition-opacity ${isPending ? "opacity-40 pointer-events-none" : ""}`}>
-
+    <div
+      className={`bg-white rounded-xl border border-gray-100 shadow-md p-6 transition-opacity ${
+        isPending ? "opacity-40 pointer-events-none" : ""
+      }`}
+    >
       {/* Header row */}
       <div className="flex flex-wrap items-start justify-between gap-3 mb-4">
         <div>
@@ -97,7 +91,8 @@ export default function ProposalCard({ proposal }: { proposal: Proposal }) {
           className={`text-sm font-bold ${isPositive ? "text-emerald-600" : "text-red-500"}`}
           style={{ fontFamily: "var(--font-oswald), sans-serif" }}
         >
-          ({isPositive ? "+" : ""}{formatCurrency(diff)})
+          ({isPositive ? "+" : ""}
+          {formatCurrency(diff)})
         </span>
       </div>
 
@@ -112,9 +107,14 @@ export default function ProposalCard({ proposal }: { proposal: Proposal }) {
 
       {/* Description */}
       {proposal.description && (
-        <p className="text-sm text-slate-500 leading-relaxed mb-5">
-          {proposal.description}
-        </p>
+        <p className="text-sm text-slate-500 leading-relaxed mb-5">{proposal.description}</p>
+      )}
+
+      {/* Error feedback */}
+      {actionError && (
+        <div className="mb-4 rounded-lg bg-red-50 border border-red-100 px-3 py-2.5">
+          <p className="text-sm text-red-600">{actionError}</p>
+        </div>
       )}
 
       {/* Action buttons */}
@@ -134,7 +134,6 @@ export default function ProposalCard({ proposal }: { proposal: Proposal }) {
           ✕ Reject
         </button>
       </div>
-
     </div>
   );
 }

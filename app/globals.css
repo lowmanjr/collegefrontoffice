@@ -1,26 +1,34 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Brand palette */
+  --cfo-green: #22c55e;
+  --cfo-green-light: #4ade80;
+  --cfo-green-dark: #16a34a;
+  --cfo-dark: #0f172a;
+  --cfo-darker: #020617;
+  --cfo-surface: #f8fafc;
+  --cfo-border: #e2e8f0;
+  --cfo-muted: #94a3b8;
+
+  /* Semantic */
+  --color-money: #059669;
+  --color-money-bright: #34d399;
+  --color-money-bg: #ecfdf5;
+
+  /* Shadows */
+  --shadow-card: 0 1px 3px 0 rgb(0 0 0 / 0.06), 0 1px 2px -1px rgb(0 0 0 / 0.06);
+  --shadow-card-hover: 0 4px 6px -1px rgb(0 0 0 / 0.07), 0 2px 4px -2px rgb(0 0 0 / 0.07);
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+  --color-background: #ffffff;
+  --color-foreground: #171717;
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   --font-oswald: var(--font-oswald), sans-serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--cfo-surface);
+  color: var(--color-foreground);
 }

@@ -1,78 +1,70 @@
-import CapSpaceBoard from "@/components/CapSpaceBoard";
-import PlayerTable from "@/components/PlayerTable";
+import Link from "next/link";
+import HeroSearch from "@/components/HeroSearch";
 
 export default function Home() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            name: "College Front Office",
+            url: "https://collegefrontoffice.com",
+            description: "Proprietary NIL valuations for Power 4 college football programs.",
+            potentialAction: {
+              "@type": "SearchAction",
+              target: "https://collegefrontoffice.com/players?q={search_term_string}",
+              "query-input": "required name=search_term_string",
+            },
+          }),
+        }}
+      />
+
       {/* ── Hero ─────────────────────────────────────────────────────────── */}
-      <section className="bg-slate-900 py-16 px-4">
-        <div className="mx-auto max-w-6xl">
-
-          {/* Sport badge */}
-          <span className="inline-block mb-5 rounded-full bg-slate-700 px-3 py-1 text-xs font-semibold uppercase tracking-widest text-green-400">
-            CFB 2026 Projections
-          </span>
-
-          {/* Headline */}
+      <section className="bg-slate-900 py-14 pb-16 px-4">
+        <div className="mx-auto max-w-4xl text-center">
           <h1
-            className="text-5xl sm:text-6xl font-bold text-white leading-tight max-w-3xl"
+            className="text-4xl sm:text-5xl font-bold text-white leading-tight"
             style={{ fontFamily: "var(--font-oswald), sans-serif" }}
           >
-            Mapping the College Sports Economy.
+            College NIL Valuations
           </h1>
 
-          {/* Sub-headline */}
-          <p className="mt-5 text-lg text-slate-300 max-w-2xl leading-relaxed">
-            We combine market data, positional scarcity, and algorithmic modeling to estimate
-            player valuations and team cap space. Open assumptions. Real discussions.
+          <p className="mt-3 text-lg text-slate-400">
+            The most comprehensive NIL valuation database in college sports.
           </p>
 
-        </div>
-      </section>
-
-      {/* ── Data Boards ──────────────────────────────────────────────────── */}
-      <div className="bg-gray-100">
-        <div className="mx-auto max-w-6xl px-4 py-12 space-y-12">
-
-          {/* Transparency banner */}
-          <div className="bg-blue-50 border-l-4 border-blue-600 rounded-r-lg p-4">
-            <p className="text-sm text-blue-900 leading-relaxed">
-              <span className="font-semibold">Note:</span> The NIL market is inherently private.
-              These figures are proprietary estimates intended as a resource for fans and players
-              to better understand market dynamics, not official financial disclosures.
-            </p>
+          <div className="mt-6">
+            <HeroSearch />
           </div>
 
-          {/* Cap Space section */}
-          <section>
-            <h2
-              className="mb-1 text-2xl font-bold text-slate-900 uppercase tracking-wide"
-              style={{ fontFamily: "var(--font-oswald), sans-serif" }}
-            >
-              Team Cap Space Projections
-            </h2>
-            <p className="mb-6 text-sm text-gray-500">
-              Estimated NIL budget utilization across top programs.
-            </p>
-            <CapSpaceBoard />
-          </section>
+          {/* ── Route Cards ──────────────────────────────────────────────── */}
+          <div className="mt-12 grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <Link href="/teams" className="group flex items-center justify-center bg-slate-800/50 border border-slate-700 rounded-xl px-5 py-4 hover:border-slate-500 hover:bg-slate-800 transition-all">
+              <h3 className="text-base font-bold text-white uppercase tracking-wide group-hover:text-emerald-400 transition-colors"
+                style={{ fontFamily: "var(--font-oswald), sans-serif" }}>
+                Teams <span className="text-slate-600 group-hover:text-emerald-400 transition-colors">&rarr;</span>
+              </h3>
+            </Link>
 
-          {/* Player Valuations section */}
-          <section>
-            <h2
-              className="mb-1 text-2xl font-bold text-slate-900 uppercase tracking-wide"
-              style={{ fontFamily: "var(--font-oswald), sans-serif" }}
-            >
-              Top Valuations
-            </h2>
-            <p className="mb-6 text-sm text-gray-500">
-              C.F.O. algorithmic valuations ranked by estimated market value.
-            </p>
-            <PlayerTable />
-          </section>
+            <Link href="/players" className="group flex items-center justify-center bg-slate-800/50 border border-slate-700 rounded-xl px-5 py-4 hover:border-slate-500 hover:bg-slate-800 transition-all">
+              <h3 className="text-base font-bold text-white uppercase tracking-wide group-hover:text-emerald-400 transition-colors"
+                style={{ fontFamily: "var(--font-oswald), sans-serif" }}>
+                Players <span className="text-slate-600 group-hover:text-emerald-400 transition-colors">&rarr;</span>
+              </h3>
+            </Link>
 
+            <Link href="/futures" className="group flex items-center justify-center bg-slate-800/50 border border-slate-700 rounded-xl px-5 py-4 hover:border-slate-500 hover:bg-slate-800 transition-all">
+              <h3 className="text-base font-bold text-white uppercase tracking-wide group-hover:text-emerald-400 transition-colors"
+                style={{ fontFamily: "var(--font-oswald), sans-serif" }}>
+                Recruits <span className="text-slate-600 group-hover:text-emerald-400 transition-colors">&rarr;</span>
+              </h3>
+            </Link>
+          </div>
         </div>
-      </div>
+      </section>
     </>
   );
 }
