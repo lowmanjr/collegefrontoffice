@@ -2,21 +2,17 @@
 
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
 
-const YEARS = ["All", "2026", "2027", "2028"];
+const YEARS = ["2026", "2027", "2028"];
 
 export default function ClassYearFilter() {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const currentYear = searchParams.get("year") ?? "All";
+  const currentYear = searchParams.get("year") ?? "2026";
 
   function handleClick(year: string) {
     const params = new URLSearchParams(searchParams.toString());
-    if (year === "All") {
-      params.delete("year");
-    } else {
-      params.set("year", year);
-    }
+    params.set("year", year);
     const qs = params.toString();
     router.replace(qs ? `${pathname}?${qs}` : pathname, { scroll: false });
   }
@@ -33,7 +29,7 @@ export default function ClassYearFilter() {
               : "bg-white border border-gray-200 text-slate-600 hover:bg-slate-50"
           }`}
         >
-          {year === "All" ? "All Classes" : `Class of ${year}`}
+          {`Class of ${year}`}
         </button>
       ))}
     </div>

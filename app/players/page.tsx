@@ -50,7 +50,7 @@ export default async function BigBoardPage({ searchParams }: PageProps) {
   return (
     <main className="min-h-screen bg-gray-100">
       {/* ── Header ─────────────────────────────────────────────────────────── */}
-      <div className="bg-slate-900 text-white px-6 py-8">
+      <div className="bg-slate-900 text-white px-6 py-6">
         <div className="mx-auto max-w-7xl">
           <h1
             className="text-4xl sm:text-5xl font-bold uppercase tracking-tight leading-none"
@@ -58,16 +58,16 @@ export default async function BigBoardPage({ searchParams }: PageProps) {
           >
             Top Player Valuations
           </h1>
-          <div className="mt-6">
-            <Suspense>
-              <SearchFilters />
-            </Suspense>
-          </div>
         </div>
       </div>
 
       {/* ── Table ──────────────────────────────────────────────────────────── */}
       <div className="mx-auto max-w-7xl px-4 py-6">
+        <div className="mb-4">
+          <Suspense>
+            <SearchFilters />
+          </Suspense>
+        </div>
 
         {rows.length === 0 ? (
           <div className="bg-white rounded-xl shadow-md p-16 text-center">
@@ -78,15 +78,95 @@ export default async function BigBoardPage({ searchParams }: PageProps) {
             </p>
           </div>
         ) : (
-          <div className="bg-white rounded-xl shadow-md overflow-hidden border border-gray-200">
+          <>
+          {/* Mobile cards */}
+          <div className="md:hidden space-y-3">
+            {rows.map((player) => {
+              const team = player.teams;
+              const isPrivate = !player.is_public;
+              const isFrozen =
+                !isPrivate &&
+                (player.status === "Medical Exemption" || player.status === "Inactive");
+
+              return (
+                <Link
+                  key={player.id}
+                  href={`/players/${player.id}`}
+                  className="block bg-white rounded-xl border border-gray-200 p-4 hover:border-slate-300 transition-colors shadow-sm"
+                >
+                  <div className="flex items-center gap-3">
+                    <PlayerAvatar
+                      headshot_url={player.headshot_url}
+                      name={player.name}
+                      position={player.position}
+                      size={48}
+                      className="shrink-0"
+                    />
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center justify-between gap-2">
+                        <h3
+                          className="font-bold text-slate-900 uppercase tracking-tight truncate"
+                          style={{ fontFamily: "var(--font-oswald), sans-serif" }}
+                        >
+                          {player.name}
+                        </h3>
+                        {player.position && (
+                          <span className={`shrink-0 inline-block rounded px-2 py-0.5 text-xs font-semibold uppercase tracking-wide ${positionBadgeClass(player.position)}`}>
+                            {player.position}
+                          </span>
+                        )}
+                      </div>
+                      <div className="flex items-center justify-between mt-1">
+                        <div className="flex items-center gap-2">
+                          {team && (
+                            <div className="flex items-center gap-1.5">
+                              {team.logo_url && (
+                                <Image
+                                  src={team.logo_url}
+                                  alt={team.university_name}
+                                  width={16}
+                                  height={16}
+                                  className="h-4 w-4 object-contain shrink-0"
+                                />
+                              )}
+                              <span className="text-xs text-slate-500">{team.university_name}</span>
+                            </div>
+                          )}
+                        </div>
+                        <span
+                          className="font-bold text-emerald-600 tabular-nums"
+                          style={{ fontFamily: "var(--font-oswald), sans-serif" }}
+                        >
+                          {isPrivate ? (
+                            <span className="text-slate-400 text-xs font-normal italic">Private</span>
+                          ) : isFrozen ? (
+                            <span className="text-slate-400 text-xs font-normal italic">Frozen</span>
+                          ) : player.cfo_valuation != null ? (
+                            formatCurrency(player.cfo_valuation)
+                          ) : "—"}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </Link>
+              );
+            })}
+          </div>
+          <div className="md:hidden mt-3 px-1 flex items-center justify-between">
+            <p className="text-xs text-slate-400">
+              Showing <span className="font-semibold text-slate-600">{rows.length}</span>{" "}
+              {isFiltered ? "matching players" : "players"}
+            </p>
+            <p className="text-xs text-slate-400">V3.5</p>
+          </div>
+
+          {/* Desktop table */}
+          <div className="hidden md:block bg-white rounded-xl shadow-md overflow-hidden border border-gray-200">
             <div className="overflow-x-auto">
               <table className="w-full text-sm">
                 {/* Sticky header */}
                 <thead className="sticky top-0 z-10 bg-slate-900 text-slate-300">
                   <tr>
-                    <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-widest w-12">
-                      #
-                    </th>
                     <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-widest">
                       Player
                     </th>
@@ -103,8 +183,7 @@ export default async function BigBoardPage({ searchParams }: PageProps) {
                 </thead>
 
                 <tbody className="divide-y divide-gray-100">
-                  {rows.map((player, index) => {
-                    const rank = index + 1;
+                  {rows.map((player) => {
                     const team = player.teams;
                     const isPrivate = !player.is_public;
                     const isFrozen =
@@ -113,38 +192,19 @@ export default async function BigBoardPage({ searchParams }: PageProps) {
 
                     return (
                       <tr key={player.id} className="hover:bg-slate-50 transition-colors group">
-                        {/* Rank */}
-                        <td className="px-4 py-3 text-slate-400 font-mono text-xs tabular-nums">
-                          {rank <= 3 ? (
-                            <span
-                              className={`inline-flex h-6 w-6 items-center justify-center rounded-full text-xs font-bold ${
-                                rank === 1
-                                  ? "bg-yellow-400 text-yellow-900"
-                                  : rank === 2
-                                    ? "bg-slate-300 text-slate-700"
-                                    : "bg-amber-600 text-white"
-                              }`}
-                            >
-                              {rank}
-                            </span>
-                          ) : (
-                            <span className="text-slate-400 font-semibold">{rank}</span>
-                          )}
-                        </td>
-
                         {/* Player name */}
-                        <td className="px-4 py-3">
+                        <td className="px-4 py-3.5">
                           <div className="flex items-center gap-3">
                             <PlayerAvatar
                               headshot_url={player.headshot_url}
                               name={player.name}
                               position={player.position}
-                              size={32}
+                              size={40}
                               className="shrink-0"
                             />
                             <Link
                               href={`/players/${player.id}`}
-                              className="font-semibold text-slate-900 hover:text-green-500 hover:underline transition-colors uppercase tracking-tight"
+                              className="font-semibold text-slate-900 hover:text-emerald-500 hover:underline transition-colors uppercase tracking-tight"
                               style={{ fontFamily: "var(--font-oswald), sans-serif" }}
                             >
                               {player.name}
@@ -153,7 +213,7 @@ export default async function BigBoardPage({ searchParams }: PageProps) {
                         </td>
 
                         {/* Team */}
-                        <td className="px-4 py-3">
+                        <td className="px-4 py-3.5">
                           {team ? (
                             <div className="flex items-center gap-2">
                               {team.logo_url && (
@@ -175,7 +235,7 @@ export default async function BigBoardPage({ searchParams }: PageProps) {
                         </td>
 
                         {/* Position */}
-                        <td className="px-4 py-3">
+                        <td className="px-4 py-3.5">
                           {player.position ? (
                             <span className={`inline-block rounded px-2 py-0.5 text-xs font-semibold uppercase tracking-wide ${positionBadgeClass(player.position)}`}>
                               {player.position}
@@ -186,7 +246,7 @@ export default async function BigBoardPage({ searchParams }: PageProps) {
                         </td>
 
                         {/* Valuation */}
-                        <td className="px-4 py-3 text-right">
+                        <td className="px-4 py-3.5 text-right">
                           {isPrivate ? (
                             <span className="text-slate-400 text-xs italic">Private</span>
                           ) : isFrozen ? (
@@ -220,6 +280,7 @@ export default async function BigBoardPage({ searchParams }: PageProps) {
               </p>
             </div>
           </div>
+          </>
         )}
       </div>
     </main>

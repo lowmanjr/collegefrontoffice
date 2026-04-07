@@ -258,14 +258,61 @@ export default async function TeamDashboardPage({ params }: PageProps) {
             </p>
           </div>
         ) : (
-          <div className="bg-white rounded-xl shadow-md border border-gray-200 overflow-hidden">
+          <>
+          {/* Mobile cards */}
+          <div className="md:hidden space-y-3">
+            {roster.map((player) => {
+              const isPrivate = !player.is_public;
+              return (
+                <Link
+                  key={player.id}
+                  href={`/players/${player.id}`}
+                  className="block bg-white rounded-xl border border-gray-200 p-4 hover:border-slate-300 transition-colors shadow-sm"
+                >
+                  <div className="flex items-center gap-3">
+                    <PlayerAvatar
+                      headshot_url={player.headshot_url}
+                      name={player.name}
+                      position={player.position}
+                      size={44}
+                      className="shrink-0"
+                    />
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center justify-between gap-2">
+                        <h3
+                          className="font-bold text-slate-900 uppercase tracking-tight truncate"
+                          style={{ fontFamily: "var(--font-oswald), sans-serif" }}
+                        >
+                          {player.name}
+                        </h3>
+                        {player.position && (
+                          <span className={`shrink-0 inline-block rounded px-2 py-0.5 text-xs font-semibold uppercase tracking-wide ${positionBadgeClass(player.position)}`}>
+                            {player.position}
+                          </span>
+                        )}
+                      </div>
+                      <div className="flex items-center justify-end mt-1">
+                        {isPrivate ? (
+                          <span className="text-slate-400 text-xs italic">Private</span>
+                        ) : player.cfo_valuation != null ? (
+                          <span className="font-bold text-emerald-600 tabular-nums" style={{ fontFamily: "var(--font-oswald), sans-serif" }}>
+                            {formatCurrency(player.cfo_valuation)}
+                          </span>
+                        ) : <span className="text-slate-400 text-xs">—</span>}
+                      </div>
+                    </div>
+                  </div>
+                </Link>
+              );
+            })}
+          </div>
+
+          {/* Desktop table */}
+          <div className="hidden md:block bg-white rounded-xl shadow-md border border-gray-200 overflow-hidden">
             <div className="overflow-x-auto">
               <table className="w-full text-sm">
                 <thead className="sticky top-0 z-10 bg-slate-900 text-slate-300">
                   <tr>
-                    <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-widest w-12">
-                      #
-                    </th>
                     <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-widest">
                       Player
                     </th>
@@ -279,44 +326,24 @@ export default async function TeamDashboardPage({ params }: PageProps) {
                 </thead>
 
                 <tbody className="divide-y divide-gray-100">
-                  {roster.map((player, index) => {
-                    const rank = index + 1;
+                  {roster.map((player) => {
                     const isPrivate = !player.is_public;
 
                     return (
                       <tr key={player.id} className="hover:bg-slate-50 transition-colors group">
-                        {/* Rank */}
-                        <td className="px-4 py-3 text-xs tabular-nums">
-                          {rank <= 3 ? (
-                            <span
-                              className={`inline-flex h-6 w-6 items-center justify-center rounded-full text-xs font-bold ${
-                                rank === 1
-                                  ? "bg-yellow-400 text-yellow-900"
-                                  : rank === 2
-                                    ? "bg-slate-300 text-slate-700"
-                                    : "bg-amber-600 text-white"
-                              }`}
-                            >
-                              {rank}
-                            </span>
-                          ) : (
-                            <span className="text-slate-400 font-semibold">{rank}</span>
-                          )}
-                        </td>
-
                         {/* Player name */}
-                        <td className="px-4 py-3">
+                        <td className="px-4 py-3.5">
                           <div className="flex items-center gap-3">
                             <PlayerAvatar
                               headshot_url={player.headshot_url}
                               name={player.name}
                               position={player.position}
-                              size={32}
+                              size={40}
                               className="shrink-0"
                             />
                             <Link
                               href={`/players/${player.id}`}
-                              className="font-semibold text-slate-900 hover:text-green-500 hover:underline transition-colors uppercase tracking-tight"
+                              className="font-semibold text-slate-900 hover:text-emerald-500 hover:underline transition-colors uppercase tracking-tight"
                               style={{ fontFamily: "var(--font-oswald), sans-serif" }}
                             >
                               {player.name}
@@ -325,7 +352,7 @@ export default async function TeamDashboardPage({ params }: PageProps) {
                         </td>
 
                         {/* Position */}
-                        <td className="px-4 py-3">
+                        <td className="px-4 py-3.5">
                           {player.position ? (
                             <span className={`inline-block rounded px-2 py-0.5 text-xs font-semibold uppercase tracking-wide ${positionBadgeClass(player.position)}`}>
                               {player.position}
@@ -336,7 +363,7 @@ export default async function TeamDashboardPage({ params }: PageProps) {
                         </td>
 
                         {/* Valuation */}
-                        <td className="px-4 py-3 text-right">
+                        <td className="px-4 py-3.5 text-right">
                           {isPrivate ? (
                             <span className="text-slate-400 text-xs italic">Private</span>
                           ) : player.cfo_valuation != null ? (
@@ -371,6 +398,7 @@ export default async function TeamDashboardPage({ params }: PageProps) {
               </p>
             </div>
           </div>
+          </>
         )}
 
         {/* ── Incoming Recruits ─────────────────────────────────────────── */}
