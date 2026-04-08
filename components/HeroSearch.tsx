@@ -40,8 +40,8 @@ export default function HeroSearch() {
     const timer = setTimeout(async () => {
       const pattern = `%${query}%`;
       const [{ data: players }, { data: teams }] = await Promise.all([
-        supabase.from("players").select("id, name, position").ilike("name", pattern).limit(5),
-        supabase.from("teams").select("id, university_name, logo_url").ilike("university_name", pattern).limit(3),
+        supabase.from("players").select("id, slug, name, position").ilike("name", pattern).limit(5),
+        supabase.from("teams").select("id, slug, university_name, logo_url").ilike("university_name", pattern).limit(3),
       ]);
       setResults({ players: players ?? [], teams: teams ?? [] });
       setIsOpen(true);
@@ -101,7 +101,7 @@ export default function HeroSearch() {
             <div>
               <p className="px-4 pt-3 pb-1 text-[10px] font-bold uppercase tracking-widest text-slate-400">Teams</p>
               {results.teams.map((team) => (
-                <Link key={team.id} href={`/teams/${team.id}`} onClick={close}
+                <Link key={team.id} href={`/teams/${(team as any).slug ?? team.id}`} onClick={close}
                   className="flex items-center gap-3 px-4 py-2.5 hover:bg-slate-50 transition-colors">
                   {team.logo_url ? (
                     <Image src={team.logo_url} alt={team.university_name} width={24} height={24} className="h-6 w-6 object-contain shrink-0" />
@@ -116,7 +116,7 @@ export default function HeroSearch() {
             <div>
               <p className="px-4 pt-3 pb-1 text-[10px] font-bold uppercase tracking-widest text-slate-400">Players</p>
               {results.players.map((player) => (
-                <Link key={player.id} href={`/players/${player.id}`} onClick={close}
+                <Link key={player.id} href={`/players/${(player as any).slug ?? player.id}`} onClick={close}
                   className="flex items-center justify-between px-4 py-2.5 hover:bg-slate-50 transition-colors">
                   <span className="text-sm font-semibold text-gray-900">{player.name}</span>
                   <span className="rounded bg-slate-900 text-white px-1.5 py-0.5 text-[10px] font-bold uppercase">{player.position}</span>

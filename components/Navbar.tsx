@@ -9,7 +9,7 @@ import CfoLogo from "@/components/CfoLogo";
 const NAV_LINKS = [
   { label: "Home", href: "/" },
   { label: "Players", href: "/players" },
-  { label: "Futures", href: "/futures" },
+  { label: "Recruits", href: "/recruits" },
   { label: "Teams", href: "/teams" },
   { label: "Methodology", href: "/methodology" },
 ];

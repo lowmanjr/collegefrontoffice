@@ -56,7 +56,7 @@ export default function Home() {
               </h3>
             </Link>
 
-            <Link href="/futures" className="group flex items-center justify-center bg-slate-800/50 border border-slate-700 rounded-xl px-5 py-4 hover:border-slate-500 hover:bg-slate-800 transition-all">
+            <Link href="/recruits" className="group flex items-center justify-center bg-slate-800/50 border border-slate-700 rounded-xl px-5 py-4 hover:border-slate-500 hover:bg-slate-800 transition-all">
               <h3 className="text-base font-bold text-white uppercase tracking-wide group-hover:text-emerald-400 transition-colors"
                 style={{ fontFamily: "var(--font-oswald), sans-serif" }}>
                 Recruits <span className="text-slate-600 group-hover:text-emerald-400 transition-colors">&rarr;</span>

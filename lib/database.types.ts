@@ -14,6 +14,7 @@ export interface TeamRow {
   estimated_cap_space: number;
   active_payroll: number;
   market_multiplier: number;
+  slug: string | null;
   created_at: string;
   updated_at: string;
 }
@@ -52,6 +53,7 @@ export interface PlayerRow {
   headshot_url: string | null;
   hs_grad_year: number | null;
   team_id: string | null;
+  slug: string | null;
   last_updated: string;
   created_at: string;
 }

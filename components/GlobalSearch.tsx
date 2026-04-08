@@ -53,12 +53,12 @@ export default function GlobalSearch() {
       const [{ data: players }, { data: teams }] = await Promise.all([
         supabase
           .from("players")
-          .select("id, name, position, star_rating")
+          .select("id, slug, name, position, star_rating")
           .ilike("name", pattern)
           .limit(5),
         supabase
           .from("teams")
-          .select("id, university_name, logo_url")
+          .select("id, slug, university_name, logo_url")
           .ilike("university_name", pattern)
           .limit(3),
       ]);
@@ -103,8 +103,8 @@ export default function GlobalSearch() {
   const hasResults = results.players.length > 0 || results.teams.length > 0;
 
   const flatResults: { type: "team" | "player"; id: string; href: string }[] = [
-    ...results.teams.map((t) => ({ type: "team" as const, id: t.id, href: `/teams/${t.id}` })),
-    ...results.players.map((p) => ({ type: "player" as const, id: p.id, href: `/players/${p.id}` })),
+    ...results.teams.map((t: any) => ({ type: "team" as const, id: t.id, href: `/teams/${t.slug ?? t.id}` })),
+    ...results.players.map((p: any) => ({ type: "player" as const, id: p.id, href: `/players/${p.slug ?? p.id}` })),
   ];
 
   function close() {
@@ -216,7 +216,7 @@ export default function GlobalSearch() {
               {results.teams.map((team, i) => (
                 <Link
                   key={team.id}
-                  href={`/teams/${team.id}`}
+                  href={`/teams/${(team as any).slug ?? team.id}`}
                   onClick={close}
                   role="option"
                   className={`flex items-center gap-3 px-4 py-2.5 transition-colors ${i === focusedIndex ? "bg-slate-100" : "hover:bg-slate-50"}`}
@@ -257,7 +257,7 @@ export default function GlobalSearch() {
                 return (
                   <Link
                     key={player.id}
-                    href={`/players/${player.id}`}
+                    href={`/players/${(player as any).slug ?? player.id}`}
                     onClick={close}
                     role="option"
                     className={`flex items-center justify-between gap-3 px-4 py-2.5 transition-colors ${flatIndex === focusedIndex ? "bg-slate-100" : "hover:bg-slate-50"}`}

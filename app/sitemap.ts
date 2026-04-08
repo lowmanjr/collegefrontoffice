@@ -16,14 +16,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: base, changeFrequency: "daily", priority: 1.0 },
     { url: `${base}/players`, changeFrequency: "daily", priority: 0.9 },
     { url: `${base}/teams`, changeFrequency: "daily", priority: 0.9 },
-    { url: `${base}/futures`, changeFrequency: "daily", priority: 0.8 },
+    { url: `${base}/recruits`, changeFrequency: "daily", priority: 0.8 },
     { url: `${base}/methodology`, changeFrequency: "monthly", priority: 0.5 },
   ];
 
   // Dynamic: teams
-  const { data: teams } = await supabase.from("teams").select("id");
+  const { data: teams } = await supabase.from("teams").select("slug");
   const teamPages: MetadataRoute.Sitemap = (teams ?? []).map((t) => ({
-    url: `${base}/teams/${t.id}`,
+    url: `${base}/teams/${t.slug}`,
     changeFrequency: "daily" as const,
     priority: 0.8,
   }));
@@ -31,12 +31,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // Dynamic: players (only public, with valuations)
   const { data: players } = await supabase
     .from("players")
-    .select("id")
+    .select("slug")
     .eq("is_public", true)
     .not("cfo_valuation", "is", null)
     .limit(500);
   const playerPages: MetadataRoute.Sitemap = (players ?? []).map((p) => ({
-    url: `${base}/players/${p.id}`,
+    url: `${base}/players/${p.slug}`,
     changeFrequency: "weekly" as const,
     priority: 0.6,
   }));

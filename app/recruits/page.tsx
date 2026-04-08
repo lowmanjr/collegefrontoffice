@@ -95,7 +95,7 @@ export default async function FuturesMarketPage({ searchParams }: PageProps) {
               return (
                 <Link
                   key={recruit.id}
-                  href={`/players/${recruit.id}`}
+                  href={`/players/${recruit.slug}`}
                   className="block bg-white rounded-xl border border-gray-200 p-4 hover:border-slate-300 transition-colors shadow-sm"
                 >
                   <div className="flex items-center gap-3">
@@ -213,7 +213,7 @@ export default async function FuturesMarketPage({ searchParams }: PageProps) {
                             />
                             <div>
                               <Link
-                                href={`/players/${recruit.id}`}
+                                href={`/players/${recruit.slug}`}
                                 className="font-semibold text-slate-900 hover:text-emerald-500 hover:underline transition-colors uppercase tracking-tight"
                                 style={{ fontFamily: "var(--font-oswald), sans-serif" }}
                               >

@@ -37,7 +37,10 @@
       "WebFetch(domain:www.ea.com)",
       "Bash(curl -s \"https://drop-api.ea.com/rating/ea-sports-college-football-25/iterations/1/teams/33?limit=5\" -H \"Accept: application/json\" -H \"User-Agent: Mozilla/5.0\")",
       "Bash(npm uninstall:*)",
-      "Bash(grep -rn \"245\\\\|257\" /c/Users/johng/OneDrive/Desktop/collegefrontoffice/python_engine/*.py)"
+      "Bash(grep -rn \"245\\\\|257\" /c/Users/johng/OneDrive/Desktop/collegefrontoffice/python_engine/*.py)",
+      "Bash(mv:*)",
+      "Bash(mv app/players/\\\\[id\\\\] app/players/\\\\[slug\\\\])",
+      "Bash(mv app/teams/\\\\[id\\\\] app/teams/\\\\[slug\\\\])"
     ]
   }
 }

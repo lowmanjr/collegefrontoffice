@@ -22,7 +22,7 @@ export default function Footer() {
               {[
                 { label: "Teams", href: "/teams" },
                 { label: "Big Board", href: "/players" },
-                { label: "Futures", href: "/futures" },
+                { label: "Recruits", href: "/recruits" },
                 { label: "Methodology", href: "/methodology" },
               ].map(({ label, href }) => (
                 <li key={href}>

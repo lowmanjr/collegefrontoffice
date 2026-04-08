@@ -34,16 +34,22 @@ function TeamsTableSkeleton() {
 // ─── async data component ─────────────────────────────────────────────────────
 
 async function TeamsGrid() {
-  const { data, error } = await supabase
-    .from("team_roster_summary")
-    .select("*")
-    .order("total_roster_value", { ascending: false });
+  const [summaryResp, slugsResp] = await Promise.all([
+    supabase
+      .from("team_roster_summary")
+      .select("*")
+      .order("total_roster_value", { ascending: false }),
+    supabase.from("teams").select("id, slug"),
+  ]);
+
+  const { data, error } = summaryResp;
 
   if (error) {
     return <p className="text-sm text-red-500">Failed to load teams: {error.message}</p>;
   }
 
-  const teams = (data ?? []) as TeamRosterSummary[];
+  const slugMap = Object.fromEntries((slugsResp.data ?? []).map((t: { id: string; slug: string }) => [t.id, t.slug]));
+  const teams = (data ?? []).map((t: TeamRosterSummary) => ({ ...t, slug: slugMap[t.id] ?? t.id }));
   const grandTotal = teams.reduce((sum, t) => sum + (t.total_roster_value ?? 0), 0);
 
   const capData = teams.map((t) => {
@@ -153,7 +159,7 @@ async function TeamsGrid() {
                       {/* Program */}
                       <td className="px-4 py-3">
                         <Link
-                          href={`/teams/${team.id}`}
+                          href={`/teams/${team.slug}`}
                           className="flex items-center gap-3 group/link"
                         >
                           {team.logo_url ? (

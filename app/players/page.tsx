@@ -91,7 +91,7 @@ export default async function BigBoardPage({ searchParams }: PageProps) {
               return (
                 <Link
                   key={player.id}
-                  href={`/players/${player.id}`}
+                  href={`/players/${player.slug}`}
                   className="block bg-white rounded-xl border border-gray-200 p-4 hover:border-slate-300 transition-colors shadow-sm"
                 >
                   <div className="flex items-center gap-3">
@@ -203,7 +203,7 @@ export default async function BigBoardPage({ searchParams }: PageProps) {
                               className="shrink-0"
                             />
                             <Link
-                              href={`/players/${player.id}`}
+                              href={`/players/${player.slug}`}
                               className="font-semibold text-slate-900 hover:text-emerald-500 hover:underline transition-colors uppercase tracking-tight"
                               style={{ fontFamily: "var(--font-oswald), sans-serif" }}
                             >

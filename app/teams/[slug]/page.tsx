@@ -9,12 +9,12 @@ import type { PlayerRow } from "@/lib/database.types";
 
 export const revalidate = 900;
 
-export async function generateMetadata({ params }: { params: Promise<{ id: string }> }) {
-  const { id } = await params;
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
   const { data } = await supabase
     .from("teams")
     .select("university_name, conference")
-    .eq("id", id)
+    .eq("slug", slug)
     .single();
   return {
     title: data
@@ -30,41 +30,45 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
 
 type Player = Pick<
   PlayerRow,
-  "id" | "name" | "position" | "class_year" | "star_rating" | "cfo_valuation" | "is_public" | "roster_status" | "headshot_url"
+  "id" | "slug" | "name" | "position" | "class_year" | "star_rating" | "cfo_valuation" | "is_public" | "roster_status" | "headshot_url"
 >;
 
 // ─── page ────────────────────────────────────────────────────────────────────
 
 interface PageProps {
-  params: Promise<{ id: string }>;
+  params: Promise<{ slug: string }>;
 }
 
 export default async function TeamDashboardPage({ params }: PageProps) {
-  const { id } = await params;
+  const { slug } = await params;
 
-  const [teamResp, playersResp, recruitsResp] = await Promise.all([
-    supabase
-      .from("teams")
-      .select("id, university_name, conference, logo_url")
-      .eq("id", id)
-      .single(),
-    supabase
-      .from("players")
-      .select("id, name, position, class_year, star_rating, cfo_valuation, is_public, roster_status, headshot_url")
-      .eq("team_id", id)
-      .eq("player_tag", "College Athlete")
-      .order("cfo_valuation", { ascending: false, nullsFirst: false }),
-    supabase
-      .from("players")
-      .select("id, name, position, class_year, star_rating, cfo_valuation, is_public, roster_status, headshot_url")
-      .eq("team_id", id)
-      .eq("player_tag", "High School Recruit")
-      .eq("hs_grad_year", 2026)
-      .not("cfo_valuation", "is", null)
-      .order("cfo_valuation", { ascending: false, nullsFirst: false }),
-  ]);
+  // First fetch team by slug to get the UUID
+  const { data: team, error } = await supabase
+    .from("teams")
+    .select("id, university_name, conference, logo_url")
+    .eq("slug", slug)
+    .single();
 
-  const { data: team, error } = teamResp;
+  const teamId = team?.id;
+
+  const [playersResp, recruitsResp] = teamId
+    ? await Promise.all([
+        supabase
+          .from("players")
+          .select("id, slug, name, position, class_year, star_rating, cfo_valuation, is_public, roster_status, headshot_url")
+          .eq("team_id", teamId)
+          .eq("player_tag", "College Athlete")
+          .order("cfo_valuation", { ascending: false, nullsFirst: false }),
+        supabase
+          .from("players")
+          .select("id, slug, name, position, class_year, star_rating, cfo_valuation, is_public, roster_status, headshot_url")
+          .eq("team_id", teamId)
+          .eq("player_tag", "High School Recruit")
+          .eq("hs_grad_year", 2026)
+          .not("cfo_valuation", "is", null)
+          .order("cfo_valuation", { ascending: false, nullsFirst: false }),
+      ])
+    : [{ data: [] }, { data: [] }];
   const allRoster = (playersResp.data ?? []) as Player[];
   const roster = allRoster.filter((p) => !p.roster_status || p.roster_status === "active");
   const departed = allRoster.filter((p) => p.roster_status && p.roster_status !== "active");
@@ -130,7 +134,7 @@ export default async function TeamDashboardPage({ params }: PageProps) {
             name: team.university_name,
             sport: "American Football",
             ...(team.conference ? { memberOf: { "@type": "SportsOrganization", name: team.conference } } : {}),
-            url: `https://collegefrontoffice.com/teams/${id}`,
+            url: `https://collegefrontoffice.com/teams/${slug}`,
           }),
         }}
       />
@@ -266,7 +270,7 @@ export default async function TeamDashboardPage({ params }: PageProps) {
               return (
                 <Link
                   key={player.id}
-                  href={`/players/${player.id}`}
+                  href={`/players/${player.slug}`}
                   className="block bg-white rounded-xl border border-gray-200 p-4 hover:border-slate-300 transition-colors shadow-sm"
                 >
                   <div className="flex items-center gap-3">
@@ -342,7 +346,7 @@ export default async function TeamDashboardPage({ params }: PageProps) {
                               className="shrink-0"
                             />
                             <Link
-                              href={`/players/${player.id}`}
+                              href={`/players/${player.slug}`}
                               className="font-semibold text-slate-900 hover:text-emerald-500 hover:underline transition-colors uppercase tracking-tight"
                               style={{ fontFamily: "var(--font-oswald), sans-serif" }}
                             >
@@ -440,7 +444,7 @@ export default async function TeamDashboardPage({ params }: PageProps) {
                           className="shrink-0"
                         />
                         <Link
-                          href={`/players/${player.id}`}
+                          href={`/players/${player.slug}`}
                           className="font-semibold text-slate-800 hover:text-purple-600 transition-colors"
                         >
                           {player.name}
@@ -498,7 +502,7 @@ export default async function TeamDashboardPage({ params }: PageProps) {
                       <tr key={player.id} className="hover:bg-slate-50 transition-colors">
                         <td className="px-4 py-2.5">
                           <Link
-                            href={`/players/${player.id}`}
+                            href={`/players/${player.slug}`}
                             className="font-semibold text-slate-500 hover:text-slate-700 transition-colors uppercase tracking-tight text-sm"
                             style={{ fontFamily: "var(--font-oswald), sans-serif" }}
                           >
