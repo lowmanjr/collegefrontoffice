@@ -14,31 +14,12 @@ Requirements:
     pip install supabase python-dotenv requests
 """
 
-import os
 import time
 import uuid
 import unicodedata
 import re
 import requests
-from dotenv import load_dotenv
-from supabase import create_client, Client
-
-# ---------------------------------------------------------------------------
-# 1. SETUP
-# ---------------------------------------------------------------------------
-
-load_dotenv(dotenv_path=os.path.join(os.path.dirname(__file__), "..", ".env.local"))
-
-SUPABASE_URL      = os.getenv("NEXT_PUBLIC_SUPABASE_URL")
-SUPABASE_ANON_KEY = os.getenv("NEXT_PUBLIC_SUPABASE_ANON_KEY")
-
-if not SUPABASE_URL or not SUPABASE_ANON_KEY:
-    raise EnvironmentError(
-        "Missing Supabase credentials. "
-        "Ensure NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY are set in .env.local"
-    )
-
-supabase: Client = create_client(SUPABASE_URL, SUPABASE_ANON_KEY)
+from supabase_client import supabase
 
 HEADERS = {
     "User-Agent": (
@@ -56,24 +37,39 @@ REQUEST_DELAY = 1.0  # seconds between ESPN API calls
 # 2. ESPN TEAM ID MAP
 # ---------------------------------------------------------------------------
 
-ESPN_TEAM_MAP: dict[str, int] = {
-    "ohio state":    194,
-    "georgia":        61,
-    "alabama":       333,
-    "texas":         251,
-    "oregon":       2483,
-    "michigan":      130,
-    "usc":            30,
-    "washington":    264,
-    "lsu":            99,
-    "tennessee":    2633,
-    "oklahoma":      201,
-    "florida":        57,
-    "south carolina":2579,
-    "miami":        2390,
-    "clemson":       228,
-    "notre dame":     87,
+# Canonical name → ESPN integer ID (all 68 Power 4 teams)
+ESPN_IDS_BY_NAME: dict[str, int] = {
+    # SEC
+    "Alabama": 333, "Arkansas": 8, "Auburn": 2, "Florida": 57,
+    "Georgia": 61, "Kentucky": 96, "LSU": 99, "Mississippi State": 344,
+    "Missouri": 142, "Oklahoma": 201, "Ole Miss": 145,
+    "South Carolina": 2579, "Tennessee": 2633, "Texas": 251,
+    "Texas A&M": 245, "Vanderbilt": 238,
+    # Big Ten
+    "Illinois": 356, "Indiana": 84, "Iowa": 2294, "Maryland": 120,
+    "Michigan": 130, "Michigan State": 127, "Minnesota": 135,
+    "Nebraska": 158, "Northwestern": 77, "Ohio State": 194,
+    "Oregon": 2483, "Penn State": 213, "Purdue": 2509, "Rutgers": 164,
+    "UCLA": 26, "USC": 30, "Washington": 264, "Wisconsin": 275,
+    # Big 12
+    "Arizona": 12, "Arizona State": 9, "Baylor": 239, "BYU": 252,
+    "Cincinnati": 2132, "Colorado": 38, "Houston": 248,
+    "Iowa State": 66, "Kansas": 2305, "Kansas State": 2306,
+    "Oklahoma State": 197, "TCU": 2628, "Texas Tech": 2641,
+    "UCF": 2116, "Utah": 254, "West Virginia": 277,
+    # ACC
+    "Boston College": 103, "Cal": 25, "Clemson": 228,
+    "Duke": 150, "Florida State": 52, "Georgia Tech": 59,
+    "Louisville": 97, "Miami": 2390, "NC State": 152,
+    "North Carolina": 153, "Pittsburgh": 221, "SMU": 2567,
+    "Stanford": 24, "Syracuse": 183, "Virginia": 258,
+    "Virginia Tech": 259, "Wake Forest": 154,
+    # Independent
+    "Notre Dame": 87,
 }
+
+# Lowercase lookup for backward compatibility
+ESPN_TEAM_MAP: dict[str, int] = {k.lower(): v for k, v in ESPN_IDS_BY_NAME.items()}
 
 # ---------------------------------------------------------------------------
 # 3. NAME NORMALISATION
@@ -206,7 +202,7 @@ def main() -> None:
     # ── Summary ──────────────────────────────────────────────────────────────
     print("\n" + "=" * 65)
     print(f"Ingest complete.")
-    print(f"  Total updated  (tag → 'College Athlete') : {total_updated}")
+    print(f"  Total updated  (tag -> 'College Athlete') : {total_updated}")
     print(f"  Total inserted (new baseline records)    : {total_inserted}")
     print(f"  Grand total players processed            : {total_updated + total_inserted}")
 

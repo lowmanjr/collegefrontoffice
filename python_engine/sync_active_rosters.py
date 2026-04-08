@@ -54,24 +54,8 @@ REQUEST_DELAY = 1.0  # seconds between ESPN API calls
 #    Value: ESPN team ID
 # ---------------------------------------------------------------------------
 
-ESPN_TEAM_MAP: dict[str, int] = {
-    "ohio state":    194,
-    "georgia":        61,
-    "alabama":       333,
-    "texas":         251,
-    "oregon":       2483,
-    "michigan":      130,
-    "usc":            30,
-    "washington":    264,
-    "lsu":            99,
-    "tennessee":    2633,
-    "oklahoma":      201,
-    "florida":        57,
-    "south carolina":2579,
-    "miami":        2390,
-    "clemson":       228,
-    "notre dame":     87,
-}
+# Import the canonical ESPN ID map from ingest_espn_rosters
+from ingest_espn_rosters import ESPN_TEAM_MAP
 
 # ---------------------------------------------------------------------------
 # 3. NAME NORMALISATION

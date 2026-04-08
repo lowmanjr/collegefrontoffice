@@ -125,7 +125,13 @@ def main():
             if player_updates < 20:  # Only print first 20
                 log.info(f"  [DRY RUN] {p['name']} -> /players/{new_slug}")
         else:
-            supabase.table("players").update({"slug": new_slug}).eq("id", p["id"]).execute()
+            try:
+                supabase.table("players").update({"slug": new_slug}).eq("id", p["id"]).execute()
+            except Exception:
+                # Slug collision (e.g. duplicate player records) — append UUID fragment
+                fallback_slug = f"{new_slug}-{p['id'][:8]}"
+                log.warning(f"  Slug collision for {p['name']}: {new_slug} -> {fallback_slug}")
+                supabase.table("players").update({"slug": fallback_slug}).eq("id", p["id"]).execute()
         player_updates += 1
 
     log.info(f"Players: {player_updates} slugs {'would be ' if dry_run else ''}updated, {player_skipped} already correct")

@@ -227,7 +227,7 @@ def match_and_update(
             fuzzy = difflib.get_close_matches(db_norm, candidate_keys, n=1, cutoff=0.85)
             if fuzzy:
                 matched_entry = norm_to_entry[fuzzy[0]]
-                match_type    = f'fuzzy → "{matched_entry["name"]}"'
+                match_type    = f'fuzzy -> "{matched_entry["name"]}"'
 
         if matched_entry is None:
             total_unmatched += 1
