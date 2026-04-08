@@ -6,7 +6,7 @@ College Front Office is a data dashboard and valuation tool for the modern colle
 ## 2. Tech Stack
 * **Frontend Framework:** Next.js (App Router)
 * **Styling:** Tailwind CSS
-* **UI Components:** shadcn/ui and Tremor (for charts, data tables, and metrics)
+* **UI Components:** shadcn/ui, recharts (for charts)
 * **Database:** Supabase (PostgreSQL)
 * **Hosting:** Vercel
 * **Data Pipeline:** Python (pandas, requests, BeautifulSoup) → Supabase API (service role)
@@ -65,6 +65,11 @@ Key algorithm files:
 | `update_team_markets.py` | Sets conference and market_multiplier on teams table |
 | `scrape_on3_valuations.py` | Pulls On3 NIL valuations for comparison/calibration |
 | `scrape_on3_socials.py` | Pulls social follower counts from On3 rankings |
+| `map_espn_athlete_ids.py` | Maps ESPN athlete IDs to players, generates headshot URLs from ESPN CDN |
+| `scrape_247_headshots.py` | Scrapes 247Sports composite rankings for recruit headshot URLs |
+| `scrape_247_ranks.py` | Scrapes 247Sports composite rankings to backfill national_rank |
+| `generate_slugs.py` | Generates URL-safe slugs for all teams and players, handles duplicates |
+| `snapshot_valuations.py` | Snapshots current valuations into valuation_history for sparkline data |
 
 ### Overrides
 21 active overrides as of April 2026. Overrides bypass the algorithmic formula entirely. Managed via `python_engine/data/approved_overrides.csv` → `apply_overrides.py`.
@@ -95,12 +100,16 @@ Alabama, Clemson, Florida, Georgia, LSU, Miami, Michigan, Notre Dame, Ohio State
 * `total_followers`, `ig_followers`, `x_followers`, `tiktok_followers` (INTEGER)
 * `ea_rating` (INTEGER — EA Sports CFB 26 OVR rating, 0–99)
 * `cfbd_id` (INTEGER — CollegeFootballData player ID)
+* `espn_athlete_id` (INTEGER — ESPN athlete ID for headshot CDN)
+* `headshot_url` (TEXT — ESPN CDN or 247Sports headshot URL)
+* `slug` (TEXT, UNIQUE — URL-safe slug, e.g. "gunner-stockton")
 * `team_id` (UUID, FK → teams)
 * `last_updated`, `created_at` (TIMESTAMPTZ)
 
 ### Table: `teams`
 * `id` (UUID, PK)
 * `university_name`, `conference`, `logo_url`
+* `slug` (TEXT, UNIQUE — URL-safe slug, e.g. "georgia")
 * `estimated_cap_space` (INTEGER — defaults to $20,500,000)
 * `active_payroll` (INTEGER)
 * `market_multiplier` (NUMERIC — 0.8 to 1.3)
@@ -114,6 +123,13 @@ Alabama, Clemson, Florida, Georgia, LSU, Miami, Michigan, Notre Dame, Ohio State
 * `source_name` (TEXT)
 * `source_url` (TEXT — verified URL or NULL)
 
+### Table: `valuation_history`
+* `id` (UUID, PK)
+* `player_id` (UUID, FK → players)
+* `valuation` (INTEGER)
+* `snapshot_date` (DATE)
+* UNIQUE(player_id, snapshot_date)
+
 ### View: `team_roster_summary`
 Aggregates active college athletes + 2026 incoming recruits per team. Excludes departed players and future (2027/2028) recruits.
 
@@ -122,6 +138,42 @@ Aggregates active college athletes + 2026 incoming recruits per team. Excludes d
 * Default to server components unless interactivity (useState, onClick) is required.
 * Do not invent data; rely on the schema provided.
 * Keep components modular (e.g., separate the `PlayerTable` from the `CapSpaceBar`).
-* Import `formatCurrency` from `lib/utils.ts` — do not redefine it locally.
+* Import `formatCurrency` from `lib/utils.ts` for player-level values (full precision).
+* Import `formatCompactCurrency` from `lib/utils.ts` for team-level aggregates (e.g. "$29.8M").
+* Import `positionBadgeClass` from `lib/ui-helpers.ts` for position badge color coding.
+* Import `BASE_URL` from `lib/constants.ts` for canonical URLs and structured data.
+* Use `<PlayerAvatar>` from `components/PlayerAvatar.tsx` for player headshots with initials fallback.
 * All valuation math must use `lib/valuation.ts` (TypeScript) or `calculate_cfo_valuations.py` (Python). Do not implement valuation logic inline.
+* Routes use slugs, not UUIDs: `/players/[slug]` and `/teams/[slug]`.
+* The `/futures` route has been renamed to `/recruits` with a permanent redirect.
+* 2026 HS recruits are merged into team active rosters (post national signing day).
+* 2027/2028 commits do NOT appear on team pages.
+* Team logos use ESPN CDN format: `https://a.espncdn.com/i/teamlogos/ncaa/500/{espn_id}.png`
+* Player headshots use ESPN CDN: `https://a.espncdn.com/combiner/i?img=/i/headshots/college-football/players/full/{espn_id}.png&w=200&h=146`
+* Recruit headshots come from 247Sports (scraped via `scrape_247_headshots.py`).
+* All composite scores are on the 0-100 scale (not 0-1).
+* Do not display "247Sports" branding on player-facing pages.
 * Run `npm test` (Vitest) and `cd python_engine && python -m pytest tests/ -v` after valuation changes.
+
+## 7. Page Structure
+
+| Route | What It Shows | Data Source |
+|-------|---------------|-------------|
+| `/` (Homepage) | Hero search + route cards (Teams, Players, Recruits) | Static |
+| `/players` (Big Board) | Top 100 college athletes by valuation | players + teams join |
+| `/players/[slug]` (Player Profile) | Name, avatar, team, valuation; override contract details; recruit profile card | players + teams + nil_overrides |
+| `/recruits` | 4/5★ HS recruits by composite score, filtered by class year | players + teams join |
+| `/teams` (Team Index) | Programs ranked by Est. Roster Value | team_roster_summary view |
+| `/teams/[slug]` (Team Detail) | Active roster + 2026 recruits merged, sorted by valuation | players + teams |
+| `/methodology` | Static content explaining valuation approach | Static JSX |
+
+## 8. SEO
+
+* All pages have canonical URLs via `alternates.canonical` (using `BASE_URL` from `lib/constants.ts`).
+* Dynamic sitemap at `/sitemap.xml` includes all teams and all public players (paginated).
+* JSON-LD structured data: Person (player profiles), SportsTeam (team profiles), ItemList (index pages).
+* Dynamic OG images for player profiles and team profiles.
+* Static OG image for homepage.
+* Apple touch icon and web manifest at `/apple-icon` and `/manifest.webmanifest`.
+* `robots.txt` blocks `/admin`, `/login`, `/auth`.
+* Permanent redirect: `/futures` → `/recruits`.

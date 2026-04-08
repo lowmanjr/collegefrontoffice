@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { supabase } from "@/lib/supabase";
 import { formatCurrency } from "@/lib/utils";
+import { BASE_URL } from "@/lib/constants";
 import PlayerAvatar from "@/components/PlayerAvatar";
 
 export const revalidate = 300;
@@ -16,6 +17,9 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     description: data
       ? `NIL valuation and profile for ${data.name}, ${data.position}`
       : "Player NIL valuation profile",
+    alternates: {
+      canonical: `${BASE_URL}/players/${slug}`,
+    },
   };
 }
 
@@ -212,9 +216,10 @@ export default async function PlayerProfilePage({ params }: PageProps) {
                 {isPrivate ? (
                   <p className="text-lg text-slate-500">Financial Data Private</p>
                 ) : isIneligible ? (
-                  isOffDepthChart ? (
-                    <p className="text-lg text-slate-500">Not on Active Depth Chart</p>
-                  ) : null
+                  <div>
+                    <p className="text-xs uppercase tracking-widest text-slate-500 mb-1">CFO Valuation</p>
+                    <p className="text-lg text-slate-500 italic">Pending</p>
+                  </div>
                 ) : (
                   <div>
                     <p className="text-xs uppercase tracking-widest text-slate-500 mb-1">
@@ -274,32 +279,6 @@ export default async function PlayerProfilePage({ params }: PageProps) {
 
       {/* ── Body ─────────────────────────────────────────────────────────── */}
       <div className="mx-auto max-w-3xl px-6 py-4 space-y-4">
-        {/* ── Off-depth-chart notice ───────────────────────────────────────── */}
-        {isOffDepthChart && (
-          <div className="bg-white rounded-xl shadow-md p-6 flex gap-3 items-start">
-            <svg
-              className="mt-0.5 h-4 w-4 shrink-0 text-slate-400"
-              viewBox="0 0 20 20"
-              fill="currentColor"
-              aria-hidden="true"
-            >
-              <path
-                fillRule="evenodd"
-                clipRule="evenodd"
-                d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a.75.75 0 000 1.5h.253a.25.25 0 01.244.304l-.459 2.066A1.75 1.75 0 0010.747 15H11a.75.75 0 000-1.5h-.253a.25.25 0 01-.244-.304l.459-2.066A1.75 1.75 0 009.253 9H9z"
-              />
-            </svg>
-            <div>
-              <p className="text-xs font-semibold text-slate-700 mb-0.5">Not on Active Depth Chart</p>
-              <p className="text-xs text-slate-400 leading-relaxed">
-                This player is not currently listed on the active depth chart. C.F.O. Valuations are
-                only calculated for players with confirmed roster spots. Check back after the next
-                depth chart update.
-              </p>
-            </div>
-          </div>
-        )}
-
         {/* ── Recruiting Profile — HS recruits only ────────────────────────── */}
         {isHS && !isPrivate && !isIneligible && (
           <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-5">

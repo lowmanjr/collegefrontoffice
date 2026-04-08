@@ -14,6 +14,20 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  async redirects() {
+    return [
+      {
+        source: "/futures",
+        destination: "/recruits",
+        permanent: true,
+      },
+      {
+        source: "/futures/:path*",
+        destination: "/recruits/:path*",
+        permanent: true,
+      },
+    ];
+  },
 };
 
 export default withBundleAnalyzer(nextConfig);

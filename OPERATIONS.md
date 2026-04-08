@@ -85,10 +85,10 @@ Add the team to `ESPN_TEAM_MAP` in `python_engine/sync_ourlads_depth_charts.py` 
 | USC | 30 |
 | Washington | 264 |
 | LSU | 99 |
-| Tennessee | 245 |
+| Tennessee | 2633 |
 | Oklahoma | 201 |
 | Florida | 57 |
-| South Carolina | 257 |
+| South Carolina | 2579 |
 | Miami | 2390 |
 | Clemson | 228 |
 | Notre Dame | 87 |
@@ -155,7 +155,7 @@ python calculate_production_scores.py
 python calculate_cfo_valuations.py
 ```
 
-This must always be the final step. The valuation engine (V3.4) reads all upstream data and computes `cfo_valuation` for every player.
+This must always be the final step. The valuation engine (V3.5) reads all upstream data and computes `cfo_valuation` for every player.
 
 ### 1.12 Verification
 
@@ -309,7 +309,46 @@ python calculate_production_scores.py
 python calculate_cfo_valuations.py
 ```
 
-### 2.3 Script Dependencies & Safety
+### 2.6 Headshot Pipeline
+
+After roster data is populated, run headshot mapping:
+
+```bash
+cd python_engine
+python map_espn_athlete_ids.py                         # College athletes — ESPN headshots
+python scrape_247_headshots.py --year 2026             # HS recruits — 247 headshots
+python scrape_247_headshots.py --year 2027
+python scrape_247_headshots.py --year 2028
+```
+
+### 2.7 National Rank Backfill
+
+```bash
+cd python_engine
+python scrape_247_ranks.py --year 2026
+python scrape_247_ranks.py --year 2027
+python scrape_247_ranks.py --year 2028
+```
+
+### 2.8 Slug Generation
+
+After any new players are added:
+
+```bash
+cd python_engine
+python generate_slugs.py
+```
+
+### 2.9 ESPN Team ID Reference
+
+| Team | ESPN ID | Notes |
+|------|---------|-------|
+| Tennessee | 2633 | Corrected April 2026 — was previously 245 (Texas A&M) |
+| South Carolina | 2579 | Corrected April 2026 — was previously 257 (Richmond) |
+
+All other ESPN IDs are correct. See `ESPN_TEAM_MAP` in `ingest_espn_rosters.py` for the full list.
+
+### 2.10 Script Dependencies & Safety
 
 **Safe to run independently (no side effects if run alone):**
 

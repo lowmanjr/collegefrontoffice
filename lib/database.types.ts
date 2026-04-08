@@ -130,9 +130,13 @@ export interface TeamRosterSummary {
   total_football_expenses: number | null;
   reporting_year: string | null;
   total_roster_value: number;
+  total_program_value: number;
+  incoming_recruit_value: number;
+  incoming_recruit_count: number;
   roster_count: number;
   college_count: number;
   recruit_count: number;
   avg_valuation: number;
   max_valuation: number;
+  departed_count: number;
 }

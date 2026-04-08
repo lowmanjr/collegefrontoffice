@@ -1,7 +1,8 @@
 import Link from "next/link";
 import Image from "next/image";
 import { supabase } from "@/lib/supabase";
-import { formatCurrency } from "@/lib/utils";
+import { formatCurrency, formatCompactCurrency } from "@/lib/utils";
+import { BASE_URL } from "@/lib/constants";
 import { positionBadgeClass } from "@/lib/ui-helpers";
 import PlayerAvatar from "@/components/PlayerAvatar";
 import type { PlayerRow } from "@/lib/database.types";
@@ -22,6 +23,9 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     description: data
       ? `NIL roster valuation for ${data.university_name} (${data.conference})`
       : "Team NIL roster valuation",
+    alternates: {
+      canonical: `${BASE_URL}/teams/${slug}`,
+    },
   };
 }
 
@@ -147,7 +151,7 @@ export default async function TeamDashboardPage({ params }: PageProps) {
                   className="text-3xl sm:text-4xl font-bold text-emerald-400 leading-none"
                   style={{ fontFamily: "var(--font-oswald), sans-serif" }}
                 >
-                  {formatCurrency(total_valuation)}
+                  {formatCompactCurrency(total_valuation)}
                 </p>
               </div>
             </div>

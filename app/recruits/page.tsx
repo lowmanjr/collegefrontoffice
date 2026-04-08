@@ -3,16 +3,18 @@ import Image from "next/image";
 import { Suspense } from "react";
 import { supabase } from "@/lib/supabase";
 import type { Metadata } from "next";
+import { BASE_URL } from "@/lib/constants";
 
 export const revalidate = 1800;
 
 export const metadata: Metadata = {
-  title: "Recruit Valuations — CFO NIL Valuations | College Front Office",
-  description: "Projected NIL valuations for elite high school football recruits ranked by the C.F.O. algorithm.",
+  title: "Top Football Recruit NIL Valuations — HS Recruit Rankings | College Front Office",
+  description: "Projected NIL valuations for elite high school football recruits. Ranked by composite recruiting score with position and program premiums.",
   openGraph: {
-    title: "Recruit Valuations | College Front Office",
+    title: "Top Football Recruit NIL Valuations | College Front Office",
     description: "Projected NIL valuations for elite high school football recruits.",
   },
+  alternates: { canonical: `${BASE_URL}/recruits` },
 };
 import SearchFilters from "@/components/SearchFilters";
 import ClassYearFilter from "@/components/ClassYearFilter";
@@ -54,6 +56,25 @@ export default async function FuturesMarketPage({ searchParams }: PageProps) {
 
   return (
     <main className="min-h-screen bg-gray-100">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "ItemList",
+            name: "Recruit Valuations",
+            description: "Elite high school football recruit valuations.",
+            url: `${BASE_URL}/recruits`,
+            numberOfItems: rows.length,
+            itemListElement: rows.slice(0, 50).map((recruit, i) => ({
+              "@type": "ListItem",
+              position: i + 1,
+              url: `${BASE_URL}/players/${recruit.slug}`,
+              name: recruit.name,
+            })),
+          }),
+        }}
+      />
       {/* ── Header ─────────────────────────────────────────────────────────── */}
       <div className="bg-slate-900 text-white px-6 py-8">
         <div className="mx-auto max-w-7xl">

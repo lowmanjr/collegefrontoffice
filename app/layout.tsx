@@ -3,6 +3,7 @@ import { Inter, Oswald } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { BASE_URL } from "@/lib/constants";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -16,21 +17,25 @@ const oswald = Oswald({
 });
 
 export const metadata: Metadata = {
-  title: "CollegeFrontOffice | Mapping the College Sports Economy",
+  metadataBase: new URL(BASE_URL),
+  alternates: {
+    canonical: "/",
+  },
+  title: "College Front Office | NIL Valuations for College Sports",
   description:
-    "Proprietary NIL valuations for Power 4 college football programs, players, and recruits.",
+    "The most comprehensive NIL valuation database in college sports. Proprietary player and team valuations for Power 4 college football.",
   openGraph: {
-    title: "CollegeFrontOffice | Mapping the College Sports Economy",
+    title: "College Front Office | NIL Valuations for College Sports",
     description:
-      "Proprietary NIL valuations for Power 4 college football programs, players, and recruits.",
+      "The most comprehensive NIL valuation database in college sports. Proprietary player and team valuations for Power 4 college football.",
     siteName: "CollegeFrontOffice",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "CollegeFrontOffice | Mapping the College Sports Economy",
+    title: "College Front Office | NIL Valuations for College Sports",
     description:
-      "Proprietary NIL valuations for Power 4 college football programs, players, and recruits.",
+      "The most comprehensive NIL valuation database in college sports. Proprietary player and team valuations for Power 4 college football.",
   },
 };
 

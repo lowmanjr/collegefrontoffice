@@ -40,7 +40,9 @@
       "Bash(grep -rn \"245\\\\|257\" /c/Users/johng/OneDrive/Desktop/collegefrontoffice/python_engine/*.py)",
       "Bash(mv:*)",
       "Bash(mv app/players/\\\\[id\\\\] app/players/\\\\[slug\\\\])",
-      "Bash(mv app/teams/\\\\[id\\\\] app/teams/\\\\[slug\\\\])"
+      "Bash(mv app/teams/\\\\[id\\\\] app/teams/\\\\[slug\\\\])",
+      "Bash(cmd.exe /c \"rmdir /s /q .next\")",
+      "Bash(ls:*)"
     ]
   }
 }

@@ -1,12 +1,14 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { BASE_URL } from "@/lib/constants";
 
 export const revalidate = false;
 
 export const metadata: Metadata = {
-  title: "How CFO Valuations Work | College Front Office",
+  title: "How NIL Valuations Work — CFO Methodology | College Front Office",
   description:
-    "College Front Office uses a proprietary multi-factor model to estimate every player's annualized NIL market value. Learn about our methodology — position value, draft projection, production data, program market, and more.",
+    "Learn how College Front Office calculates NIL valuations for college football players and recruits. Our proprietary multi-factor model explained.",
+  alternates: { canonical: `${BASE_URL}/methodology` },
 };
 
 export default function MethodologyPage() {

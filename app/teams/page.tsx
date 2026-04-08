@@ -2,19 +2,21 @@ import Link from "next/link";
 import Image from "next/image";
 import { Suspense } from "react";
 import { supabase } from "@/lib/supabase";
-import { formatCurrency } from "@/lib/utils";
+import { formatCurrency, formatCompactCurrency } from "@/lib/utils";
 import type { TeamRosterSummary } from "@/lib/database.types";
 import type { Metadata } from "next";
+import { BASE_URL } from "@/lib/constants";
 
 export const revalidate = 3600;
 
 export const metadata: Metadata = {
-  title: "Team Valuations — CFO NIL Valuations | College Front Office",
-  description: "Ranking college football programs by total active roster market cap. 16 Power 4 programs tracked with proprietary NIL valuations.",
+  title: "College Football Team NIL Valuations — Program Rankings | College Front Office",
+  description: "College football programs ranked by estimated roster value. See which teams have the most valuable rosters in the NIL era.",
   openGraph: {
-    title: "Team Valuations | College Front Office",
-    description: "Ranking college football programs by total active roster market cap.",
+    title: "College Football Team NIL Valuations | College Front Office",
+    description: "College football programs ranked by estimated roster value.",
   },
+  alternates: { canonical: `${BASE_URL}/teams` },
 };
 
 // ─── skeletons ───────────────────────────────────────────────────────────────
@@ -37,7 +39,7 @@ async function TeamsGrid() {
     supabase
       .from("team_roster_summary")
       .select("*")
-      .order("total_roster_value", { ascending: false }),
+      .order("total_program_value", { ascending: false }),
     supabase.from("teams").select("id, slug"),
   ]);
 
@@ -52,6 +54,25 @@ async function TeamsGrid() {
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "ItemList",
+            name: "Team Valuations",
+            description: "College football programs ranked by estimated roster value.",
+            url: `${BASE_URL}/teams`,
+            numberOfItems: teams.length,
+            itemListElement: teams.map((team, i) => ({
+              "@type": "ListItem",
+              position: i + 1,
+              url: `${BASE_URL}/teams/${slugMap[team.id] ?? team.id}`,
+              name: team.university_name,
+            })),
+          }),
+        }}
+      />
       {teams.length === 0 ? (
         <div className="bg-white rounded-xl shadow-md p-16 text-center">
           <p className="text-slate-400 text-sm">No programs found.</p>
@@ -116,12 +137,12 @@ async function TeamsGrid() {
 
                     {/* Roster value */}
                     <td className="px-4 py-3.5 text-right">
-                      {team.total_roster_value > 0 ? (
+                      {team.total_program_value > 0 ? (
                         <span
                           className="font-bold text-emerald-600 tabular-nums"
                           style={{ fontFamily: "var(--font-oswald), sans-serif" }}
                         >
-                          {formatCurrency(team.total_roster_value)}
+                          {formatCompactCurrency(team.total_program_value)}
                         </span>
                       ) : (
                         <span className="text-slate-400 text-xs">—</span>
