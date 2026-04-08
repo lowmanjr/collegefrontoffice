@@ -218,7 +218,7 @@ export default async function TeamDashboardPage({ params }: PageProps) {
               <p className="text-xs text-slate-400 leading-relaxed">
                 <span className="font-semibold text-slate-300">Note on Valuations: </span>
                 Total Market Cap is an analytical projection. Valuations are dynamically generated
-                based on 247Sports composite ratings, active depth-chart status, and positional
+                based on composite recruiting ratings, active depth-chart status, and positional
                 market premiums. They are designed to illustrate relative roster equity and pipeline
                 strength, not exact NIL compensation.
               </p>

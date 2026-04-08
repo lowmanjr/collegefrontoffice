@@ -173,14 +173,9 @@ export default async function PlayerProfilePage({ params }: PageProps) {
                     {p.position}
                   </span>
                 )}
-                {isHS && p.class_year && (
+                {isHS && (p.class_year || p.hs_grad_year) && (
                   <span className="rounded px-2.5 py-0.5 text-xs font-semibold uppercase tracking-widest bg-slate-700 text-slate-300">
-                    Class of {p.class_year}
-                  </span>
-                )}
-                {hasOverrideData && (
-                  <span className="rounded px-2.5 py-0.5 text-xs font-semibold uppercase tracking-widest bg-emerald-600 text-white">
-                    Verified Deal
+                    Class of {p.class_year ?? p.hs_grad_year}
                   </span>
                 )}
               </div>
@@ -223,7 +218,7 @@ export default async function PlayerProfilePage({ params }: PageProps) {
                 ) : (
                   <div>
                     <p className="text-xs uppercase tracking-widest text-slate-500 mb-1">
-                      {hasOverrideData ? "Verified Market Value" : isHS ? "CFO Futures Value" : "CFO Valuation"}
+                      {hasOverrideData ? "NIL Valuation" : isHS ? "CFO Futures Value" : "CFO Valuation"}
                     </p>
                     <p
                       className="text-4xl sm:text-5xl font-bold text-emerald-400 leading-none"
@@ -231,33 +226,42 @@ export default async function PlayerProfilePage({ params }: PageProps) {
                     >
                       {displayValuation != null ? formatCurrency(displayValuation) : "—"}
                     </p>
-                    {/* Override sources */}
-                    {hasOverrideData && nilOverrides.length > 0 && (
-                      <div className="mt-2 flex flex-wrap gap-2">
-                        {nilOverrides.map((ov, i) => {
-                          const isAlgorithmic = (ov.source_name ?? "").includes("(algorithmic)") ||
-                            (ov.source_name ?? "").includes("(pending verification)");
-                          const hasRealUrl = ov.source_url != null && !isAlgorithmic;
-                          const displayName = (ov.source_name ?? "Source")
-                            .replace(" (algorithmic)", "")
-                            .replace(" (pending verification)", "");
+                    {/* Contract details for override players */}
+                    {hasOverrideData && bestOverride && (
+                      <div className="mt-2 flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-slate-400">
+                        {bestOverride.years && (
+                          <span>{bestOverride.years} yr{bestOverride.years !== 1 ? "s" : ""}</span>
+                        )}
+                        {bestOverride.years && bestOverride.total_value && bestOverride.years !== 1 && (
+                          <>
+                            <span className="text-slate-600">·</span>
+                            <span>{formatCurrency(bestOverride.total_value)} total</span>
+                          </>
+                        )}
+                        {nilOverrides.some(ov => ov.source_url || ov.source_name) && (
+                          <>
+                            <span className="text-slate-600">·</span>
+                            {nilOverrides.map((ov, i) => {
+                              const displayName = (ov.source_name ?? "")
+                                .replace(" (algorithmic)", "")
+                                .replace(" (pending verification)", "");
+                              if (!displayName) return null;
+                              const isAlgorithmic = (ov.source_name ?? "").includes("(algorithmic)") ||
+                                (ov.source_name ?? "").includes("(pending verification)");
+                              const hasRealUrl = ov.source_url != null && !isAlgorithmic;
 
-                          if (hasRealUrl) {
-                            return (
-                              <a key={i} href={ov.source_url!} target="_blank" rel="noopener noreferrer"
-                                className="inline-flex items-center gap-1 text-xs text-emerald-400 hover:text-emerald-300 transition-colors">
-                                {displayName}
-                                <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true">
-                                  <path d="M3 2H2a1 1 0 00-1 1v5a1 1 0 001 1h5a1 1 0 001-1V7M6 1h3m0 0v3m0-3L4 6"
-                                    stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
-                                </svg>
-                              </a>
-                            );
-                          }
-                          return (
-                            <span key={i} className="text-xs text-slate-500">{displayName}</span>
-                          );
-                        })}
+                              if (hasRealUrl) {
+                                return (
+                                  <a key={i} href={ov.source_url!} target="_blank" rel="noopener noreferrer"
+                                    className="text-slate-400 hover:text-white underline transition-colors">
+                                    {displayName}
+                                  </a>
+                                );
+                              }
+                              return <span key={i}>{displayName}</span>;
+                            })}
+                          </>
+                        )}
                       </div>
                     )}
                   </div>
@@ -270,124 +274,6 @@ export default async function PlayerProfilePage({ params }: PageProps) {
 
       {/* ── Body ─────────────────────────────────────────────────────────── */}
       <div className="mx-auto max-w-3xl px-6 py-4 space-y-4">
-        {/* ── Verified Market Report — override players only ─────────────── */}
-        {hasOverrideData && bestOverride && (
-          <div className="bg-emerald-950 border border-emerald-700/40 rounded-xl shadow-md p-6">
-            <div className="flex flex-wrap items-center gap-3 mb-5">
-              <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-600 text-white px-3 py-1 text-xs font-bold uppercase tracking-widest">
-                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
-                  <path
-                    d="M2 6L5 9L10 3"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-                Verified Market Report
-              </span>
-              <h2
-                className="text-lg font-bold text-white"
-                style={{ fontFamily: "var(--font-oswald), sans-serif" }}
-              >
-                Reported NIL Deal
-              </h2>
-            </div>
-
-            {/* Deal figures */}
-            <div className="grid grid-cols-2 gap-6 sm:grid-cols-3 mb-6">
-              <div>
-                <p className="text-xs uppercase tracking-widest text-emerald-400/70 mb-1">
-                  Annualized Value
-                </p>
-                <p
-                  className="text-3xl font-bold text-emerald-400 leading-none"
-                  style={{ fontFamily: "var(--font-oswald), sans-serif" }}
-                >
-                  {formatCurrency(bestOverride.annualized_value)}
-                  <span className="text-sm font-normal text-emerald-500/70">/yr</span>
-                </p>
-              </div>
-              <div>
-                <p className="text-xs uppercase tracking-widest text-emerald-400/70 mb-1">
-                  Total Value
-                </p>
-                <p
-                  className="text-3xl font-bold text-white leading-none"
-                  style={{ fontFamily: "var(--font-oswald), sans-serif" }}
-                >
-                  {formatCurrency(bestOverride.total_value)}
-                </p>
-              </div>
-              <div>
-                <p className="text-xs uppercase tracking-widest text-emerald-400/70 mb-1">
-                  Contract Length
-                </p>
-                <p
-                  className="text-3xl font-bold text-white leading-none"
-                  style={{ fontFamily: "var(--font-oswald), sans-serif" }}
-                >
-                  {bestOverride.years}
-                  <span className="text-sm font-normal text-slate-400"> yr</span>
-                </p>
-              </div>
-            </div>
-
-            {/* Sources */}
-            <div>
-              <p className="text-xs uppercase tracking-widest text-emerald-400/70 mb-2">Sources</p>
-              <div className="flex flex-wrap gap-2">
-                {nilOverrides.map((ov, i) => {
-                  const isAlgorithmic = (ov.source_name ?? "").includes("(algorithmic)") ||
-                    (ov.source_name ?? "").includes("(pending verification)");
-                  const hasRealUrl = ov.source_url != null && !isAlgorithmic;
-                  const displayName = (ov.source_name ?? "Source")
-                    .replace(" (algorithmic)", "")
-                    .replace(" (pending verification)", "");
-
-                  if (hasRealUrl) {
-                    return (
-                      <a
-                        key={i}
-                        href={ov.source_url!}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1.5 rounded-full border border-emerald-600/40 bg-emerald-900/40 px-3 py-1 text-xs font-semibold text-emerald-300 hover:bg-emerald-800/60 transition-colors"
-                      >
-                        {displayName}
-                        <svg
-                          width="10"
-                          height="10"
-                          viewBox="0 0 10 10"
-                          fill="none"
-                          aria-hidden="true"
-                        >
-                          <path
-                            d="M3 2H2a1 1 0 00-1 1v5a1 1 0 001 1h5a1 1 0 001-1V7M6 1h3m0 0v3m0-3L4 6"
-                            stroke="currentColor"
-                            strokeWidth="1.2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          />
-                        </svg>
-                      </a>
-                    );
-                  }
-
-                  return (
-                    <span
-                      key={i}
-                      className="inline-flex items-center gap-1.5 rounded-full border border-slate-600/40 bg-slate-800/40 px-3 py-1 text-xs font-semibold text-slate-400"
-                    >
-                      {displayName}
-                    </span>
-                  );
-                })}
-              </div>
-            </div>
-          </div>
-        )}
-
         {/* ── Off-depth-chart notice ───────────────────────────────────────── */}
         {isOffDepthChart && (
           <div className="bg-white rounded-xl shadow-md p-6 flex gap-3 items-start">
@@ -416,35 +302,50 @@ export default async function PlayerProfilePage({ params }: PageProps) {
 
         {/* ── Recruiting Profile — HS recruits only ────────────────────────── */}
         {isHS && !isPrivate && !isIneligible && (
-          <div className="bg-white rounded-xl shadow-md border border-gray-200 p-5">
+          <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-5">
             <h2 className="text-xs uppercase tracking-widest text-slate-400 mb-4"
               style={{ fontFamily: "var(--font-oswald), sans-serif" }}>
               Recruiting Profile
             </h2>
-            <div className="flex flex-wrap gap-6">
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
               {p.star_rating != null && p.star_rating > 0 && (
                 <div>
-                  <p className="text-xs text-slate-500 mb-1">Rating</p>
-                  <span className="text-lg text-yellow-400">{"★".repeat(Math.min(p.star_rating, 5))}</span>
+                  <p className="text-[10px] text-slate-400 uppercase tracking-wide mb-1">Rating</p>
+                  <span className="text-base text-yellow-400 leading-none">{"★".repeat(Math.min(p.star_rating, 5))}</span>
                 </div>
               )}
               {p.composite_score != null && (
                 <div>
-                  <p className="text-xs text-slate-500 mb-1">Composite</p>
-                  <p className="font-mono text-lg font-bold text-slate-900">
+                  <p className="text-[10px] text-slate-400 uppercase tracking-wide mb-1">Composite</p>
+                  <p className="font-mono text-base font-bold text-slate-900 leading-none">
                     {Number(p.composite_score).toFixed(4)}
                   </p>
                 </div>
               )}
               {p.national_rank != null && (
                 <div>
-                  <p className="text-xs text-slate-500 mb-1">National Rank</p>
-                  <p className="text-lg font-bold text-slate-900" style={{ fontFamily: "var(--font-oswald), sans-serif" }}>
+                  <p className="text-[10px] text-slate-400 uppercase tracking-wide mb-1">National Rank</p>
+                  <p className="text-base font-bold text-slate-900 leading-none" style={{ fontFamily: "var(--font-oswald), sans-serif" }}>
                     #{p.national_rank}
                   </p>
                 </div>
               )}
             </div>
+          </div>
+        )}
+
+        {/* ── Methodology note — HS recruits ──────────────────────────────── */}
+        {isHS && !isPrivate && !isIneligible && displayValuation != null && (
+          <div className="flex items-center gap-2 text-xs text-slate-400">
+            <svg className="h-3.5 w-3.5 text-slate-300 shrink-0" viewBox="0 0 20 20" fill="currentColor">
+              <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a.75.75 0 000 1.5h.253a.25.25 0 01.244.304l-.459 2.066A1.75 1.75 0 0010.747 15H11a.75.75 0 000-1.5h-.253a.25.25 0 01-.244-.304l.459-2.066A1.75 1.75 0 009.253 9H9z" clipRule="evenodd" />
+            </svg>
+            <p>
+              This futures valuation is generated by the C.F.O. V3.5 engine based on composite recruiting score and position premium.{" "}
+              <Link href="/methodology" className="text-slate-500 hover:text-slate-700 underline transition-colors">
+                Learn more
+              </Link>
+            </p>
           </div>
         )}
 

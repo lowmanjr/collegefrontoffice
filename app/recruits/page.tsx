@@ -8,7 +8,7 @@ export const revalidate = 1800;
 
 export const metadata: Metadata = {
   title: "Recruit Valuations — CFO NIL Valuations | College Front Office",
-  description: "Projected NIL valuations for elite high school football recruits based on 247Sports Composite rankings and the C.F.O. algorithm.",
+  description: "Projected NIL valuations for elite high school football recruits ranked by the C.F.O. algorithm.",
   openGraph: {
     title: "Recruit Valuations | College Front Office",
     description: "Projected NIL valuations for elite high school football recruits.",
