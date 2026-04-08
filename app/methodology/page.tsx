@@ -15,17 +15,8 @@ export default function MethodologyPage() {
   return (
     <main className="min-h-screen bg-gray-100">
       {/* ── Hero ─────────────────────────────────────────────────────────── */}
-      <section className="bg-slate-900 text-white px-6 py-14">
+      <section className="bg-slate-900 text-white px-6 py-8">
         <div className="mx-auto max-w-3xl">
-          <Link
-            href="/"
-            className="inline-block mb-6 text-slate-400 hover:text-white text-sm transition-colors"
-          >
-            ← Back to Dashboard
-          </Link>
-          <span className="inline-block mb-4 rounded-full bg-slate-700 px-3 py-1 text-xs font-semibold uppercase tracking-widest text-green-400">
-            Methodology
-          </span>
           <h1
             className="text-4xl sm:text-5xl font-bold uppercase tracking-tight leading-none"
             style={{ fontFamily: "var(--font-oswald), sans-serif" }}
@@ -34,23 +25,14 @@ export default function MethodologyPage() {
           </h1>
           <p className="mt-4 text-slate-400 text-base leading-relaxed max-w-2xl">
             College Front Office uses a proprietary multi-factor model to estimate every
-            player&apos;s annualized NIL market value. Here&apos;s what goes into the number.
+            player&apos;s annualized NIL market value. These are proprietary estimates, not
+            official financial disclosures.
           </p>
-          <p className="mt-2 text-xs text-slate-500">Last updated April 2026 · Engine V3.5</p>
         </div>
       </section>
 
       {/* ── Body ─────────────────────────────────────────────────────────── */}
       <div className="mx-auto max-w-3xl px-6 py-12 space-y-8">
-        {/* ── Disclaimer ─────────────────────────────────────────────────── */}
-        <div className="bg-blue-50 border-l-4 border-blue-600 rounded-r-lg p-4 mb-8">
-          <p className="text-sm text-blue-900 leading-relaxed">
-            <span className="font-semibold">Disclaimer:</span> The NIL market is inherently private.
-            These figures are proprietary estimates intended as a resource for fans and players to
-            better understand market dynamics, not official financial disclosures.
-          </p>
-        </div>
-
         {/* ── Section 1: What We Measure ─────────────────────────────────── */}
         <section className="bg-white rounded-xl shadow-md p-8">
           <h2
@@ -69,8 +51,8 @@ export default function MethodologyPage() {
               </h3>
               <p className="text-sm text-slate-600 leading-relaxed">
                 The foundation of every valuation is football. We assess a player&apos;s projected
-                career trajectory using draft modeling, on-field production data, and video game
-                scouting ratings as a secondary talent signal. Players with stronger professional
+                career trajectory using draft modeling, on-field production data, and independent
+                talent ratings. Players with stronger professional
                 outlooks command higher NIL valuations — because brands, collectives, and programs
                 are investing in future visibility.
               </p>
@@ -119,7 +101,7 @@ export default function MethodologyPage() {
                 We use a three-tier talent evaluation system. The primary signal is on-field
                 production — season-level statistical performance ranked against all FBS players at
                 the same position. When production data isn&apos;t available (common for offensive
-                linemen and incoming transfers), we use EA Sports College Football ratings as a
+                linemen and incoming transfers), we use independent talent ratings as a
                 calibrated fallback. For players without either signal, we fall back to their
                 recruiting pedigree.
               </p>
@@ -281,25 +263,22 @@ export default function MethodologyPage() {
           </div>
         </section>
 
-        {/* ── Section 3: Verified Deals ─────────────────────────────────── */}
+        {/* ── Section 3: Reported Deals ─────────────────────────────────── */}
         <section className="bg-white rounded-xl shadow-md p-8">
           <h2
             className="text-xl font-bold text-slate-900 uppercase tracking-wide mb-4"
             style={{ fontFamily: "var(--font-oswald), sans-serif" }}
           >
-            Verified Deals
+            Reported Deals
           </h2>
           <p className="text-sm text-slate-600 leading-relaxed mb-4">
-            When a player has a publicly reported or verified NIL deal, we flag their profile with a{" "}
-            <span className="inline-flex items-center rounded-full bg-emerald-100 text-emerald-700 px-2.5 py-0.5 text-xs font-bold mx-1">
-              Verified Deal
-            </span>{" "}
-            badge. In these cases, the verified deal value replaces our algorithmic estimate
-            entirely. We believe real market data is always more accurate than any model.
+            When a player has a publicly reported NIL deal from a credible source, we use
+            that reported figure as their valuation instead of our algorithmic estimate. We
+            believe real market data is always more accurate than any model.
           </p>
           <p className="text-sm text-slate-600 leading-relaxed">
-            Verified deal data is sourced from public reporting, NIL collectives, and direct
-            submissions. Each source is attributed on the player&apos;s profile.
+            Reported deal data is sourced from public reporting, NIL collectives, and direct
+            submissions. Each source is attributed on the player&apos;s profile when available.
           </p>
         </section>
 
@@ -319,7 +298,7 @@ export default function MethodologyPage() {
               },
               {
                 title: "We don't speculate on unsigned deals.",
-                body: "If a deal isn't verified, it doesn't override our model.",
+                body: "If a deal isn't publicly reported, it doesn't override our model.",
               },
               {
                 title: "We don't penalize for injury or status.",
@@ -349,16 +328,10 @@ export default function MethodologyPage() {
           >
             How Often Valuations Update
           </h2>
-          <p className="text-sm text-slate-600 leading-relaxed mb-3">
-            Valuations are recalculated regularly as new data becomes available — including updated
-            production metrics, roster changes, draft projections, and social media growth. Each
-            player&apos;s profile includes a &quot;Last Updated&quot; timestamp.
-          </p>
           <p className="text-sm text-slate-600 leading-relaxed">
-            Major valuation-changing events (transfers, draft declarations, verified deals) are
-            tracked in a player&apos;s{" "}
-            <span className="font-semibold text-slate-800">Valuation Timeline</span>, visible on
-            their profile page.
+            Valuations are recalculated regularly as new data becomes available — including
+            updated production metrics, roster changes, draft projections, and social media
+            growth.
           </p>
         </section>
 
