@@ -42,7 +42,11 @@
       "Bash(mv app/players/\\\\[id\\\\] app/players/\\\\[slug\\\\])",
       "Bash(mv app/teams/\\\\[id\\\\] app/teams/\\\\[slug\\\\])",
       "Bash(cmd.exe /c \"rmdir /s /q .next\")",
-      "Bash(ls:*)"
+      "Bash(ls:*)",
+      "Bash(git status:*)",
+      "Bash(git add:*)",
+      "Bash(git commit -m ':*)",
+      "Bash(claude config:*)"
     ]
   }
 }
