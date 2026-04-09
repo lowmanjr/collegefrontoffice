@@ -1,5 +1,14 @@
 # CollegeFrontOffice.com — Master Architecture Document
 
+## Current Status (April 2026)
+- **68 Power 4 teams**, 12,838 players, 4,971 valued
+- **Pipeline order**: ESPN rosters → On3 transfer portal → Ourlads depth charts → valuations
+- ESPN sync runs first (base truth), On3 portal sync runs second (catches recent transfers ESPN missed)
+- Transfer portal scraper: sync_transfer_portal.py (On3, paginated, 5,432 committed entries)
+- Texas comparison CSV workflow in progress — user pastes On3 data, script generates CSV with CFO vs On3 valuations, user fills Override Value column
+- Methodology page cleaned (no EA Sports, no On3, no "verified" language)
+- All UI pages use slug-based URLs, compact currency for team totals, full precision for player valuations
+
 ## 1. Project Overview
 College Front Office is a data dashboard and valuation tool for the modern college sports economy. It aggregates player data across all 68 Power 4 programs (SEC, Big Ten, Big 12, ACC, and Notre Dame), calculates a proprietary "C.F.O. Valuation" for college athletes and elite HS recruits, and tracks team-level roster composition and estimated roster value.
 
