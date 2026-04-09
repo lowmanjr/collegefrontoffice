@@ -1,7 +1,7 @@
 # CollegeFrontOffice.com — Master Architecture Document
 
 ## 1. Project Overview
-College Front Office is a data dashboard and valuation tool for the modern college sports economy. It aggregates player data across 16 Power 4 programs, calculates a proprietary "C.F.O. Valuation" for college athletes and elite HS recruits, and tracks team-level salary cap space and roster composition.
+College Front Office is a data dashboard and valuation tool for the modern college sports economy. It aggregates player data across all 68 Power 4 programs (SEC, Big Ten, Big 12, ACC, and Notre Dame), calculates a proprietary "C.F.O. Valuation" for college athletes and elite HS recruits, and tracks team-level roster composition and estimated roster value.
 
 ## 2. Tech Stack
 * **Frontend Framework:** Next.js (App Router)
@@ -70,12 +70,24 @@ Key algorithm files:
 | `scrape_247_ranks.py` | Scrapes 247Sports composite rankings to backfill national_rank |
 | `generate_slugs.py` | Generates URL-safe slugs for all teams and players, handles duplicates |
 | `snapshot_valuations.py` | Snapshots current valuations into valuation_history for sparkline data |
+| `expand_to_power4.py` | Creates/updates all 68 Power 4 team records with conference, multiplier, logo, slug |
+| `onboard_new_teams.py` | Master pipeline script — runs full onboarding sequence for new teams |
+| `sync_espn_rosters_by_id.py` | Syncs rosters via ESPN athlete IDs — moves transfers, creates new players |
+| `sync_on3_rosters.py` | Syncs rosters via On3 team NIL pages — catches transfers ESPN hasn't processed |
+| `sync_transfer_portal.py` | Scrapes On3 committed transfer portal (5,400+ entries) for roster moves |
+| `scrape_on3_team_socials.py` | Scrapes On3 team NIL pages for per-player social follower counts |
+| `scrape_247_commitments.py` | Scrapes 247Sports for current HS recruit commitment data |
+| `backfill_recruit_commitments.py` | Backfills team_id for HS recruits using CFBD committedTo field |
 
 ### Overrides
 21 active overrides as of April 2026. Overrides bypass the algorithmic formula entirely. Managed via `python_engine/data/approved_overrides.csv` → `apply_overrides.py`.
 
-## 4. Tracked Teams (16)
-Alabama, Clemson, Florida, Georgia, LSU, Miami, Michigan, Notre Dame, Ohio State, Oklahoma, Oregon, South Carolina, Tennessee, Texas, USC, Washington
+## 4. Tracked Teams (68 — All Power 4)
+**SEC (16):** Alabama, Arkansas, Auburn, Florida, Georgia, Kentucky, LSU, Mississippi State, Missouri, Oklahoma, Ole Miss, South Carolina, Tennessee, Texas, Texas A&M, Vanderbilt
+**Big Ten (18):** Illinois, Indiana, Iowa, Maryland, Michigan, Michigan State, Minnesota, Nebraska, Northwestern, Ohio State, Oregon, Penn State, Purdue, Rutgers, UCLA, USC, Washington, Wisconsin
+**Big 12 (16):** Arizona, Arizona State, Baylor, BYU, Cincinnati, Colorado, Houston, Iowa State, Kansas, Kansas State, Oklahoma State, TCU, Texas Tech, UCF, Utah, West Virginia
+**ACC (17):** Boston College, Cal, Clemson, Duke, Florida State, Georgia Tech, Louisville, Miami, NC State, North Carolina, Pittsburgh, SMU, Stanford, Syracuse, Virginia, Virginia Tech, Wake Forest
+**Independent (1):** Notre Dame
 
 ## 5. Data Architecture
 

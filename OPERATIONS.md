@@ -11,7 +11,7 @@ Insert a new row into the Supabase `teams` table with the following fields:
 | Field | Value | Notes |
 |-------|-------|-------|
 | `university_name` | e.g., "Penn State" | Must match canonical name used across all scripts |
-| `conference` | e.g., "Big Ten" | One of: SEC, Big Ten, ACC, Independent |
+| `conference` | e.g., "Big Ten" | One of: SEC, Big Ten, Big 12, ACC, Independent |
 | `market_multiplier` | See tiers below | Numeric, 0.80 to 1.30 |
 | `estimated_cap_space` | `20500000` | Default $20,500,000 for all new teams |
 | `logo_url` | ESPN CDN URL | e.g., `https://a.espncdn.com/i/teamlogos/ncaa/500/{espn_id}.png` |
@@ -339,16 +339,63 @@ cd python_engine
 python generate_slugs.py
 ```
 
-### 2.9 ESPN Team ID Reference
+### 2.9 Roster Sync Pipeline (Transfer Season)
+
+The roster sync pipeline runs three complementary sources to catch all transfers. Run in this order:
+
+```bash
+cd python_engine
+
+# Step 1: ESPN roster sync (most reliable — uses ESPN athlete IDs)
+python sync_espn_rosters_by_id.py
+
+# Step 2: On3 team roster sync (catches transfers ESPN hasn't processed)
+python sync_on3_rosters.py
+
+# Step 3: On3 transfer portal sync (scrapes all 5,400+ committed transfers)
+python sync_transfer_portal.py
+
+# Step 4: Re-sync depth charts for transferred players
+python sync_ourlads_depth_charts.py --apply
+
+# Step 5: Re-run valuations
+python calculate_cfo_valuations.py
+
+# Step 6: Regenerate slugs for new players
+python generate_slugs.py
+```
+
+**HS Recruit Commitments** (run separately):
+
+```bash
+python scrape_247_commitments.py --year 2026
+python scrape_247_commitments.py --year 2027
+python scrape_247_commitments.py --year 2028
+python backfill_recruit_commitments.py --year 2026
+python backfill_recruit_commitments.py --year 2027
+python backfill_recruit_commitments.py --year 2028
+```
+
+**Social Data Refresh** (run after roster changes):
+
+```bash
+python scrape_on3_team_socials.py
+```
+
+### 2.10 ESPN Team ID Reference
+
+All 68 Power 4 ESPN IDs are in `ESPN_IDS_BY_NAME` in `ingest_espn_rosters.py`. Key corrections (April 2026):
 
 | Team | ESPN ID | Notes |
 |------|---------|-------|
-| Tennessee | 2633 | Corrected April 2026 — was previously 245 (Texas A&M) |
-| South Carolina | 2579 | Corrected April 2026 — was previously 257 (Richmond) |
+| Tennessee | 2633 | Corrected — was previously 245 (Texas A&M) |
+| South Carolina | 2579 | Corrected — was previously 257 (Richmond) |
 
-All other ESPN IDs are correct. See `ESPN_TEAM_MAP` in `ingest_espn_rosters.py` for the full list.
+### 2.11 Power 4 Expansion (April 2026)
 
-### 2.10 Script Dependencies & Safety
+Expanded from 16 to 68 teams using `expand_to_power4.py`. See `onboard_new_teams.py` for the full pipeline.
+
+### 2.12 Script Dependencies & Safety
 
 **Safe to run independently (no side effects if run alone):**
 
