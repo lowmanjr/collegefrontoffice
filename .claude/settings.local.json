@@ -46,7 +46,12 @@
       "Bash(git status:*)",
       "Bash(git add:*)",
       "Bash(git commit -m ':*)",
-      "Bash(claude config:*)"
+      "Bash(claude config:*)",
+      "Bash(grep -E '\\\\.tsx$|\\\\.ts$')",
+      "Bash(xargs grep:*)",
+      "Bash(grep -i \"football\\\\|sport\\\\|basketball\\\\|baseball\" \"C:\\\\Users\\\\johng\\\\OneDrive\\\\Desktop\\\\collegefrontoffice/lib\"/*.ts)",
+      "Bash(wc:*)",
+      "Bash(grep:*)"
     ]
   }
 }
