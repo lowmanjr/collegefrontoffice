@@ -177,9 +177,9 @@ export default async function PlayerProfilePage({ params }: PageProps) {
                     {p.position}
                   </span>
                 )}
-                {isHS && (p.class_year || p.hs_grad_year) && (
+                {isHS && (p.hs_grad_year || p.class_year) && (
                   <span className="rounded px-2.5 py-0.5 text-xs font-semibold uppercase tracking-widest bg-slate-700 text-slate-300">
-                    Class of {p.class_year ?? p.hs_grad_year}
+                    Class of {p.hs_grad_year ?? p.class_year}
                   </span>
                 )}
               </div>
