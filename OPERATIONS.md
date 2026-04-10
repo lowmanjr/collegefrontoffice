@@ -232,10 +232,10 @@ python sync_roster_status.py --dry-run          # preview departures
 python sync_roster_status.py                    # apply departures
 python flag_draft_eligible.py --apply-status    # flag draft declarees
 
-# 7. Overrides
-python identify_override_candidates.py          # screen for overrides
+# 7. Reported deals
+python identify_override_candidates.py          # screen for valuation adjustments
 # (manual review of candidates, add to approved_overrides.csv)
-python apply_overrides.py                       # apply approved overrides
+python apply_overrides.py                       # apply approved deals
 python verify_override_urls.py                  # validate source URLs
 
 # 8. Social data
@@ -632,14 +632,14 @@ EDGE   -> DE
 
 Always check for sentinels BEFORE using values in calculations.
 
-### 5.10 Override Protection Rules
+### 5.10 Reported Deal Protection Rules
 
-Override players (`is_override=true`) must NEVER be auto-modified by any pipeline script:
+Players with reported deals (`is_override=true`) must NEVER be auto-modified by any pipeline script:
 
-- `sync_roster_status.py` skips overrides (logs for manual review)
-- `sync_ourlads_depth_charts.py` skips overrides
-- `flag_draft_eligible.py` skips overrides
-- `assign_default_depth_chart.py` skips overrides
+- `sync_roster_status.py` skips reported deal players (logs for manual review)
+- `sync_ourlads_depth_charts.py` skips reported deal players
+- `flag_draft_eligible.py` skips reported deal players
+- `assign_default_depth_chart.py` skips reported deal players
 
 ### 5.11 Batch Upsert Constraint Error
 

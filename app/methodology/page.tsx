@@ -298,7 +298,7 @@ export default function MethodologyPage() {
               },
               {
                 title: "We don't speculate on unsigned deals.",
-                body: "If a deal isn't publicly reported, it doesn't override our model.",
+                body: "If a deal isn't publicly reported, it doesn't replace our model.",
               },
               {
                 title: "We don't penalize for injury or status.",

@@ -452,9 +452,12 @@ export function calculateCfoValuation(
 
 // ── Basketball Valuation Engine ───────────────────────────────────────────────
 
+// Position bases calibrated to Power 4 market floor (2025-26).
+// Mid-major and lower programs are scaled via market_multiplier (0.30-0.75).
+// Blue blood programs (Duke, Kentucky, Kansas) use 1.25-1.35x.
 const BBALL_POSITION_BASES: Record<string, number> = {
-  PG: 350_000, SG: 300_000, SF: 275_000, PF: 250_000, C: 225_000,
-  G: 300_000, F: 275_000,
+  PG: 700_000, SG: 600_000, SF: 550_000, PF: 500_000, C: 450_000,
+  G: 600_000, F: 550_000,
 };
 
 export function getBasketballPositionBase(position: string | null): number {

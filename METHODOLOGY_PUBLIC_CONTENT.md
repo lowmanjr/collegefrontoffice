@@ -78,7 +78,7 @@ Verified deal data is sourced from public reporting, NIL collectives, and direct
 ## Section 4: What We Don't Do
 
 - **We don't use recruiting stars alone.** Star ratings are a useful scouting shorthand, but they don't directly predict NIL market value. A 3-star starter at a major program can out-earn a 5-star backup.
-- **We don't speculate on unsigned deals.** If a deal isn't verified, it doesn't override our model.
+- **We don't speculate on unsigned deals.** If a deal isn't verified, it doesn't replace our model.
 - **We don't penalize for injury or status.** Players with medical exemptions or inactive status retain their projected healthy valuation. We note the status transparently on their profile.
 - **We don't value every high school player.** The NIL market for recruits below four-star status is minimal and highly speculative. We focus on the players whose market activity is real and measurable.
 

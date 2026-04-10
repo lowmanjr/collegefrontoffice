@@ -1,8 +1,7 @@
-# Dybantsa: $2M estimate. Basis: Cooper Flagg (Duke, #1 pick) reported ~$3M.
-# Dybantsa is consensus top-3, BYU market (1.08x) below Duke. $2M is conservative and defensible.
-# Update this row when a reported figure becomes public.
+# Dybantsa: $4-7M range reported (On3/multiple sources). Using $4.4M as conservative floor.
 espn_athlete_id,player_name,total_value,years,source_name,source_url
-5142718,AJ Dybantsa,2000000,1,CFO Estimate,https://collegefrontoffice.com/methodology
+5142718,AJ Dybantsa,4400000,1,Reported — On3/multiple sources,$4-7M range reported
+5101845,Jayden Quaintance,2000000,1,Reported — multiple sources,https://sports.yahoo.com/articles/college-basketballs-10-highest-paid-191412522.html
 # Jasper Johnson: 5-star Kentucky recruit, formula outputs $249K (suppressed by incoming 0.60x).
 # Kentucky NIL collective (KSR-linked) likely paying $500K-$800K range. Hold until comp surfaces.
 # 5095153,Jasper Johnson,600000,1,CFO Estimate,https://collegefrontoffice.com/methodology

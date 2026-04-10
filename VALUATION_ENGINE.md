@@ -35,17 +35,17 @@ The engine runs as a Python batch job (`calculate_cfo_valuations.py`) that reads
 
 ## 2. Master Formula
 
-### 2.0 Override Check (ALWAYS FIRST)
+### 2.0 Reported Deal Check (ALWAYS FIRST)
 
 ```
 IF player.is_override = true AND nil_overrides row exists:
     cfo_valuation = nil_overrides.annualized_value
-    STOP — overrides bypass ALL other logic including the eligibility gate
+    STOP — reported deals bypass ALL other logic including the eligibility gate
 ```
 
-Overrides represent verified market data or market consensus that supersedes any algorithm. A player with a verified $3M deal gets $3M regardless of depth chart status, production score, or any other factor.
+Reported deals represent verified market data or market consensus that supersedes any algorithm. A player with a verified $3M deal gets $3M regardless of depth chart status, production score, or any other factor.
 
-### 2.1 Eligibility Gate (after override check)
+### 2.1 Eligibility Gate (after reported deal check)
 
 ```
 IF college athlete AND is_on_depth_chart ≠ true:
@@ -92,38 +92,9 @@ The HS formula does NOT use: draft_premium, talent_modifier, depth_chart_rank_mu
 
 ## 3. College Athlete — Component Breakdown
 
-### 3.1 Override Check
+### 3.1 Reported Deal Check
 
-```python
-if player["is_override"] is True:
-    overrides = fetch nil_overrides rows where player_id = player["id"]
-    if overrides exist:
-        best = max(overrides, key=lambda r: r["annualized_value"])
-        return best["annualized_value"]
-    else:
-        log.warning(f"Player {player['name']} has is_override=True but no nil_overrides row.")
-        # Fall through to eligibility gate and algorithm
-```
-
-**Override data model:**
-```
-nil_overrides
-├── player_id          UUID (FK → players)
-├── name               TEXT
-├── total_value         INTEGER (full reported deal, e.g. $12,000,000)
-├── years              NUMERIC (contract length, e.g. 4)
-├── annualized_value   INTEGER (total_value / years, e.g. $3,000,000)
-├── source_name        TEXT (e.g. "Market Consensus", "The Athletic")
-└── source_url         TEXT (verified article URL, or NULL if unverified)
-```
-
-**Source attribution rules:**
-- `source_url` must be verified via HTTP request before storage — broken URLs are set to NULL
-- Sources labeled "Market Consensus" indicate On3 algorithmic valuations without a specific article
-- Sources with real article URLs are displayed as clickable links on the player profile
-- The `apply_overrides.py` script validates URLs on ingestion and rejects 404s
-
-Multiple rows per player allowed. Engine uses highest `annualized_value`. UI displays ALL sources.
+When a player has a verified reported deal, the annualized value from that deal is used directly as `cfo_valuation`, bypassing all formula components. The engine reads from the `nil_overrides` table and selects the highest `annualized_value` if multiple entries exist.
 
 ---
 
@@ -535,8 +506,8 @@ This transition happens automatically — no manual intervention required.
 
 | Scenario | Behavior |
 |----------|----------|
-| Override player not on depth chart | Override still applies — overrides bypass eligibility gate |
-| Override player departed | Override applies. Departure status is tracked separately via `roster_status`. |
+| Reported deal player not on depth chart | Reported deal still applies — bypasses eligibility gate |
+| Reported deal player departed | Reported deal applies. Departure status is tracked separately via `roster_status`. |
 | `is_override = true` but no `nil_overrides` row | Log warning, fall through to algorithm (if eligible) |
 | Multiple `nil_overrides` rows for same player | Use highest `annualized_value`. Display all sources in UI. |
 | `cfo_valuation` < $10,000 (from algorithm) | Floor at $10,000 |
@@ -568,7 +539,7 @@ Players have a `roster_status` field tracking their relationship to their team:
 **Rules:**
 - Only `active` players appear in team roster views and payroll calculations
 - Departed players retain their records (not deleted) for historical reference
-- Override players are NEVER auto-flagged as departed — manual review required
+- Reported deal players are NEVER auto-flagged as departed — manual review required
 - HS recruits are not subject to departure flagging
 - The `sync_roster_status.py` script uses CFBD transfer portal data and roster cross-referencing to flag departures
 
@@ -610,7 +581,7 @@ This heuristic approximates Ourlads depth chart ordering. For more accurate rank
 1. Fetch all players with joined team data
 2. Fetch all nil_overrides (one query)
 3. For each player:
-   a. Override check → if override, use annualized_value
+   a. Reported deal check → if reported deal exists, use annualized_value
    b. Eligibility gate → if ineligible, set cfo_valuation = NULL
    c. Route to HS or College formula based on player_tag
    d. Compute valuation
@@ -645,7 +616,7 @@ Position-specific composite scoring (0-100) using percentile ranking against all
 **Script:** `python_engine/sync_roster_status.py`
 **Source:** CFBD transfer portal + roster endpoints
 **Flags:** `--dry-run` for preview without changes
-**Protection:** Override players are never auto-flagged
+**Protection:** Reported deal players are never auto-flagged
 
 ### 8.6 Depth Chart Sync
 
@@ -653,19 +624,19 @@ Position-specific composite scoring (0-100) using percentile ranking against all
 **Source:** Production-score-based heuristic (future: Ourlads scraping)
 **Writes:** `depth_chart_rank` for all depth-chart players
 
-### 8.7 Override Management
+### 8.7 Reported Deal Management
 
 **Identify candidates:** `python_engine/identify_override_candidates.py`
-**Apply overrides:** `python_engine/apply_overrides.py`
+**Apply deals:** `python_engine/apply_overrides.py`
 **CSV input:** `python_engine/data/approved_overrides.csv`
 **URL verification:** `python_engine/verify_override_urls.py`
 
-**Override workflow:**
+**Reported deal workflow:**
 1. Run `identify_override_candidates.py` → flags players where On3 >= 2× our value
 2. Review HIGH confidence candidates manually
-3. Add approved overrides to `approved_overrides.csv` (name, value, years, source)
+3. Add approved deals to `approved_overrides.csv` (name, value, years, source)
 4. Run `apply_overrides.py` → creates nil_overrides rows, sets is_override = true
-5. Run `calculate_cfo_valuations.py` → overrides take effect
+5. Run `calculate_cfo_valuations.py` → reported deals take effect
 
 **Source URL rules:**
 - URLs are verified via HTTP request before storage
@@ -689,7 +660,7 @@ Position-specific composite scoring (0-100) using percentile ranking against all
 | Player Profile — header | cfo_valuation or "Not on depth chart" | `players.cfo_valuation` |
 | Player Profile — College breakdown | Position base, draft, talent, market, experience, depth chart role, social | Recomputed via `lib/valuation.ts` |
 | Player Profile — HS breakdown | Composite base, position premium, market, experience, social | Recomputed via `lib/valuation.ts` |
-| Player Profile — Override | "Verified Market Report" with sources | `nil_overrides` join |
+| Player Profile — Reported Deal | "Verified Market Report" with sources | `nil_overrides` join |
 | Player Profile — Ineligible | "Not on active depth chart" message | When `cfo_valuation IS NULL` |
 | Team Roster | Active players + incoming 2026 recruits + departed section | `players` filtered by team + status |
 | Team Summary | Payroll breakdown: active + recruit + total | `team_roster_summary` view |
@@ -752,7 +723,7 @@ Position base values validated against market data:
 | `cfo_valuation` | INTEGER | NULL for ineligible players |
 | `depth_chart_rank` | INTEGER | 1 = starter at position. Position-aware interpretation. |
 | `is_on_depth_chart` | BOOLEAN | Gate for college athlete eligibility |
-| `is_override` | BOOLEAN | True = use nil_overrides value |
+| `is_override` | BOOLEAN | True = use reported deal value |
 | `roster_status` | TEXT | 'active', 'departed_transfer', 'departed_draft', 'departed_graduated', 'departed_other' |
 | `class_year` | INTEGER | 1-5 scale. CHECK constraint. |
 | `hs_grad_year` | INTEGER | 2026, 2027, 2028. HS recruits only. |
@@ -774,7 +745,7 @@ Position base values validated against market data:
 Must stay **exactly in sync** with `calculate_cfo_valuations.py`. Both implementations are cross-validated by 265 unit tests (134 TypeScript, 131 Python) that verify identical outputs for identical inputs.
 
 **College exports:**
-- `isEligibleForValuation(playerTag, isOnDepthChart, starRating, isOverride): boolean`
+- `isEligibleForValuation(playerTag, isOnDepthChart, starRating, hasReportedDeal): boolean`
 - `getPositionBaseValue(position): { label, value }`
 - `getDraftPremium(nflDraftProjection): { label, multiplier }`
 - `getTalentModifier(productionScore, starRating, eaRating?): { label, modifier }`
@@ -815,7 +786,7 @@ Tests cover:
 - **Conference strength adjustment:** Nested within market_multiplier
 - **Transfer portal premium:** Short-term valuation spike for portal entrants
 - **Revenue sharing recalibration:** Position base values updated annually as $20.5M cap grows 4%/year
-- **Admin UI for overrides:** Web form to input total_value, years, sources
+- **Admin UI for reported deals:** Web form to input total_value, years, sources
 - ~~**Ourlads depth chart scraping:**~~ ✅ DONE (V3.4) — `sync_ourlads_depth_charts.py` scrapes real Ourlads data
 - ~~**OL production scores:**~~ ✅ DONE (V3.4) — EA rating fallback in talent_modifier. Drew Bobo: $131K → $657K (7% gap to On3)
 - ~~**Composite score as HS production proxy:**~~ ✅ DONE (V3.3)

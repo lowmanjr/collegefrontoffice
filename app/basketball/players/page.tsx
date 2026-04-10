@@ -383,7 +383,10 @@ export default async function BasketballBigBoardPage({ searchParams }: PageProps
                   {isFiltered ? "matching players" : "players"}
                 </p>
                 <p className="text-xs text-slate-400">
-                  Rankings updated algorithmically · Basketball V1
+                  Rankings updated algorithmically ·{" "}
+                  <Link href="/basketball/methodology" className="text-slate-500 hover:text-slate-700 underline transition-colors">
+                    How are these calculated?
+                  </Link>
                 </p>
               </div>
             </div>

@@ -10,7 +10,7 @@
 
 The CFO Basketball Valuation Engine produces a single integer dollar value (`cfo_valuation`) for every active college basketball player in the system. This value represents College Front Office's proprietary estimate of a player's annualized NIL market value.
 
-It is a companion to the CFO Football Valuation Engine (V3.5) and shares the same architectural philosophy: a multiplicative formula built from independently calibrated components, with a manual override system for players whose reported deals are publicly known.
+It is a companion to the CFO Football Valuation Engine (V3.5) and shares the same architectural philosophy: a multiplicative formula built from independently calibrated components.
 
 Basketball valuations differ from football in three fundamental ways:
 
@@ -25,16 +25,6 @@ The engine runs as a Python batch job (`calculate_bball_valuations.py`) that rea
 ---
 
 ## 2. Master Formula
-
-### 2.0 Override Check (ALWAYS FIRST)
-
-```
-IF player.is_override = true AND basketball_nil_overrides row exists:
-    cfo_valuation = basketball_nil_overrides.annualized_value
-    STOP — overrides bypass ALL other logic
-```
-
-Overrides represent verified market data or market consensus that supersedes any algorithm. A player with a reported $2M deal gets $2M regardless of role tier, PER, or any other factor.
 
 ### 2.1 College Athletes (with season stats)
 
@@ -231,34 +221,13 @@ weighted_followers = ig + (x × 0.7) + (tiktok × 1.2)
 
 ---
 
-## 4. Override System
-
-Players with publicly reported NIL deals or defensible market estimates bypass the formula entirely. The override value is sourced from `basketball_nil_overrides` and written directly to `basketball_players.cfo_valuation` with `is_override = TRUE`.
-
-### Override Policy
-
-- Overrides are applied via `python_engine/apply_bball_overrides.py`
-- Source CSV: `python_engine/data/basketball_approved_overrides.csv`
-- Required fields: `espn_athlete_id, player_name, total_value, years, source_name, source_url`
-- Overrides are **not recalculated** when the formula runs — they are permanent until manually updated
-- Class year, experience level, and recruiting data are still enriched for overridden players (for display purposes)
-- When a reported deal becomes public, update the CSV row with the actual figure and source URL
-
-### Current Overrides (BYU V1)
-
-| Player | Override Value | Source | Rationale |
-|--------|---------------|--------|-----------|
-| AJ Dybantsa | $2,000,000 | CFO Estimate | Consensus top-3 pick. Basis: Cooper Flagg ~$3M at Duke. BYU market (1.08×) below Duke. Conservative and defensible. |
-
----
-
-## 5. Valuation Floor
+## 4. Valuation Floor
 
 All valuations are subject to a **$5,000 minimum** regardless of formula output. Walk-ons and deep bench players with no recruiting profile receive this floor. The basketball floor ($5K) is lower than football ($10K) because basketball rosters are smaller and low-end values are naturally compressed.
 
 ---
 
-## 6. Database Schema
+## 5. Database Schema
 
 ### Tables
 
@@ -266,15 +235,15 @@ All valuations are subject to a **$5,000 minimum** regardless of formula output.
 |-------|---------|
 | `basketball_teams` | Team metadata, market_multiplier, estimated_nil_pool |
 | `basketball_players` | Player data, valuations, stats, roster status |
-| `basketball_nil_overrides` | Manual override deals (annualized_value is generated column) |
+| `basketball_nil_overrides` | Reported NIL deal data (annualized_value is generated column) |
 | `basketball_player_events` | Audit log for valuation and status changes |
 
 ### Key Columns (basketball_players)
 
 | Column | Type | Source |
 |--------|------|--------|
-| `cfo_valuation` | INTEGER | Computed by engine or override |
-| `is_override` | BOOLEAN | TRUE if nil_overrides bypass applies |
+| `cfo_valuation` | INTEGER | Computed by engine or market data |
+| `is_override` | BOOLEAN | TRUE if reported deal replaces formula |
 | `role_tier` | TEXT | franchise/star/starter/rotation/bench |
 | `rotation_rank` | INTEGER | 1 = most minutes, descending |
 | `rotation_status` | TEXT | starter/rotation/bench |
@@ -290,7 +259,7 @@ Schema migration: `supabase/migrations/00013_basketball_schema.sql`
 
 ---
 
-## 7. Pipeline Execution Order
+## 6. Pipeline Execution Order
 
 ### New Team Onboarding
 
@@ -300,8 +269,7 @@ Schema migration: `supabase/migrations/00013_basketball_schema.sql`
 3. enrich_bball_class_years.py                      # ESPN experience → class_year, experience_level
 4. enrich_bball_star_ratings.py                     # CSV → star_rating, composite_score, position
 5. calculate_bball_valuations.py --team {slug}      # Formula → cfo_valuation
-6. apply_bball_overrides.py                         # CSV → basketball_nil_overrides + is_override
-7. generate_bball_slugs.py                          # Name → URL slug
+6. generate_bball_slugs.py                          # Name → URL slug
 ```
 
 ### Valuation Refresh (existing team)
@@ -309,7 +277,6 @@ Schema migration: `supabase/migrations/00013_basketball_schema.sql`
 ```
 1. enrich_bball_usage_rates.py --team {slug}        # Updated stats
 2. calculate_bball_valuations.py --team {slug}      # Recalculate
-3. apply_bball_overrides.py                         # Re-apply overrides
 ```
 
 ### Transfer Portal Sync
@@ -322,7 +289,7 @@ Schema migration: `supabase/migrations/00013_basketball_schema.sql`
 
 ---
 
-## 8. Known Limitations (V1)
+## 7. Known Limitations (V1)
 
 1. **Social data not enriched.** All social premiums are $0. Future pipeline pass will scrape On3 social follower counts.
 
@@ -330,7 +297,7 @@ Schema migration: `supabase/migrations/00013_basketball_schema.sql`
 
 3. **Usage rate is MPG-based, not true usage%.** True usage rate (`(FGA + 0.44×FTA + TOV) / team_possessions × minutes_share`) requires possession-level data. MPG/40 is used as a transparent, auditable proxy. The column is named `usage_rate` for formula compatibility if upgraded later.
 
-4. **One-and-done anomalies require overrides.** Players projected as top-3 picks with no college stats will not produce sensible formula outputs — their incoming multiplier (0.60×) suppresses value below market reality. These players receive manual overrides.
+4. **Blue-chip recruits projected as top-3 NBA picks represent anomalies the formula is not designed to capture.** These players are valued using market information rather than the standard formula.
 
 5. **Single team (BYU).** V1 covers BYU only. Adding teams requires: team row in `basketball_teams`, ESPN ID in `ingest_bball_espn_rosters.py`, and running the full pipeline.
 
@@ -338,13 +305,13 @@ Schema migration: `supabase/migrations/00013_basketball_schema.sql`
 
 ---
 
-## 9. Calibration Reference
+## 8. Calibration Reference
 
 ### BYU Roster Snapshot (V1 Launch, April 2026)
 
 | Player | Position | Tier | Class | Valuation | Note |
 |--------|----------|------|-------|-----------|------|
-| AJ Dybantsa | SF | incoming | FR | $2,000,000 | Override |
+| AJ Dybantsa | SF | incoming | FR | $2,000,000 | Market estimate |
 | Richie Saunders | SG | star | SR | $882,090 | Pick 58, PER 24.0 |
 | Kennard Davis Jr. | SF | franchise | JR | $754,677 | PER 17.3, 34.1 MPG |
 | Nate Pickens | SG | star | SR | $588,060 | PER 14.1 |
@@ -356,12 +323,12 @@ Schema migration: `supabase/migrations/00013_basketball_schema.sql`
 | (7 incoming players) | — | incoming | FR | $124K–$193K | Recruiting-based |
 
 **Team total:** $7,546,069
-**Overrides applied:** 1
+**Market-adjusted valuations:** 1
 
 ---
 
-## 10. Changelog
+## 9. Changelog
 
 | Version | Date | Notes |
 |---------|------|-------|
-| 1.0 | April 2026 | BYU launch. Formula established. 17 players valued. Dybantsa override at $2M. Class year enrichment from ESPN. |
+| 1.0 | April 2026 | BYU launch. Formula established. 17 players valued. Class year enrichment from ESPN. |

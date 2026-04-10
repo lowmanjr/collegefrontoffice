@@ -5,7 +5,7 @@
 - **Pipeline order**: ESPN rosters → On3 transfer portal → Ourlads depth charts → valuations
 - ESPN sync runs first (base truth), On3 portal sync runs second (catches recent transfers ESPN missed)
 - Transfer portal scraper: sync_transfer_portal.py (On3, paginated, 5,432 committed entries)
-- Texas comparison CSV workflow in progress — user pastes On3 data, script generates CSV with CFO vs On3 valuations, user fills Override Value column
+- Texas comparison CSV workflow in progress — user pastes On3 data, script generates CSV with CFO vs On3 valuations
 - Methodology page cleaned (no EA Sports, no On3, no "verified" language)
 - All UI pages use slug-based URLs, compact currency for team totals, full precision for player valuations
 
@@ -55,9 +55,9 @@ Key algorithm files:
 | `sync_roster_status.py` | Flags departed players via CFBD transfer portal/roster data |
 | `sync_ourlads_depth_charts.py` | Scrapes Ourlads depth charts, sets is_on_depth_chart + depth_chart_rank |
 | `import_recruiting_class.py` | Imports HS recruiting classes from CFBD API or CSV |
-| `identify_override_candidates.py` | Screens players for potential NIL override candidates |
-| `apply_overrides.py` | Reads approved_overrides.csv, applies to nil_overrides table |
-| `verify_override_urls.py` | HTTP-checks source URLs for nil_overrides |
+| `identify_override_candidates.py` | Screens players for potential NIL valuation adjustments |
+| `apply_overrides.py` | Reads approved CSV, applies reported deals to database |
+| `verify_override_urls.py` | HTTP-checks source URLs for reported deal records |
 | `ingest_espn_rosters.py` | Bulk imports ESPN roster data |
 | `ingest_eada_finances.py` | Imports EADA financial data for teams |
 | `flag_draft_eligible.py` | Scrapes Drafttek Big Board, flags draft-eligible players |
@@ -88,8 +88,8 @@ Key algorithm files:
 | `scrape_247_commitments.py` | Scrapes 247Sports for current HS recruit commitment data |
 | `backfill_recruit_commitments.py` | Backfills team_id for HS recruits using CFBD committedTo field |
 
-### Overrides
-21 active overrides as of April 2026. Overrides bypass the algorithmic formula entirely. Managed via `python_engine/data/approved_overrides.csv` → `apply_overrides.py`.
+### Reported Deals
+21 active reported deals as of April 2026. Managed via `python_engine/data/approved_overrides.csv`.
 
 ## 4. Tracked Teams (68 — All Power 4)
 **SEC (16):** Alabama, Arkansas, Auburn, Florida, Georgia, Kentucky, LSU, Mississippi State, Missouri, Oklahoma, Ole Miss, South Carolina, Tennessee, Texas, Texas A&M, Vanderbilt
@@ -110,7 +110,7 @@ Key algorithm files:
 * `player_tag` (TEXT: "College Athlete" | "High School Recruit")
 * `composite_score` (NUMERIC — 247Sports composite, 0–100 scale)
 * `cfo_valuation` (INTEGER — computed by V3.5 engine)
-* `is_override` (BOOLEAN — true if nil_overrides row replaces algorithm)
+* `is_override` (BOOLEAN — true if reported deal replaces algorithm)
 * `is_on_depth_chart` (BOOLEAN)
 * `depth_chart_rank` (INTEGER — 1=starter, 2=backup, etc.)
 * `roster_status` (TEXT — 'active', 'departed_draft', 'departed_transfer', 'departed_graduated', 'departed_other')
@@ -135,7 +135,7 @@ Key algorithm files:
 * `active_payroll` (INTEGER)
 * `market_multiplier` (NUMERIC — 0.8 to 1.3)
 
-### Table: `nil_overrides`
+### Table: `nil_overrides` (reported deals)
 * `player_id` (UUID, FK → players)
 * `name` (TEXT)
 * `total_value` (INTEGER)
@@ -182,7 +182,7 @@ Aggregates active college athletes + 2026 incoming recruits per team. Excludes d
 |-------|---------------|-------------|
 | `/` (Homepage) | Hero search + route cards (Teams, Players, Recruits) | Static |
 | `/players` (Big Board) | Top 100 college athletes by valuation | players + teams join |
-| `/players/[slug]` (Player Profile) | Name, avatar, team, valuation; override contract details; recruit profile card | players + teams + nil_overrides |
+| `/players/[slug]` (Player Profile) | Name, avatar, team, valuation; contract details; recruit profile card | players + teams + nil_overrides |
 | `/recruits` | 4/5★ HS recruits by composite score, filtered by class year | players + teams join |
 | `/teams` (Team Index) | Programs ranked by Est. Roster Value | team_roster_summary view |
 | `/teams/[slug]` (Team Detail) | Active roster + 2026 recruits merged, sorted by valuation | players + teams |

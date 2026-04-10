@@ -273,7 +273,7 @@ Clemson=228, Notre Dame=87
 - Socials: valuation.followers (total), valuation.socialValuations[].followers by platform
 
 **Gotchas:**
-- **On3 valuations are for COMPARISON ONLY.** We do NOT use them in our formula. They're stored in `on3_valuation` column and used by `identify_override_candidates.py` to flag players where On3 >> CFO (suggesting we need an override).
+- **On3 valuations are for COMPARISON ONLY.** We do NOT use them in our formula. They're stored in `on3_valuation` column and used to flag players where On3 >> CFO (suggesting a valuation adjustment may be needed).
 - **buildId is ephemeral.** Same as EA — must re-discover from page HTML on each run.
 - **Social data may lag.** On3 doesn't update follower counts in real-time.
 - **Only covers top ~1000 players.** Many of our tracked players won't appear.
@@ -304,11 +304,11 @@ Clemson=228, Notre Dame=87
 
 ## 9. Manual CSV Files
 
-### 9.1 approved_overrides.csv
+### 9.1 Reported Deals CSV
 **Path:** `python_engine/data/approved_overrides.csv`
 **Columns:** player_name, total_value, years, annualized_value, source_name, source_url, verified
 **Used by:** `apply_overrides.py`
-**Purpose:** Manually curated list of verified NIL deals that override the algorithm
+**Purpose:** Manually curated list of verified NIL deals that replace the algorithmic valuation
 
 ### 9.2 draft_projections.csv
 **Path:** `python_engine/data/draft_projections.csv`
