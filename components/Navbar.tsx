@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import GlobalSearch from "@/components/GlobalSearch";
 import CfoLogo from "@/components/CfoLogo";
+import SportSwitcher from "@/components/SportSwitcher";
 
 const NAV_LINKS = [
   { label: "Home", href: "/" },
@@ -57,6 +58,7 @@ export default function Navbar() {
               </Link>
             ))}
           </nav>
+          <SportSwitcher />
           <GlobalSearch />
         </div>
 

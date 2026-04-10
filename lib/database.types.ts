@@ -113,6 +113,74 @@ export interface ProposedEventWithPlayer extends ProposedEventRow {
   players: Pick<PlayerRow, "name" | "cfo_valuation"> | null;
 }
 
+// ── Basketball Types ──────────────────────────────────────────────────────────
+
+export interface BasketballTeamRow {
+  id: string;
+  university_name: string;
+  conference: string | null;
+  logo_url: string | null;
+  market_multiplier: number;
+  estimated_nil_pool: number | null;
+  active_payroll: number | null;
+  slug: string | null;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface BasketballPlayerRow {
+  id: string;
+  name: string;
+  position: string | null;
+  role_tier: string | null;
+  team_id: string | null;
+  slug: string | null;
+  player_tag: string | null;
+  class_year: string | null;
+  experience_level: string | null;
+  hs_grad_year: number | null;
+  cfo_valuation: number | null;
+  is_override: boolean;
+  roster_status: string | null;
+  rotation_status: string | null;
+  rotation_rank: number | null;
+  usage_rate: number | null;
+  ppg: number | null;
+  rpg: number | null;
+  apg: number | null;
+  per: number | null;
+  nba_draft_projection: number | null;
+  star_rating: number | null;
+  composite_score: number | null;
+  total_followers: number | null;
+  ig_followers: number | null;
+  x_followers: number | null;
+  tiktok_followers: number | null;
+  espn_athlete_id: string | null;
+  headshot_url: string | null;
+  is_public: boolean;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface BasketballNilOverrideRow {
+  id: string;
+  player_id: string;
+  total_value: number | null;
+  years: number | null;
+  annualized_value: number | null;
+  source_name: string | null;
+  source_url: string | null;
+  created_at: string;
+}
+
+export type BasketballPlayerWithTeam = BasketballPlayerRow & {
+  basketball_teams: Pick<
+    BasketballTeamRow,
+    "university_name" | "slug" | "logo_url" | "conference"
+  > | null;
+};
+
 /** Row type for the team_roster_summary database view */
 export interface TeamRosterSummary {
   id: string;

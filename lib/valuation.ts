@@ -449,3 +449,58 @@ export function calculateCfoValuation(
 
   return { breakdown, total };
 }
+
+// ── Basketball Valuation Engine ───────────────────────────────────────────────
+
+const BBALL_POSITION_BASES: Record<string, number> = {
+  PG: 350_000, SG: 300_000, SF: 275_000, PF: 250_000, C: 225_000,
+  G: 300_000, F: 275_000,
+};
+
+export function getBasketballPositionBase(position: string | null): number {
+  if (!position) return 300_000;
+  return BBALL_POSITION_BASES[position] ?? 300_000;
+}
+
+export function getNbaDraftPremium(projectedPick: number | null): number {
+  if (!projectedPick) return 1.00;
+  if (projectedPick <= 5)  return 3.50;
+  if (projectedPick <= 14) return 2.60;
+  if (projectedPick <= 30) return 1.80;
+  if (projectedPick <= 60) return 1.25;
+  return 1.00;
+}
+
+export function getRoleTierMultiplier(roleTier: string | null, hasStats: boolean): number {
+  if (!hasStats) return 0.60;
+  const map: Record<string, number> = {
+    franchise: 2.20, star: 1.65, starter: 1.20, rotation: 0.75, bench: 0.30,
+  };
+  return map[roleTier ?? ""] ?? 0.30;
+}
+
+export function getBasketballTalentModifier(
+  starRating: number | null,
+  compositeScore: number | null,
+  per: number | null,
+  hasStats: boolean,
+): number {
+  if (hasStats && per && per > 0) {
+    if (per >= 25) return 1.30;
+    if (per >= 20) return 1.20;
+    if (per >= 15) return 1.10;
+    if (per >= 10) return 1.00;
+    return 0.90;
+  }
+  if (compositeScore && compositeScore >= 0.9900) return 1.30;
+  if (compositeScore && compositeScore >= 0.8900) return 1.15;
+  if (starRating && starRating >= 3) return 1.00;
+  return 0.85;
+}
+
+export function getBasketballExperienceMultiplier(experienceLevel: string | null): number {
+  const map: Record<string, number> = {
+    Freshman: 0.85, Sophomore: 0.95, Junior: 1.05, Senior: 1.10, Graduate: 1.15,
+  };
+  return map[experienceLevel ?? ""] ?? 0.90;
+}
