@@ -1,0 +1,8 @@
+# Kentucky 2025 incoming basketball class — 247Sports composite data
+# Composite scores are estimates based on publicly available 247Sports rankings
+espn_athlete_id,player_name,star_rating,composite_score,position_247
+5095153,Jasper Johnson,5,0.9985,SG
+5101820,Braydon Hawthorne,4,0.9501,PF
+5101849,Malachi Moreno,4,0.9388,C
+5281347,Andrija Jelavic,4,0.9215,PF
+5252266,Zach Tow,3,0.8710,PF

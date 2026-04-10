@@ -23,26 +23,45 @@ from supabase_client import supabase
 logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
 log = logging.getLogger(__name__)
 
-CSV_PATH = os.path.join(os.path.dirname(__file__), "data", "byu_basketball_recruits_2025.csv")
+DATA_DIR = os.path.join(os.path.dirname(__file__), "data")
+
+
+def resolve_csv_paths(team_filter: str | None) -> list[str]:
+    """Find recruit CSV files. If --team is given, use that team's CSV only.
+    Otherwise, glob all *_basketball_recruits_*.csv files."""
+    import glob
+    if team_filter:
+        path = os.path.join(DATA_DIR, f"{team_filter}_basketball_recruits_2025.csv")
+        return [path] if os.path.exists(path) else []
+    return sorted(glob.glob(os.path.join(DATA_DIR, "*_basketball_recruits_*.csv")))
 
 
 def main() -> None:
     dry_run = "--dry-run" in sys.argv
 
-    if not os.path.exists(CSV_PATH):
-        log.error(f"CSV not found: {CSV_PATH}")
+    team_filter = None
+    for i, arg in enumerate(sys.argv):
+        if arg == "--team" and i + 1 < len(sys.argv):
+            team_filter = sys.argv[i + 1].lower()
+
+    csv_paths = resolve_csv_paths(team_filter)
+    if not csv_paths:
+        log.error(f"No recruit CSV files found{f' for team {team_filter}' if team_filter else ''}")
         return
 
-    log.info(f"Enriching recruiting profiles from {os.path.basename(CSV_PATH)}...")
+    log.info(f"Found {len(csv_paths)} recruit CSV(s) to process")
 
-    # Read CSV
+    # Read all CSVs
     recruits: list[dict] = []
-    with open(CSV_PATH, "r") as f:
-        reader = csv.DictReader(f)
-        for row in reader:
-            recruits.append(row)
+    for csv_path in csv_paths:
+        log.info(f"  Reading {os.path.basename(csv_path)}...")
+        with open(csv_path, "r") as f:
+            lines = [line for line in f if not line.startswith("#")]
+            reader = csv.DictReader(lines)
+            for row in reader:
+                recruits.append(row)
 
-    log.info(f"  {len(recruits)} recruits in CSV")
+    log.info(f"  {len(recruits)} total recruits across {len(csv_paths)} file(s)")
 
     updated = 0
     skipped = 0

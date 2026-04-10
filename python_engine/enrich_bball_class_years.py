@@ -28,6 +28,7 @@ log = logging.getLogger(__name__)
 
 BASKETBALL_TEAMS = [
     {"slug": "byu", "espn_id": "252"},
+    {"slug": "kentucky", "espn_id": "96"},
 ]
 
 SPORT_PATH = "basketball/mens-college-basketball"

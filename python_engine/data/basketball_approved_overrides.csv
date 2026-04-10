@@ -3,3 +3,6 @@
 # Update this row when a reported figure becomes public.
 espn_athlete_id,player_name,total_value,years,source_name,source_url
 5142718,AJ Dybantsa,2000000,1,CFO Estimate,https://collegefrontoffice.com/methodology
+# Jasper Johnson: 5-star Kentucky recruit, formula outputs $249K (suppressed by incoming 0.60x).
+# Kentucky NIL collective (KSR-linked) likely paying $500K-$800K range. Hold until comp surfaces.
+# 5095153,Jasper Johnson,600000,1,CFO Estimate,https://collegefrontoffice.com/methodology

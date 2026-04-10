@@ -83,7 +83,8 @@
       "Bash(curl -s -L \"http://localhost:3000/basketball/players/aj-dybantsa\" -o \"C:/Users/johng/AppData/Local/Temp/dybantsa.html\")",
       "Bash(echo \"exists: $?\")",
       "Bash(curl -s \"https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/teams/252/roster\")",
-      "Bash(curl -s \"https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/teams/252/roster\" -o \"C:/Users/johng/AppData/Local/Temp/byu_roster.json\")"
+      "Bash(curl -s \"https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/teams/252/roster\" -o \"C:/Users/johng/AppData/Local/Temp/byu_roster.json\")",
+      "Bash(curl -s -A \"Mozilla/5.0 \\(Macintosh; Intel Mac OS X 10_15_7\\) AppleWebKit/537.36\" \"https://www.on3.com/nil/rankings/player/college/basketball/?team=kentucky\" -o \"C:/Users/johng/AppData/Local/Temp/on3_uk_bball.html\")"
     ]
   }
 }
