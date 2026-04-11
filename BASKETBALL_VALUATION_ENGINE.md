@@ -1,6 +1,6 @@
 # CFO Basketball Valuation Engine — Internal Technical Specification
 
-> **Status:** Canonical (V1.0) | **Last Updated:** April 10, 2026
+> **Status:** Canonical (V1.1) | **Last Updated:** April 10, 2026
 > **Audience:** Developers, Claude Code sessions, internal team only
 > **⚠️ PROPRIETARY — Do not share externally or commit to a public repo.**
 
@@ -68,14 +68,15 @@ Sets the economic floor by position. Basketball position bases are intentionally
 
 | Position | Base Value | Notes |
 |----------|-----------|-------|
-| PG | $350,000 | Highest — floor general, social visibility |
-| SG | $300,000 | |
-| SF | $275,000 | |
-| PF | $250,000 | |
-| C  | $225,000 | Historically under-indexed on NIL |
-| G (generic) | $300,000 | ESPN fallback — treated as SG |
-| F (generic) | $275,000 | ESPN fallback — treated as SF |
-| Unknown | $275,000 | Default — SF equivalent |
+| PG | $700,000 | Calibrated to Power 4 floor |
+| SG | $600,000 | |
+| SF | $550,000 | |
+| PF | $500,000 | |
+| C  | $450,000 | |
+| G (generic) | $600,000 | ESPN fallback |
+| F (generic) | $550,000 | ESPN fallback |
+
+Bases are calibrated to the Power 4 market floor. Mid-major and lower programs scale down via market_multiplier (0.30–0.75). The prior bases ($225K–$350K) were recalibrated in V1.1 after stress-testing against Opendorse market data and publicly reported deal anchors.
 
 **Source:** ESPN provides G/F/C generics via their roster API. Granular positions (PG/SG/SF/PF/C) come from On3 recruiting data and are enriched via CSV for incoming players.
 
@@ -167,13 +168,13 @@ Basketball market multipliers are calibrated **independently** from football. Du
 
 #### Calibration Guide (for new teams)
 
-| Market Multiplier | Program Tier | Examples |
-|------------------|-------------|----------|
-| 1.25–1.30 | Blue bloods | Duke, Kentucky, Kansas, UNC, UCLA |
-| 1.15–1.24 | Elite programs | Gonzaga, Villanova, Houston, UConn |
-| 1.05–1.14 | Strong P4 | BYU, Iowa State, Arkansas, Baylor |
-| 0.95–1.04 | Mid P4 / strong mid-major | TCU, UCF, Saint Mary's |
-| 0.80–0.94 | Lower visibility | Smaller conference programs |
+| Program tier | Range | Examples |
+|---|---|---|
+| Blue blood | 1.25–1.35 | Duke, Kentucky, Kansas, UNC, UCLA |
+| Elite Power 4 | 1.15–1.24 | Gonzaga, Houston, Villanova |
+| Strong Power 4 | 1.05–1.14 | BYU (1.08), Iowa State, Arkansas |
+| Mid-major (A-10, MWC, WCC) | 0.55–0.75 | — |
+| Lower D1 | 0.30–0.50 | — |
 
 **Implementation:** `get_market_multiplier()` in `calculate_bball_valuations.py`.
 
@@ -307,23 +308,41 @@ Schema migration: `supabase/migrations/00013_basketball_schema.sql`
 
 ## 8. Calibration Reference
 
-### BYU Roster Snapshot (V1 Launch, April 2026)
+### BYU Roster Snapshot (V1.1, April 2026)
 
 | Player | Position | Tier | Class | Valuation | Note |
 |--------|----------|------|-------|-----------|------|
-| AJ Dybantsa | SF | incoming | FR | $2,000,000 | Market estimate |
-| Richie Saunders | SG | star | SR | $882,090 | Pick 58, PER 24.0 |
-| Kennard Davis Jr. | SF | franchise | JR | $754,677 | PER 17.3, 34.1 MPG |
-| Nate Pickens | SG | star | SR | $588,060 | PER 14.1 |
-| Tyler Mrus | SF | star | JR | $514,552 | PER 11.2 |
-| Robert Wright III | SG | star | SO | $507,870 | PER 14.6 |
-| Dawson Baker | SG | starter | SR | $470,448 | PER 16.1 |
-| Keba Keita | SF | starter | SR | $470,448 | PER 23.4, 7.9 RPG |
-| Mihailo Boskovic | SF | rotation | SR | $245,025 | PER 11.4 |
-| (7 incoming players) | — | incoming | FR | $124K–$193K | Recruiting-based |
+| AJ Dybantsa | SF | — | FR | $4,400,000 | Reported (On3/multiple) |
+| Richie Saunders | SG | star | SR | $1,764,180 | Pick 58, PER 24.0 |
+| Kennard Davis Jr. | SF | franchise | JR | $1,509,354 | PER 17.3, 34.1 MPG |
+| Nate Pickens | SG | star | SR | $1,176,120 | PER 14.1 |
+| Tyler Mrus | SF | star | JR | $1,029,105 | PER 11.2 |
+| Robert Wright III | SG | star | SO | $1,018,740 | PER 14.6 |
+| Dawson Baker | SG | starter | SR | $940,896 | PER 16.1 |
+| Keba Keita | SF | starter | SR | $940,896 | PER 23.4, 7.9 RPG |
+| Mihailo Boskovic | SF | rotation | JR | $490,050 | PER 11.4 |
+| (8 incoming/bench) | — | incoming/bench | — | $170K–$386K | Recruiting-based |
 
-**Team total:** $7,546,069
-**Market-adjusted valuations:** 1
+**Team total:** $15,495,140
+
+### Kentucky Roster Snapshot (V1.1, April 2026)
+
+| Player | Position | Tier | Class | Valuation | Note |
+|--------|----------|------|-------|-----------|------|
+| Jayden Quaintance | SF | star | SO | $2,000,000 | Reported (Yahoo/multiple) |
+| Jaland Lowe | SG | franchise | JR | $1,829,520 | PER 18.9 |
+| Otega Oweh | SG | star | SR | $1,571,160 | PER 22.7 |
+| Kam Williams | SG | franchise | SO | $1,504,800 | PER 14.6 |
+| Denzel Aberdeen | SG | starter | SR | $950,400 | PER 12.8 |
+| Brandon Garrison | SF | starter | JR | $914,760 | PER 16.6 |
+| Reece Potter | SF | starter | JR | $914,760 | PER 15.7 |
+| Mouhamed Dioubate | SF | rotation | JR | $626,700 | PER 24.9 |
+| Jasper Johnson | SG | incoming | FR | $502,360 | 5-star |
+| (7 remaining) | — | bench/incoming | — | $238K–$470K | |
+
+**Team total:** $13,403,520
+
+Team totals include reported values for known deals. Formula-only totals: BYU $11.1M, Kentucky $11.4M.
 
 ---
 
@@ -332,3 +351,4 @@ Schema migration: `supabase/migrations/00013_basketball_schema.sql`
 | Version | Date | Notes |
 |---------|------|-------|
 | 1.0 | April 2026 | BYU launch. Formula established. 17 players valued. Class year enrichment from ESPN. |
+| 1.1 | April 2026 | Position bases doubled (Power 4 recalibration). Market multiplier bands updated for mid-major and lower tiers. Kentucky market_multiplier adjusted from 1.25 to 1.20. Dybantsa updated to $4,400,000 (reported). Quaintance added at $2,000,000 (reported). Basis: Opendorse 2025-26 market data + publicly reported deal anchors. |
