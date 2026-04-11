@@ -222,7 +222,15 @@ def compute_valuation(
         player.get("tiktok_followers"),
     )
 
-    basketball_value = pos_base * draft_prem * role_mult * talent_mod * market_mult * exp_mult
+    # If a draft projection exists (premium > 1.0), use the stronger
+    # of draft signal vs role signal. If no draft data, role tier alone.
+    # The neutral 1.00× draft baseline is absence of data, not a signal.
+    if draft_prem > 1.0:
+        combined_prem = max(draft_prem, role_mult)
+    else:
+        combined_prem = role_mult
+
+    basketball_value = pos_base * combined_prem * talent_mod * market_mult * exp_mult
     valuation = max(int(basketball_value + social_prem), VALUATION_FLOOR)
 
     # Label for display
@@ -240,6 +248,7 @@ def compute_valuation(
         "pos_base": pos_base,
         "draft_prem": draft_prem,
         "role_mult": role_mult,
+        "combined_prem": combined_prem,
         "talent_mod": talent_mod,
         "market_mult": market_mult,
         "exp_mult": exp_mult,

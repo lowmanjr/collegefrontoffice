@@ -26,13 +26,20 @@ The engine runs as a Python batch job (`calculate_bball_valuations.py`) that rea
 
 ## 2. Master Formula
 
-### 2.1 College Athletes (with season stats)
+### 2.1 Combined Premium (V1.3)
+
+Draft premium and role tier both measure player importance — one from NBA scouts, one from minutes. When draft data exists, we use whichever signal is stronger. When no draft data exists, role tier applies alone. The neutral 1.00× draft baseline is the absence of data, not a signal.
 
 ```
+For players WITH an NBA draft projection (draft_premium > 1.0):
+    combined_premium = max(nba_draft_premium, role_tier_multiplier)
+
+For players WITHOUT a draft projection:
+    combined_premium = role_tier_multiplier
+
 basketball_value = position_base(position)
-                 × nba_draft_premium(projected_pick)
-                 × role_tier_multiplier(role_tier)        ← MPG-derived
-                 × talent_modifier(per)                   ← PER-based
+                 × combined_premium
+                 × talent_modifier(per or composite_score)
                  × market_multiplier(team.market_multiplier)
                  × experience_multiplier(class_year)
 
@@ -41,22 +48,7 @@ social_premium = tiered_social_bonus(ig, x, tiktok)
 cfo_valuation = max(int(basketball_value + social_premium), 5_000)
 ```
 
-### 2.2 Incoming Players (no college minutes)
-
-```
-basketball_value = position_base(position)
-                 × nba_draft_premium(projected_pick)
-                 × 0.60                                   ← fixed incoming multiplier
-                 × talent_modifier(composite_score)       ← recruiting-based
-                 × market_multiplier(team.market_multiplier)
-                 × experience_multiplier(class_year)
-
-social_premium = tiered_social_bonus(ig, x, tiktok)
-
-cfo_valuation = max(int(basketball_value + social_premium), 5_000)
-```
-
-A player is classified as "incoming" when `usage_rate` is NULL or 0. This handles freshmen, transfers in their first semester, and redshirts who have not yet logged college minutes.
+A player is classified as "incoming" when `usage_rate` is NULL or 0. Incoming players without a draft projection use the fixed 0.60× role tier. Incoming players WITH a draft projection use the draft premium directly (it will always be higher than 0.60×).
 
 ### 2.3 Eligibility Gate
 
@@ -369,3 +361,4 @@ Team totals include reported values for known deals. Formula-only totals: BYU $1
 | 1.0 | April 2026 | BYU launch. Formula established. 17 players valued. Class year enrichment from ESPN. |
 | 1.1 | April 2026 | Position bases doubled (Power 4 recalibration). Market multiplier bands updated for mid-major and lower tiers. Kentucky market_multiplier adjusted from 1.25 to 1.20. Dybantsa updated to $4,400,000 (reported). Quaintance added at $2,000,000 (reported). Basis: Opendorse 2025-26 market data + publicly reported deal anchors. |
 | 1.2 | April 2026 | Eligibility gate added. Players below MPG ≥ 8 (with stats) or star_rating ≥ 4 (incoming) receive NULL valuation. Team totals now reflect NIL market participants only. 15 of 63 players gated across 4 teams. |
+| 1.3 | April 2026 | Formula fix: combined_premium = max(draft, role) when draft data exists, role_tier alone otherwise. Prevents multiplicative double-counting for franchise-tier lottery picks. Discovered via Lendeborg (Michigan) producing $5.31M. Option B (conditional max) preserves incoming/rotation discounts for non-drafted players. |

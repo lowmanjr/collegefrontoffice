@@ -464,6 +464,9 @@ export function calculateCfoValuation(
 }
 
 // ── Basketball Valuation Engine ───────────────────────────────────────────────
+// Formula (V1.3): when draft data exists (premium > 1.0), combined = max(draft, role).
+// When no draft data, combined = role_tier alone.
+// basketball_value = position_base × combined_premium × talent × market × experience
 
 // Position bases calibrated to Power 4 market floor (2025-26).
 // Mid-major and lower programs are scaled via market_multiplier (0.30-0.75).
