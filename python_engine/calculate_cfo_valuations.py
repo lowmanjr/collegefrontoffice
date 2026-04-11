@@ -53,9 +53,12 @@ POSITION_BASE_VALUES: dict[str, int] = {
     "IOL":    475_000,   # alias for OG/C
     "OL":     475_000,   # generic offensive line
     "S":      450_000,
+    "DB":     450_000,   # defensive back (alias for S)
     "RB":     400_000,
     "TE":     325_000,
     "LB":     325_000,
+    "OLB":    325_000,   # outside linebacker (alias for LB)
+    "G":      475_000,   # guard (alias for OG)
     "K":      100_000,
     "PK":     100_000,   # place kicker (alias for K)
     "P":      100_000,
