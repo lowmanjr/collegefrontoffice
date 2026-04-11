@@ -142,25 +142,30 @@ cd python_engine
 # 1. Import roster from ESPN
 python ingest_bball_espn_rosters.py --team SLUG
 
-# 2. Enrich stats (MPG → role_tier, PER, ppg/rpg/apg)
+# 2. Verify headshots resolve (fixes broken URLs, NULLs missing ones)
+python fix_bball_headshots.py --team SLUG
+
+# 3. Enrich stats (MPG → role_tier, PER, ppg/rpg/apg)
 python enrich_bball_usage_rates.py --team SLUG
 
-# 3. Enrich class years from ESPN experience data (runs all teams)
+# 4. Enrich class years from ESPN experience data (runs all teams)
 python enrich_bball_class_years.py
 
-# 4. Enrich star ratings from recruiting CSV (see §4)
+# 5. Enrich star ratings from recruiting CSV (see §4)
 #    Create data/{SLUG}_basketball_recruits_2025.csv FIRST
 python enrich_bball_star_ratings.py --team SLUG
 
-# 5. Compute valuations
+# 6. Compute valuations
 python calculate_bball_valuations.py --team SLUG
 
-# 6. Apply any known deals
+# 7. Apply any known deals
 python apply_bball_overrides.py
 
-# 7. Generate URL slugs
+# 8. Generate URL slugs
 python generate_bball_slugs.py
 ```
+
+**Note:** ESPN CDN headshots for incoming freshmen may return 404 early in the season. Re-run `fix_bball_headshots.py` in November once ESPN populates new player photos.
 
 ### 3.5 Verify
 
