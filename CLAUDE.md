@@ -1,11 +1,15 @@
 # CollegeFrontOffice.com — Master Architecture Document
 
 ## Current Status (April 2026)
-- **68 Power 4 teams**, 12,838 players, 4,971 valued
+- **68 Power 4 teams**, 12,787 players, 4,954 valued
+- **Valuation Engine V3.6b** — QB/DL base bumps, no-data talent penalty, star proxy widening, graduated starter multiplier
+- **85 active overrides** across 3 calibrated teams: Texas (9), Texas Tech (7), Georgia (32), plus 18 original overrides + 19 On3 Top 100 overrides
+- **EA Sports CFB 26 ratings** now cover all 68 Power 4 teams (expanded from 16). 4,674 ratings applied, 2,372 on-DC players with EA data (61.5% coverage)
 - **Pipeline order**: ESPN rosters → On3 transfer portal → Ourlads depth charts → valuations
 - ESPN sync runs first (base truth), On3 portal sync runs second (catches recent transfers ESPN missed)
 - Transfer portal scraper: sync_transfer_portal.py (On3, paginated, 5,432 committed entries)
-- Texas comparison CSV workflow in progress — user pastes On3 data, script generates CSV with CFO vs On3 valuations
+- **Comparison CSV workflow**: paste On3 data → generate CSV → fill Override Value → ingest overrides. Active CSVs: texas_comparison.csv, texas_tech_comparison.csv, georgia_comparison.csv
+- **OL→OT position mapping fix**: sync_ourlads_depth_charts.py now maps LT/RT → OT ($800K) instead of generic OL ($475K). 178 tackles corrected, $93.3M recovered.
 - Methodology page cleaned (no EA Sports, no On3, no "verified" language)
 - All UI pages use slug-based URLs, compact currency for team totals, full precision for player valuations
 
@@ -19,15 +23,19 @@ College Front Office is a data dashboard and valuation tool for the modern colle
 * **Database:** Supabase (PostgreSQL)
 * **Hosting:** Vercel
 * **Data Pipeline:** Python (pandas, requests, BeautifulSoup) → Supabase API (service role)
-* **Testing:** Vitest (TypeScript, 134 tests), pytest (Python, 131 tests) — 265 total
+* **Testing:** Vitest (TypeScript, 145 tests), pytest (Python, 142 tests + 44 name_utils tests) — 331 total
 
 ## 3. Valuation Engine
 **The canonical valuation engine specification lives in `VALUATION_ENGINE.md`. All valuation logic must conform to that document.**
 
-The active engine is **V3.5** (`python_engine/calculate_cfo_valuations.py`). All prior versions (V1–V3.4) are superseded.
+The active engine is **V3.6b** (`python_engine/calculate_cfo_valuations.py`). All prior versions (V1–V3.4) are superseded.
 
-### V3.5 Changes (April 2026)
-- **Position base value recalibration:** QB $850K→$1.2M, OT $550K→$800K, WR $400K→$550K, etc. All positions increased ~27% to match 2025-26 market data.
+### V3.6b Changes (April 2026)
+- **Position base value recalibration:** QB $1.2M→$1.5M, DT/DL $500K→$600K. Other positions unchanged from V3.5.
+- **Talent modifier no-data default:** 1.0x→0.70x when all three talent signals (production, EA, star) are missing.
+- **Star proxy widened:** 5★ 1.15→1.30, 3★ 0.90→0.80, 1-2★ 0.80→0.65, no-data 1.0→0.70.
+- **Graduated starter multiplier:** Non-#1 starters get graduated discount: rank 2=0.90x, rank 3=0.80x, rank 4=0.75x, rank 5=0.70x. Single-starter positions unchanged.
+- **OL→OT position mapping fix:** sync_ourlads_depth_charts.py now maps LT/RT → OT ($800K base) instead of generic OL ($475K). 178 tackles corrected across 68 teams, $93.3M in recovered value.
 - **2028 HS experience fix:** Multiplier for 2028 juniors reduced from 0.70→0.35, 2029+ from 0.65→0.25. Fixes 4.6× On3 overvaluation for young QBs.
 - **EA rating fallback in talent_modifier:** Priority chain: production_score → ea_rating → star_rating. EA OVR tiers: 90+→1.4, 82+→1.2, 75+→1.0, 68+→0.65, <68→0.4
 - **Recruiting pedigree floor:** 5★ class ≤ 3 → depth chart multiplier floor of 1.0×. 4★ class ≤ 3 → floor of 0.45×.
@@ -55,9 +63,9 @@ Key algorithm files:
 | `sync_roster_status.py` | Flags departed players via CFBD transfer portal/roster data |
 | `sync_ourlads_depth_charts.py` | Scrapes Ourlads depth charts, sets is_on_depth_chart + depth_chart_rank |
 | `import_recruiting_class.py` | Imports HS recruiting classes from CFBD API or CSV |
-| `identify_override_candidates.py` | Screens players for potential NIL valuation adjustments |
-| `apply_overrides.py` | Reads approved CSV, applies reported deals to database |
-| `verify_override_urls.py` | HTTP-checks source URLs for reported deal records |
+| `identify_override_candidates.py` | Screens players for potential NIL override candidates |
+| `apply_overrides.py` | Reads approved_overrides.csv, applies to nil_overrides table |
+| `verify_override_urls.py` | HTTP-checks source URLs for nil_overrides |
 | `ingest_espn_rosters.py` | Bulk imports ESPN roster data |
 | `ingest_eada_finances.py` | Imports EADA financial data for teams |
 | `flag_draft_eligible.py` | Scrapes Drafttek Big Board, flags draft-eligible players |
@@ -87,9 +95,14 @@ Key algorithm files:
 | `scrape_on3_team_socials.py` | Scrapes On3 team NIL pages for per-player social follower counts |
 | `scrape_247_commitments.py` | Scrapes 247Sports for current HS recruit commitment data |
 | `backfill_recruit_commitments.py` | Backfills team_id for HS recruits using CFBD committedTo field |
+| `name_utils.py` | Shared name normalization + 4-pass fuzzy matching (exact -> exact-stripped -> fuzzy -> fuzzy-stripped) |
+| `enrich_star_ratings_247.py` | 247Sports fallback for star_rating/composite_score (classes 2022-2026, runs after enrich_star_ratings.py) |
+| `generate_texas_comparison.py` | Generates CFO vs On3 comparison CSV for Texas with Override Value column |
+| `diagnose_duplicates.py` | Comprehensive duplicate detection across all 68 teams with merge-before-delete logic |
+| `fix_class_years.py` | Populates class_year NULLs via CFBD team+name matching (broader than update_class_years.py) |
 
-### Reported Deals
-21 active reported deals as of April 2026. Managed via `python_engine/data/approved_overrides.csv`.
+### Overrides
+66 active overrides as of April 2026 (18 original + 9 Texas + 7 Texas Tech + 32 Georgia). Overrides bypass the algorithmic formula entirely. Managed via `python_engine/data/approved_overrides.csv` → `apply_overrides.py`, or directly via the comparison CSV workflow.
 
 ## 4. Tracked Teams (68 — All Power 4)
 **SEC (16):** Alabama, Arkansas, Auburn, Florida, Georgia, Kentucky, LSU, Mississippi State, Missouri, Oklahoma, Ole Miss, South Carolina, Tennessee, Texas, Texas A&M, Vanderbilt
@@ -110,7 +123,7 @@ Key algorithm files:
 * `player_tag` (TEXT: "College Athlete" | "High School Recruit")
 * `composite_score` (NUMERIC — 247Sports composite, 0–100 scale)
 * `cfo_valuation` (INTEGER — computed by V3.5 engine)
-* `is_override` (BOOLEAN — true if reported deal replaces algorithm)
+* `is_override` (BOOLEAN — true if nil_overrides row replaces algorithm)
 * `is_on_depth_chart` (BOOLEAN)
 * `depth_chart_rank` (INTEGER — 1=starter, 2=backup, etc.)
 * `roster_status` (TEXT — 'active', 'departed_draft', 'departed_transfer', 'departed_graduated', 'departed_other')
@@ -135,7 +148,7 @@ Key algorithm files:
 * `active_payroll` (INTEGER)
 * `market_multiplier` (NUMERIC — 0.8 to 1.3)
 
-### Table: `nil_overrides` (reported deals)
+### Table: `nil_overrides`
 * `player_id` (UUID, FK → players)
 * `name` (TEXT)
 * `total_value` (INTEGER)
@@ -182,7 +195,7 @@ Aggregates active college athletes + 2026 incoming recruits per team. Excludes d
 |-------|---------------|-------------|
 | `/` (Homepage) | Hero search + route cards (Teams, Players, Recruits) | Static |
 | `/players` (Big Board) | Top 100 college athletes by valuation | players + teams join |
-| `/players/[slug]` (Player Profile) | Name, avatar, team, valuation; contract details; recruit profile card | players + teams + nil_overrides |
+| `/players/[slug]` (Player Profile) | Name, avatar, team, valuation; override contract details; recruit profile card | players + teams + nil_overrides |
 | `/recruits` | 4/5★ HS recruits by composite score, filtered by class year | players + teams join |
 | `/teams` (Team Index) | Programs ranked by Est. Roster Value | team_roster_summary view |
 | `/teams/[slug]` (Team Detail) | Active roster + 2026 recruits merged, sorted by valuation | players + teams |

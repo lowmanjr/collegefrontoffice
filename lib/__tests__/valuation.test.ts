@@ -33,13 +33,15 @@ describe("isEligibleForValuation", () => {
 
 describe("getPositionBaseValue", () => {
   // Recalibrated base values — April 2026 market update
-  it("QB → $1.2M", () => expect(getPositionBaseValue("QB").value).toBe(1_200_000));
+  it("QB → $1.5M", () => expect(getPositionBaseValue("QB").value).toBe(1_500_000));
   it("WR → $550K", () => expect(getPositionBaseValue("WR").value).toBe(550_000));
   it("K → $100K", () => expect(getPositionBaseValue("K").value).toBe(100_000));
+  it("DT → $600K", () => expect(getPositionBaseValue("DT").value).toBe(600_000));
+  it("DL → $600K", () => expect(getPositionBaseValue("DL").value).toBe(600_000));
   it("unknown → $400K", () => expect(getPositionBaseValue("XYZ").value).toBe(400_000));
   it("null → $400K", () => expect(getPositionBaseValue(null).value).toBe(400_000));
-  it("lowercase", () => expect(getPositionBaseValue("qb").value).toBe(1_200_000));
-  it("whitespace", () => expect(getPositionBaseValue(" QB ").value).toBe(1_200_000));
+  it("lowercase", () => expect(getPositionBaseValue("qb").value).toBe(1_500_000));
+  it("whitespace", () => expect(getPositionBaseValue(" QB ").value).toBe(1_500_000));
   it("label", () => expect(getPositionBaseValue("QB").label).toBe("Quarterback"));
 });
 
@@ -70,13 +72,16 @@ describe("getTalentModifier", () => {
   it("prod 50 → 1.0", () => expect(getTalentModifier(50, null).modifier).toBe(1.0));
   it("prod 25 → 0.65", () => expect(getTalentModifier(25, null).modifier).toBe(0.65));
   it("prod 10 → 0.4", () => expect(getTalentModifier(10, null).modifier).toBe(0.4));
-  it("prod 0 sentinel → star 5 → 1.15", () => {
+  it("prod 0 sentinel → star 5 → 1.30 (V3.6b)", () => {
     const r = getTalentModifier(0, 5);
-    expect(r.modifier).toBe(1.15); expect(r.usedProduction).toBe(false);
+    expect(r.modifier).toBe(1.30); expect(r.usedProduction).toBe(false);
   });
   it("null/4 → 1.0", () => expect(getTalentModifier(null, 4).modifier).toBe(1.0));
-  it("null/3 → 0.9", () => expect(getTalentModifier(null, 3).modifier).toBe(0.9));
-  it("null/null → 1.0", () => expect(getTalentModifier(null, null).modifier).toBe(1.0));
+  it("null/3 → 0.80 (V3.6b)", () => expect(getTalentModifier(null, 3).modifier).toBe(0.80));
+  it("null/null → 0.70 (V3.6b no-data penalty)", () => expect(getTalentModifier(null, null).modifier).toBe(0.70));
+  it("null/2 → 0.65 (V3.6b)", () => expect(getTalentModifier(null, 2).modifier).toBe(0.65));
+  it("null/1 → 0.65 (V3.6b)", () => expect(getTalentModifier(null, 1).modifier).toBe(0.65));
+  it("all zeros → 0.70 (V3.6b)", () => expect(getTalentModifier(0, 0, 0).modifier).toBe(0.70));
   it("prod 80 beats star 5", () => {
     const r = getTalentModifier(80, 5);
     expect(r.modifier).toBe(1.2); expect(r.usedProduction).toBe(true);
@@ -151,8 +156,8 @@ describe("getDepthChartRankMultiplier", () => {
     expect(getDepthChartRankMultiplier(3, true, "QB").multiplier).toBe(0.20));
   it("QB rank 4 → 0.12 (deep reserve, single)", () =>
     expect(getDepthChartRankMultiplier(4, true, "QB").multiplier).toBe(0.12));
-  it("TE rank 2 → 1.0 (2nd TE is a starter)", () =>
-    expect(getDepthChartRankMultiplier(2, true, "TE").multiplier).toBe(1.0));
+  it("TE rank 2 → 0.90 (V3.6b graduated TE2)", () =>
+    expect(getDepthChartRankMultiplier(2, true, "TE").multiplier).toBe(0.90));
   it("TE rank 3 → 0.55 (1st backup, multi-starter)", () =>
     expect(getDepthChartRankMultiplier(3, true, "TE").multiplier).toBe(0.55));
   it("K rank 2 → 0.35 (single-starter backup)", () =>
@@ -161,28 +166,38 @@ describe("getDepthChartRankMultiplier", () => {
   // Multi-starter positions
   it("OL rank 1 → 1.0 (starter)", () =>
     expect(getDepthChartRankMultiplier(1, true, "OL").multiplier).toBe(1.0));
-  it("OL rank 5 → 1.0 (still starter — 5 OL start)", () =>
-    expect(getDepthChartRankMultiplier(5, true, "OL").multiplier).toBe(1.0));
+  it("OL rank 2 → 0.90 (V3.6b graduated)", () =>
+    expect(getDepthChartRankMultiplier(2, true, "OL").multiplier).toBe(0.90));
+  it("OL rank 3 → 0.80 (V3.6b graduated)", () =>
+    expect(getDepthChartRankMultiplier(3, true, "OL").multiplier).toBe(0.80));
+  it("OL rank 4 → 0.75 (V3.6b graduated)", () =>
+    expect(getDepthChartRankMultiplier(4, true, "OL").multiplier).toBe(0.75));
+  it("OL rank 5 → 0.70 (V3.6b graduated)", () =>
+    expect(getDepthChartRankMultiplier(5, true, "OL").multiplier).toBe(0.70));
   it("OL rank 6 → 0.55 (1st backup, multi)", () =>
     expect(getDepthChartRankMultiplier(6, true, "OL").multiplier).toBe(0.55));
   it("OL rank 7 → 0.40 (2nd backup, multi)", () =>
     expect(getDepthChartRankMultiplier(7, true, "OL").multiplier).toBe(0.40));
   it("OL rank 8 → 0.25 (deep reserve, multi)", () =>
     expect(getDepthChartRankMultiplier(8, true, "OL").multiplier).toBe(0.25));
-  it("WR rank 3 → 1.0 (3rd WR is a starter)", () =>
-    expect(getDepthChartRankMultiplier(3, true, "WR").multiplier).toBe(1.0));
+  it("WR rank 2 → 0.90 (V3.6b graduated)", () =>
+    expect(getDepthChartRankMultiplier(2, true, "WR").multiplier).toBe(0.90));
+  it("WR rank 3 → 0.80 (V3.6b graduated)", () =>
+    expect(getDepthChartRankMultiplier(3, true, "WR").multiplier).toBe(0.80));
   it("WR rank 4 → 0.55 (1st backup WR)", () =>
     expect(getDepthChartRankMultiplier(4, true, "WR").multiplier).toBe(0.55));
-  it("CB rank 2 → 1.0 (2nd CB is a starter)", () =>
-    expect(getDepthChartRankMultiplier(2, true, "CB").multiplier).toBe(1.0));
+  it("CB rank 2 → 0.90 (V3.6b graduated)", () =>
+    expect(getDepthChartRankMultiplier(2, true, "CB").multiplier).toBe(0.90));
   it("CB rank 3 → 0.55 (1st backup CB)", () =>
     expect(getDepthChartRankMultiplier(3, true, "CB").multiplier).toBe(0.55));
-  it("LB rank 3 → 1.0 (3rd LB is a starter)", () =>
-    expect(getDepthChartRankMultiplier(3, true, "LB").multiplier).toBe(1.0));
+  it("LB rank 2 → 0.90 (V3.6b graduated)", () =>
+    expect(getDepthChartRankMultiplier(2, true, "LB").multiplier).toBe(0.90));
+  it("LB rank 3 → 0.80 (V3.6b graduated)", () =>
+    expect(getDepthChartRankMultiplier(3, true, "LB").multiplier).toBe(0.80));
   it("LB rank 4 → 0.55 (1st backup LB)", () =>
     expect(getDepthChartRankMultiplier(4, true, "LB").multiplier).toBe(0.55));
-  it("S rank 2 → 1.0 (2nd S is a starter)", () =>
-    expect(getDepthChartRankMultiplier(2, true, "S").multiplier).toBe(1.0));
+  it("S rank 2 → 0.90 (V3.6b graduated)", () =>
+    expect(getDepthChartRankMultiplier(2, true, "S").multiplier).toBe(0.90));
   it("S rank 3 → 0.55 (1st backup S)", () =>
     expect(getDepthChartRankMultiplier(3, true, "S").multiplier).toBe(0.55));
 
@@ -207,6 +222,8 @@ describe("getDepthChartRankMultiplier", () => {
     expect(getDepthChartRankMultiplier(7, true, "LB", 3, 1).multiplier).toBe(0.25));
   it("5★ JR at WR rank 1 → 1.0 (starter, floor irrelevant)", () =>
     expect(getDepthChartRankMultiplier(1, true, "WR", 5, 3).multiplier).toBe(1.0));
+  it("5★ FR at WR rank 3 → 1.0 (grad 0.80 but pedigree floor 1.0)", () =>
+    expect(getDepthChartRankMultiplier(3, true, "WR", 5, 1).multiplier).toBe(1.0));
   it("5★ FR at LB rank 7 label includes pedigree", () =>
     expect(getDepthChartRankMultiplier(7, true, "LB", 5, 1).label).toContain("Pedigree Floor"));
   it("4★ SO at WR rank 8 label includes pedigree", () =>
@@ -235,8 +252,8 @@ describe("calculateCfoValuation", () => {
     };
     const r = calculateCfoValuation(p, 1.2);
     expect(r).not.toBeNull();
-    // Recalibrated: 1200000 * 1.0 * 1.2 * 1.2 * 1.20 * 1.0 = 2,073,600 + 41338 = 2,114,938
-    expect(r!.total).toBe(2_114_938);
+    // V3.6b: 1500000 * 1.0 * 1.2 * 1.2 * 1.20 * 1.0 = 2,592,000 + 41338 = 2,633,338
+    expect(r!.total).toBe(2_633_338);
   });
 
   it("elite WR starter rank 1, pick 8, prod 92, market 1.3", () => {
@@ -259,8 +276,8 @@ describe("calculateCfoValuation", () => {
     };
     const r = calculateCfoValuation(p, 1.2);
     expect(r).not.toBeNull();
-    // Recalibrated: 1200000 * 1.0 * 0.65 * 1.2 * 1.15 * 0.35 = 376,740 + 5000 = 381,740
-    expect(r!.total).toBe(381_740);
+    // V3.6b: 1500000 * 1.0 * 0.65 * 1.2 * 1.15 * 0.35 = 470,924.99.. + 5000 = 475,924
+    expect(r!.total).toBe(475_924);
   });
 
   it("OL rank 5 = starter (5 OL start)", () => {
@@ -271,9 +288,9 @@ describe("calculateCfoValuation", () => {
     };
     const r = calculateCfoValuation(p, 1.2);
     expect(r).not.toBeNull();
-    // Recalibrated: 475000 * 1.0 * 1.0 * 1.2 * 1.20 * 1.0 = 684,000
-    expect(r!.total).toBe(684_000);
-    expect(r!.breakdown.depthChartRank!.multiplier).toBe(1.0);
+    // V3.6b: 475000 * 1.0 * 0.70 * 1.2 * 1.20 * 0.70 = 335,160
+    expect(r!.total).toBe(335_160);
+    expect(r!.breakdown.depthChartRank!.multiplier).toBe(0.70);
   });
 
   it("WR rank 4 = 1st backup (multi-starter, senior = no pedigree floor) → 0.55x", () => {
@@ -297,8 +314,8 @@ describe("calculateCfoValuation", () => {
     };
     const r = calculateCfoValuation(p, 1.0);
     expect(r).not.toBeNull();
-    // Recalibrated: 100000 * 1.0 * 1.0 * 1.0 * 1.15 * 1.0 = 114,999 (FP) + 2000 = 116,999
-    expect(r!.total).toBe(116_999);
+    // V3.6b: 100000 * 1.0 * 0.70 * 1.0 * 1.15 * 1.0 = 80,500 + 2000 = 82,500
+    expect(r!.total).toBe(82_500);
   });
 
   it("$10K floor", () => {

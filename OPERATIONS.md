@@ -46,29 +46,10 @@ Example:
 
 ### 1.3 Add EA Sports Team ID
 
-Add the team's EA CFB 26 ID to the `EA_TEAM_IDS` dict in `python_engine/scrape_ea_ratings.py`:
+All 68 Power 4 teams are now covered in `EA_TEAM_IDS` in `python_engine/scrape_ea_ratings.py` (expanded from 16 teams in April 2026). EA team IDs were discovered from the EA.com ratingsFilters API (`teamGroups` endpoint). All 68 mapped as exact name matches.
 
-- To find the ID: check the EA ratings page with the `?team={id}` query parameter
-- Current IDs for the 16 tracked teams:
-
-| Team | EA ID |
-|------|-------|
-| Alabama | 3 |
-| Clemson | 20 |
-| Florida | 29 |
-| Georgia | 32 |
-| LSU | 48 |
-| Miami | 52 |
-| Michigan | 54 |
-| Notre Dame | 70 |
-| Ohio State | 72 |
-| Oklahoma | 73 |
-| Oregon | 77 |
-| South Carolina | 88 |
-| Tennessee | 94 |
-| Texas | 96 |
-| USC | 110 |
-| Washington | 120 |
+- To add a new team: find its ID on the EA ratings page with the `?team={id}` query parameter, or scrape the `teamGroups` filter from the ratings API
+- The full ID mapping is maintained in the `EA_TEAM_IDS` dict in `scrape_ea_ratings.py`
 
 ### 1.4 Add ESPN Team ID
 
@@ -115,7 +96,8 @@ Run in this exact order:
 cd python_engine
 python ingest_espn_rosters.py                    # imports ESPN roster
 python map_cfbd_ids.py                           # maps CFBD player IDs
-python enrich_star_ratings.py                    # adds historical star ratings
+python enrich_star_ratings.py                    # adds historical star ratings (CFBD primary)
+python enrich_star_ratings_247.py                # 247Sports fallback (classes 2022-2026)
 python enrich_class_years.py                     # adds class years from CFBD recruiting
 python update_class_years.py                     # converts to human-readable labels
 ```
@@ -208,7 +190,8 @@ python ingest_eada_finances.py                  # imports financial data
 # 2. Roster import
 python ingest_espn_rosters.py                   # ESPN roster data
 python map_cfbd_ids.py                          # CFBD player ID mapping
-python enrich_star_ratings.py                   # historical star ratings
+python enrich_star_ratings.py                   # historical star ratings (CFBD primary)
+python enrich_star_ratings_247.py               # 247Sports fallback (classes 2022-2026)
 python enrich_class_years.py                    # recruiting class years
 python update_class_years.py                    # human-readable labels
 
@@ -262,12 +245,30 @@ python calculate_cfo_valuations.py
 **Monthly:**
 
 ```bash
+python enrich_star_ratings.py                    # CFBD star ratings (catches new transfers)
+python enrich_star_ratings_247.py                # 247Sports fallback (classes 2022-2026)
 python scrape_on3_socials.py
 python scrape_on3_valuations.py
 python identify_override_candidates.py
 python verify_override_urls.py
 python calculate_cfo_valuations.py
 ```
+
+**Comparison CSV Workflow (per-team calibration):**
+
+```bash
+# 1. Generate comparison CSV (paste On3 data into script, run it)
+python generate_texas_comparison.py              # or generate_texas_tech_comparison.py, etc.
+
+# 2. Owner fills Override Value column in the CSV
+
+# 3. Ingest overrides (via Claude Code or apply_overrides.py)
+
+# 4. Re-run valuations
+python calculate_cfo_valuations.py
+```
+
+Active comparison CSVs: `data/texas_comparison.csv`, `data/texas_tech_comparison.csv`, `data/georgia_comparison.csv`
 
 **Post-Transfer Portal (January through April):**
 
@@ -508,7 +509,7 @@ ATH: 1
 
 ```
 WR-X   -> WR       WR-Z   -> WR       WR-SL  -> WR       WR-H   -> WR
-LT     -> OL       LG     -> OL       C      -> OL       RG     -> OL       RT     -> OL
+LT     -> OT       LG     -> OL       C      -> OL       RG     -> OL       RT     -> OT
 TE     -> TE       QB     -> QB       RB     -> RB       HB     -> RB       FB     -> RB
 DE     -> DE       NT     -> DL       DT     -> DL
 JACK   -> DE       LEO    -> DE       SAM    -> LB
@@ -531,7 +532,7 @@ LEDG   -> DE       REDG   -> DE       (Left/Right Edge)
 MIKE   -> LB       WILL   -> LB       SAM    -> LB
 FS     -> S        SS     -> S
 HB     -> RB
-LT     -> OL       LG     -> OL       C      -> OL       RG     -> OL       RT     -> OL
+LT     -> OT       LG     -> OL       C      -> OL       RG     -> OL       RT     -> OT
 CB     -> CB       WR     -> WR       TE     -> TE       QB     -> QB
 DT     -> DL       RE     -> DE       LE     -> DE
 K      -> PK       P      -> P        LS     -> LS
@@ -668,6 +669,17 @@ Players with reported deals (`is_override=true`) must NEVER be auto-modified by 
 **Issue:** Jett Washington (Oregon S) had 97.28 composite but star_rating=4. A 97+ composite should always be 5-star.
 **Solution:** Manual star_rating correction to 5.
 **Prevention:** Run validation query: `WHERE composite_score >= 97 AND star_rating < 5`.
+
+### 5.16 OL→OT Position Mapping Bug ($93.3M Impact)
+**Issue:** `sync_ourlads_depth_charts.py` mapped all Ourlads OL positions (LT, LG, C, RG, RT) to generic "OL" ($475K base). Tackles (LT/RT) should use "OT" ($800K base) — a 68% difference per player.
+**Solution:** Added `OURLADS_POSITION_MAP` dict to `sync_ourlads_depth_charts.py`. LT/RT → OT, LG/RG/C → OL. Script now updates player position during depth chart sync when the mapped position differs from the current position.
+**Impact:** 178 tackles corrected across all 68 teams. $93.3M in total roster value recovered.
+**Prevention:** Position mapping is now automated — runs every time `sync_ourlads_depth_charts.py --apply` executes.
+
+### 5.17 Name Suffix Matching Failures
+**Issue:** Players with suffixes (Jr., Sr., II, III, IV, V) failed to match across data sources. Example: "Michael Terry III" (247Sports) didn't match "Michael Terry" (CFBD), causing missing star_rating and ea_rating.
+**Solution:** Created `name_utils.py` with shared 4-pass matching: exact → exact-stripped → fuzzy → fuzzy-stripped. Retrofitted 6 pipeline scripts. Created `enrich_star_ratings_247.py` as 247Sports fallback (classes 2022-2026).
+**Impact:** 1,390 additional star ratings from 247Sports fallback. 17 suffix-stripped matches per CFBD enrichment run.
 
 ## 6. Rollback Procedures
 

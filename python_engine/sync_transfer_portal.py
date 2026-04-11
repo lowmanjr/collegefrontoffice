@@ -20,6 +20,7 @@ import requests
 from bs4 import BeautifulSoup
 from supabase_client import supabase
 from collections import defaultdict
+from name_utils import normalize_name, normalize_name_stripped
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
 log = logging.getLogger(__name__)
@@ -30,13 +31,8 @@ HEADERS = {
 
 
 def normalize(name: str) -> str:
-    name = unicodedata.normalize("NFKD", name)
-    name = "".join(c for c in name if not unicodedata.combining(c))
-    name = name.lower().strip()
-    name = re.sub(r"\s+(jr|sr|ii|iii|iv|v)\.?$", "", name)
-    name = re.sub(r"[^a-z\s]", "", name)
-    name = re.sub(r"\s+", " ", name).strip()
-    return name
+    """Delegates to shared name_utils. Strips suffixes like the old version did."""
+    return normalize_name_stripped(name)
 
 
 def slugify(text: str) -> str:
@@ -154,14 +150,22 @@ def main():
         offset += page_size
     log.info(f"Found {len(all_db_players)} college athletes in DB")
 
-    # Build lookups
+    # Build lookups: both normalized and suffix-stripped for broader matching
     name_team_lookup: dict[tuple, dict] = {}
     name_global_lookup: dict[str, list[dict]] = defaultdict(list)
+    # Additional stripped lookups for suffix mismatches (Jr/III etc.)
+    name_team_stripped: dict[tuple, dict] = {}
+    name_global_stripped: dict[str, list[dict]] = defaultdict(list)
     for p in all_db_players:
         norm = normalize(p["name"])
+        stripped = normalize_name_stripped(p["name"])
         key = (norm, p.get("team_id"))
         name_team_lookup[key] = p
         name_global_lookup[norm].append(p)
+        skey = (stripped, p.get("team_id"))
+        if skey not in name_team_stripped:
+            name_team_stripped[skey] = p
+        name_global_stripped[stripped].append(p)
 
     # Scrape On3 portal
     log.info(f"Scraping On3 transfer portal (committed, up to {max_pages} pages)...")
@@ -194,11 +198,19 @@ def main():
         norm = transfer["normalized"]
 
         db_player = None
+        norm_stripped = normalize_name_stripped(transfer.get("name", ""))
+
+        # Level 1: Team-scoped exact match (then stripped fallback)
         if origin_team_id:
             db_player = name_team_lookup.get((norm, origin_team_id))
+            if not db_player:
+                db_player = name_team_stripped.get((norm_stripped, origin_team_id))
 
+        # Level 2: Global fallback (then stripped fallback)
         if not db_player:
             candidates = name_global_lookup.get(norm, [])
+            if not candidates:
+                candidates = name_global_stripped.get(norm_stripped, [])
             for c in candidates:
                 if c.get("team_id") != dest_team_id:
                     db_player = c

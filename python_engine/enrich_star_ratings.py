@@ -15,12 +15,12 @@ Requirements:
 
 import os
 import time
-import difflib
 import unicodedata
 import re
 import requests
 from dotenv import load_dotenv
 from supabase import create_client, Client
+from name_utils import normalize_name, normalize_name_stripped
 
 # ---------------------------------------------------------------------------
 # 1. SETUP
@@ -50,14 +50,11 @@ MANUAL_OVERRIDES: dict[str, int] = {
 }
 
 # ---------------------------------------------------------------------------
-# 2. NAME NORMALISATION
+# 2. NAME NORMALISATION — uses shared name_utils
 # ---------------------------------------------------------------------------
 
 def normalise(name: str) -> str:
-    nfkd = unicodedata.normalize("NFKD", name)
-    ascii_name = nfkd.encode("ascii", "ignore").decode("ascii")
-    clean = re.sub(r"[^a-z0-9 ]", "", ascii_name.lower())
-    return " ".join(clean.split())
+    return normalize_name(name)
 
 # ---------------------------------------------------------------------------
 # 3. FETCH DB PLAYERS
@@ -112,32 +109,63 @@ print(f"\nTotal unique recruits in lookup dict: {len(recruit_dict)}\n")
 print("Matching players and writing star ratings to Supabase...")
 enriched_count = 0
 unmatched: list[str] = []
+match_methods: dict[str, int] = {"manual": 0, "exact": 0, "exact-stripped": 0, "fuzzy": 0, "fuzzy-stripped": 0}
 
+# Build both normal and stripped lookup dicts from CFBD recruits
 dict_keys = list(recruit_dict.keys())
+stripped_dict: dict[str, int] = {}
+for rkey, rval in recruit_dict.items():
+    skey = normalize_name_stripped(rkey)  # strip suffixes from already-normalized keys
+    if skey and (skey not in stripped_dict or rval > stripped_dict[skey]):
+        stripped_dict[skey] = rval
+stripped_keys = list(stripped_dict.keys())
 
 for player in players_to_enrich:
-    key   = normalise(player["name"])
+    key = normalise(player["name"])
+    key_stripped = normalize_name_stripped(player["name"])
 
     # 1. Manual override — checked first, highest priority
     stars = MANUAL_OVERRIDES.get(key)
+    method = "manual"
 
     # 2. Exact CFBD match
     if stars is None:
         stars = recruit_dict.get(key)
+        method = "exact"
 
-    # 3. Fuzzy fallback when exact match fails
+    # 3. Exact match on suffix-stripped names (NEW — catches Jr/III mismatches)
     if stars is None:
-        fuzzy = difflib.get_close_matches(key, dict_keys, n=1, cutoff=0.85)
+        stars = stripped_dict.get(key_stripped)
+        if stars is not None:
+            method = "exact-stripped"
+            print(f"  [Stripped Match] \"{player['name']}\" -> stripped \"{key_stripped}\"")
+
+    # 4. Fuzzy fallback on full normalized names
+    if stars is None:
+        from difflib import get_close_matches
+        fuzzy = get_close_matches(key, dict_keys, n=1, cutoff=0.85)
         if fuzzy:
             matched_key = fuzzy[0]
             stars = recruit_dict[matched_key]
+            method = "fuzzy"
             print(f"  [Fuzzy Match] Mapped ESPN \"{player['name']}\" to CFBD \"{matched_key}\"")
+
+    # 5. Fuzzy fallback on suffix-stripped names (NEW)
+    if stars is None:
+        from difflib import get_close_matches
+        fuzzy = get_close_matches(key_stripped, stripped_keys, n=1, cutoff=0.85)
+        if fuzzy:
+            matched_key = fuzzy[0]
+            stars = stripped_dict[matched_key]
+            method = "fuzzy-stripped"
+            print(f"  [Fuzzy-Stripped] \"{player['name']}\" -> \"{matched_key}\"")
 
     if stars is not None:
         supabase.table("players").update(
             {"star_rating": stars}
         ).eq("id", player["id"]).execute()
         enriched_count += 1
+        match_methods[method] = match_methods.get(method, 0) + 1
         time.sleep(0.1)
     else:
         unmatched.append(player["name"])
@@ -148,6 +176,10 @@ for player in players_to_enrich:
 
 print(f"\n{'=' * 55}")
 print(f"Successfully enriched {enriched_count} player(s) with historical star ratings.")
+print(f"\n  Match breakdown:")
+for m, c in sorted(match_methods.items()):
+    if c > 0:
+        print(f"    {m:<20} {c:>6}")
 
 if unmatched:
     print(f"\nNo CFBD match found for {len(unmatched)} player(s):")

@@ -30,13 +30,15 @@ class TestIsEligible:
 
 class TestPositionBase:
     # Recalibrated base values — April 2026 market update
-    def test_qb(self):    assert position_base_value("QB") == 1_200_000
+    def test_qb(self):    assert position_base_value("QB") == 1_500_000
     def test_wr(self):    assert position_base_value("WR") == 550_000
     def test_k(self):     assert position_base_value("K") == 100_000
     def test_unk(self):   assert position_base_value("XYZ") == 400_000
     def test_none(self):  assert position_base_value(None) == 400_000
-    def test_lower(self): assert position_base_value("qb") == 1_200_000
-    def test_space(self): assert position_base_value(" QB ") == 1_200_000
+    def test_lower(self): assert position_base_value("qb") == 1_500_000
+    def test_space(self): assert position_base_value(" QB ") == 1_500_000
+    def test_dt(self):    assert position_base_value("DT") == 600_000
+    def test_dl(self):    assert position_base_value("DL") == 600_000
 
 
 class TestDraftPremium:
@@ -62,10 +64,14 @@ class TestTalentModifier:
     def test_50(self):       assert talent_modifier(50, None) == 1.0
     def test_25(self):       assert talent_modifier(25, None) == 0.65
     def test_10(self):       assert talent_modifier(10, None) == 0.4
-    def test_0_star5(self):  assert talent_modifier(0, 5) == 1.15
+    def test_0_star5(self):  assert talent_modifier(0, 5) == 1.30   # V3.6b widened
     def test_null4(self):    assert talent_modifier(None, 4) == 1.0
-    def test_null3(self):    assert talent_modifier(None, 3) == 0.9
-    def test_nullnull(self): assert talent_modifier(None, None) == 1.0
+    def test_null3(self):    assert talent_modifier(None, 3) == 0.80  # V3.6b widened
+    def test_nullnull(self): assert talent_modifier(None, None) == 0.70  # V3.6b no-data penalty
+    # V3.6b new tests
+    def test_star2(self):    assert talent_modifier(None, 2) == 0.65   # V3.6b widened
+    def test_star1(self):    assert talent_modifier(None, 1) == 0.65   # V3.6b widened
+    def test_nodata_all_zero(self): assert talent_modifier(0, 0, ea_rating=0) == 0.70
     def test_80star5(self):  assert talent_modifier(80, 5) == 1.2
 
     # EA rating fallback
@@ -126,23 +132,28 @@ class TestDepthChartRankMultiplier:
     def test_qb_r2(self): assert depth_chart_rank_multiplier(2, True, "QB") == 0.35
     def test_qb_r3(self): assert depth_chart_rank_multiplier(3, True, "QB") == 0.20
     def test_qb_r4(self): assert depth_chart_rank_multiplier(4, True, "QB") == 0.12
-    def test_te_r2(self): assert depth_chart_rank_multiplier(2, True, "TE") == 1.0   # TE is 2-starter
+    def test_te_r2(self): assert depth_chart_rank_multiplier(2, True, "TE") == 0.90  # V3.6b graduated TE2
     def test_te_r3(self): assert depth_chart_rank_multiplier(3, True, "TE") == 0.55  # 1st backup, multi
     def test_k_r2(self):  assert depth_chart_rank_multiplier(2, True, "K") == 0.35
 
     # Multi-starter
     def test_ol_r1(self): assert depth_chart_rank_multiplier(1, True, "OL") == 1.0
-    def test_ol_r5(self): assert depth_chart_rank_multiplier(5, True, "OL") == 1.0
+    def test_ol_r2(self): assert depth_chart_rank_multiplier(2, True, "OL") == 0.90  # V3.6b graduated
+    def test_ol_r3(self): assert depth_chart_rank_multiplier(3, True, "OL") == 0.80  # V3.6b graduated
+    def test_ol_r4(self): assert depth_chart_rank_multiplier(4, True, "OL") == 0.75  # V3.6b graduated
+    def test_ol_r5(self): assert depth_chart_rank_multiplier(5, True, "OL") == 0.70  # V3.6b graduated
     def test_ol_r6(self): assert depth_chart_rank_multiplier(6, True, "OL") == 0.55
     def test_ol_r7(self): assert depth_chart_rank_multiplier(7, True, "OL") == 0.40
     def test_ol_r8(self): assert depth_chart_rank_multiplier(8, True, "OL") == 0.25
-    def test_wr_r3(self): assert depth_chart_rank_multiplier(3, True, "WR") == 1.0
+    def test_wr_r2(self): assert depth_chart_rank_multiplier(2, True, "WR") == 0.90  # V3.6b graduated
+    def test_wr_r3(self): assert depth_chart_rank_multiplier(3, True, "WR") == 0.80  # V3.6b graduated
     def test_wr_r4(self): assert depth_chart_rank_multiplier(4, True, "WR") == 0.55
-    def test_cb_r2(self): assert depth_chart_rank_multiplier(2, True, "CB") == 1.0
+    def test_cb_r2(self): assert depth_chart_rank_multiplier(2, True, "CB") == 0.90  # V3.6b graduated
     def test_cb_r3(self): assert depth_chart_rank_multiplier(3, True, "CB") == 0.55
-    def test_lb_r3(self): assert depth_chart_rank_multiplier(3, True, "LB") == 1.0
+    def test_lb_r2(self): assert depth_chart_rank_multiplier(2, True, "LB") == 0.90  # V3.6b graduated
+    def test_lb_r3(self): assert depth_chart_rank_multiplier(3, True, "LB") == 0.80  # V3.6b graduated
     def test_lb_r4(self): assert depth_chart_rank_multiplier(4, True, "LB") == 0.55
-    def test_s_r2(self):  assert depth_chart_rank_multiplier(2, True, "S") == 1.0
+    def test_s_r2(self):  assert depth_chart_rank_multiplier(2, True, "S") == 0.90  # V3.6b graduated
     def test_s_r3(self):  assert depth_chart_rank_multiplier(3, True, "S") == 0.55
 
     # Edge cases
@@ -172,9 +183,12 @@ class TestDepthChartRankMultiplier:
     def test_5star_so_backup_qb(self):
         # 5★ SO at QB rank 2 → 1st backup = 0.35, floor = 1.0
         assert depth_chart_rank_multiplier(2, True, "QB", star_rating=5, class_year=2) == 1.0
+    def test_5star_fr_wr_r3_floor(self):
+        # 5★ FR at WR rank 3 → graduated 0.80, but pedigree floor = 1.0
+        assert depth_chart_rank_multiplier(3, True, "WR", star_rating=5, class_year=1) == 1.0
     def test_4star_fr_starter(self):
-        # 4★ FR at OL rank 3 → starter (count=5), 1.0 > 0.85 floor
-        assert depth_chart_rank_multiplier(3, True, "OL", star_rating=4, class_year=1) == 1.0
+        # 4★ FR at OL rank 3 → graduated 0.80, which is > 0.45 floor → 0.80
+        assert depth_chart_rank_multiplier(3, True, "OL", star_rating=4, class_year=1) == 0.80
     def test_no_star_no_floor(self):
         # No star data → no floor
         assert depth_chart_rank_multiplier(7, True, "LB", star_rating=None, class_year=1) == 0.25
@@ -186,8 +200,8 @@ class TestCalculateValuation:
         p = {"player_tag": "College Athlete", "is_on_depth_chart": True, "depth_chart_rank": 1,
              "position": "QB", "nfl_draft_projection": None, "production_score": 78,
              "star_rating": 4, "class_year": 5, "hs_grad_year": None, "total_followers": 41_338}
-        # 1200000 * 1.0 * 1.2 * 1.2 * 1.20 * 1.0 = 2,073,600 + 41338 = 2,114,938
-        assert calculate_valuation(p, 1.2) == 2_114_938
+        # V3.6b: 1500000 * 1.0 * 1.2 * 1.2 * 1.20 * 1.0 = 2,592,000 + 41338 = 2,633,338
+        assert calculate_valuation(p, 1.2) == 2_633_338
 
     def test_elite_wr(self):
         p = {"player_tag": "College Athlete", "is_on_depth_chart": True, "depth_chart_rank": 1,
@@ -200,15 +214,15 @@ class TestCalculateValuation:
         p = {"player_tag": "College Athlete", "is_on_depth_chart": True, "depth_chart_rank": 2,
              "position": "QB", "nfl_draft_projection": None, "production_score": 40,
              "star_rating": 4, "class_year": 4, "hs_grad_year": None, "total_followers": 5_000}
-        # 1200000 * 1.0 * 0.65 * 1.2 * 1.15 * 0.35 = 376,740 + 5000 = 381,740
-        assert calculate_valuation(p, 1.2) == 381_740
+        # V3.6b: 1500000 * 1.0 * 0.65 * 1.2 * 1.15 * 0.35 = 470,924.99.. + 5000 = 475,924
+        assert calculate_valuation(p, 1.2) == 475_924
 
     def test_ol_rank5_starter(self):
         p = {"player_tag": "College Athlete", "is_on_depth_chart": True, "depth_chart_rank": 5,
              "position": "OL", "nfl_draft_projection": None, "production_score": None,
              "star_rating": None, "class_year": 5, "hs_grad_year": None, "total_followers": 0}
-        # 475000 * 1.0 * 1.0 * 1.2 * 1.20 * 1.0 = 684,000
-        assert calculate_valuation(p, 1.2) == 684_000
+        # V3.6b: 475000 * 1.0 * 0.70 * 1.2 * 1.20 * 0.70 = 335,160
+        assert calculate_valuation(p, 1.2) == 335_160
 
     def test_wr_rank4_multi_backup(self):
         p = {"player_tag": "College Athlete", "is_on_depth_chart": True, "depth_chart_rank": 4,
@@ -221,8 +235,8 @@ class TestCalculateValuation:
         p = {"player_tag": "College Athlete", "is_on_depth_chart": True, "depth_chart_rank": 1,
              "position": "K", "nfl_draft_projection": None, "production_score": None,
              "star_rating": None, "class_year": 4, "hs_grad_year": None, "total_followers": 2_000}
-        # Recalibrated: 100000 * 1.0 * 1.0 * 1.0 * 1.15 * 1.0 = 114,999 (FP) + 2000 = 116,999
-        assert calculate_valuation(p, 1.0) == 116_999
+        # V3.6b: 100000 * 1.0 * 0.70 * 1.0 * 1.15 * 1.0 = 80,500 + 2000 = 82,500
+        assert calculate_valuation(p, 1.0) == 82_500
 
     def test_floor_10k(self):
         p = {"player_tag": "College Athlete", "is_on_depth_chart": True, "depth_chart_rank": 4,

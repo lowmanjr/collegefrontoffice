@@ -38,7 +38,18 @@ export default async function BigBoardPage({ searchParams }: PageProps) {
     .not("cfo_valuation", "is", null);
 
   if (q) query = query.ilike("name", `%${q}%`);
-  if (pos && pos !== "All") query = query.eq("position", pos);
+  if (pos && pos !== "All") {
+    // Handle position aliases: "K" should match both "K" and "PK" in the DB
+    const POS_ALIASES: Record<string, string[]> = {
+      K: ["K", "PK"],
+      DL: ["DL", "DT"],
+      S: ["S", "DB"],
+    };
+    const posValues = POS_ALIASES[pos] ?? [pos];
+    query = posValues.length === 1
+      ? query.eq("position", posValues[0])
+      : query.in("position", posValues);
+  }
 
   const { data: players, error } = await query
     .order("cfo_valuation", { ascending: false })

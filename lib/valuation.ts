@@ -4,11 +4,12 @@
 // VALUATION_ENGINE.md §3.2
 
 const POSITION_BASE_VALUES: Record<string, number> = {
-  QB: 1_200_000,
+  QB: 1_500_000,
   OT: 800_000,
   EDGE: 700_000,
   DE: 700_000,
-  DT: 500_000,
+  DT: 600_000,
+  DL: 600_000,
   WR: 550_000,
   CB: 500_000,
   OG: 475_000,
@@ -144,13 +145,13 @@ export function getTalentModifier(
     return { label: `EA Rating ${eaRating} (fallback)`, modifier: 0.4, usedProduction: false };
   }
 
-  // Fallback 2: star rating proxy (narrower band)
+  // Fallback 2: star rating proxy (widened band — V3.6b)
   const star = starRating ?? 0;
-  if (star >= 5) return { label: "5★ Recruit (star rating proxy)", modifier: 1.15, usedProduction: false };
+  if (star >= 5) return { label: "5★ Recruit (star rating proxy)", modifier: 1.30, usedProduction: false };
   if (star === 4) return { label: "4★ Recruit (star rating proxy)", modifier: 1.0, usedProduction: false };
-  if (star === 3) return { label: "3★ Recruit (star rating proxy)", modifier: 0.9, usedProduction: false };
-  if (star >= 1) return { label: `${star}★ Recruit (star rating proxy)`, modifier: 0.8, usedProduction: false };
-  return { label: "No talent data (neutral)", modifier: 1.0, usedProduction: false };
+  if (star === 3) return { label: "3★ Recruit (star rating proxy)", modifier: 0.80, usedProduction: false };
+  if (star >= 1) return { label: `${star}★ Recruit (star rating proxy)`, modifier: 0.65, usedProduction: false };
+  return { label: "No talent data (penalty)", modifier: 0.70, usedProduction: false };
 }
 
 /**
@@ -247,14 +248,22 @@ export function getDepthChartRankMultiplier(
   let rawMult: number;
   let rawLabel: string;
 
+  // Graduated starter multiplier (V3.6b)
+  const STARTER_GRADIENT: Record<number, number> = {1: 1.0, 2: 0.90, 3: 0.80, 4: 0.75, 5: 0.70};
+
   if (depthChartRank == null) {
     rawMult = 0.55;
     rawLabel = "Unknown Rank";
   } else if (depthChartRank <= starterCount) {
-    rawMult = 1.0;
-    rawLabel = starterCount > 1
-      ? `Starter (${depthChartRank} of ${starterCount} ${pos})`
-      : "Starter";
+    if (isSingle) {
+      rawMult = 1.0;
+      rawLabel = "Starter";
+    } else {
+      rawMult = STARTER_GRADIENT[depthChartRank] ?? 0.70;
+      rawLabel = depthChartRank === 1
+        ? `Starter (#1 of ${starterCount} ${pos})`
+        : `Starter (#${depthChartRank} of ${starterCount} ${pos})`;
+    }
   } else {
     const backupDepth = depthChartRank - starterCount;
     const ordinal = backupDepth === 1 ? "1st" : backupDepth === 2 ? "2nd" : `${backupDepth}th`;
