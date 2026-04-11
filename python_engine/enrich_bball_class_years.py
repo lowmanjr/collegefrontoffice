@@ -26,14 +26,15 @@ from supabase_client import supabase
 logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
 log = logging.getLogger(__name__)
 
-BASKETBALL_TEAMS = [
-    {"slug": "byu", "espn_id": "252"},
-    {"slug": "kentucky", "espn_id": "96"},
-    {"slug": "uconn", "espn_id": "41"},
-]
-
 SPORT_PATH = "basketball/mens-college-basketball"
 BASE_URL = "https://site.api.espn.com/apis/site/v2/sports"
+
+
+def espn_id_from_logo(logo_url: str | None) -> str | None:
+    """Derive ESPN team ID from logo URL: .../teamlogos/ncaa/500/{id}.png"""
+    if not logo_url:
+        return None
+    return logo_url.split("/")[-1].replace(".png", "")
 
 HEADERS = {
     "User-Agent": (
@@ -64,9 +65,17 @@ def main() -> None:
     updated = 0
     skipped = 0
 
-    for team_cfg in BASKETBALL_TEAMS:
-        slug = team_cfg["slug"]
-        espn_id = team_cfg["espn_id"]
+    # Load teams dynamically from DB
+    teams_resp = supabase.table("basketball_teams") \
+        .select("slug, logo_url") \
+        .order("university_name").execute()
+
+    for team_row in (teams_resp.data or []):
+        slug = team_row["slug"]
+        espn_id = espn_id_from_logo(team_row.get("logo_url"))
+        if not espn_id:
+            log.warning(f"  {slug}: no ESPN ID derivable from logo_url, skipping")
+            continue
 
         log.info(f"Fetching {slug} roster from ESPN (ID {espn_id})...")
         url = f"{BASE_URL}/{SPORT_PATH}/teams/{espn_id}/roster"

@@ -59,6 +59,8 @@ Expected output: BYU and Kentucky rows with their market multipliers (1.08 and 1
 
 Step-by-step for onboarding any new program. This is the most critical section — follow in exact order.
 
+**Automation note:** All pipeline scripts load teams dynamically from `basketball_teams`. The ESPN team ID is derived from `logo_url` automatically. The only script file that needs updating for a new team is adding their On3 org key to `ON3_ORG_KEYS` in `enrich_bball_social_data.py` (see §3.3a).
+
 ### 3.1 Find ESPN Team ID
 
 ```bash
@@ -114,6 +116,21 @@ Replace all UPPERCASE placeholders. `estimated_nil_pool` guidelines:
 | Blue blood | $3,000,000–$5,000,000 |
 | Strong Power 4 | $800,000–$2,000,000 |
 | Mid-major | $300,000–$800,000 |
+
+### 3.3a Update On3 Org Key (for Social Enrichment)
+
+Add the team's On3 organization key to `ON3_ORG_KEYS` in `enrich_bball_social_data.py`:
+
+```python
+ON3_ORG_KEYS: dict[str, int] = {
+    "BYU": 21364,
+    "Kentucky": 12013,
+    "UConn": 24966,
+    "SCHOOL_NAME": ON3_KEY,  # add new team here
+}
+```
+
+This is the **only script file that needs updating** for a new team. To find the On3 org key: search for the team at `https://www.on3.com/nil/rankings/player/nil-100/?team-key=XXXXX` or inspect the URL on their On3 school page.
 
 ### 3.4 Run the Full Pipeline
 

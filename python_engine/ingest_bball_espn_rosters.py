@@ -25,12 +25,6 @@ log = logging.getLogger(__name__)
 # Configuration
 # ---------------------------------------------------------------------------
 
-BASKETBALL_TEAMS = [
-    {"slug": "byu", "espn_id": "252"},
-    {"slug": "kentucky", "espn_id": "96"},
-    {"slug": "uconn", "espn_id": "41"},
-]
-
 SPORT_PATH = "basketball/mens-college-basketball"
 BASE_URL = "https://site.api.espn.com/apis/site/v2/sports"
 RATE_LIMIT_SECONDS = 1.0
@@ -105,6 +99,13 @@ def fetch_espn_roster(espn_id: str) -> list[dict]:
 # Main
 # ---------------------------------------------------------------------------
 
+def espn_id_from_logo(logo_url: str | None) -> str | None:
+    """Derive ESPN team ID from logo URL: .../teamlogos/ncaa/500/{id}.png"""
+    if not logo_url:
+        return None
+    return logo_url.split("/")[-1].replace(".png", "")
+
+
 def main() -> None:
     dry_run = "--dry-run" in sys.argv
 
@@ -114,16 +115,25 @@ def main() -> None:
         if arg == "--team" and i + 1 < len(sys.argv):
             team_filter = sys.argv[i + 1].lower()
 
-    teams_to_process = BASKETBALL_TEAMS
+    # Load teams dynamically from DB
+    query = supabase.table("basketball_teams").select("id, university_name, slug, logo_url")
     if team_filter:
-        teams_to_process = [t for t in BASKETBALL_TEAMS if t["slug"] == team_filter]
-        if not teams_to_process:
-            log.error(f"No team with slug '{team_filter}' in BASKETBALL_TEAMS")
-            return
-
-    # Look up team_ids from basketball_teams
-    teams_resp = supabase.table("basketball_teams").select("id, university_name, slug").execute()
+        query = query.eq("slug", team_filter)
+    teams_resp = query.order("university_name").execute()
     db_teams = {t["slug"]: t for t in (teams_resp.data or [])}
+
+    # Derive ESPN IDs from logo URLs
+    teams_to_process = []
+    for t in db_teams.values():
+        espn_id = espn_id_from_logo(t.get("logo_url"))
+        if not espn_id:
+            log.warning(f"[SKIP] {t['university_name']}: no ESPN ID derivable from logo_url")
+            continue
+        teams_to_process.append({"slug": t["slug"], "espn_id": espn_id})
+
+    if team_filter and not teams_to_process:
+        log.error(f"No team with slug '{team_filter}' in basketball_teams")
+        return
 
     # Fetch existing players to enable idempotent re-runs
     existing_resp = (

@@ -34,8 +34,9 @@ HEADERS = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
 }
 
-# On3 org keys — same keys work for football and basketball
-ON3_TEAM_KEYS: dict[str, int] = {
+# On3 org keys — maps university_name → On3 organization ID.
+# This is the only dict that needs updating when adding a new team.
+ON3_ORG_KEYS: dict[str, int] = {
     "BYU": 21364,
     "Kentucky": 12013,
     "UConn": 24966,
@@ -178,7 +179,7 @@ def main() -> None:
     total_premium = 0
 
     for team_name, team_data in db_teams.items():
-        org_key = ON3_TEAM_KEYS.get(team_name)
+        org_key = ON3_ORG_KEYS.get(team_name)
         if not org_key:
             log.info(f"  {team_name}: no On3 org key, skipping")
             continue
