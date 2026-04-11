@@ -42,6 +42,8 @@ from supabase_client import supabase   # service-role client — bypasses RLS
 POSITION_BASE_VALUES: dict[str, int] = {
     "QB":   1_500_000,
     "OT":     800_000,
+    "LT":     800_000,   # left tackle (alias for OT)
+    "RT":     800_000,   # right tackle (alias for OT)
     "EDGE":   700_000,
     "DE":     700_000,   # alias for EDGE
     "DT":     600_000,
@@ -63,6 +65,8 @@ POSITION_BASE_VALUES: dict[str, int] = {
     "PK":     100_000,   # place kicker (alias for K)
     "P":      100_000,
     "ATH":    400_000,   # athlete/utility
+    "FB":     400_000,   # fullback (mapped to RB value)
+    "KR":     400_000,   # kick returner
     "LS":     100_000,   # long snapper
 }
 DEFAULT_BASE_VALUE = 400_000  # unknown/unrecognized position
