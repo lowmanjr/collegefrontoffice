@@ -29,7 +29,8 @@ The engine runs as a Python batch job (`calculate_cfo_valuations.py`) that reads
 | V3.2 | **SUPERSEDED** | Steeper production tiers (0.65/0.40), flat depth chart multipliers (1.0/0.30/0.15/0.10). |
 | V3.3 | **SUPERSEDED** | Position-aware depth chart with multi-starter counts, split single/multi multipliers, HS composite formula, updated experience curve. |
 | V3.4 | **SUPERSEDED** | EA rating fallback in talent_modifier, recruiting pedigree floor in depth chart multiplier, TE=2-starter, ea_rating column. |
-| V3.5 | **CANONICAL** | Position base value recalibration to 2025-26 market data. 2028 HS experience multiplier reduced (0.70→0.35). Documented below. |
+| V3.5 | **SUPERSEDED** | Position base value recalibration to 2025-26 market data. 2028 HS experience multiplier reduced (0.70→0.35). |
+| V3.6b | **CANONICAL** | QB base $1.2M→$1.5M, DT/DL $500K→$600K. Talent modifier no-data default 1.0→0.70. Star proxy widened (5★ 1.30, 3★ 0.80, 1-2★ 0.65). Graduated starter multiplier (rank 2=0.90, rank 3=0.80, rank 4=0.75, rank 5=0.70). Documented below. |
 
 ---
 
@@ -133,11 +134,12 @@ Average annualized NIL market value for a Power 4 starter at each position. Cali
 
 ```python
 POSITION_BASE_VALUES = {
-    "QB":   1_200_000,
+    "QB":   1_500_000,
     "OT":     800_000,
     "EDGE":   700_000,
     "DE":     700_000,
-    "DT":     500_000,
+    "DT":     600_000,
+    "DL":     600_000,
     "WR":     550_000,
     "CB":     500_000,
     "OG":     475_000,
@@ -213,13 +215,13 @@ def talent_modifier(production_score, star_rating, ea_rating=None):
         elif ea >= 68: return 0.65  # Below average
         else:          return 0.40  # Low
 
-    # Priority 3: star rating proxy (narrower band)
+    # Priority 3: star rating proxy (widened band — V3.6b)
     star = star_rating or 0
-    if star >= 5:    return 1.15
+    if star >= 5:    return 1.30
     elif star == 4:  return 1.0
-    elif star == 3:  return 0.9
-    elif star >= 1:  return 0.8
-    else:            return 1.0  # no data → neutral
+    elif star == 3:  return 0.80
+    elif star >= 1:  return 0.65
+    else:            return 0.70  # no data → penalty (V3.6b)
 ```
 
 **V3.4 change: EA rating fallback.** CFBD has no OL statistics, so all OL players previously fell through to the star_rating proxy. EA Sports College Football 26 OVR ratings (stored in `players.ea_rating`) now serve as an intermediate fallback between production and stars. EA OVR tiers are calibrated to roughly match production score tiers. Validation: Pearson r=0.640 between EA and production for players with both. Average EA is 77.8 vs average production 56.6 — EA skews higher. Position agreement rate: 46.3%.
@@ -339,11 +341,16 @@ def depth_chart_rank_multiplier(depth_chart_rank, is_on_depth_chart, position):
     starter_count = POSITION_STARTER_COUNTS.get(pos, 1)
     is_single = pos in SINGLE_STARTER_POSITIONS
 
+    # Graduated starter multiplier (V3.6b)
+    STARTER_GRADIENT = {1: 1.0, 2: 0.90, 3: 0.80, 4: 0.75, 5: 0.70}
+
     if depth_chart_rank is None:
         return 0.55  # unknown rank
 
     if depth_chart_rank <= starter_count:
-        return 1.0  # within starter count = full value
+        if pos in SINGLE_STARTER_POSITIONS:
+            return 1.0  # single-starter: rank 1 always 1.0
+        return STARTER_GRADIENT.get(depth_chart_rank, 0.70)  # graduated
 
     backup_depth = depth_chart_rank - starter_count
 
@@ -740,6 +747,33 @@ Position base values validated against market data:
 | DE/EDGE | $800K–$1.5M | $1.0M+ | ✅ Within range |
 | LB | $300K–$600K | $450K+ | ✅ Within range |
 | K/P | $50K–$200K | $117K | ✅ Within range |
+
+### 10.4 V3.6b Team Calibration — Comparison CSV Workflow (April 2026)
+
+Three teams calibrated via the On3 comparison CSV workflow: user pastes On3 NIL data, script generates side-by-side CSV (CFO vs On3), user fills Override Value column, overrides ingested to `nil_overrides`.
+
+**Texas:** 9 overrides applied. Key players: Arch Manning ($6M), Cam Coleman ($3M), Ryan Wingo ($1.5M). Michael Terry III case study: $720K → $423K after enrichment (star_rating, class_year, EA rating populated via improved name matching).
+
+**Texas Tech:** 7 overrides applied. Key finding: Brendan Sorsby (QB1, RS-SR) was missing from DB — found on Texas as a stale record, moved to Texas Tech, production_score 89.0 populated via CFBD. Pre-enrichment $997K → post-enrichment $2.05M (algorithmic) → override $3.2M.
+
+**Georgia:** 32 overrides applied (including non-On3 players from owner domain knowledge). Juan Gaston position fix: OL ($475K base) → OT ($800K base), valuation $539K → $905K.
+
+**OL→OT Position Mapping Fix:** `sync_ourlads_depth_charts.py` was mapping all Ourlads offensive line positions (LT, LG, C, RG, RT) to generic "OL" ($475K base). Tackles should be "OT" ($800K base). Fix: LT/RT → OT, LG/RG/C → OL. Impact: 178 tackles corrected across all 68 teams, $93.3M in recovered roster value.
+
+**66 total overrides in system:** 18 original Market Consensus + 9 Texas + 7 Texas Tech + 32 Georgia.
+
+### 10.5 Comparison CSV Workflow
+
+Ongoing calibration process for any team:
+
+1. Paste On3 team NIL rankings data into a `generate_{team}_comparison.py` script
+2. Script queries Supabase for team roster, fuzzy-matches On3 names using `name_utils.fuzzy_match_player`
+3. Outputs CSV with columns: Player, Position, CFO Valuation, On3 Valuation, Override Value
+4. Owner fills Override Value column for players needing market corrections
+5. Overrides ingested via direct Supabase upsert to `nil_overrides` + `is_override=true`
+6. Run `calculate_cfo_valuations.py` to apply
+
+Active CSVs: `texas_comparison.csv`, `texas_tech_comparison.csv`, `georgia_comparison.csv`
 
 ---
 

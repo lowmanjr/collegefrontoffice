@@ -40,11 +40,12 @@ from supabase_client import supabase   # service-role client — bypasses RLS
 # VALUATION_ENGINE.md §3.2
 
 POSITION_BASE_VALUES: dict[str, int] = {
-    "QB":   1_200_000,
+    "QB":   1_500_000,
     "OT":     800_000,
     "EDGE":   700_000,
     "DE":     700_000,   # alias for EDGE
-    "DT":     500_000,
+    "DT":     600_000,
+    "DL":     600_000,   # generic defensive line (alias for DT)
     "WR":     550_000,
     "CB":     500_000,
     "OG":     475_000,
@@ -184,13 +185,13 @@ def talent_modifier(
         if ea >= 68: return 0.65
         return 0.4
 
-    # Fallback 2: star rating proxy (narrower band — less informative signal)
+    # Fallback 2: star rating proxy (widened band — V3.6b)
     star = star_rating or 0
-    if star >= 5:  return 1.15
+    if star >= 5:  return 1.30
     if star == 4:  return 1.00
-    if star == 3:  return 0.90
-    if star >= 1:  return 0.80
-    return 1.0   # no star data either — neutral
+    if star == 3:  return 0.80
+    if star >= 1:  return 0.65
+    return 0.70   # no talent data at all — penalty (V3.6b)
 
 
 def market_multiplier(team_market_multiplier: float | None) -> float:
@@ -263,10 +264,16 @@ def depth_chart_rank_multiplier(
     starter_count = POSITION_STARTER_COUNTS.get(pos, 1)
     is_single = pos in SINGLE_STARTER_POSITIONS
 
+    # ── Graduated starter multiplier (V3.6b) ───────────────────────────
+    STARTER_GRADIENT = {1: 1.0, 2: 0.90, 3: 0.80, 4: 0.75, 5: 0.70}
+
     if depth_chart_rank is None:
         raw = 0.55  # unknown rank — conservative
     elif depth_chart_rank <= starter_count:
-        raw = 1.0
+        if is_single:
+            raw = 1.0  # single-starter: rank 1 always 1.0
+        else:
+            raw = STARTER_GRADIENT.get(depth_chart_rank, 0.70)
     else:
         backup_depth = depth_chart_rank - starter_count
         if is_single:

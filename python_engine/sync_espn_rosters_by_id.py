@@ -17,6 +17,7 @@ import requests
 from collections import defaultdict
 from supabase_client import supabase
 from ingest_espn_rosters import ESPN_IDS_BY_NAME
+from name_utils import normalize_name, normalize_name_stripped
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
 log = logging.getLogger(__name__)
@@ -27,13 +28,8 @@ HEADERS = {
 
 
 def normalize(name: str) -> str:
-    name = unicodedata.normalize("NFKD", name)
-    name = "".join(c for c in name if not unicodedata.combining(c))
-    name = name.lower().strip()
-    name = re.sub(r"\s+(jr|sr|ii|iii|iv|v)\.?$", "", name)
-    name = re.sub(r"[^a-z\s]", "", name)
-    name = re.sub(r"\s+", " ", name).strip()
-    return name
+    """Delegates to shared name_utils. Strips suffixes like the old version did."""
+    return normalize_name_stripped(name)
 
 
 def slugify(text: str) -> str:
@@ -185,15 +181,29 @@ def main():
                 total_transferred += 1
                 team_transferred += 1
             else:
-                # ESPN ID not in our DB — check by name
+                # ESPN ID not in our DB — check by name (exact + fuzzy fallback)
                 norm = normalize(athlete["name"])
                 name_matches = name_lookup.get(norm, [])
+
+                # Also try non-stripped normalization for broader matching
+                norm_full = normalize_name(athlete["name"])
+                if norm_full != norm:
+                    name_matches = name_matches + name_lookup.get(norm_full, [])
 
                 matched_by_name = None
                 for m in name_matches:
                     if m.get("team_id") == team_id and not m.get("espn_athlete_id"):
                         matched_by_name = m
                         break
+
+                # Fuzzy fallback if exact match fails (NEW)
+                if not matched_by_name:
+                    from name_utils import fuzzy_match_player
+                    team_players = [p for p in all_db_players
+                                    if p.get("team_id") == team_id and not p.get("espn_athlete_id")]
+                    result = fuzzy_match_player(athlete["name"], team_players, threshold=0.85)
+                    if result:
+                        matched_by_name = result.player
 
                 if matched_by_name:
                     if not dry_run:

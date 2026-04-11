@@ -123,6 +123,28 @@ OURLADS_URLS: dict[str, str] = {
     "notre dame":       "https://www.ourlads.com/ncaa-football-depth-charts/depth-chart/notre-dame/91487",
 }
 
+# ─── Ourlads → CFO position mapping ─────────────────────────────────────────
+# Maps Ourlads position labels to our canonical positions.
+# Key change (V3.6b): LT/RT → OT ($800K base) instead of generic OL ($475K).
+OURLADS_POSITION_MAP: dict[str, str] = {
+    "LT": "OT", "RT": "OT",           # tackles → OT ($800K base)
+    "LG": "OL", "RG": "OL", "C": "OL", # interior → OL ($475K base)
+    "WR-X": "WR", "WR-Z": "WR", "WR-SL": "WR", "WR-H": "WR",
+    "QB": "QB", "H": "QB",
+    "RB": "RB", "HB": "RB", "FB": "RB",
+    "TE": "TE",
+    "DE": "DE", "LDE": "DE", "RDE": "DE",
+    "NT": "DL", "DT": "DL", "LDT": "DL", "RDT": "DL",
+    "JACK": "DE", "LEO": "DE",
+    "SAM": "LB", "MAC": "LB", "MIKE": "LB", "MLB": "LB",
+    "WLB": "LB", "WILL": "LB", "MONEY": "LB",
+    "LCB": "CB", "RCB": "CB", "NB": "DB",
+    "SS": "S", "FS": "S",
+    "PT": "P", "PK": "PK", "KO": "PK", "LS": "LS",
+    "PR": "WR", "KR": "RB",
+}
+
+
 # Class-year / suffix tokens to strip from Ourlads names.
 _IGNORE_TOKENS = {"rs", "sr", "jr", "fr", "so", "tr", "gr"}
 
@@ -294,6 +316,7 @@ def match_team_depth_chart(
 
     matched: dict[str, int] = {}      # player_id → best rank
     matched_names: dict[str, str] = {}  # player_id → scraped raw name (for display)
+    matched_positions: dict[str, str] = {}  # player_id → Ourlads position label
     unmatched: list[dict] = []
 
     # Deduplicate scraped entries: a player may appear multiple times (e.g. QB + H).
@@ -311,6 +334,7 @@ def match_team_depth_chart(
             if pid not in matched or entry["rank"] < matched[pid]:
                 matched[pid] = entry["rank"]
                 matched_names[pid] = entry["raw_name"]
+                matched_positions[pid] = entry["position"]
             continue
 
         # Fuzzy match
@@ -327,10 +351,11 @@ def match_team_depth_chart(
             if pid not in matched or entry["rank"] < matched[pid]:
                 matched[pid] = entry["rank"]
                 matched_names[pid] = entry["raw_name"]
+                matched_positions[pid] = entry["position"]
         else:
             unmatched.append(entry)
 
-    return matched, unmatched
+    return matched, unmatched, matched_positions
 
 
 # ─── Main ───────────────────────────────────────────────────────────────────
@@ -384,6 +409,7 @@ def main():
     # on_dc: player_id → rank (players confirmed on depth chart)
     # off_dc: set of player_ids to mark OFF depth chart
     all_on_dc: dict[str, int] = {}
+    all_on_dc_positions: dict[str, str] = {}  # player_id → Ourlads position
     all_team_player_ids: set[str] = set()  # all players on teams we processed
 
     override_ids = {str(p["id"]) for p in players if p.get("is_override") is True}
@@ -416,7 +442,7 @@ def main():
 
         # ── Match ───────────────────────────────────────────────────────────
         team_roster = [p for p in players if str(p.get("team_id")) == team_id]
-        matched, unmatched = match_team_depth_chart(scraped, team_roster)
+        matched, unmatched, matched_pos = match_team_depth_chart(scraped, team_roster)
 
         # Track which players on this team we've evaluated.
         for p in team_roster:
@@ -426,6 +452,8 @@ def main():
         for pid, rank in matched.items():
             if pid not in all_on_dc or rank < all_on_dc[pid]:
                 all_on_dc[pid] = rank
+                if pid in matched_pos:
+                    all_on_dc_positions[pid] = matched_pos[pid]
 
         # ── Per-team report ─────────────────────────────────────────────────
         # Count overrides in matched set.
@@ -470,8 +498,17 @@ def main():
             continue
         old_dc = p.get("is_on_depth_chart", False)
         old_rank = p.get("depth_chart_rank")
-        if old_dc is True and old_rank == rank:
+
+        # Map Ourlads position to CFO position
+        ourlads_pos = all_on_dc_positions.get(pid, "")
+        mapped_pos = OURLADS_POSITION_MAP.get(ourlads_pos)
+        old_pos = p.get("position")
+
+        # Skip if DC status, rank, AND position are all unchanged
+        pos_needs_update = mapped_pos and mapped_pos != old_pos
+        if old_dc is True and old_rank == rank and not pos_needs_update:
             continue  # no change needed
+
         updates_on.append({
             "id": pid,
             "name": p["name"],
@@ -479,6 +516,9 @@ def main():
             "old_dc": old_dc,
             "old_rank": old_rank,
             "new_rank": rank,
+            "ourlads_pos": ourlads_pos,
+            "mapped_pos": mapped_pos,
+            "old_pos": old_pos,
         })
 
     for pid in off_dc_ids:
@@ -550,11 +590,15 @@ def main():
 
         for u in updates_on:
             try:
-                supabase.table("players").update({
+                update_data = {
                     "is_on_depth_chart": True,
                     "depth_chart_rank": u["new_rank"],
                     "last_updated": now,
-                }).eq("id", u["id"]).execute()
+                }
+                # Update position if Ourlads mapping differs from current
+                if u.get("mapped_pos") and u["mapped_pos"] != u.get("old_pos"):
+                    update_data["position"] = u["mapped_pos"]
+                supabase.table("players").update(update_data).eq("id", u["id"]).execute()
                 applied += 1
             except Exception as exc:
                 print(f"    [ERROR] {u['name']}: {exc}")

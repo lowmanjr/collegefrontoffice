@@ -23,11 +23,11 @@ Requirements:
 import os
 import re
 import time
-import difflib
 import unicodedata
 import requests
 from dotenv import load_dotenv
 from supabase import create_client, Client
+from name_utils import normalize_name, normalize_name_stripped
 
 # ---------------------------------------------------------------------------
 # 1. SETUP
@@ -62,11 +62,8 @@ TEAM_DELAY      = 1  # seconds between CFBD requests
 # ---------------------------------------------------------------------------
 
 def normalise(name: str) -> str:
-    """Lowercase, strip accents and punctuation for fuzzy comparison."""
-    nfkd = unicodedata.normalize("NFKD", name)
-    ascii_name = nfkd.encode("ascii", "ignore").decode("ascii")
-    clean = re.sub(r"[^a-z0-9 ]", "", ascii_name.lower())
-    return " ".join(clean.split())
+    """Lowercase, strip accents and punctuation — delegates to shared name_utils."""
+    return normalize_name(name)
 
 
 # ---------------------------------------------------------------------------
@@ -215,19 +212,40 @@ def match_and_update(
 
         # Build normalised name → cfbd_id map for this team's roster
         norm_to_entry: dict[str, dict] = {e["name_normalised"]: e for e in roster}
+        # Also build stripped-name lookup for suffix mismatches
+        stripped_to_entry: dict[str, dict] = {}
+        for e in roster:
+            skey = normalize_name_stripped(e["name"])
+            if skey not in stripped_to_entry:
+                stripped_to_entry[skey] = e
         candidate_keys = list(norm_to_entry.keys())
+        stripped_keys = list(stripped_to_entry.keys())
 
         db_norm = normalise(player["name"])
+        db_stripped = normalize_name_stripped(player["name"])
 
-        # Exact match first, then fuzzy
+        # 4-pass matching: exact → exact-stripped → fuzzy → fuzzy-stripped
         matched_entry = norm_to_entry.get(db_norm)
         match_type    = "exact"
 
         if matched_entry is None:
-            fuzzy = difflib.get_close_matches(db_norm, candidate_keys, n=1, cutoff=0.85)
+            matched_entry = stripped_to_entry.get(db_stripped)
+            if matched_entry:
+                match_type = f'exact-stripped -> "{matched_entry["name"]}"'
+
+        if matched_entry is None:
+            from difflib import get_close_matches
+            fuzzy = get_close_matches(db_norm, candidate_keys, n=1, cutoff=0.85)
             if fuzzy:
                 matched_entry = norm_to_entry[fuzzy[0]]
                 match_type    = f'fuzzy -> "{matched_entry["name"]}"'
+
+        if matched_entry is None:
+            from difflib import get_close_matches
+            fuzzy = get_close_matches(db_stripped, stripped_keys, n=1, cutoff=0.85)
+            if fuzzy:
+                matched_entry = stripped_to_entry[fuzzy[0]]
+                match_type    = f'fuzzy-stripped -> "{matched_entry["name"]}"'
 
         if matched_entry is None:
             total_unmatched += 1

@@ -2,8 +2,9 @@
 generate_texas_comparison.py
 ----------------------------
 Generates a comparison CSV of CFO valuations vs On3 NIL valuations for Texas.
-Queries Supabase for active College Athletes, matches against On3 data,
-and outputs a CSV with an empty Override Value column for manual review.
+Queries Supabase for active College Athletes, matches against On3 data
+using shared name_utils (4-pass matching), and outputs a CSV with an empty
+Override Value column for manual review.
 
 Usage:
     python generate_texas_comparison.py
@@ -14,10 +15,8 @@ sys.stdout.reconfigure(encoding="utf-8")
 
 import os
 import csv
-import re
-import unicodedata
-from difflib import SequenceMatcher
 from supabase_client import supabase
+from name_utils import fuzzy_match_player
 
 CSV_OUT = os.path.join(os.path.dirname(__file__), "data", "texas_comparison.csv")
 
@@ -78,24 +77,6 @@ ON3_DATA = [
 ]
 
 
-# ─── Name normalization ─────────────────────────────────────────────────────
-
-def normalize(name):
-    """Lowercase, strip suffixes (Jr./III/II/IV), remove periods/apostrophes/hyphens."""
-    if not name:
-        return ""
-    n = unicodedata.normalize("NFKD", name)
-    n = n.encode("ascii", "ignore").decode("ascii")
-    n = n.lower().strip()
-    n = re.sub(r"\b(jr\.?|sr\.?|ii|iii|iv|v)\b", "", n)
-    n = n.replace(".", "").replace("'", "").replace("-", " ")
-    return " ".join(n.split())
-
-
-def fuzzy_score(a, b):
-    return SequenceMatcher(None, normalize(a), normalize(b)).ratio()
-
-
 # ─── Supabase queries ───────────────────────────────────────────────────────
 
 def fetch_texas_team_id():
@@ -137,40 +118,33 @@ def fetch_texas_players(team_id):
 # ─── Matching ────────────────────────────────────────────────────────────────
 
 def match_players(on3_data, db_players):
-    """Match On3 players to DB players by normalized name, with fuzzy fallback."""
+    """Match On3 players to DB players using shared 4-pass fuzzy_match_player."""
     matched = []
     unmatched_on3 = []
     db_used = set()
 
+    # Work with a shrinking pool to avoid double-matching
+    remaining_pool = list(db_players)
+
     for on3_name, on3_pos, on3_val in on3_data:
-        best_match = None
-        best_score = 0
-        exact = False
+        result = fuzzy_match_player(on3_name, remaining_pool, threshold=0.85)
 
-        for p in db_players:
-            if str(p["id"]) in db_used:
-                continue
-            db_name = p.get("name", "")
-            if normalize(db_name) == normalize(on3_name):
-                best_match = p
-                exact = True
-                break
-            score = fuzzy_score(on3_name, db_name)
-            if score > best_score:
-                best_score = score
-                best_match = p
+        if result is not None:
+            player = result.player
+            pid = str(player["id"])
 
-        if exact or (best_match and best_score >= 0.85):
-            pid = str(best_match["id"])
-            if not exact:
-                print(f"  [FUZZY] '{on3_name}' -> '{best_match['name']}' ({best_score:.2f})")
+            if result.method != "exact":
+                print(f"  [{result.method}] '{on3_name}' -> '{player['name']}' ({result.score:.2f})")
+
             matched.append({
-                "name": best_match["name"],
+                "name": player["name"],
                 "position": on3_pos,
-                "cfo_valuation": best_match.get("cfo_valuation"),
+                "cfo_valuation": player.get("cfo_valuation"),
                 "on3_valuation": on3_val,
             })
             db_used.add(pid)
+            # Remove from pool to prevent double-matching
+            remaining_pool = [p for p in remaining_pool if str(p["id"]) != pid]
         else:
             print(f"  [UNMATCHED] On3 player not in DB: {on3_name} ({on3_pos})")
             unmatched_on3.append({

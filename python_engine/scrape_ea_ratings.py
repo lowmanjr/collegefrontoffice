@@ -39,22 +39,37 @@ CSV_OUT = os.path.join(os.path.dirname(__file__), "data", "ea_ratings.csv")
 # EA team IDs for our 16 tracked teams.
 # Key = normalized university_name (lowercase).
 EA_TEAM_IDS: dict[str, int] = {
-    "alabama":        3,
-    "clemson":        20,
-    "florida":        29,
-    "georgia":        32,
-    "lsu":            48,
-    "miami":          52,
-    "michigan":       54,
-    "notre dame":     70,
-    "ohio state":     72,
-    "oklahoma":       73,
-    "oregon":         77,
-    "south carolina": 88,
-    "tennessee":      94,
-    "texas":          96,
-    "usc":           110,
-    "washington":    120,
+    # All 68 Power 4 teams — EA IDs discovered from EA.com teamGroups API
+    # SEC (16)
+    "alabama":           3, "arkansas":           6, "auburn":             9,
+    "florida":          29, "georgia":           32, "kentucky":          45,
+    "lsu":              48, "mississippi state": 58, "missouri":          59,
+    "oklahoma":         73, "ole miss":          76, "south carolina":    88,
+    "tennessee":        94, "texas":             96, "texas a&m":         95,
+    "vanderbilt":      116,
+    # Big Ten (18)
+    "illinois":         37, "indiana":           38, "iowa":              39,
+    "maryland":         50, "michigan":          54, "michigan state":    55,
+    "minnesota":        57, "nebraska":          62, "northwestern":      69,
+    "ohio state":       72, "oregon":            77, "penn state":        79,
+    "purdue":           81, "rutgers":           83, "ucla":             105,
+    "usc":             110, "washington":        120, "wisconsin":        125,
+    # Big 12 (16)
+    "arizona":           4, "arizona state":      5, "baylor":            11,
+    "byu":              16, "cincinnati":        19, "colorado":          21,
+    "houston":          36, "iowa state":        40, "kansas":            41,
+    "kansas state":     42, "oklahoma state":    74, "tcu":              92,
+    "texas tech":       98, "ucf":              104, "utah":             112,
+    "west virginia":   122,
+    # ACC (17)
+    "boston college":    13, "cal":               17, "clemson":           20,
+    "duke":             24, "florida state":     30, "georgia tech":      34,
+    "louisville":       47, "miami":             52, "nc state":          61,
+    "north carolina":   66, "pittsburgh":        80, "smu":              86,
+    "stanford":         90, "syracuse":          91, "virginia":         117,
+    "virginia tech":   118, "wake forest":      119,
+    # Independent (1)
+    "notre dame":       70,
 }
 
 DEFAULT_THRESHOLD = 0.80
@@ -62,11 +77,11 @@ DEFAULT_THRESHOLD = 0.80
 
 # ─── Helpers ────────────────────────────────────────────────────────────────
 
+from name_utils import normalize_name, normalize_name_stripped
+
+
 def norm(name: str) -> str:
-    nfkd = unicodedata.normalize("NFKD", name)
-    ascii_name = nfkd.encode("ascii", "ignore").decode("ascii")
-    clean = re.sub(r"[^a-z0-9 ]", "", ascii_name.lower())
-    return " ".join(clean.split())
+    return normalize_name(name)
 
 
 def fuzzy(a: str, b: str) -> float:
@@ -182,21 +197,35 @@ def match_ea_players(
     """
     team_roster = [p for p in db_players if str(p.get("team_id")) == team_id]
     db_index = {norm(p["name"]): p for p in team_roster}
+    # Suffix-stripped index for Jr/III mismatches
+    db_stripped = {}
+    for p in team_roster:
+        skey = normalize_name_stripped(p["name"])
+        if skey not in db_stripped:
+            db_stripped[skey] = p
 
     matched: list[dict] = []
     unmatched: list[dict] = []
 
     for ea in ea_players:
         ea_norm = norm(ea["name"])
+        ea_stripped = normalize_name_stripped(ea["name"])
 
-        # Exact match
+        # Pass 1: Exact match on normalized name
         if ea_norm in db_index:
             p = db_index[ea_norm]
             matched.append({**ea, "player_id": str(p["id"]), "player_name": p["name"],
                             "match_confidence": 1.0, "db_player": p})
             continue
 
-        # Fuzzy match
+        # Pass 2: Exact match on suffix-stripped name (NEW)
+        if ea_stripped in db_stripped:
+            p = db_stripped[ea_stripped]
+            matched.append({**ea, "player_id": str(p["id"]), "player_name": p["name"],
+                            "match_confidence": 0.99, "db_player": p})
+            continue
+
+        # Pass 3: Fuzzy match on normalized names
         best_score = 0.0
         best_player = None
         for db_name, player in db_index.items():
@@ -205,13 +234,28 @@ def match_ea_players(
                 best_score = score
                 best_player = player
 
-        if best_player and best_score >= threshold:
+        # Pass 4: Fuzzy match on stripped names (NEW)
+        best_score_s = 0.0
+        best_player_s = None
+        for db_name_s, player in db_stripped.items():
+            score = SequenceMatcher(None, ea_stripped, db_name_s).ratio()
+            if score > best_score_s:
+                best_score_s = score
+                best_player_s = player
+
+        # Pick the best of pass 3 and 4
+        if best_score >= best_score_s and best_player and best_score >= threshold:
             matched.append({**ea, "player_id": str(best_player["id"]),
                             "player_name": best_player["name"],
                             "match_confidence": round(best_score, 3),
                             "db_player": best_player})
+        elif best_player_s and best_score_s >= threshold:
+            matched.append({**ea, "player_id": str(best_player_s["id"]),
+                            "player_name": best_player_s["name"],
+                            "match_confidence": round(best_score_s, 3),
+                            "db_player": best_player_s})
         else:
-            unmatched.append({**ea, "best_score": round(best_score, 3)})
+            unmatched.append({**ea, "best_score": round(max(best_score, best_score_s), 3)})
 
     return matched, unmatched
 

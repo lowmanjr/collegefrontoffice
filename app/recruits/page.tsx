@@ -40,7 +40,17 @@ export default async function FuturesMarketPage({ searchParams }: PageProps) {
     .gte("star_rating", 4);
 
   if (q) query = query.ilike("name", `%${q}%`);
-  if (pos && pos !== "All") query = query.eq("position", pos);
+  if (pos && pos !== "All") {
+    const POS_ALIASES: Record<string, string[]> = {
+      K: ["K", "PK"],
+      DL: ["DL", "DT"],
+      S: ["S", "DB"],
+    };
+    const posValues = POS_ALIASES[pos] ?? [pos];
+    query = posValues.length === 1
+      ? query.eq("position", posValues[0])
+      : query.in("position", posValues);
+  }
   if (activeYear && activeYear !== "All") {
     query = query.eq("hs_grad_year", parseInt(activeYear));
   }

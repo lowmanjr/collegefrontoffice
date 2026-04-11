@@ -17,6 +17,7 @@ from bs4 import BeautifulSoup
 from collections import defaultdict
 from supabase_client import supabase
 from scrape_on3_team_socials import ON3_TEAM_KEYS
+from name_utils import normalize_name, normalize_name_stripped
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
 log = logging.getLogger(__name__)
@@ -27,13 +28,8 @@ HEADERS = {
 
 
 def normalize(name: str) -> str:
-    name = unicodedata.normalize("NFKD", name)
-    name = "".join(c for c in name if not unicodedata.combining(c))
-    name = name.lower().strip()
-    name = re.sub(r"\s+(jr|sr|ii|iii|iv|v)\.?$", "", name)
-    name = re.sub(r"[^a-z\s]", "", name)
-    name = re.sub(r"\s+", " ", name).strip()
-    return name
+    """Delegates to shared name_utils. Strips suffixes like the old version did."""
+    return normalize_name_stripped(name)
 
 
 def slugify(text: str) -> str:
