@@ -21,6 +21,7 @@ const POSITION_BASE_VALUES: Record<string, number> = {
   TE: 325_000,
   LB: 325_000,
   K: 100_000,
+  PK: 100_000,
   P: 100_000,
   ATH: 400_000,
   LS: 100_000,

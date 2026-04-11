@@ -57,6 +57,7 @@ POSITION_BASE_VALUES: dict[str, int] = {
     "TE":     325_000,
     "LB":     325_000,
     "K":      100_000,
+    "PK":     100_000,   # place kicker (alias for K)
     "P":      100_000,
     "ATH":    400_000,   # athlete/utility
     "LS":     100_000,   # long snapper
