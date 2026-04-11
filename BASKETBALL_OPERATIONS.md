@@ -248,6 +248,7 @@ Run when: stats update mid-season, class years change, new draft projections eme
 cd python_engine
 python enrich_bball_usage_rates.py --team SLUG    # if stats updated
 python enrich_bball_class_years.py                # if new season (runs all teams)
+python sync_nba_draft_projections.py              # if mock drafts shifted
 python calculate_bball_valuations.py --team SLUG  # always
 python apply_bball_overrides.py                   # always
 ```
@@ -256,6 +257,7 @@ python apply_bball_overrides.py                   # always
 
 ```bash
 cd python_engine
+python sync_nba_draft_projections.py              # ESPN draft API → DB
 python enrich_bball_usage_rates.py
 python calculate_bball_valuations.py
 python apply_bball_overrides.py
