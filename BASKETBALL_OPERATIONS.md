@@ -362,32 +362,33 @@ Keys are the On3 normalized name (lowercase, no suffixes). Values are the DB nor
 
 ## 8. NBA Draft Projections
 
-### 8.1 File
-
-```
-python_engine/data/nba_draft_projections_2025.csv
-```
-
-Format: `espn_athlete_id, player_name, projected_pick`
-
-### 8.2 Update Process
-
-Update the CSV when mock draft consensus shifts, then recalculate:
+### 8.1 Automated Sync (ESPN API)
 
 ```bash
-cd python_engine
-python calculate_bball_valuations.py
-python apply_bball_overrides.py
+cd python_engine && python sync_nba_draft_projections.py --dry-run    # preview
+cd python_engine && python sync_nba_draft_projections.py              # sync + recalculate
+cd python_engine && python sync_nba_draft_projections.py --season 2027  # next year's draft
 ```
 
-### 8.3 Current Projections
+The script fetches ESPN's draft prospects API, matches prospects to our DB by ESPN athlete ID, updates `basketball_players.nba_draft_projection`, writes a reference CSV to `data/nba_draft_projections_2025.csv`, and re-runs valuations automatically.
 
-| Player | Team | Projected Pick |
-|--------|------|---------------|
-| Richie Saunders | BYU | 58 |
-| Jayden Quaintance | Kentucky | 35 |
+Run before `calculate_bball_valuations.py` when mock draft consensus shifts. The valuation engine reads draft projections directly from the DB column, not the CSV — the CSV is a reference file only.
 
-Players not in the CSV receive a neutral 1.00× draft premium.
+### 8.2 Current Projections (ESPN API, April 2026)
+
+| Player | Team | ESPN Rank |
+|--------|------|-----------|
+| AJ Dybantsa | BYU | 1 |
+| Braylon Mullins | UConn | 17 |
+| Jayden Quaintance | Kentucky | 20 |
+| Alex Karaban | UConn | 36 |
+| Tarris Reed Jr. | UConn | 42 |
+| Richie Saunders | BYU | 56 |
+| Malachi Moreno | Kentucky | 60 |
+| Solo Ball | UConn | 68 |
+| Otega Oweh | Kentucky | 93 |
+
+Players not in ESPN's prospects list receive a neutral 1.00× draft premium.
 
 ---
 

@@ -22,8 +22,6 @@ Usage:
 import sys
 sys.stdout.reconfigure(encoding="utf-8")
 
-import csv
-import os
 from supabase_client import supabase
 
 # ─── Position base values ────────────────────────────────────────────────────
@@ -162,23 +160,34 @@ def calculate_social_premium(
     return 0
 
 
-# ─── Draft projections loader ───────────────────────────────────────────────
+# ─── Draft projections ─────────────────────────────────────────────────────
+# Draft projections are read directly from basketball_players.nba_draft_projection.
+# Updated by sync_nba_draft_projections.py (ESPN draft API).
 
-def load_draft_projections() -> dict[str, int]:
-    """Load NBA draft projections CSV. Returns {espn_athlete_id: projected_pick}."""
-    csv_path = os.path.join(os.path.dirname(__file__), "data", "nba_draft_projections_2025.csv")
-    projections: dict[str, int] = {}
-    if not os.path.exists(csv_path):
-        print(f"  No draft projections file at {csv_path}")
-        return projections
-    with open(csv_path, "r") as f:
-        reader = csv.DictReader(f)
-        for row in reader:
-            espn_id = row.get("espn_athlete_id", "").strip()
-            pick = row.get("projected_pick", "").strip()
-            if espn_id and pick:
-                projections[espn_id] = int(pick)
-    return projections
+
+# ─── Eligibility gate ──────────────────────────────────────────────────────
+
+def is_eligible_for_valuation(player: dict) -> bool:
+    """
+    Determines whether a player participates in the NIL market.
+
+    Eligible if ANY of the following:
+    - MPG >= 8 (rotation player or higher — confirmed minutes in the program)
+    - Incoming (no stats) AND star_rating >= 4 (blue-chip recruit)
+
+    Ineligible:
+    - Walk-ons and deep bench with minimal minutes
+    - Low-ranked incoming players with no college track record
+    """
+    usage_rate = player.get("usage_rate") or 0
+    has_stats = usage_rate > 0
+    mpg = usage_rate * 40
+    star_rating = player.get("star_rating") or 0
+
+    if has_stats:
+        return mpg >= 8.0
+    else:
+        return star_rating >= 4
 
 
 # ─── Core valuation ─────────────────────────────────────────────────────────
@@ -263,9 +272,7 @@ def main() -> None:
     if team_filter:
         teams_by_id = {tid: t for tid, t in teams_by_id.items() if t.get("slug") == team_filter}
 
-    # Load draft projections
-    draft_projections = load_draft_projections()
-    print(f"Loading {len(teams_by_id)} team(s), {len(draft_projections)} draft projection(s)...\n")
+    print(f"Loading {len(teams_by_id)} team(s)...\n")
 
     # Load players
     query = (
@@ -274,6 +281,7 @@ def main() -> None:
             "id, name, position, role_tier, usage_rate, ppg, rpg, apg, per, "
             "star_rating, composite_score, class_year, experience_level, "
             "is_override, roster_status, team_id, espn_athlete_id, "
+            "nba_draft_projection, "
             "ig_followers, x_followers, tiktok_followers, total_followers"
         )
         .eq("roster_status", "active")
@@ -288,10 +296,12 @@ def main() -> None:
 
     # Process by team
     total_valued = 0
+    total_ineligible = 0
     total_overrides = 0
     highest = {"name": "", "valuation": 0}
     lowest = {"name": "", "valuation": float("inf")}
     team_total = 0
+    ineligible_log: list[str] = []
 
     for team_id, team_data in teams_by_id.items():
         team_name = team_data["university_name"]
@@ -304,6 +314,7 @@ def main() -> None:
             continue
 
         updates: list[dict] = []
+        team_ineligible: list[str] = []
 
         for player in sorted(team_players, key=lambda p: p.get("name", "")):
             pid = player["id"]
@@ -313,9 +324,20 @@ def main() -> None:
             if player.get("is_override"):
                 continue
 
-            # Look up draft projection
-            espn_id = player.get("espn_athlete_id")
-            draft_pick = draft_projections.get(espn_id) if espn_id else None
+            # Eligibility gate
+            if not is_eligible_for_valuation(player):
+                usage_rate = player.get("usage_rate") or 0
+                mpg = usage_rate * 40
+                stars = f"{player.get('star_rating')}*" if player.get("star_rating") else "unranked"
+                reason = f"MPG: {mpg:.1f}" if usage_rate > 0 else stars
+                print(f"  {name:25s} | {str(player.get('position') or '?'):<4s} | {reason:12s} -> NULL (below gate)")
+                team_ineligible.append(pid)
+                ineligible_log.append(f"  {name:25s} | {team_name:<10s} | {reason}")
+                total_ineligible += 1
+                continue
+
+            # Draft projection from DB column
+            draft_pick = player.get("nba_draft_projection")
 
             breakdown = compute_valuation(player, team_data, draft_pick)
             val = breakdown["valuation"]
@@ -345,6 +367,16 @@ def main() -> None:
                 except Exception as exc:
                     print(f"  [ERROR] {row['id']}: {exc}")
 
+        # NULL out ineligible players
+        if not dry_run and team_ineligible:
+            for pid in team_ineligible:
+                try:
+                    supabase.table("basketball_players").update(
+                        {"cfo_valuation": None}
+                    ).eq("id", pid).execute()
+                except Exception as exc:
+                    print(f"  [ERROR NULL] {pid}: {exc}")
+
         print()
 
     # Second pass: overrides
@@ -366,14 +398,19 @@ def main() -> None:
     print("=" * 60)
     print(f"Summary:")
     print(f"  {total_valued} players valued")
+    print(f"  {total_ineligible} players below eligibility gate -> NULL")
     if highest["name"]:
         print(f"  Highest: {highest['name']} ${highest['valuation']:,}")
     if lowest["name"] and lowest["valuation"] != float("inf"):
         print(f"  Lowest:  {lowest['name']} ${lowest['valuation']:,}")
     print(f"  Team total: ${team_total:,}")
     print(f"  Overrides applied: {total_overrides}")
+    if ineligible_log:
+        print(f"\nIneligible (below gate):")
+        for line in ineligible_log:
+            print(line)
     if dry_run:
-        print("  (Dry run -- no changes written)")
+        print("\n  (Dry run -- no changes written)")
     print("=" * 60)
 
 

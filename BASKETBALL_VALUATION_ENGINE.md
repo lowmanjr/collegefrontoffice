@@ -58,6 +58,22 @@ cfo_valuation = max(int(basketball_value + social_premium), 5_000)
 
 A player is classified as "incoming" when `usage_rate` is NULL or 0. This handles freshmen, transfers in their first semester, and redshirts who have not yet logged college minutes.
 
+### 2.3 Eligibility Gate
+
+Not every rostered player participates in the NIL market. The formula only runs for players who clear at least one criterion:
+
+**Players with college stats (usage_rate > 0):**
+- Minutes per game ≥ 8.0
+
+**Incoming players (no college minutes):**
+- 247Sports star rating ≥ 4
+
+Players below these thresholds appear on team roster pages without a dollar figure. Team totals reflect only valued players.
+
+Current gate results (V1.2, 4 teams):
+- 48 of 63 rostered players are valued (76%)
+- 15 players are rostered but below the gate
+
 ---
 
 ## 3. Component Specifications
@@ -352,3 +368,4 @@ Team totals include reported values for known deals. Formula-only totals: BYU $1
 |---------|------|-------|
 | 1.0 | April 2026 | BYU launch. Formula established. 17 players valued. Class year enrichment from ESPN. |
 | 1.1 | April 2026 | Position bases doubled (Power 4 recalibration). Market multiplier bands updated for mid-major and lower tiers. Kentucky market_multiplier adjusted from 1.25 to 1.20. Dybantsa updated to $4,400,000 (reported). Quaintance added at $2,000,000 (reported). Basis: Opendorse 2025-26 market data + publicly reported deal anchors. |
+| 1.2 | April 2026 | Eligibility gate added. Players below MPG ≥ 8 (with stats) or star_rating ≥ 4 (incoming) receive NULL valuation. Team totals now reflect NIL market participants only. 15 of 63 players gated across 4 teams. |

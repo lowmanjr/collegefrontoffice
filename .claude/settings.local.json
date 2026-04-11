@@ -89,7 +89,9 @@
       "WebSearch",
       "WebFetch(domain:247sports.com)",
       "Skill(update-config)",
-      "WebFetch(domain:www.on3.com)"
+      "WebFetch(domain:www.on3.com)",
+      "Bash(curl -s \"https://www.instagram.com/richie_saunders/\" -L --max-time 10 -A \"Mozilla/5.0 \\(Windows NT 10.0; Win64; x64\\) AppleWebKit/537.36\")",
+      "Bash(curl -s \"https://www.instagram.com/alec.millender/\" -L --max-time 10 -A \"Mozilla/5.0\")"
     ],
     "defaultMode": "bypassPermissions"
   }

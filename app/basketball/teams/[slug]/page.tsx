@@ -123,6 +123,9 @@ export default async function BasketballTeamPage({ params }: PageProps) {
                 >
                   {formatCompactCurrency(total_valuation)}
                 </p>
+                <p className="mt-1.5 text-[10px] text-slate-500">
+                  Includes only players participating in the NIL market
+                </p>
               </div>
             </div>
           </div>
