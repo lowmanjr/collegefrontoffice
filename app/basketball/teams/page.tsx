@@ -1,5 +1,4 @@
 import Link from "next/link";
-import Image from "next/image";
 import { Suspense } from "react";
 import { supabase } from "@/lib/supabase";
 import { formatCompactCurrency } from "@/lib/utils";
@@ -127,7 +126,8 @@ async function TeamsGrid() {
                         className="flex items-center gap-3 group/link"
                       >
                         {team.logo_url ? (
-                          <Image
+                          /* eslint-disable-next-line @next/next/no-img-element */
+                          <img
                             src={team.logo_url}
                             alt={`${team.university_name} logo`}
                             width={32}

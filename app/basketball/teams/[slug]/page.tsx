@@ -1,5 +1,4 @@
 import Link from "next/link";
-import Image from "next/image";
 import { supabase } from "@/lib/supabase";
 import { formatCurrency, formatCompactCurrency } from "@/lib/utils";
 import { BASE_URL } from "@/lib/constants";
@@ -92,13 +91,13 @@ export default async function BasketballTeamPage({ params }: PageProps) {
         <div className="mx-auto max-w-6xl">
           <div className="flex flex-col sm:flex-row sm:items-center gap-6">
             {team.logo_url && (
-              <Image
+              /* eslint-disable-next-line @next/next/no-img-element */
+              <img
                 src={team.logo_url}
                 alt={`${team.university_name} logo`}
                 width={80}
                 height={80}
                 className="h-20 w-20 object-contain shrink-0"
-                priority
               />
             )}
             <div>

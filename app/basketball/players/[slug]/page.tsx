@@ -1,5 +1,4 @@
 import Link from "next/link";
-import Image from "next/image";
 import { supabase } from "@/lib/supabase";
 import { formatCurrency } from "@/lib/utils";
 import { BASE_URL } from "@/lib/constants";
@@ -207,7 +206,8 @@ export default async function BasketballPlayerProfilePage({ params }: PageProps)
               {team && (
                 <div className="mt-3 inline-flex items-center gap-2">
                   {team.logo_url && (
-                    <Image
+                    /* eslint-disable-next-line @next/next/no-img-element */
+                    <img
                       src={team.logo_url}
                       alt={`${team.university_name} logo`}
                       width={20}
@@ -454,7 +454,8 @@ export default async function BasketballPlayerProfilePage({ params }: PageProps)
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
                 {team.logo_url && (
-                  <Image
+                  /* eslint-disable-next-line @next/next/no-img-element */
+                  <img
                     src={team.logo_url}
                     alt={team.university_name}
                     width={40}

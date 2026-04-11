@@ -1,5 +1,3 @@
-import Image from "next/image";
-
 interface Props {
   headshot_url: string | null;
   name: string;
@@ -17,7 +15,8 @@ function getInitials(name: string): string {
 export default function PlayerAvatar({ headshot_url, name, position, size = 36, className = "" }: Props) {
   if (headshot_url) {
     return (
-      <Image
+      // eslint-disable-next-line @next/next/no-img-element
+      <img
         src={headshot_url}
         alt={name}
         width={size}

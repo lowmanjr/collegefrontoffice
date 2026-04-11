@@ -1,5 +1,4 @@
 import Link from "next/link";
-import Image from "next/image";
 import { Suspense } from "react";
 import { supabase } from "@/lib/supabase";
 import type { Metadata } from "next";
@@ -183,7 +182,8 @@ export default async function BasketballBigBoardPage({ searchParams }: PageProps
                             {team && (
                               <div className="flex items-center gap-1.5">
                                 {team.logo_url && (
-                                  <Image
+                                  /* eslint-disable-next-line @next/next/no-img-element */
+                                  <img
                                     src={team.logo_url}
                                     alt={team.university_name}
                                     width={16}
@@ -298,7 +298,8 @@ export default async function BasketballBigBoardPage({ searchParams }: PageProps
                             {team ? (
                               <div className="flex items-center gap-2">
                                 {team.logo_url && (
-                                  <Image
+                                  /* eslint-disable-next-line @next/next/no-img-element */
+                                  <img
                                     src={team.logo_url}
                                     alt={`${team.university_name} logo`}
                                     width={20}
