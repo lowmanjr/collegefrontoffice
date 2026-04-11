@@ -31,7 +31,7 @@ STATS_BASE = (
     "https://sports.core.api.espn.com/v2/sports/basketball/leagues/"
     "mens-college-basketball/seasons/{season}/types/2/athletes/{espn_id}/statistics"
 )
-SEASON = 2025  # 2024-25 season
+CURRENT_SEASON = 2026  # 2025-26 season — update each year after season ends
 RATE_LIMIT_SECONDS = 0.6
 
 # ---------------------------------------------------------------------------
@@ -61,7 +61,7 @@ def fetch_player_stats(espn_id: str) -> dict | None:
     Fetch season averages from ESPN core API.
     Returns dict with mpg, ppg, rpg, apg, per, gp or None on 404/error.
     """
-    url = STATS_BASE.format(season=SEASON, espn_id=espn_id)
+    url = STATS_BASE.format(season=CURRENT_SEASON, espn_id=espn_id)
     try:
         r = requests.get(url, headers={"Accept": "application/json"}, timeout=10)
         if r.status_code == 404:

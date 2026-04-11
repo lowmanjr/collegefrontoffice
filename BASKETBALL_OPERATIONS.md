@@ -279,7 +279,62 @@ cd python_engine && python calculate_bball_valuations.py --dry-run --team SLUG
 
 ---
 
-## 6. Managing Known Deal Values
+## 6. Seasonal Maintenance (Run Every April After Tournament)
+
+After the NCAA Tournament concludes each April, run the full refresh sequence to update all teams to current season data:
+
+```bash
+cd python_engine
+
+# 1. Update CURRENT_SEASON in enrich_bball_usage_rates.py to the new year
+
+# 2. Re-ingest rosters (picks up new players, updates headshots)
+python ingest_bball_espn_rosters.py
+python fix_bball_headshots.py
+
+# 3. Detect departed players (graduated, transferred, went pro)
+python -c "
+from supabase_client import supabase
+import requests, time
+teams = supabase.table('basketball_teams').select('id, university_name, logo_url').execute()
+for team in teams.data:
+    espn_id = team['logo_url'].split('/')[-1].replace('.png', '')
+    resp = requests.get(f'https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/teams/{espn_id}/roster', timeout=10)
+    current_ids = {str(a['id']) for a in resp.json().get('athletes', [])}
+    db = supabase.table('basketball_players').select('id, name, espn_athlete_id').eq('team_id', team['id']).eq('roster_status', 'active').execute()
+    departed = [p for p in db.data if p['espn_athlete_id'] not in current_ids]
+    for p in departed:
+        supabase.table('basketball_players').update({'roster_status': 'departed_other'}).eq('id', p['id']).execute()
+        print(f'  {team[\"university_name\"]}: {p[\"name\"]} -> departed')
+    time.sleep(1.0)
+"
+
+# 4. Enrich with new season stats
+python enrich_bball_usage_rates.py
+
+# 5. Update class years (freshmen -> sophomores, etc.)
+python enrich_bball_class_years.py
+
+# 6. Sync draft boards (ESPN updates after tournament)
+python sync_nba_draft_projections.py
+
+# 7. Recalculate all valuations
+python calculate_bball_valuations.py
+python apply_bball_overrides.py
+
+# 8. Generate slugs for any new players
+python generate_bball_slugs.py
+```
+
+**Key things to check after refresh:**
+- Players who lost significant minutes (role tier drops → valuation drops)
+- New draft prospects discovered by `sync_nba_draft_projections.py`
+- Known deal values that may need updating for returning stars
+- Override players who graduated or went pro (remove from `basketball_approved_overrides.csv`)
+
+---
+
+## 7. Managing Known Deal Values
 
 When a reported NIL figure becomes public for a basketball player.
 
@@ -340,7 +395,7 @@ print(p.data)
 
 ---
 
-## 7. Social Data Enrichment
+## 8. Social Data Enrichment
 
 Scrapes On3 team NIL pages for per-player social follower counts (Instagram, Twitter/X, TikTok).
 
@@ -367,7 +422,7 @@ Keys are the On3 normalized name (lowercase, no suffixes). Values are the DB nor
 
 ---
 
-## 8. NBA Draft Projections
+## 9. NBA Draft Projections
 
 ### 8.1 Automated Sync (ESPN API)
 
@@ -399,7 +454,7 @@ Players not in ESPN's prospects list receive a neutral 1.00× draft premium.
 
 ---
 
-## 9. Transfer Portal Sync
+## 10. Transfer Portal Sync
 
 Scrapes On3 committed transfer portal data and updates roster assignments for tracked teams.
 
@@ -432,7 +487,7 @@ Only matches players whose destination school exists in `basketball_teams`. Unma
 
 ---
 
-## 10. Slug Generation
+## 11. Slug Generation
 
 Generates URL-safe slugs for all basketball teams and players.
 
@@ -444,7 +499,7 @@ Run after adding new players or teams. Collision handling: duplicate names recei
 
 ---
 
-## 11. Frontend Routes
+## 12. Frontend Routes
 
 All basketball pages live under `/basketball/`:
 
@@ -460,7 +515,7 @@ No frontend changes are needed when adding a new team — all pages query `baske
 
 ---
 
-## 12. Database Tables
+## 13. Database Tables
 
 | Table | Purpose |
 |-------|---------|
@@ -489,7 +544,7 @@ Migration: `supabase/migrations/00013_basketball_schema.sql`.
 
 ---
 
-## 13. Common Issues
+## 14. Common Issues
 
 ### Player not found during social enrichment
 
@@ -546,7 +601,7 @@ The valuation engine skips `is_override=True` players. If a player's override wa
 
 ---
 
-## 14. Script Reference
+## 15. Script Reference
 
 All basketball pipeline scripts in `python_engine/`:
 
@@ -572,7 +627,7 @@ All basketball pipeline scripts in `python_engine/`:
 
 ---
 
-## 15. Rollback Procedures
+## 16. Rollback Procedures
 
 ### 15.1 Safe Fields to Recompute
 
