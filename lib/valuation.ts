@@ -6,6 +6,8 @@
 const POSITION_BASE_VALUES: Record<string, number> = {
   QB: 1_500_000,
   OT: 800_000,
+  LT: 800_000,
+  RT: 800_000,
   EDGE: 700_000,
   DE: 700_000,
   DT: 600_000,
@@ -27,6 +29,8 @@ const POSITION_BASE_VALUES: Record<string, number> = {
   PK: 100_000,
   P: 100_000,
   ATH: 400_000,
+  FB: 400_000,
+  KR: 400_000,
   LS: 100_000,
 };
 
