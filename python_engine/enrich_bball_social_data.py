@@ -44,6 +44,8 @@ ON3_ORG_KEYS: dict[str, int] = {
     "Michigan": 15421,
     "Duke": 13002,
     "Kansas": 7567,
+    "San Diego State": 15180,
+    "Providence": 8918,
 }
 
 REQUEST_DELAY = 2.0  # seconds between On3 requests
