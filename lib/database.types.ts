@@ -181,6 +181,31 @@ export type BasketballPlayerWithTeam = BasketballPlayerRow & {
   > | null;
 };
 
+export interface BasketballPortalEntryRow {
+  id: string;
+  player_name: string;
+  position: string | null;
+  origin_school: string | null;
+  destination_school: string | null;
+  origin_team_id: string | null;
+  destination_team_id: string | null;
+  status: "committed" | "evaluating";
+  star_rating: number | null;
+  cfo_valuation: number | null;
+  on3_nil_value: number | null;
+  headshot_url: string | null;
+  entry_date: string | null;
+  commitment_date: string | null;
+  on3_player_slug: string | null;
+  created_at: string;
+  updated_at: string;
+}
+
+export type BasketballPortalEntryWithTeams = BasketballPortalEntryRow & {
+  origin_team: Pick<BasketballTeamRow, "university_name" | "slug" | "logo_url"> | null;
+  destination_team: Pick<BasketballTeamRow, "university_name" | "slug" | "logo_url"> | null;
+};
+
 /** Row type for the team_roster_summary database view */
 export interface TeamRosterSummary {
   id: string;

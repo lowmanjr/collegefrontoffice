@@ -487,6 +487,31 @@ Only matches players whose destination school exists in `basketball_teams`. Unma
 
 ---
 
+## 10.5 Transfer Portal Display
+
+Run during active portal windows to refresh `basketball_portal_entries`:
+
+```bash
+cd python_engine && python sync_bball_portal_display.py --dry-run    # preview
+cd python_engine && python sync_bball_portal_display.py              # sync
+```
+
+Clears and rebuilds the table on each run. Run daily during active windows.
+
+**Portal windows:**
+- Spring: ~April 7–21 (post-tournament)
+- Fall: ~November 8–18 (pre-season)
+
+The script captures both committed and evaluating players where origin OR destination is a CFO-tracked team. Valuations use the full formula with the destination team's market multiplier (committed) or origin team's multiplier (evaluating).
+
+To add a new tracked school's name variant, add to `SCHOOL_ALIASES` in `sync_bball_portal_display.py`.
+
+**Frontend:** `/basketball/portal` — displays portal entries with status badges, team links, and CFO valuations.
+
+**Migration:** `supabase/migrations/00015_basketball_portal_entries.sql` — must be run via Supabase dashboard before the sync script will work.
+
+---
+
 ## 11. Slug Generation
 
 Generates URL-safe slugs for all basketball teams and players.
