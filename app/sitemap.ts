@@ -18,6 +18,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${base}/players`, changeFrequency: "daily", priority: 0.9, lastModified: new Date() },
     { url: `${base}/teams`, changeFrequency: "daily", priority: 0.9, lastModified: new Date() },
     { url: `${base}/recruits`, changeFrequency: "daily", priority: 0.8, lastModified: new Date() },
+    { url: `${base}/portal`, changeFrequency: "daily", priority: 0.8, lastModified: new Date() },
     { url: `${base}/methodology`, changeFrequency: "monthly", priority: 0.5 },
   ];
 
