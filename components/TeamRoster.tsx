@@ -5,6 +5,7 @@ import Link from "next/link";
 import { formatCurrency, formatCompactCurrency } from "@/lib/utils";
 import { positionBadgeClass } from "@/lib/ui-helpers";
 import PlayerAvatar from "@/components/PlayerAvatar";
+import RosterDonut from "@/components/RosterDonut";
 
 // ─── types ──────────────────────────────────────────────────────────────────
 
@@ -81,46 +82,16 @@ export default function TeamRoster({
           return true;
         });
 
-  // ─── Summary bar segments ─────────────────────────────────────────────────
-
-  const segments = [
-    { label: "Est. Retained Value", value: retainedValue, color: "bg-slate-500" },
-    { label: "Est. Portal Value", value: portalValue, color: "bg-blue-500" },
-    { label: "Est. Recruiting Class Value", value: recruitValue, color: "bg-emerald-500" },
-  ].filter((s) => s.value > 0);
-
   return (
     <>
-      {/* ── Summary bar ──────────────────────────────────────────────────── */}
+      {/* ── Roster donut chart ────────────────────────────────────────────── */}
       {totalValuation > 0 && (
-        <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-4 mb-4">
-          {/* Proportional bar */}
-          <div className="flex rounded-full overflow-hidden h-3 mb-3">
-            {segments.map((seg) => (
-              <div
-                key={seg.label}
-                className={`${seg.color} transition-all`}
-                style={{ width: `${(seg.value / totalValuation) * 100}%` }}
-              />
-            ))}
-          </div>
-
-          {/* Labels */}
-          <div className="flex flex-wrap gap-x-6 gap-y-1">
-            {segments.map((seg) => (
-              <div key={seg.label} className="flex items-center gap-2">
-                <span className={`inline-block w-2.5 h-2.5 rounded-full ${seg.color}`} />
-                <span className="text-xs text-slate-500">{seg.label}</span>
-                <span
-                  className="text-xs font-bold text-slate-700 tabular-nums"
-                  style={{ fontFamily: "var(--font-oswald), sans-serif" }}
-                >
-                  {formatCompactCurrency(seg.value)}
-                </span>
-              </div>
-            ))}
-          </div>
-        </div>
+        <RosterDonut
+          retainedValue={retainedValue}
+          portalValue={portalValue}
+          recruitValue={recruitValue}
+          totalValuation={totalValuation}
+        />
       )}
 
       {/* ── Tabs ─────────────────────────────────────────────────────────── */}
