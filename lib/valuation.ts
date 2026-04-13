@@ -62,10 +62,13 @@ const CURRENT_YEAR = 2026; // Fall season — update annually
 
 // ─── Eligibility ─────────────────────────────────────────────────────────────
 
+const EXCLUDED_POSITIONS = new Set(["LS"]);
+
 /**
  * Returns true if this player should receive a valuation.
  * College athletes: must be on an active depth chart.
  * HS recruits: must be 4★ or 5★.
+ * Excluded positions (LS): always ineligible for algorithmic valuation.
  * isOverride: if true, always returns true — verified deals bypass the eligibility gate.
  * VALUATION_ENGINE.md §3.0
  */
@@ -74,8 +77,14 @@ export function isEligibleForValuation(
   isOnDepthChart: boolean | null,
   starRating: number | null,
   isOverride?: boolean,
+  position?: string | null,
 ): boolean {
   if (isOverride === true) return true;
+
+  // Position exclusion — no meaningful NIL market for these positions
+  const pos = (position ?? "").toUpperCase().trim();
+  if (pos && EXCLUDED_POSITIONS.has(pos)) return false;
+
   const tag = (playerTag ?? "").trim();
   if (tag === "College Athlete") {
     return isOnDepthChart === true;
@@ -405,6 +414,7 @@ export function calculateCfoValuation(
       player.is_on_depth_chart,
       player.star_rating,
       player.is_override ?? false,
+      player.position,
     )
   ) {
     return null;
