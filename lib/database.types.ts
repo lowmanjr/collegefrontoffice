@@ -38,6 +38,8 @@ export interface PlayerRow {
   depth_chart_rank: number | null;
   /** 'active' | 'departed_draft' | 'departed_transfer' | 'departed_graduated' | 'departed_other' */
   roster_status: string | null;
+  /** 'retained' | 'portal' | 'recruit' */
+  acquisition_type: string;
   is_public: boolean;
   is_override: boolean;
   /** e.g. 'Active' | 'Inactive' | 'Medical Exemption' */
