@@ -7,6 +7,7 @@ import { BASE_URL } from "@/lib/constants";
 import { positionBadgeClass } from "@/lib/ui-helpers";
 import PlayerAvatar from "@/components/PlayerAvatar";
 import TeamRoster from "@/components/TeamRoster";
+import RosterDonut from "@/components/RosterDonut";
 import type { PlayerRow } from "@/lib/database.types";
 
 export const revalidate = 900;
@@ -132,42 +133,49 @@ export default async function TeamDashboardPage({ params }: PageProps) {
         }}
       />
 
-      {/* ── Hero ─────────────────────────────────────────────────────────── */}
+      {/* ── Hero + Donut (unified) ────────────────────────────────────── */}
       <section className="bg-slate-900 text-white px-4 pt-8 pb-20">
         <div className="mx-auto max-w-6xl">
-          <div className="flex flex-col sm:flex-row sm:items-center gap-6">
-            {team.logo_url && (
-              <Image
-                src={team.logo_url}
-                alt={`${team.university_name} logo`}
-                width={80}
-                height={80}
-                className="h-20 w-20 object-contain shrink-0"
-                priority
-              />
-            )}
-            <div>
-              <h1
-                className="text-4xl sm:text-5xl font-bold uppercase tracking-tight leading-none"
-                style={{ fontFamily: "var(--font-oswald), sans-serif" }}
-              >
-                {team.university_name}
-              </h1>
-              {team.conference && (
-                <span className="mt-2 inline-block rounded px-2.5 py-0.5 text-xs font-semibold uppercase tracking-widest bg-slate-700 text-slate-300">
-                  {team.conference}
-                </span>
-              )}
-              <div className="mt-4">
-                <p className="text-xs uppercase tracking-widest text-slate-500 mb-1">Est. Roster Value</p>
-                <p
-                  className="text-3xl sm:text-4xl font-bold text-emerald-400 leading-none"
-                  style={{ fontFamily: "var(--font-oswald), sans-serif" }}
-                >
-                  {formatCompactCurrency(total_valuation)}
-                </p>
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-8">
+            {/* Left: Identity */}
+            <div className="flex flex-col items-center md:items-start gap-4">
+              <div className="flex flex-col sm:flex-row items-center sm:items-center gap-5">
+                {team.logo_url && (
+                  <Image
+                    src={team.logo_url}
+                    alt={`${team.university_name} logo`}
+                    width={80}
+                    height={80}
+                    className="h-20 w-20 object-contain shrink-0"
+                    priority
+                  />
+                )}
+                <div className="text-center sm:text-left">
+                  <h1
+                    className="text-4xl sm:text-5xl font-bold uppercase tracking-tight leading-none"
+                    style={{ fontFamily: "var(--font-oswald), sans-serif" }}
+                  >
+                    {team.university_name}
+                  </h1>
+                  {team.conference && (
+                    <span className="mt-2 inline-block rounded px-2.5 py-0.5 text-xs font-semibold uppercase tracking-widest bg-slate-700 text-slate-300">
+                      {team.conference}
+                    </span>
+                  )}
+                </div>
               </div>
             </div>
+
+            {/* Right: Donut + Legend */}
+            {total_valuation > 0 && (
+              <RosterDonut
+                retainedValue={retainedValue}
+                portalValue={portalValue}
+                recruitValue={recruitValue}
+                totalValuation={total_valuation}
+                variant="dark"
+              />
+            )}
           </div>
         </div>
       </section>
