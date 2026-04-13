@@ -5,7 +5,6 @@ import Link from "next/link";
 import { formatCurrency, formatCompactCurrency } from "@/lib/utils";
 import { positionBadgeClass } from "@/lib/ui-helpers";
 import PlayerAvatar from "@/components/PlayerAvatar";
-import RosterDonut from "@/components/RosterDonut";
 
 // ─── types ──────────────────────────────────────────────────────────────────
 
@@ -84,16 +83,6 @@ export default function TeamRoster({
 
   return (
     <>
-      {/* ── Roster donut chart ────────────────────────────────────────────── */}
-      {totalValuation > 0 && (
-        <RosterDonut
-          retainedValue={retainedValue}
-          portalValue={portalValue}
-          recruitValue={recruitValue}
-          totalValuation={totalValuation}
-        />
-      )}
-
       {/* ── Tabs ─────────────────────────────────────────────────────────── */}
       <div className="flex gap-2 mb-4 overflow-x-auto">
         {TABS.map((tab) => {
