@@ -55,6 +55,8 @@ SCHOOL_ALIASES: dict[str, str] = {
     "georgia bulldogs": "Georgia",
     "san diego state aztecs": "San Diego State",
     "providence friars": "Providence",
+    "louisville cardinals": "Louisville",
+    "oregon ducks": "Oregon",
 }
 
 # Schools that contain our team names as substrings — explicit non-matches
