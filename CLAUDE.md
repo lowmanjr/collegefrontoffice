@@ -100,6 +100,7 @@ Key algorithm files:
 | `generate_texas_comparison.py` | Generates CFO vs On3 comparison CSV for Texas with Override Value column |
 | `diagnose_duplicates.py` | Comprehensive duplicate detection across all 68 teams with merge-before-delete logic |
 | `fix_class_years.py` | Populates class_year NULLs via CFBD team+name matching (broader than update_class_years.py) |
+| `backfill_acquisition_type.py` | Tags players as 'retained', 'portal', or 'recruit' using CFBD transfer portal data |
 
 ### Overrides
 66 active overrides as of April 2026 (18 original + 9 Texas + 7 Texas Tech + 32 Georgia). Overrides bypass the algorithmic formula entirely. Managed via `python_engine/data/approved_overrides.csv` → `apply_overrides.py`, or directly via the comparison CSV workflow.
@@ -127,6 +128,7 @@ Key algorithm files:
 * `is_on_depth_chart` (BOOLEAN)
 * `depth_chart_rank` (INTEGER — 1=starter, 2=backup, etc.)
 * `roster_status` (TEXT — 'active', 'departed_draft', 'departed_transfer', 'departed_graduated', 'departed_other')
+* `acquisition_type` (TEXT — 'retained', 'portal', 'recruit'; DEFAULT 'retained')
 * `is_public` (BOOLEAN)
 * `nfl_draft_projection` (INTEGER — pick 1–260, sentinel ≥500 or 0 = no data)
 * `production_score` (NUMERIC — 0–100 from CFBD stats)

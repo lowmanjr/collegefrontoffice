@@ -359,11 +359,17 @@ python sync_transfer_portal.py
 # Step 4: Re-sync depth charts for transferred players
 python sync_ourlads_depth_charts.py --apply
 
+# Step 4b: Check for teams with sparse DC coverage (see §2.13)
+# Any team with <30 on-DC after Ourlads sync needs the EA-based fallback
+
 # Step 5: Re-run valuations
 python calculate_cfo_valuations.py
 
 # Step 6: Regenerate slugs for new players
 python generate_slugs.py
+
+# Step 7: Validate
+python validate_valuations.py
 ```
 
 **HS Recruit Commitments** (run separately):
@@ -422,6 +428,54 @@ Expanded from 16 to 68 teams using `expand_to_power4.py`. See `onboard_new_teams
 | `populate_ea_ratings.py` | Dry-run | `--apply` |
 | `assign_default_depth_chart.py` | Dry-run | `--apply` |
 | `ingest_tennessee_transfers.py` | Dry-run | `--apply` |
+
+### 2.13 EA-Based Depth Chart Assignment (Ourlads Fallback)
+
+**When to use:**
+- Team has fewer than 30 players on depth chart after running `sync_ourlads_depth_charts.py`
+- Ourlads page is empty (0 rows in tbody) or has significant unmatched players (>20 unmatched)
+- Common after major coaching changes, heavy portal turnover, or mid-season Ourlads staleness
+- Known cases (April 2026): Oklahoma State (1-11, 59 portal departures), Iowa State, Michigan State, Florida State — all fixed with this approach
+
+**Three-step fix pattern:**
+
+```bash
+# Step 1: Import new transfers from ESPN
+python sync_espn_rosters_by_id.py --team "{Team Name}"
+
+# Step 2: Try Ourlads first (may pick up some matches)
+python sync_ourlads_depth_charts.py --team "{team-slug}" --apply
+
+# Step 3: If still <30 on DC, assign DC ranks by EA rating
+# Ranks all players by EA OVR within position groups, assigns DC ranks 1-8 per position
+# Currently done via ad-hoc Python script (see Oklahoma State fix pattern below)
+
+# Step 4: Scrape and apply EA ratings for new players
+python scrape_ea_ratings.py --team "{team-slug}"
+python populate_ea_ratings.py --apply
+
+# Step 5: Recompute valuations
+python calculate_cfo_valuations.py
+
+# Step 6: Validate
+python validate_valuations.py
+```
+
+**EA-based DC assignment logic** (Step 3, run as ad-hoc script):
+
+```python
+# Group players by position, sort by EA OVR descending
+# Assign depth_chart_rank 1-8 per position group
+# Skip players with EA=0 beyond rank 4, skip all beyond rank 8
+# Skip override players (is_override=true)
+```
+
+**Important notes:**
+- EA-based DC assignment is a FALLBACK — always try Ourlads sync first
+- Override players are never touched by DC assignment
+- Once Ourlads publishes updated depth charts (typically August preseason), re-run `sync_ourlads_depth_charts.py` to replace EA-based assignments with real coaching depth chart data
+- The EA-based approach assigns ranks by OVR rating, which approximates starter/backup ordering reasonably well but is less accurate than real depth charts
+- Impact: Oklahoma State went from $8.1M → $27.7M, Iowa State from $5.0M → $18.9M, Michigan State from $13.2M → $29.2M, Florida State from $13.7M → $29.2M
 
 ---
 
@@ -575,7 +629,7 @@ EDGE   -> DE
 
 **Solution:** Ingested 24 transfer-in players from Ourlads manually via `ingest_tennessee_transfers.py`. Used `assign_default_depth_chart.py` for remaining 4/5-star players. Later detected 12 Tennessee to Texas A&M transfers via EA cross-reference.
 
-**Prevention:** For teams with poor Ourlads coverage, supplement with EA roster data. Cross-reference EA team assignments to detect transfers.
+**Prevention:** For teams with poor Ourlads coverage, use the EA-based depth chart assignment fallback (see §2.13). This is now a standard procedure for any team with <30 on-DC after Ourlads sync. Applied to Oklahoma State, Iowa State, Michigan State, and Florida State in April 2026 with $50M+ in recovered roster value.
 
 ### 5.2 OL Production Score Gap
 
