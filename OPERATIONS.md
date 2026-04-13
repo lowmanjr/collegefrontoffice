@@ -735,6 +735,21 @@ Players with reported deals (`is_override=true`) must NEVER be auto-modified by 
 **Solution:** Created `name_utils.py` with shared 4-pass matching: exact → exact-stripped → fuzzy → fuzzy-stripped. Retrofitted 6 pipeline scripts. Created `enrich_star_ratings_247.py` as 247Sports fallback (classes 2022-2026).
 **Impact:** 1,390 additional star ratings from 247Sports fallback. 17 suffix-stripped matches per CFBD enrichment run.
 
+### 5.18 Confusable School Pair Misassignment
+**Issue:** ESPN roster sync and other import scripts frequently assign players to the wrong team when the origin/destination schools have similar names. Affected 126 players in the April 2026 On3 portal audit. All mismatches follow the same pattern: player assigned to the parent/shorter-name school instead of the correct sister school.
+**Confusable pairs (10):**
+- Oklahoma ↔ Oklahoma State (24 misassigned)
+- Iowa ↔ Iowa State (18)
+- Florida ↔ Florida State (15)
+- Texas ↔ Texas A&M ↔ Texas Tech (25 across the trio)
+- Arizona ↔ Arizona State (12)
+- Kansas ↔ Kansas State (11)
+- Michigan ↔ Michigan State (10)
+- Georgia ↔ Georgia Tech (8)
+- North Carolina ↔ NC State (0 in this batch, but known risk)
+- Mississippi State ↔ Ole Miss (0 in this batch, but known risk)
+**TODO:** Add a `SCHOOL_DISAMBIGUATION` map to `name_utils.py` that sync scripts can use to verify team assignment against transfer portal destination data before writing to DB. Until then, run the On3 portal audit periodically to catch misassignments.
+
 ## 6. Rollback Procedures
 
 ### 6.1 Safe Fields to Bulk Reset

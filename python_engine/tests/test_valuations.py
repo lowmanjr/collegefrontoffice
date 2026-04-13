@@ -26,6 +26,8 @@ class TestIsEligible:
     def test_override(self):        assert is_eligible_for_valuation({"player_tag": "College Athlete", "is_on_depth_chart": False}, is_override=True)
     def test_unknown(self):         assert is_eligible_for_valuation({"player_tag": "Other"})
     def test_null(self):            assert is_eligible_for_valuation({"player_tag": None})
+    def test_ls_excluded(self):     assert not is_eligible_for_valuation({"player_tag": "College Athlete", "is_on_depth_chart": True, "position": "LS"})
+    def test_ls_override(self):     assert is_eligible_for_valuation({"player_tag": "College Athlete", "is_on_depth_chart": True, "position": "LS"}, is_override=True)
 
 
 class TestPositionBase:
@@ -240,7 +242,7 @@ class TestCalculateValuation:
 
     def test_floor_10k(self):
         p = {"player_tag": "College Athlete", "is_on_depth_chart": True, "depth_chart_rank": 4,
-             "position": "LS", "nfl_draft_projection": 260, "production_score": 5,
+             "position": "PK", "nfl_draft_projection": 260, "production_score": 5,
              "star_rating": None, "class_year": 1, "hs_grad_year": None, "total_followers": 0}
         assert calculate_valuation(p, 0.8) == 10_000
 
