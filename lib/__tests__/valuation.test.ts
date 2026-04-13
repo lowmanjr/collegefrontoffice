@@ -27,6 +27,8 @@ describe("isEligibleForValuation", () => {
   it("override bypasses", () => expect(isEligibleForValuation("College Athlete", false, 2, true)).toBe(true));
   it("unknown tag → true", () => expect(isEligibleForValuation("Other", false, null)).toBe(true));
   it("null tag → true", () => expect(isEligibleForValuation(null, null, null)).toBe(true));
+  it("LS excluded on DC", () => expect(isEligibleForValuation("College Athlete", true, 3, false, "LS")).toBe(false));
+  it("LS override bypasses", () => expect(isEligibleForValuation("College Athlete", true, 3, true, "LS")).toBe(true));
 });
 
 // ─── getPositionBaseValue ───────────────────────────────────────────────────
@@ -321,7 +323,7 @@ describe("calculateCfoValuation", () => {
   it("$10K floor", () => {
     const p: PlayerValuationInput = {
       player_tag: "College Athlete", is_on_depth_chart: true, depth_chart_rank: 4,
-      position: "LS", nfl_draft_projection: 260, production_score: 5,
+      position: "PK", nfl_draft_projection: 260, production_score: 5,
       star_rating: null, class_year: 1, hs_grad_year: null, total_followers: 0,
     };
     const r = calculateCfoValuation(p, 0.8);

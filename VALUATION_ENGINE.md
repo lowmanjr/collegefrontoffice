@@ -49,6 +49,10 @@ Overrides represent verified market data or market consensus that supersedes any
 ### 2.1 Eligibility Gate (after override check)
 
 ```
+IF position IN EXCLUDED_POSITIONS (currently: LS):
+    cfo_valuation = NULL
+    STOP
+
 IF college athlete AND is_on_depth_chart ≠ true:
     cfo_valuation = NULL (no valuation — profile only)
     STOP
@@ -57,6 +61,8 @@ IF HS recruit AND star_rating < 4:
     cfo_valuation = NULL
     STOP
 ```
+
+> **Note:** Long snappers (LS) are excluded from algorithmic valuation as no meaningful NIL market exists for the position. LS players with verified deals can still be valued via the override system (§2.0).
 
 ### 2.2 College Athlete Formula
 

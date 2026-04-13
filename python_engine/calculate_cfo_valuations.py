@@ -106,6 +106,9 @@ SINGLE_STARTER_POSITIONS = {"QB", "RB", "K", "P", "LS", "PK", "ATH"}
 
 # ─── Component functions ──────────────────────────────────────────────────────
 
+EXCLUDED_POSITIONS = {"LS"}
+
+
 def is_eligible_for_valuation(player: dict, is_override: bool = False) -> bool:
     """
     Eligibility gate. Only called AFTER the override check — override players
@@ -116,6 +119,11 @@ def is_eligible_for_valuation(player: dict, is_override: bool = False) -> bool:
     """
     if is_override:
         return True  # verified deals are valid regardless of depth chart status
+
+    # Position exclusion — no meaningful NIL market for these positions
+    position = (player.get("position") or "").upper().strip()
+    if position in EXCLUDED_POSITIONS:
+        return False
 
     tag = (player.get("player_tag") or "").strip()
 
@@ -526,6 +534,7 @@ def run_valuations(
     eligible_count       = 0
     ineligible_off_dc    = 0   # college athlete, not on depth chart
     ineligible_low_star  = 0   # HS recruit < 4★
+    ineligible_excluded  = 0   # excluded positions (LS)
     override_count       = 0
     errors               = 0
     eligible_valuations: list[int] = []
@@ -572,7 +581,10 @@ def run_valuations(
 
         # ── STEP 0: Eligibility gate ──────────────────────────────────────────
         if not is_eligible_for_valuation(player):
-            if tag == "College Athlete":
+            pos = (player.get("position") or "").upper().strip()
+            if pos in EXCLUDED_POSITIONS:
+                ineligible_excluded += 1
+            elif tag == "College Athlete":
                 ineligible_off_dc += 1
             elif tag == "High School Recruit":
                 ineligible_low_star += 1
@@ -621,9 +633,10 @@ def run_valuations(
         "total":               len(players),
         "eligible":            eligible_count,
         "overrides":           override_count,
-        "ineligible_total":    ineligible_off_dc + ineligible_low_star,
+        "ineligible_total":    ineligible_off_dc + ineligible_low_star + ineligible_excluded,
         "ineligible_off_dc":   ineligible_off_dc,
         "ineligible_low_star": ineligible_low_star,
+        "ineligible_excluded": ineligible_excluded,
         "errors":              errors,
         "valuations":          eligible_valuations,
     }
@@ -673,6 +686,7 @@ def print_summary(results: list[dict], stats: dict, top_n: int = 20) -> None:
     print(f"  Ineligible         : {stats['ineligible_total']:,}")
     print(f"    Off depth chart  : {stats['ineligible_off_dc']:,}")
     print(f"    HS recruit <4★   : {stats['ineligible_low_star']:,}")
+    print(f"    Excluded pos     : {stats['ineligible_excluded']:,}")
     if vals:
         print(f"  Valuation range    : ${min(vals):,} – ${max(vals):,}")
         print(f"  Avg valuation      : ${sum(vals) // len(vals):,}")
