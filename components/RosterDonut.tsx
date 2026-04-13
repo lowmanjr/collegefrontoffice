@@ -17,9 +17,11 @@ function roundPercentages(values: number[], total: number): number[] {
   const floored = raw.map(Math.floor);
   let remainder = 100 - floored.reduce((a, b) => a + b, 0);
   const fractions = raw.map((r, i) => ({ i, frac: r - floored[i] }));
-  fractions.sort((a, b) => b.frac - a.frac);
-  for (let k = 0; k < remainder; k++) {
-    floored[fractions[k].i] += 1;
+  const nonZero = fractions.filter(f => f.frac > 0);
+  if (nonZero.length === 0) return floored;
+  nonZero.sort((a, b) => b.frac - a.frac);
+  for (let k = 0; k < remainder && k < nonZero.length; k++) {
+    floored[nonZero[k].i] += 1;
   }
   return floored;
 }
@@ -37,6 +39,10 @@ export default function RosterDonut({
   totalValuation,
   variant = "light",
 }: RosterDonutProps) {
+  if (!retainedValue && !portalValue && !recruitValue) return null;
+  const total = retainedValue + portalValue + recruitValue;
+  if (total === 0) return null;
+
   const dark = variant === "dark";
   const rawValues = [retainedValue, portalValue, recruitValue];
   const activeIndices = rawValues.map((v, i) => (v > 0 ? i : -1)).filter((i) => i >= 0);

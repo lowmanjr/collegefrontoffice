@@ -502,21 +502,22 @@ Clears and rebuilds the table on each run.
 - Spring: ~April 7–21 (post-tournament)
 - Fall: ~November 8–18 (pre-season)
 
-### Daily Sync Sequence (During Portal Windows)
+### Roster Changes (During Portal Windows)
 
-Run in this exact order:
+Update `data/on3_basketballportal_raw.txt` by copy-pasting the full On3 portal page, then:
 
 ```bash
 cd python_engine
-python sync_bball_portal_display.py       # refresh portal entries from On3
-python sync_bball_roster_from_portal.py   # update rosters: moves, departures, flags
-python calculate_bball_valuations.py      # reprice all teams
-python apply_bball_overrides.py           # reapply known deal values
+python parse_bball_portal_txt.py --parse-only   # 1. verify parsing + school resolution
+python parse_bball_portal_txt.py --dry-run       # 2. preview DB changes (A/B/C ops)
+python parse_bball_portal_txt.py                 # 3. apply roster moves + departures + flags
+python calculate_bball_valuations.py             # 4. reprice all teams
+python apply_bball_overrides.py                  # 5. reapply known deal values
 ```
 
-The script captures both committed and evaluating players where origin OR destination is a CFO-tracked team. Valuations use the full formula with the destination team's market multiplier (committed) or origin team's multiplier (evaluating).
+Name mismatches between On3 and our DB are handled by `NAME_ALIASES` in `parse_bball_portal_txt.py`. School name variants are resolved via `SCHOOL_ALIASES` in the same file.
 
-To add a new tracked school's name variant, add to `SCHOOL_ALIASES` in `sync_bball_portal_display.py`.
+**Note:** `sync_bball_portal_display.py` still runs separately to keep the `/basketball/portal` display page current. `parse_bball_portal_txt.py` handles roster changes only.
 
 **Frontend:** `/basketball/portal` — displays portal entries with status badges, team links, and CFO valuations.
 
@@ -652,7 +653,8 @@ All basketball pipeline scripts in `python_engine/`:
 | `calculate_bball_valuations.py` | Formula → cfo_valuation | `--team SLUG`, `--dry-run` |
 | `apply_bball_overrides.py` | CSV → override valuations | — |
 | `generate_bball_slugs.py` | Name → URL slug | — |
-| `sync_bball_portal_display.py` | On3 portal → `basketball_portal_entries` | `--dry-run` |
+| `parse_bball_portal_txt.py` | Raw On3 txt → roster moves/departures/flags | `--parse-only`, `--dry-run` |
+| `sync_bball_portal_display.py` | On3 portal → `basketball_portal_entries` (display) | `--dry-run` |
 | `sync_bball_roster_from_portal.py` | Portal entries → roster moves/departures/flags | `--dry-run` |
 | `sync_basketball_transfer_portal.py` | On3 portal → roster moves (legacy) | `--dry-run`, `--max-pages N` |
 
@@ -663,6 +665,7 @@ All basketball pipeline scripts in `python_engine/`:
 | `data/basketball_approved_overrides.csv` | Known deal values |
 | `data/nba_draft_projections_2025.csv` | NBA mock draft projections |
 | `data/{slug}_basketball_recruits_2025.csv` | Incoming player recruiting data (per team) |
+| `data/on3_basketballportal_raw.txt` | Raw On3 portal copy-paste for `parse_bball_portal_txt.py` |
 
 ---
 

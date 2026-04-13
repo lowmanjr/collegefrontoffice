@@ -1,0 +1,12595 @@
+Rank
+Player
+Pos
+Rating
+NIL Value
+Status
+Last Team
+New Team
+1
+2
+Default Avatar
+C
+Flory Bidunga
+SO
+6-9
+215
+Kokomo
+(Kinshasa)
+98.49
+98.21
+$2.1M
+Committed
+Kansas Avatar
+Louisville Cardinals Avatar
+2
+4
+Default Avatar
+PF
+Milan Momcilovic
+JR
+6-8
+210
+Pewaukee
+(Pewaukee, WI)
+98.09
+95.82
+$2M
+Entered
+4/12/2026
+
+Iowa State Avatar
+3
+3
+Default Avatar
+C
+Massamba Diop
+FR
+6-11
+98.08
+-
+Entered
+4/08/2026
+
+Arizona State Avatar
+4
+1
+Default Avatar
+SG
+Juke Harris
+Claim Profile
+SO
+6-7
+200
+Salisbury
+(Salisbury, NC)
+98.07
+92.93
+-
+Entered
+4/07/2026
+
+Wake Forest Avatar
+100.0%
+Michigan Avatar
+488
+mi
+5
+6
+Default Avatar
+SG
+John Blackwell
+JR
+6-3
+175
+Brother Rice
+(Bloomfield Hills, MI)
+97.69
+85.33
+-
+Entered
+4/06/2026
+
+Wisconsin Avatar
+53.3%
+Illinois Avatar
+307
+mi
+46.7%
+Duke Avatar
+509
+mi
+6
+13
+Default Avatar
+PG
+Rob Wright
+SO
+6-1
+180
+Montverde Academy
+(Philadelphia, PA)
+97.61
+96.81
+-
+Entered
+4/08/2026
+
+BYU Avatar
+100.0%
+Kentucky Avatar
+518
+mi
+7
+18
+Default Avatar
+PF
+Allen Graves
+RS-FR
+6-9
+225
+Ponchatoula
+(Ponchatoula, LA)
+97.59
+-
+Entered
+4/10/2026
+
+Santa Clara University Avatar
+8
+14
+Default Avatar
+SG
+PJ Haggerty
+RS-JR
+6-3
+170
+Crosby
+(Crosby, TX)
+97.22
+89.26
+$2.6M
+Committed
+Kansas State Avatar
+Texas A&M Aggies Avatar
+9
+8
+Default Avatar
+PF
+Paulius Murauskas
+JR
+6-8
+220
+Lithuania
+(Kaunas)
+96.87
+$1.9M
+Entered
+3/24/2026
+
+Saint Mary's College of California Avatar
+10
+15
+Default Avatar
+SG
+Miles Byrd
+RS-JR
+6-6
+165
+Lincoln
+(Stockton, CA)
+96.81
+85.66
+-
+Committed
+San Diego State Avatar
+Providence Friars Avatar
+11
+21
+Default Avatar
+PF
+David Punch
+SO
+6-7
+245
+Harker Heights
+(Harker Heights, TX)
+96.77
+91.98
+$1.8M
+Committed
+TCU Avatar
+Texas Longhorns Avatar
+12
+5
+Default Avatar
+SG
+Stefan Vaaks
+FR
+6-7
+206
+Tabasalu Gümnaasium
+(Tabasalu)
+96.48
+-
+Committed
+Providence Avatar
+Illinois Fighting Illini Avatar
+13
+7
+Default Avatar
+PG
+Isaiah Johnson
+FR
+6-1
+170
+Campbell Hall School
+(Valley Village, CA)
+96.47
+83.75
+-
+Committed
+Colorado Avatar
+Texas Longhorns Avatar
+14
+11
+Default Avatar
+C
+Moustapha Thiam
+SO
+7-1
+200
+DME Academy
+(Dakar)
+96.45
+95.03
+$1.7M
+Entered
+4/07/2026
+
+Cincinnati Avatar
+15
+12
+Default Avatar
+C
+Aiden Sherrell
+Claim Profile
+SO
+6-11
+220
+Prolific Prep
+(Detroit, MI)
+96.45
+97.23
+$1.7M
+Entered
+4/06/2026
+
+Alabama Avatar
+16
+9
+Default Avatar
+C
+Somto Cyril
+SO
+6-11
+260
+Overtime Elite
+(Enugu)
+96.40
+95.40
+$1.9M
+Committed
+Georgia Avatar
+Miami Hurricanes Avatar
+17
+10
+Default Avatar
+CG
+Neoklis Avdalas
+FR
+6-7
+187
+Karditsa
+(Athens)
+96.38
+-
+Committed
+Virginia Tech Avatar
+North Carolina Tar Heels Avatar
+18
+20
+Default Avatar
+PG
+Jackson Shelstad
+JR
+6-0
+170
+West Linn
+(West Linn, OR)
+96.33
+97.02
+-
+Committed
+Oregon Avatar
+Louisville Cardinals Avatar
+19
+24
+Default Avatar
+PG
+Dedan Thomas
+JR
+6-1
+170
+Liberty
+(Las Vegas, NV)
+96.31
+96.40
+-
+Committed
+LSU Avatar
+Houston Cougars Avatar
+20
+30
+Default Avatar
+PF
+Donnie Freeman
+SO
+6-9
+200
+IMG Academy
+(Washington, DC)
+96.27
+98.77
+$1.6M
+Entered
+4/07/2026
+
+Syracuse Avatar
+21
+17
+Default Avatar
+PG
+Markus Burton
+JR
+5-10
+Penn
+(Mishawaka, IN)
+95.94
+89.08
+-
+Entered
+4/04/2026
+
+Notre Dame Avatar
+100.0%
+Indiana Avatar
+175
+mi
+22
+16
+Default Avatar
+SG
+KJ Lewis
+JR
+6-4
+185
+Chapin
+(El Paso, TX)
+95.87
+93.53
+-
+Entered
+4/07/2026
+
+Georgetown Avatar
+23
+22
+Default Avatar
+PF
+Najai Hines
+FR
+6-10
+230
+Plainfield
+(Garner, NC)
+95.86
+89.88
+-
+Entered
+4/06/2026
+
+Seton Hall Avatar
+24
+19
+Default Avatar
+SG
+Paul McNeil
+SO
+6-6
+185
+Richmond Senior
+(Rockingham, NC)
+95.85
+95.21
+-
+Expected
+NC State Avatar
+25
+34
+Default Avatar
+SG
+Terrence Hill Jr.
+SO
+6-3
+180
+Roosevelt
+(Portland, OR)
+95.85
+-
+Entered
+4/03/2026
+
+VCU Avatar
+26
+33
+Default Avatar
+C
+Mouhamed Sylla
+FR
+6-10
+240
+Bella Vista College Preparatory School
+(Dakar)
+95.80
+95.31
+-
+Entered
+3/31/2026
+
+Georgia Tech Avatar
+27
+25
+Default Avatar
+PF
+Kwame Evans Jr.
+JR
+6-10
+200
+Montverde Academy
+(Baltimore, MD)
+95.78
+98.09
+-
+Committed
+Oregon Avatar
+Villanova Wildcats Avatar
+28
+27
+Default Avatar
+PF
+Sananda Fru
+FR
+6-11
+245
+Lowen Braunschweig
+(Braunschweig)
+95.77
+88.15
+-
+Entered
+4/07/2026
+
+Louisville Avatar
+29
+32
+Default Avatar
+CG
+Kayden Mingo
+FR
+6-1
+160
+Long Island Lutheran
+(Glen Head, NY)
+95.77
+95.99
+-
+Entered
+4/08/2026
+
+Penn State Avatar
+30
+28
+Default Avatar
+SG
+Alex Wilkins
+FR
+6-5
+175
+Brooks School
+(Mattapan, MA)
+95.76
+-
+Entered
+3/31/2026
+
+Furman Avatar
+31
+29
+Default Avatar
+SG
+Matt Able
+FR
+6-4
+180
+Sagemont Prep
+(Tampa, FL)
+95.74
+96.86
+-
+Entered
+4/06/2026
+
+NC State Avatar
+32
+31
+Default Avatar
+CG
+Collin Chandler
+SO
+6-4
+170
+Farmington
+(Farmington, UT)
+95.73
+96.83
+-
+Committed
+Kentucky Avatar
+BYU Cougars Avatar
+33
+39
+Default Avatar
+PG
+Acaden Lewis
+Claim Profile
+FR
+6-2
+185
+Sidwell Friends
+(Washington, DC)
+95.45
+95.85
+-
+Entered
+4/07/2026
+
+Villanova Avatar
+34
+26
+Default Avatar
+PG
+Wes Enis
+JR
+6-2
+200
+Miami East
+(Conover, OH)
+95.35
+-
+Entered
+3/31/2026
+
+USF Avatar
+35
+38
+Default Avatar
+PG
+Zoom Diallo
+SO
+6-3
+190
+Prolific Prep
+(Tacoma, WA)
+95.02
+95.53
+-
+Entered
+4/07/2026
+
+Washington Avatar
+100.0%
+Kentucky Avatar
+2009
+mi
+36
+37
+Default Avatar
+SF
+Nikolas Khamenia
+Claim Profile
+FR
+6-8
+210
+Harvard-Westlake
+(Studio City, CA)
+94.98
+97.81
+-
+Entered
+4/08/2026
+
+Duke Avatar
+37
+41
+Default Avatar
+C
+Samet Yigitoglu
+SO
+7-1
+Turkey
+(Istanbul)
+94.96
+-
+Entered
+4/07/2026
+
+SMU Avatar
+99.6%
+South Carolina Avatar
+5611
+mi
+0.2%
+Louisville Avatar
+5589
+mi
+38
+100
+Default Avatar
+PF
+JP Estrella
+RS-SO
+6-11
+210
+Brewster Academy
+(South Portland, ME)
+94.89
+94.71
+-
+Committed
+Tennessee Avatar
+Michigan Wolverines Avatar
+39
+47
+Default Avatar
+SF
+Jalen Haralson
+Claim Profile
+FR
+6-6
+210
+La Lumiere School
+(Anderson, IN)
+94.64
+97.09
+-
+Entered
+4/02/2026
+
+Notre Dame Avatar
+38.1%
+Ohio State Avatar
+146
+mi
+33.3%
+Tennessee Avatar
+304
+mi
+40
+52
+Default Avatar
+PG
+Jeremiah Wilkinson
+SO
+6-0
+175
+The Skill Factory
+(Atlanta, GA)
+94.57
+84.00
+-
+Entered
+3/30/2026
+
+Georgia Avatar
+41
+45
+Default Avatar
+SG
+Terrence Brown
+JR
+6-3
+175
+Columbia Heights Senior
+(Minneapolis, MN)
+94.56
+-
+Entered
+4/07/2026
+
+Utah Avatar
+42
+71
+Default Avatar
+PF
+Drew Scharnowski
+RS-SO
+6-8
+195
+Central
+(Camp Point, IL)
+94.53
+-
+Entered
+4/07/2026
+
+Belmont University Avatar
+43
+65
+Default Avatar
+SF
+Jamier Jones
+FR
+6-6
+210
+Oak Ridge
+(Sarasota, FL)
+94.51
+95.61
+-
+Expected
+Providence Avatar
+44
+35
+Default Avatar
+PG
+Leroy Blyden Jr.
+FR
+6-1
+165
+University Of Detroit Jesuit HS
+(Detroit, MI)
+94.51
+-
+Entered
+3/28/2026
+
+Toledo Avatar
+45
+23
+Default Avatar
+C
+Oswin Erhunmwunse
+Claim Profile
+SO
+6-9
+210
+Putnam Science Academy
+(Benin City)
+94.50
+92.83
+-
+Committed
+Providence Avatar
+Creighton Bluejays Avatar
+46
+88
+Default Avatar
+SF
+Chance Westry
+SR
+6-6
+190
+Compass Prep
+(Harrisburg, PA)
+94.46
+96.56
+-
+Entered
+4/08/2026
+
+UAB Avatar
+47
+104
+Default Avatar
+PF
+Bryson Tiller
+FR
+6-9
+230
+Overtime Elite
+(Atlanta, GA)
+94.42
+93.84
+-
+Entered
+4/06/2026
+
+Kansas Avatar
+75.3%
+Missouri Avatar
+562
+mi
+24.7%
+Miami Avatar
+606
+mi
+48
+46
+Default Avatar
+SG
+Gavin Sykes
+FR
+6-3
+180
+Capital Christian
+(Sacramento, CA)
+94.17
+-
+Entered
+4/07/2026
+
+California State University Long Beach Avatar
+49
+48
+Default Avatar
+PF
+Alvaro Folgueiras
+JR
+6-9
+215
+DME Academy
+(Malaga)
+94.16
+-
+Expected
+Iowa Avatar
+50
+50
+Default Avatar
+SF
+Jake Hall
+FR
+6-3
+180
+Carlsbad
+(Carlsbad, CA)
+94.15
+-
+Entered
+4/10/2026
+
+New Mexico Avatar
+51
+49
+Default Avatar
+PF
+Baye Ndongo
+JR
+6-9
+220
+Colorado Prep
+(Denver, CO)
+94.14
+87.55
+-
+Committed
+Georgia Tech Avatar
+Pittsburgh Panthers Avatar
+52
+56
+Default Avatar
+CG
+Finley Bizjack
+JR
+6-3
+170
+Byron Nelson
+(Trophy Club, TX)
+94.13
+90.51
+-
+Committed
+Butler Avatar
+West Virginia Mountaineers Avatar
+53
+53
+Default Avatar
+PG
+Christian Hammond
+RS-SO
+6-3
+180
+Colorado Prep
+(Denver, CO)
+94.13
+83.25
+-
+Committed
+Santa Clara University Avatar
+NC State Wolfpack Avatar
+54
+54
+Default Avatar
+CG
+Hamad Mousa
+SO
+6-6
+175
+NBA Global Academy
+(Doha)
+94.13
+$682K
+Entered
+4/08/2026
+
+Cal Poly Avatar
+55
+36
+Default Avatar
+PF
+Magoon Gwath
+RS-SO
+6-11
+210
+Veritas Prep
+(Garden Grove, CA)
+94.11
+$1.1M
+Entered
+4/06/2026
+
+San Diego State Avatar
+56
+40
+Default Avatar
+PG
+Rowan Brumbaugh
+SR
+6-4
+180
+Northfield Mount Hermon
+(Northfield, MA)
+94.11
+93.37
+$674K
+Expected
+Tulane Avatar
+57
+69
+Default Avatar
+PF
+Keanu Dawes
+JR
+6-8
+205
+Stratford
+(Houston, TX)
+94.10
+90.14
+$1.1M
+Expected
+Utah Avatar
+58
+76
+Default Avatar
+PG
+Jaylen Petty
+FR
+6-0
+165
+Rainier Beach
+(Seattle, WA)
+94.09
+87.81
+$634K
+Committed
+Texas Tech Avatar
+UCLA Bruins Avatar
+59
+61
+Default Avatar
+SG
+Luka Bogavac
+FR
+6-5
+200
+SC Derby
+(Podgorica)
+94.09
+$615K
+Entered
+4/11/2026
+
+North Carolina Avatar
+60
+60
+Default Avatar
+PF
+Tomislav Buljan
+FR
+6-9
+Croatia
+(Split)
+94.09
+-
+Committed
+New Mexico Avatar
+Maryland Terrapins Avatar
+61
+62
+Default Avatar
+C
+Eric Reibe
+FR
+7-0
+225
+The Bullis School
+(Potomac, MD)
+94.09
+96.59
+$1.1M
+Entered
+4/10/2026
+
+Connecticut Avatar
+62
+63
+Default Avatar
+PF
+Sidi Gueye
+FR
+6-11
+215
+Real Madrid
+(Madrid)
+94.08
+87.00
+-
+Expected
+Arizona Avatar
+63
+79
+Default Avatar
+PG
+Jaquan Johnson
+SO
+5-11
+195
+Pius XI
+(Milwaukee, WI)
+94.08
+$606K
+Committed
+Bradley Avatar
+Iowa State Cyclones Avatar
+64
+64
+Default Avatar
+SG
+Kashie Natt
+RS-JR
+6-3
+190
+Rayville
+(Rayville, LA)
+94.08
+-
+Expected
+Sam Houston State Avatar
+65
+66
+Default Avatar
+SF
+Elyjah Freeman
+SO
+6-8
+Wellington
+(Palm Beach, FL)
+94.07
+$586K
+Entered
+4/10/2026
+
+Auburn Avatar
+66
+84
+Default Avatar
+PF
+Devin Royal
+JR
+6-7
+210
+Pickerington Central
+(Pickerington, OH)
+94.05
+95.94
+$983K
+Expected
+Ohio State Avatar
+67
+73
+Default Avatar
+CG
+Denzel Aberdeen
+SR
+6-5
+180
+Dr. Phillips
+(Orlando, FL)
+94.03
+90.00
+$2.1M
+Committed
+Kentucky Avatar
+Florida Gators Avatar
+68
+93
+Default Avatar
+SF
+LeJuan Watts
+RS-JR
+6-6
+235
+Bullard
+(Fresno, CA)
+94.01
+-
+Entered
+4/06/2026
+
+Texas Tech Avatar
+69
+78
+Default Avatar
+SG
+Roberts Blums
+SO
+6-4
+190
+Latvia
+(Riga)
+94.00
+$529K
+Expected
+Davidson Avatar
+70
+81
+Default Avatar
+PF
+Delrecco Gillespie
+SR
+6-8
+215
+East Coweta
+(Sharpsburg, GA)
+93.98
+$905K
+Committed
+Kent State Avatar
+Houston Cougars Avatar
+71
+107
+Default Avatar
+PF
+Filip Jovic
+FR
+6-9
+Serbia
+(Belgrade)
+93.96
+86.75
+$898K
+Committed
+Auburn Avatar
+UCLA Bruins Avatar
+72
+87
+Default Avatar
+SG
+Nolan Minessale
+SO
+6-5
+200
+Marquette University
+(Brookfield, WI)
+93.95
+$490K
+Entered
+4/10/2026
+
+St. Thomas Avatar
+73
+125
+Default Avatar
+CG
+Derek Dixon
+FR
+6-3
+190
+Gonzaga
+(Washington, DC)
+93.95
+95.23
+$510K
+Entered
+4/06/2026
+
+North Carolina Avatar
+100.0%
+Arizona Avatar
+1951
+mi
+74
+111
+Default Avatar
+C
+Drew Fielder
+JR
+6-9
+205
+SoCal Academy
+(Meridian, ID)
+93.95
+91.74
+$1M
+Entered
+3/30/2026
+
+Boise State Avatar
+75
+120
+Default Avatar
+PF
+Aleksas Bieliauskas
+FR
+6-10
+235
+(Kaunas)
+93.93
+$852K
+Entered
+4/07/2026
+
+Wisconsin Avatar
+76
+128
+Default Avatar
+SF
+Karter Knox
+SO
+6-6
+211
+Overtime Elite
+(Riverview, FL)
+93.92
+97.25
+$582K
+Expected
+Arkansas Avatar
+77
+133
+Default Avatar
+SG
+Tyler Lundblade
+RS-SR
+6-5
+195
+Greensboro Day School
+(Greensboro, NC)
+93.91
+$477K
+Committed
+Belmont University Avatar
+Tennessee Volunteers Avatar
+78
+96
+Default Avatar
+SF
+Jake Wilkins
+Claim Profile
+FR
+6-8
+165
+Grayson
+(Atlanta, GA)
+93.90
+95.15
+$482K
+Committed
+Georgia Avatar
+California Golden Bears Avatar
+79
+135
+Default Avatar
+SG
+Freddie Dilione
+SR
+6-5
+195
+Word Of God Christian Academy
+(Fayetteville, NC)
+93.90
+96.01
+$485K
+Entered
+4/01/2026
+
+Penn State Avatar
+80
+98
+Default Avatar
+SG
+Brycen Blaine
+SR
+6-5
+205
+Berkmar
+(Richmond, VA)
+93.89
+-
+Entered
+4/12/2026
+
+Charleston Southern Avatar
+81
+99
+Default Avatar
+PG
+Javontae Campbell
+SR
+6-2
+155
+Muskogee
+(Muskogee, OK)
+93.89
+-
+Expected
+Bowling Green Avatar
+82
+108
+Default Avatar
+SG
+Jalil Bethea
+SO
+6-6
+185
+Archbishop Wood
+(Warminster, PA)
+93.84
+98.95
+$621K
+Committed
+Alabama Avatar
+Pittsburgh Panthers Avatar
+83
+109
+Default Avatar
+PG
+Tijan Saine Jr.
+RS-JR
+5-10
+175
+Mariner
+(Everett, WA)
+93.83
+-
+Entered
+3/30/2026
+
+Weber State Avatar
+84
+114
+Default Avatar
+CG
+Garwey Dual
+JR
+6-5
+175
+SoCal Academy
+(Carmel, IN)
+93.80
+96.04
+$431K
+Committed
+McNeese State Avatar
+Syracuse Orange Avatar
+85
+115
+Default Avatar
+PG
+Brandon Rechsteiner
+JR
+6-1
+185
+Etowah
+(Woodstock, GA)
+93.80
+88.43
+$434K
+Committed
+Colorado State Avatar
+Kansas State Wildcats Avatar
+86
+119
+Default Avatar
+SF
+Javan Buchanan
+SR
+6-7
+230
+Lafayette Jefferson
+(Lafayette, IN)
+93.78
+-
+Committed
+Boise State Avatar
+West Virginia Mountaineers Avatar
+87
+44
+Default Avatar
+PF
+DeSean Goode
+SO
+6-8
+230
+Fork Union Military (HS)
+(Fork Union, VA)
+93.75
+-
+Entered
+3/23/2026
+
+Robert Morris Avatar
+88
+131
+Default Avatar
+PF
+Robert Miller III
+Claim Profile
+SO
+6-10
+225
+Pasadena Memorial
+(Houston, TX)
+93.71
+94.47
+$771K
+Expected
+LSU Avatar
+89
+132
+Default Avatar
+PF
+Dillon Claussen
+SO
+6-8
+215
+Creighton Preparatory School
+(Omaha, NE)
+93.71
+-
+Expected
+Washburn Avatar
+90
+55
+Default Avatar
+SF
+Tyrone Riley
+SO
+6-5
+190
+St. Pius X-St. Matthias Academy
+(Downey, CA)
+93.70
+91.04
+$396K
+Committed
+University of San Francisco Avatar
+Oregon Ducks Avatar
+91
+57
+Default Avatar
+SF
+Mouhamed Dioubate
+JR
+6-7
+215
+Putnam Science Academy
+(Flushing, NY)
+93.68
+92.61
+$399K
+Entered
+4/06/2026
+
+Kentucky Avatar
+92
+68
+Default Avatar
+PF
+Miles Rubin
+JR
+6-9
+200
+Simeon
+(Chicago, IL)
+93.65
+86.03
+$725K
+Committed
+Loyola (Chi) Avatar
+Tennessee Volunteers Avatar
+93
+67
+Default Avatar
+PF
+Michael Nwoko
+JR
+6-10
+240
+Prolific Prep
+(Burlington, NC)
+93.64
+91.49
+$728K
+Committed
+LSU Avatar
+Xavier Musketeers Avatar
+94
+74
+Default Avatar
+SG
+Justin Pippen
+SO
+6-3
+180
+Sierra Canyon
+(Chatsworth, CA)
+93.63
+94.06
+$431K
+Committed
+California Avatar
+Ohio State Buckeyes Avatar
+95
+101
+Default Avatar
+PG
+Kory Mincy
+JR
+6-2
+180
+Tri-Cities
+(East Point, GA)
+93.58
+$357K
+Committed
+George Mason Avatar
+South Carolina Gamecocks Avatar
+96
+106
+Default Avatar
+PG
+Malik Mack
+JR
+6-1
+160
+(Washington, DC)
+93.56
+$367K
+Expected
+Georgetown Avatar
+97
+124
+Default Avatar
+SF
+Gavin Doty
+SO
+6-5
+190
+Fonda-Fultonville
+(Fulton, NY)
+93.53
+-
+Committed
+Siena Avatar
+Syracuse Orange Avatar
+98
+110
+Default Avatar
+PF
+Josiah Parker
+FR
+6-6
+215
+Combine Academy
+(Leesburg, GA)
+93.53
+86.34
+-
+Entered
+4/06/2026
+
+Florida Atlantic Avatar
+99
+105
+Default Avatar
+PG
+Tylen Riley
+Claim Profile
+JR
+6-1
+170
+Durango
+(Las Vegas, NV)
+93.52
+$336K
+Entered
+4/07/2026
+
+Tulsa Avatar
+38.1%
+Ole Miss Avatar
+1448
+mi
+33.3%
+Cincinnati Avatar
+1679
+mi
+100
+126
+Default Avatar
+SG
+Mikey Lewis
+SO
+6-3
+170
+Prolific Prep
+(Oakland, CA)
+93.52
+92.21
+$336K
+Entered
+3/26/2026
+
+Saint Mary's College of California Avatar
+101
+113
+Default Avatar
+CG
+Jaeden Mustaf
+SO
+6-5
+205
+Overtime Elite
+(Bowie, MD)
+93.50
+95.08
+$338K
+Committed
+Georgia Tech Avatar
+Indiana Hoosiers Avatar
+102
+138
+Default Avatar
+SG
+Colby Garland
+JR
+6-0
+190
+Link Academy
+(Maumelle, AR)
+93.49
+-
+Expected
+San Jose State Avatar
+103
+154
+Default Avatar
+PG
+Dai Dai Ames
+JR
+6-1
+160
+Kenwood Academy
+(Chicago, IL)
+93.49
+94.33
+$342K
+Committed
+California Avatar
+Tennessee Volunteers Avatar
+104
+130
+Default Avatar
+SG
+Amari Evans
+FR
+6-5
+204
+Overtime Elite
+(Pittsburgh, PA)
+93.46
+93.67
+$329K
+Entered
+4/07/2026
+
+Tennessee Avatar
+105
+137
+Default Avatar
+SG
+Myles Colvin
+JR
+6-5
+200
+Heritage Christian School
+(Indianapolis, IN)
+93.45
+93.94
+$317K
+Committed
+Wake Forest Avatar
+Cincinnati Bearcats Avatar
+106
+59
+Default Avatar
+PG
+Joel Foxwell
+FR
+6-1
+180
+Australia
+(Melbourne, VIC)
+93.26
+$302K
+Expected
+Portland Avatar
+107
+43
+Default Avatar
+C
+Anton Bonke
+JR
+7-2
+270
+Vanuatu
+(Thatcher, AZ)
+93.23
+-
+Entered
+3/28/2026
+
+Charlotte Avatar
+108
+58
+Default Avatar
+SG
+Devin Vanterpool
+JR
+6-3
+175
+Christ The King Regional
+(Middle Village, NY)
+93.23
+$293K
+Expected
+Florida Atlantic Avatar
+109
+80
+Default Avatar
+PF
+Sebastian Rancik
+SO
+6-9
+210
+JSerra Catholic
+(San Juan Capistrano, CA)
+93.19
+91.74
+$626K
+Expected
+Colorado Avatar
+110
+42
+Default Avatar
+PG
+Preston Edmead
+FR
+6-1
+170
+The Williston Northampton School
+(Deer Park, NY)
+93.18
+$280K
+Expected
+Hofstra Avatar
+111
+83
+Default Avatar
+PG
+Anthony Robinson II
+JR
+6-3
+185
+Florida State Univ. School
+(Tallahassee, FL)
+93.18
+89.90
+$290K
+Entered
+3/30/2026
+
+Missouri Avatar
+112
+75
+Default Avatar
+SG
+Cole Certa
+SO
+6-5
+175
+IMG Academy
+(Bloomington, IL)
+93.17
+91.46
+$279K
+Committed
+Notre Dame Avatar
+Clemson Tigers Avatar
+113
+72
+Default Avatar
+SF
+Kameron Taylor
+Claim Profile
+SO
+6-7
+170
+Carmel Christian
+(Matthews, NC)
+93.17
+$281K
+Entered
+3/27/2026
+
+University of North Carolina Asheville Avatar
+114
+77
+Default Avatar
+PF
+Andrija Jelavic
+FR
+6-11
+220
+(Zagreb)
+93.17
+$595K
+Committed
+Kentucky Avatar
+Ohio State Buckeyes Avatar
+115
+86
+Default Avatar
+SF
+Dillan Shaw
+FR
+6-6
+175
+Heritage Christian
+(Northridge, CA)
+93.16
+90.94
+$271K
+Entered
+4/01/2026
+
+Saint Mary's College of California Avatar
+116
+97
+Default Avatar
+PF
+Kyle Evans
+SR
+6-10
+200
+Santa Margarita Catholic
+(Aliso Viejo, CA)
+93.15
+-
+Entered
+3/27/2026
+
+University of California Irvine Avatar
+117
+102
+Default Avatar
+SF
+Isaac Celiscar
+SO
+6-5
+200
+Winter Haven
+(Winter Haven, FL)
+93.15
+-
+Expected
+Yale Avatar
+118
+160
+Default Avatar
+PG
+Jaland Lowe
+JR
+6-1
+160
+Fort Bend Marshall
+(Missouri City, TX)
+93.11
+93.02
+$268K
+Committed
+Kentucky Avatar
+Georgetown Hoyas Avatar
+119
+117
+Default Avatar
+PF
+Tre Singleton
+FR
+6-8
+215
+Jeffersonville
+(Jeffersonville, IN)
+93.07
+88.23
+$558K
+Committed
+Northwestern Avatar
+Iowa State Cyclones Avatar
+120
+129
+Default Avatar
+PF
+Sam Orme
+JR
+6-9
+220
+Carmel
+(Carmel, IN)
+93.07
+-
+Committed
+Belmont University Avatar
+Nebraska Cornhuskers Avatar
+121
+141
+Default Avatar
+CG
+Tru Washington
+JR
+6-3
+175
+Compass Prep
+(Phoenix, AZ)
+93.06
+91.03
+$254K
+Committed
+Miami Avatar
+Xavier Musketeers Avatar
+122
+145
+Default Avatar
+SG
+Vyctorius Miller
+SO
+6-5
+170
+Compass Prep
+(North Hollywood, CA)
+93.05
+95.11
+$309K
+Entered
+4/07/2026
+
+Oklahoma State Avatar
+123
+136
+Default Avatar
+SG
+Isiah Harwell
+Claim Profile
+FR
+6-5
+190
+Wasatch Academy
+(Pocatello, ID)
+93.03
+98.28
+$887K
+Committed
+Houston Avatar
+Gonzaga University Bulldogs Avatar
+124
+70
+Default Avatar
+SF
+Dwayne Aristode
+FR
+6-8
+214
+Brewster Academy
+(Wolfeboro, NH)
+93.02
+97.05
+$578K
+Entered
+4/11/2026
+
+Arizona Avatar
+100.0%
+Auburn Avatar
+1090
+mi
+125
+184
+Default Avatar
+SF
+Cole Cloer
+FR
+6-7
+190
+IMG Academy
+(Hillsborough, NC)
+93.01
+94.13
+$238K
+Entered
+4/03/2026
+
+NC State Avatar
+126
+142
+Default Avatar
+SG
+Cayden Charles
+SR
+6-3
+185
+Allatoona
+(Kennesaw, GA)
+92.90
+-
+Entered
+4/11/2026
+
+St. Bonaventure University Avatar
+127
+143
+Default Avatar
+PF
+Zayden High
+-
+6-9
+225
+Compass Prep
+(Spring Branch, TX)
+92.90
+94.49
+$546K
+Expected
+North Carolina Avatar
+128
+146
+Default Avatar
+PF
+Owen Freeman
+JR
+6-10
+220
+Moline
+(Moline, IL)
+92.88
+86.25
+$543K
+Expected
+Creighton Avatar
+129
+150
+Default Avatar
+SG
+Ruben Dominguez
+FR
+6-5
+187
+Bilbao Basket
+(Puerto Real)
+92.86
+-
+Committed
+Texas A&M Avatar
+Xavier Musketeers Avatar
+130
+151
+Default Avatar
+SG
+David Terrell Jr.
+JR
+6-4
+195
+Mansfield Summit
+(Arlington, TX)
+92.85
+-
+Expected
+North Texas Avatar
+131
+152
+Default Avatar
+PG
+Jason Edwards
+SR
+6-0
+170
+Parkview
+(Atlanta, GA)
+92.85
+$232K
+Entered
+4/06/2026
+
+Providence Avatar
+132
+153
+Default Avatar
+PG
+Elijah Crawford
+SO
+6-2
+185
+Brewster Academy
+(Augusta, GA)
+92.84
+92.31
+$221K
+Entered
+4/04/2026
+
+Illinois Chicago Avatar
+133
+51
+Default Avatar
+SF
+Jackson Holcombe
+RS-SO
+6-7
+Timpanogos
+(Charleston, SC)
+92.83
+$204K
+Entered
+3/26/2026
+
+Utah Valley University Avatar
+134
+155
+Default Avatar
+PF
+Kuol Atak
+SO
+6-9
+185
+Haltom
+(Fort Worth, TX)
+92.83
+91.48
+$500K
+Committed
+Oklahoma Avatar
+Virginia Tech Hokies Avatar
+135
+157
+Default Avatar
+PF
+Quadir Martin
+SO
+6-5
+215
+Curtis
+(Staten Island, NY)
+92.82
+-
+Expected
+Mercyhurst College Avatar
+136
+85
+Default Avatar
+PF
+Taylor Bol Bowen
+JR
+6-9
+195
+Brewster Academy
+(Jericho, VT)
+92.70
+94.32
+$215K
+Entered
+4/06/2026
+
+Alabama Avatar
+137
+103
+Default Avatar
+CG
+Daniel Freitag
+SO
+6-3
+175
+Jefferson
+(Minneapolis, MN)
+92.68
+91.12
+$222K
+Expected
+Buffalo Avatar
+138
+95
+Default Avatar
+SF
+Shon Abaev
+FR
+6-7
+185
+Calvary Christian Academy
+(Fort Lauderdale, FL)
+92.67
+96.72
+$458K
+Committed
+Cincinnati Avatar
+Florida State Seminoles Avatar
+139
+161
+Default Avatar
+SF
+Thomas Dowd
+JR
+6-8
+205
+Dothan
+(Dothan, AL)
+92.67
+$193K
+Entered
+3/31/2026
+
+Troy Avatar
+140
+140
+Default Avatar
+PG
+Dra Gibbs-Lawhorn
+JR
+6-1
+165
+Montverde Academy
+(Lafayette, IN)
+92.65
+91.57
+$208K
+Expected
+UNLV Avatar
+141
+122
+Default Avatar
+C
+Chol Machot
+SO
+7-0
+Winston Salem Christian School
+(Winston Salem, NC)
+92.65
+$684K
+Entered
+3/18/2026
+
+College of Charleston Avatar
+142
+166
+Default Avatar
+PG
+Bishop Boswell
+SO
+6-4
+195
+Myers Park
+(Charlotte, NC)
+92.64
+93.82
+$197K
+Expected
+Tennessee Avatar
+143
+121
+Default Avatar
+PF
+Brandon Garrison
+Claim Profile
+JR
+6-10
+240
+Del City
+(Oklahoma City, OK)
+92.61
+95.85
+$193K
+Committed
+Kentucky Avatar
+Alabama Crimson Tide Avatar
+144
+134
+Default Avatar
+PG
+JJ Mandaquit
+Claim Profile
+FR
+6-1
+190
+Utah Prep
+(Hilo, HI)
+92.57
+94.79
+$187K
+Expected
+Washington Avatar
+145
+193
+Default Avatar
+PF
+Roman Siulepa
+FR
+6-6
+220
+NBA Global Academy
+(Brisbane, QLD)
+92.57
+-
+Committed
+Pittsburgh Avatar
+Ole Miss Rebels Avatar
+146
+183
+Default Avatar
+SF
+Omari Witherspoon
+FR
+6-4
+180
+St. John's College
+(Washington, DC)
+92.56
+88.97
+$168K
+Entered
+4/07/2026
+
+Pittsburgh Avatar
+147
+90
+Default Avatar
+SF
+Jack Karasinski
+SR
+6-7
+205
+Catholic Central
+(Grand Rapids, MI)
+92.28
+$168K
+Entered
+3/23/2026
+
+Bellarmine Avatar
+148
+92
+Default Avatar
+PF
+Bangot Dak
+JR
+6-10
+180
+Lincoln Southeast
+(Lincoln, NE)
+92.27
+82.75
+-
+Entered
+3/29/2026
+
+Colorado Avatar
+149
+168
+Default Avatar
+C
+Andrew McKeever
+RS-SO
+7-1
+275
+Granada
+(Livermore, CA)
+92.21
+-
+Expected
+Saint Mary's College of California Avatar
+150
+148
+Default Avatar
+PF
+Jalen Reed
+SR
+6-10
+230
+Southern California Academy
+(Castaic, CA)
+92.20
+94.56
+-
+Expected
+LSU Avatar
+151
+165
+Default Avatar
+SG
+Money Williams
+JR
+6-4
+211
+Oakland
+(Oakland, CA)
+92.20
+-
+Entered
+3/30/2026
+
+Montana Avatar
+152
+170
+Default Avatar
+SF
+Brant Byers
+SO
+6-7
+170
+Scotland Campus
+(Scotland, PA)
+92.19
+82.50
+-
+Entered
+3/31/2026
+
+Miami (OH) Avatar
+153
+180
+Default Avatar
+PG
+BJ Davis
+JR
+6-1
+170
+Modesto Christian
+(Modesto, CA)
+92.18
+86.42
+-
+Expected
+San Diego State Avatar
+154
+147
+Default Avatar
+C
+Logan Duncomb
+SR
+6-9
+235
+Archbishop Moeller
+(Cincinnati, OH)
+92.18
+93.81
+$512K
+Entered
+4/01/2026
+
+Winthrop Avatar
+155
+173
+Default Avatar
+SG
+Ace Glass
+FR
+6-2
+170
+Rancho Cucamonga
+(Rancho Cucamonga, CA)
+92.17
+88.93
+-
+Expected
+Washington State Avatar
+156
+118
+Default Avatar
+CG
+Donald Hand
+RS-JR
+6-5
+195
+Landstown
+(Virginia Beach, VA)
+92.16
+92.30
+-
+Entered
+4/07/2026
+
+Boston College Avatar
+157
+181
+Default Avatar
+SF
+Khani Rooths
+SO
+6-8
+195
+IMG Academy
+(Washington, DC)
+92.15
+96.55
+-
+Committed
+Louisville Avatar
+Oklahoma Sooners Avatar
+158
+144
+Default Avatar
+PG
+DJ Wagner
+JR
+6-3
+165
+Camden
+(Camden, NJ)
+92.15
+99.23
+$107K
+Expected
+Arkansas Avatar
+159
+127
+Default Avatar
+PF
+Jaylen Carey
+JR
+6-7
+225
+Westminster Academy
+(Fort Lauderdale, FL)
+92.13
+-
+Entered
+4/06/2026
+
+Tennessee Avatar
+160
+163
+Default Avatar
+C
+Luke McEldon
+JR
+6-10
+230
+Cushing Academy
+(Ashburnham, MA)
+92.04
+$510K
+Expected
+Mount St. Mary's Avatar
+161
+164
+Default Avatar
+PG
+Noah Meeusen
+FR
+6-4
+Belgium
+92.03
+-
+Committed
+Arizona State Avatar
+DePaul Blue Demons Avatar
+162
+167
+Default Avatar
+SF
+Tyler Betsey
+SO
+6-8
+185
+St. Thomas More
+(Windsor, CT)
+92.02
+95.30
+-
+Entered
+4/03/2026
+
+Syracuse Avatar
+163
+172
+Default Avatar
+CG
+Chance Gladden
+FR
+6-3
+175
+Ravenscroft School
+(Raleigh, NC)
+91.99
+-
+Entered
+3/17/2026
+
+Boston University Avatar
+164
+175
+Default Avatar
+SF
+Dezdrick Lindsay
+Claim Profile
+JR
+6-6
+215
+Louisville Male
+(Fort Myers, FL)
+91.97
+-
+Committed
+Oregon Avatar
+Kansas State Wildcats Avatar
+165
+188
+Default Avatar
+C
+Samson Aletan
+Claim Profile
+JR
+6-9
+200
+Lake Highlands
+(Dallas, TX)
+91.90
+83.25
+$509K
+Entered
+3/19/2026
+
+Yale Avatar
+166
+191
+Default Avatar
+SG
+Greyson Uelmen
+RS-FR
+6-2
+185
+Minnetonka
+(Excelsior, MN)
+91.89
+-
+Expected
+North Dakota Avatar
+167
+194
+Default Avatar
+PG
+Daeshun Ruffin
+RS-SR
+5-9
+160
+Callaway
+(Jackson, MS)
+91.87
+-
+Expected
+Jackson State Avatar
+168
+91
+Default Avatar
+SF
+Tyler Tejada
+JR
+6-9
+230
+Teaneck Sr
+(Teaneck, NJ)
+91.82
+-
+Committed
+Towson Avatar
+Cincinnati Bearcats Avatar
+169
+116
+Default Avatar
+SG
+Brett Decker
+SO
+6-3
+190
+Central Hardin
+(Cecilia, KY)
+91.74
+-
+Committed
+Liberty Avatar
+Baylor Bears Avatar
+170
+174
+Default Avatar
+SG
+Jasper Johnson
+FR
+6-4
+170
+Overtime Elite
+(Lexington, KY)
+91.71
+96.87
+$561K
+Expected
+Kentucky Avatar
+171
+158
+Default Avatar
+PF
+ND Okafor
+SR
+6-7
+210
+NBA Academy Latin America
+(Ireland, IN)
+91.71
+84.25
+-
+Entered
+3/31/2026
+
+Washington State Avatar
+172
+208
+Default Avatar
+C
+Riley Allenspach
+JR
+6-10
+215
+Providence Day School
+(Charlotte, NC)
+91.71
+83.17
+-
+Committed
+George Mason Avatar
+Cincinnati Bearcats Avatar
+173
+214
+Default Avatar
+PG
+Brandin Cummings
+SO
+6-3
+170
+Lincoln Park Performing Arts Charter School
+(Midland, PA)
+91.70
+90.09
+-
+Expected
+Pittsburgh Avatar
+174
+186
+Default Avatar
+SF
+Rihards Vavers
+JR
+6-7
+195
+The Skill Factory
+(Riga)
+91.70
+-
+Expected
+Washington State Avatar
+175
+215
+Default Avatar
+PG
+Sonny Wilson
+JR
+6-0
+175
+University Of Detroit Jesuit HS
+(Detroit, MI)
+91.70
+86.00
+-
+Expected
+Toledo Avatar
+176
+192
+Default Avatar
+CG
+RJ Johnson
+RS-SO
+6-4
+225
+Grissom
+(Huntsville, AL)
+91.69
+86.25
+-
+Committed
+Kennesaw State Avatar
+Mississippi State Bulldogs Avatar
+177
+89
+Default Avatar
+PF
+Dylan Faulkner
+JR
+6-9
+215
+Calhoun
+(Calhoun, GA)
+91.36
+-
+Entered
+3/27/2026
+
+Samford Avatar
+178
+94
+Default Avatar
+SG
+Jimmie Williams
+JR
+6-5
+210
+Solon
+(Solon, OH)
+91.32
+-
+Entered
+4/02/2026
+
+Duquesne Avatar
+179
+169
+Default Avatar
+CG
+Jalen Cox
+JR
+6-3
+180
+Loyola
+(Los Angeles, CA)
+91.31
+-
+Entered
+3/29/2026
+
+Colgate Avatar
+180
+112
+Default Avatar
+SG
+Isaiah Elohim
+SO
+6-5
+205
+Sierra Canyon
+(Kingston, NY)
+91.30
+95.38
+-
+Entered
+3/31/2026
+
+Florida Atlantic Avatar
+181
+202
+Default Avatar
+PG
+Dior Johnson
+RS-JR
+6-2
+180
+Prolific Prep
+(Corona, CA)
+91.29
+95.47
+$258K
+Expected
+Tarleton State Avatar
+182
+178
+Default Avatar
+SF
+Jalen Shelley
+SO
+6-8
+175
+Link Academy
+(Frisco, TX)
+91.29
+94.62
+-
+Expected
+Loyola Marymount Avatar
+183
+123
+Default Avatar
+C
+Ben Defty
+SO
+7-0
+255
+St. Thomas More
+(Berlin)
+91.29
+$500K
+Expected
+Boston University Avatar
+184
+156
+Default Avatar
+CG
+Trevian Carson
+JR
+6-3
+200
+Valley
+(West Des Moines, IA)
+91.27
+-
+Expected
+North Dakota State Avatar
+185
+206
+Default Avatar
+PF
+Blake Barkley
+Claim Profile
+JR
+6-8
+195
+Putnam Science Academy
+(Putnam, CT)
+91.27
+83.00
+-
+Entered
+3/31/2026
+
+East Tennessee State Avatar
+186
+182
+Default Avatar
+C
+Luke Wilson
+RS-SO
+6-9
+260
+Augusta Christian Schools
+(Augusta, GA)
+91.26
+$505K
+Expected
+Appalachian State Avatar
+187
+179
+Default Avatar
+PG
+Jayden Reid
+JR
+5-11
+165
+Long Island Lutheran
+(Long Island City, NY)
+91.24
+88.44
+-
+Expected
+Northwestern Avatar
+188
+185
+Default Avatar
+PG
+Jaylen Curry
+JR
+6-0
+168
+Calvary Christian
+(Charlotte, NC)
+91.22
+86.17
+-
+Expected
+Oklahoma State Avatar
+189
+189
+Default Avatar
+SF
+Blake Harper
+SO
+6-8
+210
+Gonzaga
+(Washington, DC)
+91.20
+-
+Committed
+Creighton Avatar
+VCU Rams Avatar
+191
+198
+Default Avatar
+SF
+Andrija Bukumirovic
+JR
+6-7
+200
+Serbia
+91.10
+-
+Entered
+3/24/2026
+
+UT Martin Avatar
+192
+199
+Default Avatar
+PF
+Adam Olsen
+JR
+6-8
+225
+Canada
+(Surrey, BC)
+91.09
+-
+Entered
+3/24/2026
+
+South Alabama Avatar
+193
+200
+Default Avatar
+PF
+Lewis Walker
+SO
+6-5
+200
+Winston Salem Christian School
+(Winston Salem, NC)
+91.09
+-
+Expected
+North Carolina A&T Avatar
+194
+201
+Default Avatar
+PF
+Tasman Goodrick
+JR
+6-10
+230
+St. Joseph's College
+(Sydney, NSW)
+91.08
+-
+Committed
+Siena Avatar
+Syracuse Orange Avatar
+195
+203
+Default Avatar
+SG
+Dallis Dillard
+RS-SR
+6-3
+180
+St. Raymond For Boys
+(Harlem, NY)
+91.07
+-
+Expected
+IUP Avatar
+196
+205
+Default Avatar
+PF
+Eemeli Yalaho
+JR
+6-8
+230
+Western Reserve Academy
+(Hudson, OH)
+91.06
+-
+Expected
+Washington State Avatar
+197
+209
+Default Avatar
+CG
+Jeremy Dent-Smith
+SR
+6-1
+195
+Junipero Serra
+(Gardena, CA)
+91.04
+-
+Entered
+4/10/2026
+
+Stanford Avatar
+198
+210
+Default Avatar
+PG
+Keyshuan Tillery
+FR
+6-0
+170
+New Hampton School
+(New Hampton, NH)
+91.03
+94.33
+$114K
+Entered
+4/07/2026
+
+Cincinnati Avatar
+199
+211
+Default Avatar
+SF
+Ryan Blount
+SO
+6-6
+205
+Rockledge
+(Oviedo, FL)
+91.03
+-
+Expected
+University of Tampa Avatar
+200
+212
+Default Avatar
+PF
+Jason Schofield
+SO
+6-8
+205
+South Kent School
+(Avon, CT)
+91.02
+83.05
+-
+Entered
+3/26/2026
+
+Marist Avatar
+201
+213
+Default Avatar
+SG
+Simeon Wilcher
+JR
+6-4
+185
+Roselle Catholic
+(Roselle, NJ)
+91.02
+96.23
+-
+Committed
+Texas Avatar
+Seton Hall Pirates Avatar
+202
+216
+Default Avatar
+SG
+Ryan Sabol
+JR
+6-3
+195
+Gonzaga
+(Washington, DC)
+91.00
+-
+Expected
+Buffalo Avatar
+203
+217
+Default Avatar
+PF
+Braeden Lue
+SO
+6-8
+235
+Alexander
+(Douglasville, GA)
+90.99
+-
+Expected
+Kennesaw State Avatar
+204
+220
+Default Avatar
+CG
+Jan Vide
+JR
+6-6
+200
+Slovenia
+(Domzale)
+90.98
+-
+Entered
+4/01/2026
+
+Loyola Marymount Avatar
+205
+221
+Default Avatar
+C
+Conrad Luczynski
+JR
+7-2
+270
+Bartlett
+(Bartlett, IL)
+90.97
+-
+Entered
+3/25/2026
+
+Lenoir Rhyne Avatar
+206
+226
+Default Avatar
+PF
+Max Frazier
+JR
+6-9
+200
+Northwood
+(Pittsboro, NC)
+90.95
+-
+Expected
+Central Connecticut State Avatar
+207
+82
+Default Avatar
+SG
+Trevan Leonhardt
+RS-JR
+6-5
+Davis
+(Kaysville, UT)
+90.94
+-
+Entered
+3/26/2026
+
+Utah Valley University Avatar
+208
+227
+Default Avatar
+PF
+Mayar Wol
+JR
+6-8
+175
+Moravian Prep
+(Fuquay Varina, NC)
+90.94
+86.88
+-
+Expected
+Bowling Green Avatar
+209
+162
+Default Avatar
+PG
+Jordan Frison
+JR
+6-0
+170
+Overton
+(Memphis, TN)
+90.90
+-
+Committed
+Chattanooga Avatar
+Wichita State Shockers Avatar
+210
+197
+Default Avatar
+SG
+Jake Fiegen
+JR
+6-4
+205
+New Trier
+(Wilmette, IL)
+90.87
+-
+Entered
+3/16/2026
+
+Cornell Avatar
+211
+231
+Default Avatar
+PG
+A'lahn Sumler
+SR
+6-3
+185
+Buford
+(Waterbury, CT)
+90.86
+-
+Entered
+3/17/2026
+
+Charleston Southern Avatar
+212
+149
+Default Avatar
+PF
+Torey Alston
+RS-SO
+6-9
+220
+Winston Salem Christian School
+(Winston Salem, NC)
+90.86
+-
+Expected
+Middle Tennessee State Avatar
+213
+177
+Default Avatar
+CG
+Eduardo Klafke
+SO
+6-3
+180
+NBA Academy Latin America
+(Brasilia)
+90.84
+86.25
+-
+Committed
+Ole Miss Avatar
+Butler Bulldogs Avatar
+214
+195
+Default Avatar
+SG
+Jonathan Powell
+SO
+6-6
+180
+Centerville
+(Dayton, OH)
+90.83
+90.00
+-
+Committed
+North Carolina Avatar
+Pittsburgh Panthers Avatar
+215
+187
+Default Avatar
+PG
+Azavier Robinson
+FR
+6-1
+180
+Lawrence North
+(Indianapolis, IN)
+90.80
+91.88
+-
+Entered
+3/27/2026
+
+Butler Avatar
+216
+263
+Default Avatar
+SG
+Corey Hadnot
+JR
+6-3
+190
+Cy Creek
+(Houston, TX)
+90.77
+-
+Entered
+3/14/2026
+
+Purdue University Fort Wayne Avatar
+217
+222
+Default Avatar
+PG
+Curtis Givens
+SO
+6-3
+180
+Montverde Academy
+(Memphis, TN)
+90.77
+94.71
+-
+Expected
+Memphis Avatar
+218
+282
+Default Avatar
+SG
+Eli Ellis
+FR
+6-1
+190
+Moravian Prep
+(Hickory, NC)
+90.71
+93.52
+$532K
+Entered
+3/23/2026
+
+South Carolina Avatar
+219
+159
+Default Avatar
+PG
+Braeden Smith
+SR
+6-0
+180
+Seattle Prep School
+(Seattle, WA)
+90.39
+-
+Entered
+4/06/2026
+
+Gonzaga University Avatar
+220
+241
+Default Avatar
+SG
+Mister Dean
+SO
+6-6
+210
+Sunrise Christian Academy
+(Miami, FL)
+90.38
+-
+Entered
+3/16/2026
+
+College of Charleston Avatar
+221
+176
+Default Avatar
+PG
+Kevair Kennedy
+FR
+6-0
+165
+Father Judge
+(Philadelphia, PA)
+90.33
+-
+Expected
+Merrimack Avatar
+222
+256
+Default Avatar
+PG
+Martin Somerville
+SO
+6-3
+185
+Southern California Academy
+(Bowie, MD)
+90.32
+-
+Entered
+3/31/2026
+
+Florida State Avatar
+223
+190
+Default Avatar
+PG
+Nasir Whitlock
+JR
+6-2
+184
+DeLaSalle
+(Minneapolis, NC)
+90.31
+-
+Entered
+4/02/2026
+
+Lehigh Avatar
+224
+228
+Default Avatar
+PG
+Sebastian Akins
+SO
+6-2
+175
+1 of 1 Academy
+(Charlotte, NC)
+90.18
+-
+Entered
+3/30/2026
+
+Wake Forest Avatar
+225
+229
+Default Avatar
+C
+Ja'Quay Randolph
+JR
+6-10
+240
+Maclay School
+(Tallahassee, FL)
+90.18
+-
+Entered
+3/17/2026
+
+Southern Wesleyan Avatar
+226
+230
+Default Avatar
+PG
+Lazerek Houston
+FR
+6-0
+155
+Lincoln Northeast
+(Lincoln, NE)
+90.17
+-
+Expected
+Central Missouri State Avatar
+227
+232
+Default Avatar
+SF
+Ethan Roberts
+RS-JR
+6-5
+195
+John Hersey
+(Arlington Heights, IL)
+90.16
+-
+Entered
+3/23/2026
+
+Pennsylvania Avatar
+228
+233
+Default Avatar
+SG
+Skylar Wicks
+JR
+6-6
+200
+Clearwater Academy International
+(Clearwater, FL)
+90.16
+-
+Entered
+3/27/2026
+
+Saint Francis (PA) Avatar
+229
+234
+Default Avatar
+SF
+Bryce Cofield
+FR
+6-5
+180
+Sierra Canyon
+(Chatsworth, CA)
+90.15
+86.00
+-
+Entered
+4/10/2026
+
+California State University Fullerton Avatar
+230
+236
+Default Avatar
+PG
+Bernie Blunt III
+SR
+5-11
+180
+Peddie School
+(Morgantown, PA)
+90.14
+-
+Entered
+3/24/2026
+
+Mercyhurst College Avatar
+231
+237
+Default Avatar
+SF
+Zion Sensley
+SO
+6-8
+195
+Archbishop Riordan
+(San Carlos, CA)
+90.14
+91.17
+-
+Expected
+University of California Santa Barbara Avatar
+232
+238
+Default Avatar
+SG
+Jaden Winston
+JR
+6-0
+160
+DeMatha Catholic
+(Hyattsville, MD)
+90.13
+-
+Entered
+3/25/2026
+
+Manhattan College Avatar
+233
+242
+Default Avatar
+SG
+Jordan Crawford
+SR
+6-0
+165
+North Mecklenburg
+(Huntersville, NC)
+90.11
+-
+Expected
+South Dakota Avatar
+234
+243
+Default Avatar
+C
+Evan Ramsey
+RS-SO
+7-0
+250
+Abingdon
+(Abingdon, VA)
+90.10
+-
+Committed
+Virginia Wise Avatar
+Wofford Terriers Avatar
+235
+246
+Default Avatar
+PG
+Jacoi Hutchinson
+Claim Profile
+JR
+6-2
+180
+IMG Academy
+(Silver Spring, MD)
+90.09
+86.03
+-
+Entered
+3/24/2026
+
+Longwood Avatar
+236
+247
+Default Avatar
+CG
+Abdul Bashir
+JR
+6-7
+Bryan
+(Omaha, NE)
+90.08
+86.44
+-
+Entered
+4/10/2026
+
+Auburn Avatar
+237
+248
+Default Avatar
+PF
+Garrett Sundra
+SO
+6-10
+215
+Paul VI Catholic
+(Fairfax, VA)
+90.08
+87.15
+-
+Entered
+3/24/2026
+
+Notre Dame Avatar
+238
+250
+Default Avatar
+C
+Cade Bennerman
+Claim Profile
+FR
+6-11
+195
+Father Ryan
+(Nashville, TN)
+90.07
+86.03
+$508K
+Entered
+3/20/2026
+
+Northwestern Avatar
+239
+252
+Default Avatar
+PG
+Devin Dinkins
+SR
+5-10
+155
+Gonzaga
+(Washington, DC)
+90.05
+82.63
+-
+Entered
+3/24/2026
+
+Manhattan College Avatar
+240
+257
+Default Avatar
+SG
+Koree Cotton
+JR
+6-6
+Miami Southridge
+(Miami, FL)
+90.03
+-
+Entered
+3/23/2026
+
+University of Rio Grande Avatar
+241
+258
+Default Avatar
+SG
+Jaden Schutt
+SR
+6-5
+180
+Yorkville Christian
+(Yorkville, IL)
+90.02
+94.36
+-
+Committed
+Virginia Tech Avatar
+Kansas State Wildcats Avatar
+242
+259
+Default Avatar
+C
+Peyton Marshall
+SO
+7-0
+336
+Overtime Elite
+(Marietta, GA)
+90.02
+93.26
+$505K
+Expected
+Georgia Tech Avatar
+243
+260
+Default Avatar
+PF
+Anthony Robinson
+JR
+6-10
+230
+Christ School
+(Peachtree City, GA)
+90.01
+82.25
+-
+Expected
+Xavier Avatar
+244
+139
+Default Avatar
+CG
+Christian Bliss
+RS-SO
+6-4
+205
+George School
+(Brooklyn, NY)
+90.01
+89.42
+-
+Expected
+Delaware Avatar
+245
+261
+Default Avatar
+PF
+Montavious Myrick
+SR
+6-8
+208
+North Atlanta
+(Atlanta, GA)
+90.01
+-
+Entered
+3/26/2026
+
+Eastern Kentucky Avatar
+246
+262
+Default Avatar
+PF
+Okechukwu Okeke
+SR
+6-9
+235
+East Chicago Central
+(East Chicago, IN)
+90.00
+-
+Entered
+3/11/2026
+
+Albany Avatar
+14.3%
+Missouri Avatar
+315
+mi
+12.5%
+Virginia Tech Avatar
+481
+mi
+247
+264
+Default Avatar
+SG
+Ross Candelino
+SR
+6-5
+185
+Ponte Vedra
+(Jacksonville, FL)
+89.99
+-
+Entered
+3/18/2026
+
+Lipscomb Avatar
+248
+265
+Default Avatar
+SG
+Brady Swartz
+FR
+6-7
+195
+Northview
+(Grand Rapids, MI)
+89.98
+-
+Entered
+3/19/2026
+
+Western Michigan Avatar
+249
+266
+Default Avatar
+SG
+JoJo Wallace
+SO
+6-3
+180
+South Kent School
+(Milford, CT)
+89.98
+-
+Entered
+3/17/2026
+
+Southern New Hampshire Avatar
+250
+267
+Default Avatar
+SG
+Shane Blakeney
+RS-JR
+6-5
+200
+Legion Collegiate
+(Rock Hill, SC)
+89.97
+-
+Entered
+3/26/2026
+
+Drexel Avatar
+251
+269
+Default Avatar
+SG
+Cayden Ward
+SO
+6-6
+210
+St. Mary's
+(Stockton, CA)
+89.96
+-
+Expected
+Cal Poly Avatar
+252
+171
+Default Avatar
+PF
+Brandon Benjamin
+FR
+6-8
+235
+Link Academy
+(Newark, NJ)
+89.94
+-
+Expected
+Fairfield University Avatar
+253
+273
+Default Avatar
+PG
+Damari Wheeler-Thomas
+RS-JR
+6-0
+185
+Larkin
+(Elgin, IL)
+89.94
+-
+Committed
+North Dakota State Avatar
+Boise State Broncos Avatar
+254
+275
+Default Avatar
+PF
+Sean Logan
+SR
+6-10
+215
+Westfield Senior
+(Westfield, NJ)
+89.93
+-
+Entered
+3/20/2026
+
+Davidson Avatar
+255
+276
+Default Avatar
+PF
+JaJuan Nicholls
+JR
+6-8
+220
+NC Good Better Best Academy
+(Scranton, PA)
+89.92
+-
+Entered
+3/26/2026
+
+Tennessee Tech Avatar
+256
+245
+Default Avatar
+SG
+Justyn Fernandez
+RS-JR
+6-5
+200
+IMG Academy
+(Richmond, VA)
+89.92
+87.37
+-
+Entered
+3/18/2026
+
+Delaware Avatar
+257
+277
+Default Avatar
+CG
+Cord Stansberry
+RS-JR
+6-3
+195
+Shadow Hills
+(Indio, CA)
+89.92
+-
+Entered
+3/20/2026
+
+Western Carolina Avatar
+258
+240
+Default Avatar
+PF
+Jake Wahlin
+JR
+6-7
+180
+Timpview
+(Provo, UT)
+89.91
+-
+Expected
+Clemson Avatar
+259
+278
+Default Avatar
+SG
+RJ Jones
+JR
+6-3
+175
+Wasatch Academy
+(Denton, TX)
+89.91
+93.27
+-
+Expected
+TCU Avatar
+260
+279
+Default Avatar
+SF
+Dominique Diomande
+RS-FR
+6-8
+190
+(Tours)
+89.91
+-
+Committed
+BYU Avatar
+Pittsburgh Panthers Avatar
+261
+280
+Default Avatar
+SG
+Trevon Payton
+RS-JR
+6-5
+215
+Shiloh
+(Snellville, GA)
+89.90
+-
+Expected
+Arkansas Pine Bluff Avatar
+262
+281
+Default Avatar
+PG
+Braeden Speed
+SO
+6-2
+190
+Brophy College Preparatory
+(Phoenix, AZ)
+89.90
+-
+Expected
+Loyola Maryland Avatar
+263
+283
+Default Avatar
+SF
+Marcus Kell
+SR
+6-8
+213
+Rock Hill
+(Rock Hill, SC)
+89.89
+-
+Entered
+3/20/2026
+
+Western Carolina Avatar
+264
+224
+Default Avatar
+SG
+Rodney Brown
+JR
+6-6
+170
+Rancho Christian
+(Temecula, CA)
+89.88
+87.73
+-
+Entered
+3/25/2026
+
+Loyola Marymount Avatar
+265
+225
+Default Avatar
+SG
+Kaden Cooper
+JR
+6-5
+180
+The Skill Factory
+(Ada, OK)
+89.88
+94.48
+-
+Entered
+3/24/2026
+
+Louisiana Tech Avatar
+266
+207
+Default Avatar
+SG
+Ryan Prather Jr.
+SR
+6-5
+205
+Clarksburg
+(Clarksburg, MD)
+89.87
+-
+Committed
+Robert Morris Avatar
+Iowa State Cyclones Avatar
+267
+239
+Default Avatar
+PF
+Taj Manning
+RS-JR
+6-6
+220
+La Lumiere School
+(Mission, KS)
+89.87
+84.25
+-
+Committed
+Kansas State Avatar
+Iowa State Cyclones Avatar
+268
+254
+Default Avatar
+PG
+Jordan Marsh
+JR
+5-10
+165
+Moravian Prep
+(Charlotte, NC)
+89.85
+-
+Expected
+USC Avatar
+269
+268
+Default Avatar
+PF
+Jamarion Davis-Fleming
+FR
+6-8
+200
+Canton
+(Canton, MS)
+89.85
+91.86
+-
+Entered
+3/24/2026
+
+Mississippi State Avatar
+270
+204
+Default Avatar
+SG
+Sebastian Mack
+JR
+6-3
+195
+Coronado
+(Chicago, IL)
+89.47
+94.58
+-
+Entered
+4/01/2026
+
+Missouri Avatar
+271
+219
+Default Avatar
+PF
+Caden Pierce
+SR
+6-6
+205
+Glenbard West
+(Glen Ellen, CA)
+89.45
+-
+Committed
+Princeton Avatar
+Purdue Boilermakers Avatar
+272
+253
+Default Avatar
+PG
+Roddie Anderson III
+SR
+6-2
+190
+Fountain Valley
+(Huntington Beach, CA)
+89.44
+-
+Entered
+3/17/2026
+
+Xavier Avatar
+273
+223
+Default Avatar
+SF
+Darin Smith Jr.
+RS-SO
+6-7
+210
+Vermont Academy
+(Springfield, MA)
+89.44
+-
+Expected
+Central Connecticut State Avatar
+274
+255
+Default Avatar
+PG
+Deuce Jones
+SO
+6-0
+Trenton Catholic School
+(Trenton, NJ)
+89.43
+-
+Entered
+3/17/2026
+
+Saint Joseph's University Avatar
+275
+251
+Default Avatar
+PG
+Kyan Evans
+JR
+6-1
+170
+Staley
+(Kansas City, MO)
+89.38
+-
+Entered
+4/07/2026
+
+North Carolina Avatar
+276
+284
+Default Avatar
+PF
+Alex Atkinson
+SO
+6-10
+180
+Lower Richland
+(Columbia, SC)
+89.13
+-
+Committed
+Claflin Avatar
+Towson Tigers Avatar
+277
+285
+Default Avatar
+SG
+Tanner Thomas
+RS-SR
+6-6
+215
+The Williston Northampton School
+(Stamford, CT)
+89.13
+-
+Entered
+3/25/2026
+
+Loyola Marymount Avatar
+278
+286
+Default Avatar
+SG
+Ari Fulton
+SO
+6-6
+200
+Westover
+(Fayetteville, NC)
+89.12
+-
+Expected
+New Jersey Institute of Technology Avatar
+279
+287
+Default Avatar
+SG
+Deng Garang
+RS-SO
+6-6
+190
+Bishop Grimes
+(Syracuse, NY)
+89.11
+-
+Expected
+Le Moyne College Avatar
+280
+288
+Default Avatar
+SG
+Trey Simmons
+SO
+6-1
+The Avalon School
+(Gaithersburg, MD)
+89.11
+-
+Expected
+Frostburg State Avatar
+281
+289
+Default Avatar
+SG
+Robert Davis
+JR
+6-6
+175
+SoCal Academy
+(Detroit, MI)
+89.10
+-
+Entered
+3/24/2026
+
+Old Dominion Avatar
+282
+290
+Default Avatar
+PG
+Izaiah Pasha
+SO
+6-4
+180
+St. Thomas More (Prep)
+(Springfield, PA)
+89.10
+-
+Expected
+Virginia Tech Avatar
+283
+291
+Default Avatar
+PG
+Jay Rodgers
+RS-SR
+6-3
+185
+The Winchendon School
+(Pickerington, OH)
+89.09
+-
+Committed
+Central Connecticut State Avatar
+Penn State Nittany Lions Avatar
+284
+292
+Default Avatar
+SF
+Marcus Adams Jr.
+SR
+6-8
+200
+Nathaniel Narbonne HS
+(Harbor City, CA)
+89.09
+94.45
+-
+Committed
+Arizona State Avatar
+Hawaii Rainbow Warriors Avatar
+285
+293
+Default Avatar
+SG
+Justin Payne
+SO
+5-11
+North Oconee
+(Athens, GA)
+89.08
+-
+Expected
+Young Harris Avatar
+286
+295
+Default Avatar
+SF
+Sola Adebisi
+SR
+6-7
+205
+Cambridge
+(Alpharetta, GA)
+89.07
+-
+Entered
+3/24/2026
+
+The Citadel Avatar
+287
+296
+Default Avatar
+SG
+Tre Norman
+JR
+6-3
+175
+Worcester Academy
+(Worcester, MA)
+89.07
+92.63
+-
+Entered
+3/31/2026
+
+Marquette Avatar
+288
+297
+Default Avatar
+C
+Noah Feddersen
+RS-JR
+6-10
+245
+Menomonie
+(Menomonie, WI)
+89.06
+-
+Entered
+3/24/2026
+
+North Dakota State Avatar
+289
+298
+Default Avatar
+SF
+Ruot Bijiek
+SR
+6-8
+185
+Valley
+(West Des Moines, IA)
+89.05
+-
+Entered
+2/24/2026
+
+Bucknell Avatar
+290
+299
+Default Avatar
+SF
+Cornelius Robinson
+JR
+6-5
+210
+Camden
+(Camden, NJ)
+89.05
+-
+Expected
+Monmouth Avatar
+291
+218
+Default Avatar
+PF
+Elijah Strong
+JR
+6-8
+245
+Myers Park
+(Charlotte, NC)
+89.05
+82.00
+-
+Expected
+South Carolina Avatar
+292
+300
+Default Avatar
+PG
+Zion Russell
+SR
+6-0
+185
+National Christian Academy
+(Upper Marlboro, MD)
+89.04
+-
+Entered
+3/25/2026
+
+Saint Francis (PA) Avatar
+293
+271
+Default Avatar
+SF
+Jamie Kaiser
+JR
+6-6
+210
+IMG Academy
+(Burke, VA)
+88.94
+94.22
+-
+Committed
+Butler Avatar
+Richmond Spiders Avatar
+294
+272
+Default Avatar
+SG
+Sir Mohammed
+SO
+6-6
+200
+Myers Park
+(Lexington, KY)
+88.94
+93.53
+-
+Entered
+3/24/2026
+
+Notre Dame Avatar
+295
+274
+Default Avatar
+SF
+Ryder Frost
+FR
+6-6
+200
+Phillips Exeter Academy
+(Beverly, MA)
+88.92
+93.05
+-
+Entered
+3/25/2026
+
+Notre Dame Avatar
+296
+235
+Default Avatar
+SF
+Brady Dunlap
+JR
+6-7
+180
+Harvard-Westlake
+(Studio City, CA)
+88.77
+89.26
+-
+Expected
+Saint Louis Avatar
+297
+244
+Default Avatar
+PG
+Daquan Davis
+SO
+6-1
+173
+Overtime Elite
+(Baltimore, MD)
+88.60
+92.21
+-
+Expected
+Providence Avatar
+298
+270
+Default Avatar
+SG
+Jaylen Harrell
+Claim Profile
+FR
+6-6
+210
+CATS Academy
+(Boston, MA)
+88.52
+92.29
+-
+Expected
+Providence Avatar
+299
+196
+Default Avatar
+SG
+Nils Machowski
+JR
+6-3
+185
+Germany
+88.11
+-
+Entered
+3/16/2026
+
+Wofford Avatar
+300
+294
+Default Avatar
+PG
+KJ Windham
+Claim Profile
+SO
+6-2
+175
+Ben Davis
+(Indianapolis, IN)
+88.08
+86.01
+-
+Expected
+Northwestern Avatar
+301
+Default Avatar
+SG
+Jaxon Olvera
+SO
+6-5
+190
+Golden State Prep
+(Houston, TX)
+88.00
+-
+Entered
+3/16/2026
+
+Louisiana Avatar
+302
+Default Avatar
+SG
+Mike Mora
+RS-SO
+6-6
+210
+Asheville School
+(Palo Alto, CA)
+88.00
+-
+Entered
+3/11/2026
+
+Cal State Monterey Bay Avatar
+303
+Default Avatar
+SG
+Pedro Santos
+RS-FR
+6-7
+200
+Portugal
+88.00
+-
+Entered
+3/18/2026
+
+UT Martin Avatar
+304
+Default Avatar
+C
+Melian Martinez
+SO
+6-9
+230
+Valley Christian
+(Cerritos, CA)
+88.00
+$500K
+Entered
+3/18/2026
+
+Louisiana Tech Avatar
+305
+Default Avatar
+SG
+Jaxon Edwards
+SR
+6-6
+195
+Cathedral
+(Indianapolis, IN)
+88.00
+-
+Entered
+3/19/2026
+
+Indiana University   Indianapolis Avatar
+306
+Default Avatar
+SF
+Christian Moore
+RS-SO
+6-6
+225
+Avon Old Farms Prep
+(Los Angeles, CA)
+88.00
+-
+Entered
+3/20/2026
+
+The Citadel Avatar
+307
+Default Avatar
+SG
+Cavan Reilly
+SR
+6-4
+200
+Bishop O'Connell
+(Lovettsville, VA)
+88.00
+-
+Entered
+3/23/2026
+
+Delaware Avatar
+308
+Default Avatar
+PF
+Malek Gomma
+JR
+6-8
+245
+Elite Prep
+(Seattle, WA)
+88.00
+-
+Entered
+3/23/2026
+
+Weber State Avatar
+309
+Default Avatar
+SG
+Xavier Brown
+SR
+6-2
+183
+Jamestown
+(Williamsburg, VA)
+88.00
+-
+Entered
+3/23/2026
+
+USF Avatar
+310
+Default Avatar
+PF
+Jevon Hill
+SR
+6-9
+190
+Legacy School of Sports Sciences
+(Wichita, KS)
+88.00
+-
+Expected
+Central Missouri State Avatar
+311
+Default Avatar
+SG
+Cal Klesmit
+RS-SO
+6-2
+180
+Neenah
+(Neenah, WI)
+88.00
+-
+Committed
+Northern Michigan Avatar
+Northern Illinois Huskies Avatar
+312
+Default Avatar
+PF
+Antonio Pusateri
+JR
+6-7
+200
+Archbishop Riordan
+(San Francisco, CA)
+88.00
+-
+Expected
+Lubbock Christian University Avatar
+313
+Default Avatar
+SG
+Jack Payne
+SR
+6-6
+195
+Owyhee
+(Boise, ID)
+88.00
+-
+Entered
+3/23/2026
+
+Idaho Avatar
+314
+Default Avatar
+PG
+Dellquan Warren
+SO
+6-1
+160
+Our Saviour Lutheran School
+(Geneva, OH)
+88.00
+90.74
+-
+Expected
+Mississippi State Avatar
+315
+Default Avatar
+PF
+Gestin Liberis
+JR
+6-9
+215
+George School
+(Havertown, PA)
+88.00
+-
+Entered
+3/26/2026
+
+Saint Francis (PA) Avatar
+316
+Default Avatar
+C
+David Iweze
+FR
+6-9
+215
+iSchool of Lewisville
+(Lewisville, TX)
+88.00
+$500K
+Committed
+Utah State Avatar
+Cincinnati Bearcats Avatar
+317
+Default Avatar
+PF
+Marqus Mitrovic Marion
+RS-SO
+6-8
+210
+Denmark
+(Copenhagen)
+88.00
+84.67
+-
+Entered
+3/26/2026
+
+Wake Forest Avatar
+318
+Default Avatar
+SG
+Tybo Bailey
+SO
+6-3
+170
+Winston Salem Christian School
+(Mouth Of Wilson, VA)
+88.00
+88.94
+-
+Expected
+East Carolina Avatar
+319
+249
+Default Avatar
+C
+Olivier Rioux
+Claim Profile
+SO
+7-6
+275
+IMG Academy
+(Montreal, QC)
+87.97
+82.25
+$590K
+Expected
+Florida Avatar
+320
+Default Avatar
+PF
+Dani Pounds
+JR
+6-7
+225
+Newton
+(Forest Park, GA)
+87.00
+-
+Entered
+3/15/2026
+
+Tennessee Tech Avatar
+321
+Default Avatar
+C
+Zine Eddrine Bedri
+SR
+6-10
+235
+DME Academy
+(Tebessa)
+87.00
+-
+Committed
+Columbia Avatar
+San Jose State Spartans Avatar
+322
+Default Avatar
+CG
+Elijah Elliott
+SO
+6-2
+170
+Sunrise Christian Academy
+(Orlando, FL)
+87.00
+83.50
+-
+Entered
+3/18/2026
+
+Ohio Avatar
+323
+Default Avatar
+SG
+Alfred Worrell
+SR
+6-4
+200
+Montgomery Blair
+(Silver Spring, MD)
+87.00
+-
+Expected
+Morgan State Avatar
+324
+Default Avatar
+SG
+Camp Wagner
+JR
+6-6
+190
+Link Academy
+(Dallas, TX)
+87.00
+-
+Entered
+3/18/2026
+
+Indiana State Avatar
+325
+Default Avatar
+SG
+Hunter Adam
+RS-JR
+6-7
+225
+New Zealand
+87.00
+-
+Entered
+3/20/2026
+
+Davidson Avatar
+326
+Default Avatar
+C
+Joe Hurlburt
+RS-JR
+6-10
+220
+Enderlin Area
+(Enderlin, ND)
+87.00
+90.20
+$510K
+Committed
+Davidson Avatar
+The Citadel Bulldogs Avatar
+327
+Default Avatar
+PG
+Jaylen Washington
+SO
+5-9
+155
+Lake Highlands
+(Dallas, TX)
+87.00
+-
+Entered
+3/23/2026
+
+The University of Texas Rio Grande Valley Avatar
+328
+Default Avatar
+PF
+Reid Cason
+SO
+6-10
+235
+Kingston
+(Kingston, OK)
+87.00
+-
+Entered
+3/24/2026
+
+East Carolina Avatar
+329
+Default Avatar
+SG
+Will Fowler
+SO
+6-2
+Byrnes
+(Greenville, SC)
+87.00
+-
+Expected
+Converse University Avatar
+330
+Default Avatar
+PF
+Cameron Wallace
+JR
+6-8
+210
+Parkview Magnet
+(Little Rock, AR)
+87.00
+-
+Entered
+3/26/2026
+
+Arkansas Little Rock Avatar
+331
+Default Avatar
+PG
+Darrell Yepdo
+SR
+6-0
+185
+Brooks School
+(Dracut, MA)
+87.00
+-
+Expected
+University of Massachusetts Lowell Avatar
+332
+Default Avatar
+PG
+Caleb Blackwell
+RS-JR
+6-1
+185
+Buford
+(Buford, GA)
+87.00
+-
+Expected
+UTEP Avatar
+333
+Default Avatar
+SF
+Jahki Howard
+SO
+6-6
+180
+Overtime Elite
+(Boston, MA)
+86.44
+94.05
+-
+Expected
+Utah Avatar
+334
+Default Avatar
+SG
+Andrew Ball
+RS-SO
+6-9
+215
+Shawnee
+(Medford, NJ)
+86.00
+-
+Entered
+3/13/2026
+
+Monmouth Avatar
+335
+Default Avatar
+C
+Ridvan Tutic
+SR
+6-10
+242
+Gimnazija Novi Pazar
+(Novi Pazar)
+86.00
+-
+Entered
+3/16/2026
+
+Stonehill College Avatar
+336
+Default Avatar
+SG
+Josh Baldwin
+RS-JR
+6-5
+230
+Belmont Hill School
+(Everett, MA)
+86.00
+-
+Entered
+3/16/2026
+
+Cornell Avatar
+337
+Default Avatar
+PG
+Avery Brown
+SR
+6-3
+180
+Northfield Mount Hermon
+(Beacon Falls, CT)
+86.00
+84.25
+-
+Expected
+Columbia Avatar
+338
+Default Avatar
+SF
+Joah Chappelle
+SO
+6-9
+185
+Dutchtown
+(Atlanta, GA)
+86.00
+-
+Entered
+3/17/2026
+
+Georgia State Avatar
+339
+Default Avatar
+SG
+Mike Evbagharu
+JR
+6-4
+220
+Canada
+86.00
+-
+Expected
+Canisius University Avatar
+340
+Default Avatar
+SG
+Jack Robison
+SO
+6-6
+175
+Lakeville North
+(Lakeville, MN)
+86.00
+86.87
+-
+Expected
+Wisconsin Avatar
+341
+Default Avatar
+SG
+Reid Ducharme
+Claim Profile
+JR
+6-6
+180
+Brewster Academy
+(Boston, MA)
+86.00
+92.12
+-
+Expected
+Siena Avatar
+342
+Default Avatar
+PF
+Preston Copeland
+FR
+6-7
+185
+Raleigh Christian Academy
+(Raleigh, NC)
+85.00
+82.50
+-
+Entered
+3/16/2026
+
+Ball State Avatar
+343
+Default Avatar
+CG
+Chase Cormier
+SR
+6-2
+165
+Greenforest McCalep Christian Academy
+(Decatur, GA)
+85.00
+85.50
+-
+Entered
+3/18/2026
+
+Iona Avatar
+344
+Default Avatar
+SG
+Tyler Wagner
+FR
+6-5
+175
+Champlin Park Senior
+(Minneapolis, MN)
+85.00
+-
+Expected
+Austin Peay Avatar
+345
+Default Avatar
+SG
+Omar Adegbola
+RS-SO
+6-4
+205
+Montverde Academy
+(Houston, TX)
+85.00
+-
+Expected
+Northwestern State Avatar
+346
+Default Avatar
+C
+JC Riley
+RS-JR
+6-10
+250
+Lowndes
+(Atlanta, GA)
+85.00
+$500K
+Entered
+3/18/2026
+
+Northwestern State Avatar
+347
+Default Avatar
+CG
+Always Wright
+RS-JR
+6-3
+175
+Joplin
+(Joplin, MO)
+85.00
+-
+Expected
+The University of Texas Rio Grande Valley Avatar
+348
+Default Avatar
+SF
+Cameron Tweedy
+SR
+6-6
+220
+Westlake
+(Waldorf, MD)
+85.00
+-
+Expected
+Saint Francis (PA) Avatar
+349
+Default Avatar
+PF
+Brayden Gross
+FR
+6-7
+225
+Louisville
+(Louisville, OH)
+85.00
+-
+Entered
+3/26/2026
+
+Walsh Avatar
+350
+Default Avatar
+CG
+Travonne Jackson
+RS-JR
+6-7
+195
+Woodstock Academy
+(Akron, OH)
+85.00
+-
+Entered
+3/31/2026
+
+Arkansas Little Rock Avatar
+Default Avatar
+PF
+Omaha Biliew
+JR
+6-8
+215
+Waukee
+(Waukee, IA)
+98.68
+-
+Entered
+4/05/2026
+
+Wake Forest Avatar
+Default Avatar
+PG
+Elmarko Jackson
+JR
+6-4
+200
+South Kent School
+(Marlton, NJ)
+97.14
+-
+Entered
+4/06/2026
+
+Kansas Avatar
+Default Avatar
+SF
+Mookie Cook
+JR
+6-7
+200
+Compass Prep
+(Jefferson, OR)
+96.58
+-
+Entered
+4/01/2026
+
+University of San Francisco Avatar
+Default Avatar
+SG
+DeShawn Harris-Smith
+JR
+6-5
+205
+Paul VI Catholic
+(Fairfax, VA)
+96.44
+-
+Expected
+Georgetown Avatar
+Default Avatar
+SF
+Darren Harris
+Claim Profile
+SO
+6-6
+195
+Paul VI Catholic
+(Herndon, VA)
+96.08
+-
+Committed
+Duke Avatar
+Indiana Hoosiers Avatar
+Default Avatar
+C
+Xavion Staton
+FR
+7-0
+210
+Utah Prep
+(Las Vegas, NV)
+95.79
+-
+Committed
+BYU Avatar
+Oregon State Beavers Avatar
+Default Avatar
+CG
+Jerry Easter
+FR
+6-4
+185
+Link Academy
+(Toledo, OH)
+95.28
+$290K
+Entered
+4/01/2026
+
+USC Avatar
+Default Avatar
+PF
+Arrinten Page
+JR
+6-9
+225
+Wheeler
+(Marietta, GA)
+95.04
+-
+Expected
+Northwestern Avatar
+Default Avatar
+PG
+David Castillo
+SO
+6-1
+170
+Sunrise Christian Academy
+(Bartlesville, OK)
+95.03
+-
+Expected
+Kansas State Avatar
+Default Avatar
+SF
+Isaiah Abraham
+SO
+6-7
+195
+Paul VI Catholic
+(Gainesville, VA)
+94.54
+-
+Entered
+4/04/2026
+
+Georgetown Avatar
+Default Avatar
+SF
+Leon Bond
+SR
+6-5
+180
+Wauwatosa East
+(Milwaukee, WI)
+94.35
+-
+Committed
+Northern Iowa Avatar
+Iowa State Cyclones Avatar
+Default Avatar
+CG
+Kayden Edwards
+FR
+6-3
+170
+Duncanville
+(Fort Worth, TX)
+94.11
+-
+Expected
+TCU Avatar
+Default Avatar
+CG
+Isaiah Denis
+Claim Profile
+FR
+6-5
+170
+Davidson Day
+(Davidson, NC)
+93.34
+-
+Expected
+North Carolina Avatar
+Default Avatar
+PF
+Dylan James
+JR
+6-9
+200
+Winter Haven
+(Winter Haven, FL)
+93.26
+-
+Entered
+3/27/2026
+
+Georgia Avatar
+Default Avatar
+SG
+Larry Johnson
+SO
+6-4
+175
+Southern California Academy
+(Savannah, GA)
+92.63
+-
+Expected
+McNeese State Avatar
+Default Avatar
+SG
+Jamari McDowell
+JR
+6-5
+180
+Manvel
+(Manvel, TX)
+92.62
+-
+Expected
+Kansas Avatar
+Default Avatar
+SF
+Dennis Parker
+JR
+6-7
+175
+John Marshall
+(Richmond, VA)
+92.55
+-
+Entered
+4/07/2026
+
+Radford Avatar
+Default Avatar
+PG
+Gabe Cupps
+JR
+6-2
+165
+Centerville
+(Dayton, OH)
+92.47
+$200K
+Expected
+Ohio State Avatar
+Default Avatar
+SG
+Akai Fleming
+Claim Profile
+FR
+6-4
+165
+Overtime Elite
+(Marietta, GA)
+92.37
+-
+Expected
+Georgia Tech Avatar
+Default Avatar
+PF
+Colin Smith
+SR
+6-8
+200
+St. Mark's
+(Dallas, TX)
+91.64
+-
+Expected
+University of California Santa Barbara Avatar
+Default Avatar
+SG
+Jelani Hamilton
+JR
+6-5
+200
+Wheeler
+(Austell, GA)
+91.09
+-
+Entered
+3/31/2026
+
+Georgia State Avatar
+Default Avatar
+SG
+Liam Campbell
+RS-FR
+6-4
+180
+Owyhee (all Nv & Idaho Only)
+(Meridian, ID)
+90.83
+-
+Entered
+4/01/2026
+
+Saint Mary's College of California Avatar
+Default Avatar
+CG
+Jordan Ross
+JR
+6-1
+150
+Compass Prep
+(Pleasant Grove, UT)
+90.61
+-
+Expected
+Georgia Avatar
+Default Avatar
+SG
+Nick Janowski
+SO
+6-3
+200
+Pewaukee
+(Pewaukee, WI)
+90.07
+-
+Entered
+4/07/2026
+
+St. Thomas Avatar
+Default Avatar
+CG
+T.O. Barrett
+SO
+6-4
+205
+Link Academy
+(Edmond, OK)
+89.58
+-
+Entered
+4/06/2026
+
+Missouri Avatar
+Default Avatar
+PF
+Adlan Elamin
+FR
+6-7
+165
+Paul VI Catholic
+(Arlington, VA)
+89.57
+-
+Entered
+4/07/2026
+
+Utah State Avatar
+Default Avatar
+PF
+Cade Phillips
+JR
+6-9
+200
+Jacksonville
+(Rainbow City, AL)
+89.50
+-
+Expected
+Tennessee Avatar
+Default Avatar
+SG
+Jason Rivera-Torres
+JR
+6-6
+170
+John Marshall
+(Richmond, VA)
+87.39
+-
+Committed
+Monmouth Avatar
+High Point Panthers Avatar
+Default Avatar
+C
+Christian Gurdak
+FR
+6-9
+250
+Gonzaga
+(Fairfax, VA)
+87.14
+-
+Entered
+3/31/2026
+
+Virginia Tech Avatar
+Default Avatar
+PG
+Cam Miles
+FR
+6-2
+180
+IMG Academy
+(Orlando, FL)
+86.92
+-
+Entered
+3/30/2026
+
+Florida State Avatar
+Default Avatar
+SG
+Legend Smiley
+FR
+6-5
+175
+Link Academy
+(Seattle, WA)
+86.85
+-
+Entered
+3/31/2026
+
+University of San Francisco Avatar
+Default Avatar
+PF
+EJ Walker
+Claim Profile
+FR
+6-8
+220
+Lloyd
+(Erlanger, KY)
+86.50
+-
+Expected
+South Carolina Avatar
+Default Avatar
+SG
+Bryce Lindsay
+JR
+6-3
+175
+IMG Academy
+(Baltimore, MD)
+86.25
+-
+Entered
+4/05/2026
+
+Villanova Avatar
+Default Avatar
+SF
+Asa Thomas
+JR
+6-7
+185
+Lake Forest
+(Lake Forest, IL)
+86.17
+-
+Expected
+Furman Avatar
+Default Avatar
+PG
+Quante Berry
+SR
+6-3
+168
+Winston-Salem Prep
+(Cleveland, TN)
+86.00
+-
+Entered
+4/02/2026
+
+Memphis Avatar
+Default Avatar
+PG
+Fred Payne
+JR
+6-2
+170
+Legacy School of Sports Sciences
+(Spring, TX)
+86.00
+-
+Expected
+Boston College Avatar
+Default Avatar
+CG
+Cruz Davis
+SR
+6-3
+170
+Southern California Academy
+(Lewisville, TX)
+85.92
+-
+Expected
+Hofstra Avatar
+Default Avatar
+PG
+CJ Brown
+SO
+6-2
+175
+Kell
+(Marietta, GA)
+85.39
+-
+Entered
+4/04/2026
+
+USF Avatar
+Default Avatar
+C
+Austin Maurer
+SO
+6-11
+225
+Cascade Christian
+(Jacksonville, OR)
+85.28
+-
+Expected
+Seattle University Avatar
+Default Avatar
+SF
+Deshawn Gory
+FR
+6-7
+170
+PHHoenix Prep
+(Victorville, CA)
+85.25
+-
+Expected
+Fresno State Avatar
+Default Avatar
+SG
+Eli Rice
+JR
+6-7
+195
+IMG Academy
+(Gallatin, TN)
+83.75
+-
+Expected
+Penn State Avatar
+Default Avatar
+SG
+Jason Fontenet Jr.
+JR
+6-4
+180
+Bella Vista College Preparatory School
+(Scottsdale, AZ)
+83.25
+-
+Expected
+University of California Santa Barbara Avatar
+Default Avatar
+SG
+Trey Autry
+JR
+6-3
+180
+Western Reserve Academy
+(Hudson, OH)
+83.00
+-
+Entered
+3/31/2026
+
+George Washington University Avatar
+Default Avatar
+PG
+Luka Toews
+SO
+5-11
+155
+The Newman School
+(Boston, MA)
+83.00
+-
+Expected
+Boston College Avatar
+Default Avatar
+CG
+Jordan Ellerbee
+FR
+6-2
+175
+St. Joseph's Prep School
+(Philadelphia, PA)
+-
+Committed
+Florida Gulf Coast University Avatar
+Butler Bulldogs Avatar
+Default Avatar
+PF
+Brigham Rogers
+JR
+6-9
+205
+Blessed Trinity Catholic
+(Roswell, GA)
+-
+Expected
+Belmont University Avatar
+Default Avatar
+CG
+Makaih Williams
+JR
+6-2
+190
+Southern California Academy
+(San Juan Capistrano, CA)
+-
+Expected
+Grand Canyon University Avatar
+Default Avatar
+SG
+Ron Zipper
+FR
+6-5
+209
+Ironi Aleph
+(Tel Aviv)
+-
+Entered
+3/26/2026
+
+LSU Avatar
+Default Avatar
+PF
+Andrew Meadow
+JR
+6-7
+200
+West Ranch
+(Stevenson Ranch, CA)
+-
+Committed
+Boise State Avatar
+Oregon Ducks Avatar
+Default Avatar
+PG
+Baraka Okojie
+JR
+6-3
+170
+DME Academy
+(Daytona Beach, FL)
+-
+Expected
+Mercer Avatar
+Default Avatar
+PG
+Ryan Beasley
+JR
+5-11
+170
+Dougherty Valley
+(San Ramon, CA)
+-
+Entered
+4/06/2026
+
+University of San Francisco Avatar
+Default Avatar
+SG
+Aiden Tobiason
+SO
+6-5
+170
+St Elizabeth
+(Wilmington, DE)
+-
+Committed
+Temple Avatar
+Syracuse Orange Avatar
+Default Avatar
+PF
+Berke Buyuktuncel
+JR
+6-9
+215
+Turkey
+(Bursa)
+-
+Entered
+4/08/2026
+
+Nebraska Avatar
+Default Avatar
+CG
+Tameron Ferguson
+SO
+6-2
+170
+St. Cloud Technical
+(Saint Cloud, MN)
+-
+Committed
+Augustana Avatar
+Arkansas State Red Wolves Avatar
+Default Avatar
+CG
+All Wright
+SO
+6-3
+180
+Link Academy
+(Joplin, MO)
+-
+Expected
+Xavier Avatar
+Default Avatar
+SG
+Davion Hill
+RS-SO
+6-2
+225
+St John Neumann
+(Williamsport, PA)
+-
+Entered
+3/07/2026
+
+Ball State Avatar
+Default Avatar
+PF
+Eric Dibami
+FR
+6-10
+240
+Miami Prep
+(Yaounde)
+-
+Entered
+3/16/2026
+
+FIU Avatar
+Default Avatar
+SG
+Isaac Taveras
+JR
+6-5
+185
+North Florida Education Institute
+(Jacksonville Beach, FL)
+-
+Entered
+3/17/2026
+
+Southern Miss Avatar
+Default Avatar
+SF
+BJ Omot
+SR
+6-6
+180
+Mankato East Senior
+(Mankato, MN)
+-
+Expected
+Minnesota Avatar
+Default Avatar
+SG
+Christian Harmon
+JR
+6-6
+209
+Buchtel
+(Akron, OH)
+-
+Expected
+Arkansas State Avatar
+Default Avatar
+SG
+Melih Tunca
+FR
+6-5
+195
+FMV Ayazaga Isik
+(Istanbul)
+-
+Expected
+Penn State Avatar
+Default Avatar
+CG
+Michael Cooper
+FR
+6-3
+185
+Jeffersonville
+(Jeffersonville, IN)
+-
+Entered
+3/30/2026
+
+Wright State Avatar
+Default Avatar
+SG
+Kareem Thomas
+SO
+6-5
+195
+Salesianum
+(Wilmington, DE)
+-
+Expected
+Dartmouth Avatar
+Default Avatar
+PF
+Cooper Schwieger
+JR
+6-10
+230
+Link Academy
+(Overland Park, KS)
+-
+Entered
+3/31/2026
+
+Wake Forest Avatar
+Default Avatar
+SG
+Marqui Worthy
+JR
+6-3
+180
+Veritas Prep
+(Garden Grove, CA)
+-
+Entered
+4/01/2026
+
+University of California Riverside Avatar
+Default Avatar
+PF
+Cooper Bowser
+JR
+6-11
+215
+Sunrise Christian Academy
+(Woodbridge, VA)
+-
+Expected
+Furman Avatar
+Default Avatar
+SG
+Mike McNair
+JR
+6-5
+185
+Linfield Christian School
+(Temecula, CA)
+-
+Entered
+4/03/2026
+
+Boston University Avatar
+Default Avatar
+SG
+Nait George
+JR
+6-3
+180
+Dream City Christian
+(Toronto, ON)
+-
+Committed
+Syracuse Avatar
+Pittsburgh Panthers Avatar
+Default Avatar
+SF
+Emmanuel Innocenti
+JR
+6-5
+200
+Italy
+(Rome, Rome)
+-
+Committed
+Gonzaga University Avatar
+Arizona State Sun Devils Avatar
+Default Avatar
+SG
+Kahmare Holmes
+SO
+6-3
+205
+Archer
+(Lawrenceville, GA)
+-
+Committed
+Wofford Avatar
+DePaul Blue Demons Avatar
+Default Avatar
+SG
+Abdi Bashir Jr.
+JR
+6-7
+160
+PHHoenix Prep
+(Omaha, NE)
+-
+Expected
+Kansas State Avatar
+Default Avatar
+SF
+Eian Elmer
+JR
+6-7
+215
+Robert A Taft
+(Covington, KY)
+-
+Expected
+Miami (OH) Avatar
+Default Avatar
+PG
+Dylan Williamson
+SR
+6-1
+170
+Our Lady Good Counsel HS
+(Upper Marlboro, MD)
+-
+Expected
+Towson Avatar
+Default Avatar
+SF
+Eric Mahaffey
+SO
+6-6
+200
+Archbishop Moeller
+(Cincinnati, OH)
+-
+Entered
+4/04/2026
+
+Akron Avatar
+Default Avatar
+CG
+Steele Venters
+RS-SR
+6-7
+175
+Ellensburg
+(Ellensburg, WA)
+-
+Entered
+4/06/2026
+
+Gonzaga University Avatar
+Default Avatar
+SG
+Liutauras Lelevicius
+SO
+6-7
+200
+Lithuania
+(Vilnius)
+-
+Entered
+4/08/2026
+
+TCU Avatar
+Default Avatar
+PG
+Arterio Morris
+SR
+6-3
+190
+Kimball
+(Dallas, TX)
+98.26
+-
+Entered
+4/03/2026
+
+Bethune Cookman Avatar
+Default Avatar
+SG
+Elijah Fisher
+SR
+6-6
+190
+Canada
+(Toronto, ON)
+97.19
+-
+Entered
+4/11/2026
+
+Seton Hall Avatar
+Default Avatar
+C
+Dennis Evans
+JR
+7-1
+210
+Hillcrest
+(Riverside, CA)
+96.68
+-
+Entered
+4/02/2026
+
+Grand Canyon University Avatar
+Default Avatar
+SG
+Langston Love
+RS-SR
+6-4
+190
+Montverde Academy
+(San Antonio, TX)
+96.68
+-
+Expected
+Georgetown Avatar
+Default Avatar
+PG
+Skyy Clark
+SR
+6-3
+200
+Montverde Academy
+(Los Angeles, CA)
+96.67
+$130K
+Entered
+4/07/2026
+
+UCLA Avatar
+Default Avatar
+C
+Baye Fall
+JR
+6-10
+205
+Accelerated Schools Aka Family Services Found
+(Dakar)
+96.60
+-
+Entered
+4/08/2026
+
+Rutgers Avatar
+Default Avatar
+SG
+Terrance Arceneaux
+RS-JR
+6-6
+190
+Beaumont United
+(Beaumont, TX)
+96.16
+-
+Entered
+4/08/2026
+
+NC State Avatar
+Default Avatar
+SG
+Cam Scott
+SO
+6-6
+170
+Lexington
+(Lexington, SC)
+95.99
+-
+Entered
+4/08/2026
+
+South Carolina Avatar
+Default Avatar
+PG
+Frankie Collins
+SR
+6-1
+180
+Coronado
+(Henderson, NV)
+95.77
+-
+Entered
+3/27/2026
+
+Vanderbilt Avatar
+Default Avatar
+SG
+Dusty Stromer
+JR
+6-6
+180
+Notre Dame
+(Sherman Oaks, CA)
+95.63
+-
+Committed
+Grand Canyon University Avatar
+San Diego Toreros Avatar
+Default Avatar
+SF
+Jason Asemota
+Claim Profile
+SO
+6-8
+190
+Hillcrest Prep
+(Lynn, MA)
+95.39
+-
+Entered
+4/09/2026
+
+Boston College Avatar
+Default Avatar
+SF
+Naas Cunningham
+SO
+6-7
+180
+Southern California Academy
+(West Orange, NJ)
+95.33
+-
+Expected
+UNLV Avatar
+Default Avatar
+PG
+Chris Johnson
+JR
+6-4
+180
+Montverde Academy
+(Missouri City, TX)
+95.33
+-
+Entered
+4/08/2026
+
+UCF Avatar
+Default Avatar
+SF
+Scotty Middleton
+JR
+6-7
+180
+Sunrise Christian Academy
+(Miami, FL)
+95.33
+-
+Entered
+4/07/2026
+
+Tulane Avatar
+Default Avatar
+SG
+Jamari Phillips
+Claim Profile
+SO
+6-4
+185
+Dream City Christian
+(Modesto, CA)
+95.26
+-
+Entered
+4/09/2026
+
+Oregon Avatar
+Default Avatar
+PF
+Tylis Jordan
+Claim Profile
+FR
+6-9
+210
+Wheeler
+(Louisville, GA)
+94.94
+$189K
+Committed
+Ole Miss Avatar
+Georgia Tech Yellow Jackets Avatar
+Default Avatar
+PF
+Nic Codie
+SO
+6-8
+200
+Newman Smith
+(Carrollton, TX)
+94.48
+-
+Entered
+4/09/2026
+
+Texas Avatar
+Default Avatar
+SF
+Kamari Lands
+SR
+6-8
+220
+Hillcrest Prep
+(Indianapolis, IN)
+94.45
+-
+Entered
+4/09/2026
+
+Middle Tennessee State Avatar
+Default Avatar
+PG
+Isa Silva
+RS-SR
+6-4
+185
+Prolific Prep
+(Napa, CA)
+94.38
+-
+Entered
+4/08/2026
+
+University of San Francisco Avatar
+Default Avatar
+PF
+Sam Walters
+JR
+6-9
+180
+Villages Charter School
+(The Villages, FL)
+94.32
+-
+Entered
+4/02/2026
+
+SMU Avatar
+Default Avatar
+PG
+Jizzle James
+JR
+6-2
+180
+Olympia
+(Orlando, FL)
+94.25
+-
+Entered
+4/08/2026
+
+Cincinnati Avatar
+Default Avatar
+SF
+Winters Grady
+FR
+6-6
+200
+Prolific Prep
+(Lake Oswego, OR)
+94.22
+$122K
+Entered
+4/08/2026
+
+Michigan Avatar
+Default Avatar
+SG
+Kaden Magwood
+Claim Profile
+FR
+6-1
+165
+Combine Academy
+(Louisville, KY)
+94.10
+-
+Expected
+Auburn Avatar
+Default Avatar
+SG
+Nojus Indrusaitis
+SO
+6-5
+185
+Brewster Academy
+(Lemont, IL)
+94.09
+-
+Entered
+4/08/2026
+
+Pittsburgh Avatar
+Default Avatar
+PF
+Devin Williams
+JR
+6-10
+200
+Centennial
+(Corona, CA)
+94.06
+-
+Entered
+4/07/2026
+
+Florida Atlantic Avatar
+Default Avatar
+PG
+Travis Perry
+SO
+6-2
+170
+Lyon County
+(Eddyville, KY)
+93.66
+-
+Entered
+4/09/2026
+
+Ole Miss Avatar
+Default Avatar
+SF
+Mike James
+RS-SR
+6-6
+195
+Oak Ridge
+(Orlando, FL)
+93.55
+-
+Entered
+4/08/2026
+
+Vanderbilt Avatar
+Default Avatar
+PG
+Desmond Claude
+SR
+6-5
+180
+Putnam Science Academy
+(Oakdale, CT)
+93.52
+-
+Entered
+4/12/2026
+
+Washington Avatar
+Default Avatar
+C
+Papa Kante
+JR
+6-10
+225
+South Kent School
+(South Kent, CT)
+93.49
+-
+Entered
+4/09/2026
+
+Pittsburgh Avatar
+Default Avatar
+PG
+Ty-Laur Johnson
+JR
+6-0
+160
+Our Saviour Lutheran School
+(Newark, NJ)
+93.28
+-
+Expected
+San Diego Avatar
+Default Avatar
+SG
+Elijah Moore
+SO
+6-3
+170
+Our Saviour Lutheran School
+(Bronx, NY)
+93.17
+-
+Entered
+3/11/2026
+
+Utah Avatar
+Default Avatar
+PG
+Pop Isaacs
+SR
+6-2
+180
+Coronado
+(Mount Pleasant, UT)
+93.13
+-
+Entered
+4/09/2026
+
+Texas A&M Avatar
+Default Avatar
+PG
+Austin Nunez
+SR
+6-2
+170
+Wagner
+(San Antonio, TX)
+93.13
+-
+Expected
+UTSA Avatar
+Default Avatar
+PF
+James Brown
+SO
+6-9
+210
+Link Academy
+(Chicago, IL)
+93.09
+-
+Expected
+North Carolina Avatar
+Default Avatar
+PF
+Dylan Anderson
+RS-JR
+7-0
+215
+Perry
+(Gilbert, AZ)
+93.03
+-
+Entered
+4/09/2026
+
+Murray State Avatar
+Default Avatar
+CG
+Sencire Harris
+RS-JR
+6-3
+160
+St. Vincent-St. Mary
+(Akron, OH)
+93.02
+-
+Entered
+4/07/2026
+
+Cincinnati Avatar
+Default Avatar
+SF
+Darrion Sutton
+SO
+6-8
+182
+Overtime Elite
+(Saint Louis, MO)
+92.96
+-
+Entered
+4/07/2026
+
+Missouri State University Avatar
+Default Avatar
+PF
+Jordan Butler
+JR
+7-0
+240
+Christ Church Episcopal School
+(Greenville, SC)
+92.91
+-
+Entered
+3/23/2026
+
+South Carolina Avatar
+Default Avatar
+C
+Emmanuel Stephen
+SO
+7-0
+215
+Dream City Christian
+(Glendale, AZ)
+92.83
+-
+Entered
+4/07/2026
+
+UNLV Avatar
+100.0%
+South Carolina Avatar
+1783
+mi
+Default Avatar
+PF
+Miles Goodman
+SO
+6-11
+230
+Southern California Academy
+(Seattle, WA)
+92.79
+-
+Expected
+The University of Texas at Arlington Avatar
+Default Avatar
+C
+Jacob McFarland
+RS-SO
+6-10
+205
+Rancho Verde
+(Moreno Valley, CA)
+92.78
+-
+Entered
+4/06/2026
+
+Houston Avatar
+Default Avatar
+PF
+Corey Chest
+RS-SO
+6-8
+210
+Link Academy
+(New Orleans, LA)
+92.42
+-
+Entered
+4/06/2026
+
+Ole Miss Avatar
+Default Avatar
+SG
+Mazi Mosley
+FR
+6-5
+165
+Prolific Prep
+(La Canada Flintridge, CA)
+92.38
+-
+Entered
+3/30/2026
+
+LSU Avatar
+Default Avatar
+SG
+Denver Anglin
+SR
+6-2
+185
+Gill St Bernards
+(Montclair, NJ)
+92.34
+-
+Expected
+Iona Avatar
+Default Avatar
+PF
+Matt Gilhool
+FR
+6-10
+205
+William Penn Charter
+(Elizabethtown, PA)
+92.17
+-
+Entered
+4/01/2026
+
+LSU Avatar
+Default Avatar
+SG
+Jace Posey
+RS-SO
+6-4
+190
+Strake Jesuit College Prep
+(Houston, TX)
+92.04
+-
+Expected
+TCU Avatar
+Default Avatar
+CG
+Dorian Jones
+FR
+6-4
+160
+Richmond Heights
+(Cleveland, OH)
+91.98
+-
+Entered
+4/06/2026
+
+Rutgers Avatar
+Default Avatar
+SG
+Isaiah Coleman
+JR
+6-5
+180
+Word Of God Christian Academy
+(Fredericksburg, VA)
+91.97
+-
+Entered
+4/08/2026
+
+Oklahoma State Avatar
+Default Avatar
+PF
+Pharaoh Compton
+SO
+6-7
+215
+Arbor View
+(Las Vegas, NV)
+91.95
+-
+Committed
+San Diego State Avatar
+Oregon Ducks Avatar
+Default Avatar
+SF
+Efeosa Oliogu-Elabor
+FR
+6-6
+220
+William Academy
+(Markham, ON)
+91.67
+-
+Entered
+3/30/2026
+
+Butler Avatar
+Default Avatar
+SF
+Aleks Alston
+FR
+6-8
+170
+Kenwood Academy
+(Chicago, IL)
+91.62
+-
+Entered
+4/08/2026
+
+Maryland Avatar
+Default Avatar
+SF
+Chris Nwuli
+Claim Profile
+FR
+6-7
+200
+Dynamic Prep
+(North Las Vegas, NV)
+91.52
+-
+Entered
+4/10/2026
+
+Rutgers Avatar
+Default Avatar
+CG
+Tyler Jackson
+Claim Profile
+FR
+6-2
+152
+Southern California Academy
+(Baltimore, MD)
+91.45
+-
+Entered
+4/07/2026
+
+Eastern Kentucky Avatar
+Default Avatar
+PF
+Christian Fermin
+SR
+6-10
+215
+Pocono Mountain West
+(Pocono Summit, PA)
+91.42
+-
+Entered
+3/30/2026
+
+VCU Avatar
+Default Avatar
+SF
+Jaylen Thompson
+RS-JR
+6-8
+195
+Southern California Academy
+(Castaic, CA)
+91.29
+-
+Entered
+4/07/2026
+
+Stanford Avatar
+Default Avatar
+PF
+Ashton Hardaway
+JR
+6-7
+205
+Sierra Canyon
+(Duncanville, TX)
+91.28
+-
+Expected
+Memphis Avatar
+Default Avatar
+SG
+Parker Friedrichsen
+JR
+6-3
+195
+Bixby
+(Bixby, OK)
+91.27
+-
+Entered
+4/06/2026
+
+Davidson Avatar
+Default Avatar
+SG
+Ryan Agarwal
+SR
+6-6
+190
+Coppell
+(Coppell, TX)
+91.26
+-
+Entered
+4/07/2026
+
+Stanford Avatar
+Default Avatar
+SF
+Jackson Keith
+FR
+6-5
+175
+Southern
+(Durham, NC)
+91.23
+-
+Entered
+4/07/2026
+
+Butler Avatar
+Default Avatar
+PF
+Jack McCaffery
+FR
+6-8
+200
+Iowa City West
+(Iowa City, IA)
+91.23
+-
+Entered
+3/17/2026
+
+Butler Avatar
+Default Avatar
+PF
+Justin McBride
+JR
+6-7
+210
+Plano
+(Dallas, TX)
+91.21
+-
+Expected
+James Madison Avatar
+Default Avatar
+SG
+Courtland Muldrew
+FR
+6-3
+170
+Oak Hill Academy
+(Springdale, AR)
+91.18
+-
+Entered
+3/31/2026
+
+Washington Avatar
+Default Avatar
+SF
+Chuck Love Jr.
+FR
+6-7
+185
+La Lumiere School
+(Lincoln, NE)
+91.15
+-
+Entered
+4/08/2026
+
+Loyola (Chi) Avatar
+Default Avatar
+SF
+Treyvon Maddox
+FR
+6-6
+180
+Oak Ridge
+(Columbia, SC)
+91.15
+-
+Entered
+4/07/2026
+
+Miami Avatar
+Default Avatar
+SG
+Zaide Lowery
+JR
+6-4
+180
+Kickapoo
+(Springfield, MO)
+91.10
+-
+Entered
+4/07/2026
+
+Marquette Avatar
+Default Avatar
+SG
+Bryce Heard
+SO
+6-5
+170
+Homewood-Flossmoor
+(Chicago, IL)
+91.06
+-
+Entered
+4/01/2026
+
+Dayton Avatar
+Default Avatar
+PF
+Deondrea Lindsey
+FR
+6-7
+200
+Oak Hill Academy
+(Knoxville, TN)
+91.06
+-
+Committed
+Iona Avatar
+Tennessee State Tigers Avatar
+Default Avatar
+SF
+Marcus Vaughns
+SO
+6-8
+NBA Global Academy
+(Melbourne)
+91.00
+-
+Committed
+LSU Avatar
+Arizona State Sun Devils Avatar
+Default Avatar
+PF
+Assane Diop
+JR
+6-10
+190
+Accelerated Schools Aka Family Services Found
+(Denver, CO)
+90.96
+-
+Entered
+4/08/2026
+
+San Diego Avatar
+Default Avatar
+PG
+Koren Johnson
+SR
+6-2
+175
+Wasatch Academy
+(Seattle, WA)
+90.94
+-
+Entered
+4/07/2026
+
+Ole Miss Avatar
+Default Avatar
+SF
+Isaiah Johnson-Arigu
+SO
+6-7
+190
+Totino-Grace
+(Minneapolis, MN)
+90.93
+-
+Expected
+St. Thomas Avatar
+Default Avatar
+SF
+Camden Heide
+RS-JR
+6-7
+205
+Wayzata
+(Minneapolis, MN)
+90.71
+-
+Entered
+4/09/2026
+
+Texas Avatar
+Default Avatar
+SG
+Aaron Clark
+JR
+6-6
+195
+Brewster Academy
+(Easton, PA)
+90.56
+-
+Entered
+4/07/2026
+
+Pepperdine Avatar
+Default Avatar
+SF
+Mason Blackwood
+FR
+6-7
+210
+New Hampton School
+(Rochester, NY)
+90.47
+-
+Entered
+4/06/2026
+
+Penn State Avatar
+Default Avatar
+C
+Khaman Maker
+SO
+7-1
+215
+Trinity International Schools
+(Las Vegas, NV)
+90.32
+-
+Entered
+4/01/2026
+
+DePaul Avatar
+Default Avatar
+PF
+Kebba Njie
+SR
+6-10
+237
+La Lumiere School
+(La Porte, IN)
+90.07
+-
+Entered
+4/09/2026
+
+Notre Dame Avatar
+Default Avatar
+C
+Christian Reeves
+SR
+7-1
+200
+Oak Hill Academy
+(Charlotte, NC)
+89.98
+-
+Entered
+4/07/2026
+
+College of Charleston Avatar
+Default Avatar
+PF
+Dylan Grant
+SO
+6-7
+205
+Michigan Collegiate
+(Mississauga, ON)
+89.95
+-
+Entered
+4/08/2026
+
+Rutgers Avatar
+Default Avatar
+PF
+Josiah Harris
+SR
+6-7
+200
+Richmond Heights
+(Cleveland, OH)
+89.76
+-
+Entered
+4/13/2026
+
+Cleveland State University Avatar
+Default Avatar
+PG
+Dasonte Bowen
+SR
+6-3
+165
+Brewster Academy
+(Worcester, MA)
+89.74
+-
+Expected
+St. Bonaventure University Avatar
+Default Avatar
+PG
+Ty Davis
+Claim Profile
+SO
+6-5
+175
+Mountain Brook
+(Mountain Brook, AL)
+89.74
+-
+Committed
+Creighton Avatar
+Samford Bulldogs Avatar
+Default Avatar
+SG
+Drew Steffe
+JR
+6-5
+175
+Memorial
+(Frisco, TX)
+89.58
+-
+Entered
+4/07/2026
+
+Southern Illinois Avatar
+Default Avatar
+SF
+Jaylen Cross
+FR
+6-4
+175
+Caldwell Academy
+(Greensboro, NC)
+89.56
+-
+Entered
+4/07/2026
+
+Wake Forest Avatar
+Default Avatar
+PF
+Nas Hart
+FR
+6-8
+180
+College Achieve
+(Edison, NJ)
+89.53
+-
+Expected
+La Salle Avatar
+Default Avatar
+PF
+Al Amadou
+JR
+6-9
+185
+Springside Chestnut Hill Academy
+(Harrisburg, PA)
+89.49
+-
+Entered
+4/08/2026
+
+Saint Joseph's University Avatar
+Default Avatar
+SG
+Mari Jordan
+Claim Profile
+JR
+6-6
+185
+Norcross
+(Dacula, GA)
+89.47
+-
+Entered
+4/09/2026
+
+Radford Avatar
+Default Avatar
+SG
+Jeremiah Johnson
+Claim Profile
+SO
+6-3
+170
+PHHoenix Prep
+(Oklahoma City, OK)
+89.41
+-
+Entered
+3/20/2026
+
+Campbell Avatar
+Default Avatar
+SG
+Akbar Waheed
+Claim Profile
+FR
+6-6
+175
+Georgetown Preparatory School
+(Bethesda, MD)
+89.15
+-
+Expected
+Boston College Avatar
+Default Avatar
+PF
+Samis Calderon
+FR
+6-8
+200
+Overtime Elite
+(Atlanta, GA)
+88.98
+-
+Entered
+4/09/2026
+
+Kansas Avatar
+Default Avatar
+PF
+Ladji Dembele
+JR
+6-8
+245
+St. Benedict Prep
+(Newark, NJ)
+88.97
+-
+Entered
+4/07/2026
+
+UNLV Avatar
+Default Avatar
+PG
+Demarco Johnson
+FR
+6-2
+155
+Oak Hill Academy
+(Northridge, CA)
+88.90
+-
+Expected
+Elon Avatar
+Default Avatar
+SG
+RJ Greer
+FR
+6-4
+170
+Archbishop Alter
+(Dayton, OH)
+88.85
+-
+Expected
+Davidson Avatar
+Default Avatar
+PG
+Sean Jones
+SR
+5-10
+170
+Gahanna Lincoln
+(Columbus, OH)
+88.50
+-
+Entered
+3/31/2026
+
+Marquette Avatar
+Default Avatar
+CG
+Carlsheon Young
+FR
+6-4
+190
+PHHoenix Prep
+(Oklahoma City, OK)
+88.43
+-
+Entered
+3/31/2026
+
+Pacific Avatar
+Default Avatar
+PF
+De'Ante Green
+SR
+6-9
+215
+Asheville Christian Academy
+(Swannanoa, NC)
+88.13
+-
+Entered
+4/03/2026
+
+USF Avatar
+Default Avatar
+SG
+Jayden Forsythe
+FR
+6-5
+195
+Westtown School
+(Brooklyn, NY)
+88.00
+-
+Expected
+West Virginia Avatar
+Default Avatar
+C
+Steven Solano
+SO
+6-11
+230
+Cardinal Hayes
+(Virginia Beach, VA)
+88.00
+-
+Entered
+4/08/2026
+
+Saint Joseph's University Avatar
+Default Avatar
+PF
+Dallas Washington
+FR
+6-8
+195
+Santa Margarita Catholic
+(Rancho Santa Margarita, CA)
+87.98
+-
+Entered
+4/01/2026
+
+California State University Long Beach Avatar
+Default Avatar
+PF
+Jayden Hastings
+JR
+6-9
+225
+IMG Academy
+(Orlando, FL)
+87.82
+-
+Entered
+4/08/2026
+
+Boston College Avatar
+Default Avatar
+SF
+Drew McKenna
+RS-SO
+6-8
+200
+Glenelg
+(Baltimore, MD)
+87.67
+-
+Entered
+4/07/2026
+
+Old Dominion Avatar
+Default Avatar
+PG
+Rahmir Barno
+JR
+5-11
+155
+Imhotep Institute
+(Philadelphia, PA)
+87.44
+-
+Entered
+3/31/2026
+
+Florida Gulf Coast University Avatar
+Default Avatar
+C
+Godswill Erheriene
+SO
+6-9
+225
+Long Island Lutheran
+(Glen Head, NY)
+87.16
+-
+Entered
+4/07/2026
+
+Seton Hall Avatar
+Default Avatar
+SG
+MJ Collins
+SR
+6-4
+190
+Westminster Catawba Christian School
+(Rock Hill, SC)
+87.10
+$482K
+Entered
+4/08/2026
+
+Utah State Avatar
+Default Avatar
+SG
+Clarence Massamba
+FR
+6-5
+180
+The Rock School
+(Gainesville, FL)
+87.05
+-
+Entered
+4/06/2026
+
+Tennessee Avatar
+Default Avatar
+CG
+James Evans
+SO
+6-5
+205
+West Ranch
+(Stevenson Ranch, CA)
+86.92
+-
+Entered
+4/07/2026
+
+California State University Northridge Avatar
+Default Avatar
+C
+Onyx Nnani
+FR
+6-9
+215
+The Phelps School
+(Edmonton, AB)
+86.92
+-
+Entered
+4/04/2026
+
+USF Avatar
+Default Avatar
+C
+Malick Diallo
+SO
+6-10
+220
+Wasatch Academy
+(Draper, UT)
+86.70
+-
+Expected
+TCU Avatar
+Default Avatar
+PF
+Colt Langdon
+Claim Profile
+SO
+6-7
+205
+Millbrook
+(Raleigh, NC)
+86.68
+-
+Entered
+4/07/2026
+
+NC State Avatar
+Default Avatar
+PF
+Tyler Kropp
+Claim Profile
+FR
+6-7
+200
+Olentangy Liberty
+(Powell, OH)
+86.68
+-
+Entered
+4/06/2026
+
+Northwestern Avatar
+Default Avatar
+PF
+Mitchell Holmes
+RS-FR
+6-11
+200
+Oak Ridge
+(Arlington, TX)
+86.67
+-
+Entered
+4/07/2026
+
+SMU Avatar
+Default Avatar
+SF
+Caden Diggs
+SO
+6-7
+180
+The Bullis School
+(Washington, DC)
+86.67
+-
+Entered
+4/08/2026
+
+University of Maryland Baltimore County Avatar
+Default Avatar
+SF
+Justin Johnson
+SO
+6-7
+185
+Hillcrest Prep
+(Miami, FL)
+86.60
+-
+Expected
+Western Carolina Avatar
+Default Avatar
+SF
+Jimma James
+SO
+6-5
+180
+McEachern
+(Riverdale, GA)
+86.55
+-
+Entered
+4/07/2026
+
+Queens University of Charlotte Avatar
+Default Avatar
+PF
+Declan Duru
+FR
+6-8
+225
+Real Madrid
+(Munich)
+86.55
+-
+Entered
+4/13/2026
+
+Texas Avatar
+Default Avatar
+C
+Jackson McVey
+Claim Profile
+FR
+7-1
+235
+Overtime Elite
+(Ellijay, GA)
+86.50
+-
+Entered
+4/01/2026
+
+Georgia Avatar
+Default Avatar
+PG
+Jahari Long
+SR
+6-3
+165
+Episcopal
+(Bellaire, TX)
+86.45
+-
+Expected
+George Mason Avatar
+Default Avatar
+SG
+Taj DeGourville
+SO
+6-3
+190
+Wasatch Academy
+(Las Vegas, NV)
+86.39
+-
+Entered
+4/11/2026
+
+San Diego State Avatar
+Default Avatar
+SG
+Jalik Dunkley-Distant
+SO
+6-6
+185
+Orangeville Prep
+(Ontario, CA)
+86.35
+-
+Entered
+4/10/2026
+
+Nicholls State Avatar
+Default Avatar
+SG
+Brandon Stores
+FR
+6-4
+215
+St. Raymond For Boys
+(Bronx, NY)
+86.25
+-
+Expected
+Georgia Tech Avatar
+Default Avatar
+SG
+Caleb Steger
+FR
+6-3
+175
+Jesuit
+(Dallas, TX)
+86.25
+-
+Entered
+4/08/2026
+
+Boston College Avatar
+Default Avatar
+SF
+Spencer Mahoney
+RS-SO
+6-8
+185
+Xaverian
+(Brooklyn, NY)
+86.25
+-
+Entered
+4/08/2026
+
+Temple Avatar
+Default Avatar
+PF
+Kaidon Rayfield
+FR
+6-7
+180
+PHHoenix Prep
+(Oklahoma City, OK)
+86.17
+-
+Entered
+4/07/2026
+
+UTSA Avatar
+Default Avatar
+PG
+Paul McMillan
+SR
+6-1
+170
+Woodward
+(Cincinnati, OH)
+86.14
+-
+Entered
+4/07/2026
+
+Grambling State Avatar
+Default Avatar
+SG
+JR Leonard
+FR
+6-5
+190
+Riverwood
+(Atlanta, GA)
+86.03
+-
+Entered
+4/07/2026
+
+Stetson Avatar
+Default Avatar
+PG
+Jordan Clayton
+JR
+6-2
+180
+Bradford Christian Academy
+(Haverhill, MA)
+86.00
+-
+Entered
+4/06/2026
+
+Northwestern Avatar
+Default Avatar
+C
+Isaiah Medina
+FR
+7-1
+200
+Gibbs
+(Saint Petersburg, FL)
+85.95
+-
+Entered
+4/10/2026
+
+DePaul Avatar
+Default Avatar
+PF
+Luke Hunger
+SR
+6-10
+255
+Northfield Mount Hermon
+(Gill, MA)
+85.80
+-
+Entered
+4/09/2026
+
+George Washington University Avatar
+Default Avatar
+PF
+Kachi Nzeh
+JR
+6-9
+220
+George School
+(Newtown, PA)
+85.76
+-
+Expected
+Arkansas Little Rock Avatar
+Default Avatar
+C
+Jaden Smith
+SO
+6-11
+200
+Kenwood Academy
+(Chicago, IL)
+85.67
+-
+Entered
+4/08/2026
+
+Saint Joseph's University Avatar
+Default Avatar
+SF
+Aaron Womack
+FR
+6-5
+170
+Dominican
+(Milwaukee, WI)
+85.55
+-
+Entered
+4/07/2026
+
+Syracuse Avatar
+Default Avatar
+PF
+Bryce Dortch
+SO
+6-8
+190
+Brimmer And May School
+(Somerville, MA)
+85.55
+-
+Expected
+Rutgers Avatar
+Default Avatar
+SG
+Ty Bevins
+SO
+6-5
+175
+Gwynn Park
+(Brandywine, MD)
+85.53
+-
+Entered
+4/01/2026
+
+George Washington University Avatar
+Default Avatar
+PF
+Devin Curtis
+JR
+6-11
+210
+Southern California Academy
+(Northridge, CA)
+85.53
+-
+Entered
+4/08/2026
+
+University of Southern Indiana Avatar
+Default Avatar
+PF
+Mouhamed Camara
+FR
+6-7
+215
+NBA Academy Africa
+(Dakar)
+85.50
+-
+Entered
+4/06/2026
+
+Louisville Avatar
+Default Avatar
+CG
+Jaydon Young
+JR
+6-4
+205
+Greensboro Day School
+(Greensboro, NC)
+85.50
+-
+Expected
+North Carolina Avatar
+Default Avatar
+CG
+Felix Kossaras
+SO
+6-5
+180
+Fort Erie International Academy
+(Montreal, QC)
+85.48
+-
+Entered
+4/07/2026
+
+Colorado Avatar
+Default Avatar
+SG
+Daniil Glazkov
+SO
+6-5
+205
+IMG Academy
+(Krasnodar)
+85.43
+-
+Entered
+4/06/2026
+
+Loyola (Chi) Avatar
+Default Avatar
+C
+Justin Houser
+FR
+6-11
+The Phelps School
+(Camp Hill, PA)
+85.33
+-
+Entered
+4/09/2026
+
+Penn State Avatar
+Default Avatar
+SF
+Comeh Emuobor
+JR
+6-5
+190
+Ravenscroft School
+(Raleigh, NC)
+85.30
+-
+Entered
+4/07/2026
+
+New Hampshire Avatar
+Default Avatar
+C
+Stephen Osei
+SO
+6-9
+200
+Real Salt Lake Academy
+(Toronto, ON)
+85.28
+-
+Entered
+3/30/2026
+
+Kansas State Avatar
+Default Avatar
+SF
+Chance Puryear
+RS-FR
+6-7
+192
+Carter
+(Dallas, TX)
+85.28
+-
+Entered
+4/07/2026
+
+SMU Avatar
+Default Avatar
+C
+Connor Turnbull
+SR
+6-10
+215
+Ft. Zumwalt North
+(O'Fallon, MO)
+85.17
+-
+Entered
+4/06/2026
+
+Evansville Avatar
+Default Avatar
+PF
+Isaiah Manning
+RS-SO
+6-7
+200
+Mansfield Legacy
+(Mansfield, TX)
+85.05
+-
+Expected
+Sam Houston State Avatar
+Default Avatar
+SG
+Jaylon Dean-Vines
+FR
+6-2
+180
+PHHoenix Prep
+(Dallas, TX)
+85.05
+-
+Entered
+4/07/2026
+
+Vanderbilt Avatar
+Default Avatar
+SF
+Daniel Johnson
+SO
+6-5
+180
+Brewster Academy
+(Chicago, IL)
+85.03
+-
+Expected
+Hampton Avatar
+Default Avatar
+SF
+Tristan Beckford
+FR
+6-5
+180
+Hillcrest Prep
+(Thornhill, ON)
+84.94
+-
+Entered
+4/07/2026
+
+USF Avatar
+Default Avatar
+SF
+Quentin Rhymes
+FR
+6-7
+185
+Hillcrest Prep
+(Las Vegas, NV)
+84.94
+-
+Entered
+4/07/2026
+
+Nebraska Avatar
+Default Avatar
+PG
+Paul Lewis
+SR
+6-3
+165
+Bishop O'Connell
+(Arlington, VA)
+84.92
+-
+Entered
+4/08/2026
+
+James Madison Avatar
+Default Avatar
+PG
+Elijah Duval
+FR
+6-2
+175
+Martin County
+(Stuart, FL)
+84.85
+-
+Entered
+4/02/2026
+
+Southern Utah Avatar
+Default Avatar
+SG
+Zion Wilburn
+SO
+6-5
+180
+Pinole Valley
+(Pinole, CA)
+84.75
+-
+Entered
+4/07/2026
+
+Samford Avatar
+Default Avatar
+PF
+Maurice Vassel
+SO
+6-9
+160
+St. Raymond For Boys
+(Bronx, NY)
+84.75
+-
+Entered
+4/07/2026
+
+Maryland Eastern Shore Avatar
+Default Avatar
+SF
+Gabe Warren
+JR
+6-6
+195
+Dream City Christian
+(Plano, TX)
+84.65
+-
+Entered
+3/30/2026
+
+Holy Cross Avatar
+Default Avatar
+PF
+Anthony Finkley
+JR
+6-6
+225
+Roman Catholic
+(Philadelphia, PA)
+84.58
+-
+Entered
+4/07/2026
+
+Saint Joseph's University Avatar
+Default Avatar
+PF
+Kash Polk
+FR
+6-8
+210
+Argyle
+(Argyle, TX)
+84.53
+-
+Expected
+Arizona State Avatar
+Avatar
+SF
+D'Andre Harrison
+FR
+6-5
+220
+Perry
+(Gilbert, AZ)
+84.53
+-
+Entered
+4/07/2026
+
+Missouri Kansas City Avatar
+Default Avatar
+CG
+Paul Djobet
+JR
+6-6
+185
+Arlington Christian School
+(Fairburn, GA)
+84.42
+-
+Entered
+4/08/2026
+
+University of Nebraska at Omaha Avatar
+Default Avatar
+C
+Braden Pierce
+JR
+7-0
+230
+IMG Academy
+(Woodstock, GA)
+84.35
+-
+Entered
+4/08/2026
+
+Villanova Avatar
+Default Avatar
+SF
+Marlon Barnes Jr.
+JR
+6-6
+180
+Brush
+(Cleveland, OH)
+84.28
+-
+Entered
+3/30/2026
+
+Evansville Avatar
+Default Avatar
+PF
+Davius Loury
+SO
+6-7
+205
+Kenwood Academy
+(Chicago, IL)
+84.28
+-
+Entered
+4/07/2026
+
+California State University Northridge Avatar
+Default Avatar
+SF
+Devon Pryor
+JR
+6-7
+180
+PSAT Academy
+(Houston, TX)
+84.25
+-
+Expected
+Oregon Avatar
+Default Avatar
+PF
+Chauncey Wiggins
+SR
+6-9
+190
+Grayson
+(Loganville, GA)
+84.25
+-
+Entered
+4/13/2026
+
+Florida State Avatar
+Default Avatar
+SF
+Klairus Amir
+FR
+6-7
+185
+Dream City Christian
+(Marietta, GA)
+84.25
+-
+Entered
+4/09/2026
+
+Campbell Avatar
+Default Avatar
+PF
+Oliver Faubert
+RS-FR
+6-10
+205
+Fort Erie International Academy
+(Montreal, QC)
+84.00
+-
+Entered
+4/07/2026
+
+Saint Mary's College of California Avatar
+Default Avatar
+SF
+Kendyl Sanders
+FR
+6-6
+180
+IMG Academy
+(Bradenton, FL)
+84.00
+-
+Entered
+4/10/2026
+
+Utah Avatar
+Default Avatar
+SF
+Hudson Ward
+SO
+6-7
+Western Canada Prep
+(Edmonton, AB)
+84.00
+-
+Entered
+3/31/2026
+
+Western Michigan Avatar
+Default Avatar
+PF
+Babatunde Durodola
+Claim Profile
+SO
+6-8
+195
+DME Academy
+(Toronto, ON)
+84.00
+-
+Entered
+4/07/2026
+
+Temple Avatar
+Default Avatar
+PG
+Eric Chatfield
+FR
+5-11
+160
+Pace Academy
+(Atlanta, GA)
+84.00
+-
+Expected
+Georgia Tech Avatar
+Default Avatar
+CG
+Jason Drake
+SR
+6-2
+180
+St. Mary's
+(West Bloomfield, MI)
+83.78
+-
+Entered
+4/01/2026
+
+Indiana Avatar
+Default Avatar
+SF
+Tyler Harris
+JR
+6-7
+180
+Newark Memorial
+(Newark, CA)
+83.78
+-
+Entered
+4/07/2026
+
+Vanderbilt Avatar
+Default Avatar
+PG
+Adriel Nyorha
+FR
+6-5
+Winston Salem Christian School
+(Ottawa, ON)
+83.75
+-
+Entered
+4/04/2026
+
+USF Avatar
+Default Avatar
+PF
+Christ Essandoko
+RS-JR
+6-11
+260
+Winston-Salem Prep
+(Winston Salem, NC)
+83.75
+-
+Expected
+South Carolina Avatar
+Default Avatar
+PF
+Robert Jennings
+SR
+6-7
+225
+Texas Alliance of Christian Athletes
+(DeSoto, TX)
+83.75
+-
+Entered
+4/07/2026
+
+Oklahoma State Avatar
+Default Avatar
+SG
+Vasean Allette
+JR
+6-3
+180
+Thornlea Secondary School
+(Ontario, CA)
+83.75
+-
+Entered
+4/06/2026
+
+UTSA Avatar
+Default Avatar
+PF
+Dennis Scott
+SO
+6-8
+Mount Vernon
+(Atlanta, GA)
+83.55
+-
+Entered
+4/09/2026
+
+Georgia State Avatar
+Default Avatar
+C
+Cyr Malonga
+JR
+6-11
+205
+Evangel Christian School
+(Louisville, KY)
+83.53
+-
+Entered
+4/07/2026
+
+New Mexico State Avatar
+Default Avatar
+PF
+DJ Thomas
+FR
+6-7
+210
+Allen
+(Allen, TX)
+83.50
+-
+Expected
+West Virginia Avatar
+Default Avatar
+PF
+Gavin Marrs
+JR
+6-11
+200
+Ellensburg
+(Ellensburg, WA)
+83.50
+-
+Expected
+Oregon State Avatar
+Default Avatar
+SG
+Nolan Groves
+FR
+6-5
+200
+Orono Senior
+(Long Lake, MN)
+83.50
+-
+Expected
+Texas Tech Avatar
+Default Avatar
+PF
+Christian Nitu
+SO
+6-11
+200
+Fort Erie International Academy
+(Toronto, ON)
+83.50
+-
+Entered
+4/09/2026
+
+Washington Avatar
+Default Avatar
+PG
+Mier Panoam
+JR
+6-2
+185
+Norcross
+(Norcross, GA)
+83.50
+-
+Expected
+Xavier Avatar
+Default Avatar
+SG
+R.J. Keene
+RS-SR
+6-7
+190
+Concordia Lutheran
+(Tomball, TX)
+83.30
+-
+Expected
+Boise State Avatar
+Default Avatar
+PF
+Donovan Raymond
+JR
+6-9
+205
+West Charlotte
+(Charlotte, NC)
+83.28
+-
+Entered
+4/07/2026
+
+Old Dominion Avatar
+Default Avatar
+C
+Nico Onyekwere
+FR
+7-1
+240
+Long Island Lutheran
+(Glen Head, NY)
+83.25
+-
+Entered
+4/08/2026
+
+Villanova Avatar
+Default Avatar
+SF
+Abu Yarmah
+FR
+6-7
+175
+Moravian Prep
+(Roanoke, VA)
+83.25
+-
+Entered
+4/07/2026
+
+South Carolina Avatar
+Default Avatar
+SG
+Dominick Stewart
+SO
+6-5
+180
+Southern California Academy
+(Lanham, MD)
+83.25
+-
+Entered
+4/08/2026
+
+Penn State Avatar
+Default Avatar
+PG
+Cian Medley
+JR
+6-0
+155
+Camden
+(Camden, NJ)
+83.25
+-
+Expected
+Kent State Avatar
+Default Avatar
+PF
+Brock Vice
+JR
+6-10
+225
+Houston
+(Germantown, TN)
+83.25
+-
+Committed
+Murray State Avatar
+Kansas State Wildcats Avatar
+Default Avatar
+PG
+Exavier Wilson
+FR
+6-1
+Father Tolton
+(Kansas City, MO)
+83.25
+-
+Expected
+Kansas State Avatar
+Default Avatar
+SG
+Marcus Wilson
+SO
+6-2
+170
+Bella Vista College Preparatory School
+(Albuquerque, NM)
+83.25
+-
+Entered
+4/09/2026
+
+UC Davis Avatar
+Default Avatar
+PG
+Isaiah Watts
+JR
+6-3
+180
+South Kent School
+(South Kent, CT)
+83.25
+-
+Entered
+4/10/2026
+
+Maryland Avatar
+Default Avatar
+C
+Cedric Lath
+RS-JR
+6-10
+235
+Liberty
+(Henderson, NV)
+83.25
+-
+Entered
+4/03/2026
+
+Houston Avatar
+Default Avatar
+PF
+Richard Brisco
+SO
+6-7
+210
+Roselle Catholic
+(Roselle, NJ)
+83.05
+-
+Entered
+4/07/2026
+
+Akron Avatar
+Default Avatar
+SF
+Jaziah Harper
+FR
+6-7
+205
+Don Bosco Prep Academy
+(Crown Point, IN)
+83.00
+-
+Entered
+4/07/2026
+
+Maryland Avatar
+Default Avatar
+PF
+Kyran Ratliff
+SR
+6-8
+190
+Booker T. Washington
+(Shreveport, LA)
+83.00
+-
+Entered
+4/13/2026
+
+Louisiana Avatar
+Default Avatar
+SF
+Kennard Davis
+JR
+6-5
+185
+Vashon
+(Saint Louis, MO)
+83.00
+-
+Entered
+4/08/2026
+
+BYU Avatar
+Default Avatar
+SG
+BB Knight
+SR
+6-5
+185
+Tompkins
+(Katy, TX)
+83.00
+-
+Entered
+4/10/2026
+
+Lamar Avatar
+Default Avatar
+CG
+Hansel Enmanuel
+SR
+6-4
+175
+Life Academy
+(Kissimmee, FL)
+83.00
+$1.2M
+Entered
+1/14/2026
+
+Austin Peay Avatar
+Default Avatar
+C
+Kieran Mullen
+FR
+7-0
+205
+St. Thomas More
+(Vancouver, BC)
+82.75
+-
+Entered
+4/07/2026
+
+Pittsburgh Avatar
+Default Avatar
+SG
+Evan Haywood
+SO
+6-4
+180
+Brebeuf Jesuit Prep
+(Indianapolis, IN)
+82.75
+-
+Entered
+3/27/2026
+
+Butler Avatar
+Default Avatar
+SG
+Nick Petronio
+RS-FR
+6-3
+180
+Milton Academy
+(Milton, MA)
+82.75
+-
+Entered
+4/09/2026
+
+Boston College Avatar
+Default Avatar
+C
+Armani Mighty
+RS-JR
+6-10
+225
+United Scholastic Academy
+(Toronto, ON)
+82.68
+-
+Entered
+4/07/2026
+
+Mercer Avatar
+Default Avatar
+PF
+Andreas Holst
+FR
+7-0
+200
+Bears Academy
+(Copenhagen)
+82.68
+-
+Entered
+4/07/2026
+
+Oklahoma Avatar
+Default Avatar
+SG
+Wilguens Exacte Jr.
+SR
+6-6
+230
+NBA Global Academy
+(Mexico, ME)
+82.67
+-
+Entered
+4/07/2026
+
+Drake Avatar
+Default Avatar
+SF
+Kadyn Betts
+RS-JR
+6-8
+190
+Central
+(Pueblo, CO)
+82.65
+-
+Entered
+4/07/2026
+
+Montana Avatar
+Default Avatar
+PF
+Aiden Disu
+FR
+6-7
+200
+Jack C Hays
+(Buda, TX)
+82.50
+-
+Entered
+4/07/2026
+
+Holy Cross Avatar
+Default Avatar
+CG
+Jordyn Kee
+SO
+6-4
+170
+Sagemont Prep
+(Fort Lauderdale, FL)
+82.50
+-
+Entered
+4/10/2026
+
+Miami Avatar
+Default Avatar
+C
+Boden Kapke
+JR
+6-10
+230
+Holy Family Catholic
+(Victoria, MN)
+82.50
+-
+Entered
+4/04/2026
+
+Boston College Avatar
+Default Avatar
+SF
+Sadiku Ayo
+SR
+6-6
+210
+Our Saviour Lutheran School
+(Bronx, NY)
+82.25
+-
+Entered
+3/30/2026
+
+St. John's Avatar
+Default Avatar
+SF
+Jaiun Simon
+RS-SO
+6-6
+190
+Pebblebrook
+(Mableton, GA)
+82.25
+-
+Expected
+Dayton Avatar
+Default Avatar
+PF
+Sekou Konneh
+SO
+6-6
+230
+St. Thomas More
+(Milwaukee, WI)
+82.25
+-
+Entered
+4/09/2026
+
+Wisconsin Milwaukee Avatar
+Default Avatar
+SF
+Nigel Burris
+SR
+6-6
+205
+Archbishop Mitty
+(San Jose, CA)
+82.25
+-
+Entered
+4/09/2026
+
+Weber State Avatar
+Default Avatar
+PF
+Sultan Adewale
+JR
+6-7
+205
+St Louis Christian Academy
+(Saint Louis, MO)
+82.25
+-
+Entered
+4/06/2026
+
+Albany Avatar
+Default Avatar
+C
+Spencer Elliott
+Claim Profile
+RS-SO
+6-9
+205
+St. Pius X
+(Atlanta, GA)
+82.25
+-
+Entered
+4/08/2026
+
+Charlotte Avatar
+Default Avatar
+SG
+Harun Zrno
+FR
+6-6
+205
+KK Slavija
+(Sarajevo)
+82.00
+-
+Entered
+4/07/2026
+
+Rutgers Avatar
+Default Avatar
+SG
+Jalen Lee
+SO
+6-4
+180
+Pebblebrook
+(Mableton, GA)
+82.00
+-
+Entered
+4/07/2026
+
+Southern Utah Avatar
+Default Avatar
+PF
+Jeremiah Nyarko
+SR
+6-8
+205
+St. John Bosco
+(Bellflower, CA)
+82.00
+-
+Entered
+4/07/2026
+
+Sacramento State Avatar
+Default Avatar
+SG
+JJ Frakes
+FR
+6-5
+190
+Berrien Springs
+(Berrien Springs, MI)
+82.00
+-
+Entered
+4/07/2026
+
+Oregon Avatar
+Default Avatar
+SG
+Bowen Hardman
+SR
+6-3
+160
+Princeton
+(Cincinnati, OH)
+81.80
+-
+Entered
+4/07/2026
+
+Akron Avatar
+Default Avatar
+SG
+Dorian Finister
+SR
+6-5
+190
+G.W. Carver
+(New Orleans, LA)
+81.75
+-
+Entered
+4/07/2026
+
+Louisiana Avatar
+Default Avatar
+SF
+David Tubek
+JR
+6-8
+215
+Dream City Christian
+(Glendale, AZ)
+81.50
+-
+Entered
+4/10/2026
+
+UTEP Avatar
+Default Avatar
+SG
+Jake Hansen
+FR
+6-1
+170
+Wauwatosa West
+(Milwaukee, WI)
+81.50
+-
+Entered
+4/07/2026
+
+Oklahoma Avatar
+Default Avatar
+PF
+Antonio Chol
+RS-JR
+6-9
+205
+Minnesota Preparatory Academy
+(Minneapolis, MN)
+81.50
+-
+Entered
+4/12/2026
+
+New Mexico Avatar
+Default Avatar
+SF
+Bryson McGlothin
+SO
+6-7
+180
+John Paul II
+(Plano, TX)
+81.25
+-
+Entered
+4/02/2026
+
+Richmond Avatar
+Default Avatar
+C
+William Patterson
+RS-SO
+7-1
+220
+The Patrick School
+(Brooklyn, NY)
+81.25
+-
+Entered
+4/09/2026
+
+New Orleans Avatar
+Default Avatar
+C
+Micah Handlogten
+Claim Profile
+SR
+7-0
+190
+Southlake Christian Academy
+(Huntersville, NC)
+81.00
+-
+Expected
+Florida Avatar
+Default Avatar
+SG
+Christian Jones
+RS-SO
+6-4
+170
+Our Saviour Lutheran School
+(New York, NY)
+80.75
+-
+Entered
+4/07/2026
+
+George Washington University Avatar
+Default Avatar
+CG
+Chris Davis Jr.
+FR
+6-4
+180
+Sun Prairie East
+(Sun Prairie, WI)
+80.75
+-
+Committed
+College of Charleston Avatar
+USF Bulls Avatar
+Default Avatar
+PF
+Corneilous Williams
+Claim Profile
+SR
+6-9
+210
+Moravian Prep
+(Hickory, NC)
+80.00
+-
+Entered
+4/07/2026
+
+North Alabama Avatar
+Default Avatar
+C
+Churchill Abass
+JR
+6-9
+235
+NBA Academy Africa
+(Abuja)
+-
+Entered
+4/09/2026
+
+New Orleans Avatar
+Default Avatar
+PF
+Karim Rtail
+FR
+6-8
+210
+Neptunas-Akvaservis
+(Klaipeda)
+-
+Entered
+4/07/2026
+
+Arkansas Avatar
+Default Avatar
+PF
+Augusto Cassia
+JR
+6-8
+220
+NBA Global Academy
+(Mexico City)
+-
+Entered
+4/07/2026
+
+Ole Miss Avatar
+Default Avatar
+SF
+Sergej Macura
+FR
+6-8
+KK Mega
+(Belgrade)
+-
+Committed
+Mississippi State Avatar
+UCLA Bruins Avatar
+Default Avatar
+PF
+Tafara Gapare
+SR
+6-9
+205
+South Kent School
+(Kent, CT)
+-
+Entered
+4/07/2026
+
+Villanova Avatar
+Default Avatar
+PF
+Godslove Nwabude
+Claim Profile
+SO
+6-9
+Mt. Zion Prep
+(Lanham, MD)
+-
+Entered
+4/07/2026
+
+Eastern Michigan Avatar
+Default Avatar
+SG
+Jayden Harris
+RS-FR
+6-7
+Massanutten Military Academy
+(Dumfries, VA)
+-
+Entered
+4/07/2026
+
+Eastern Kentucky Avatar
+Default Avatar
+SG
+Brett Freeman
+FR
+6-4
+175
+Ardrey Kell
+(Charlotte, NC)
+-
+Entered
+4/07/2026
+
+Virginia Tech Avatar
+Default Avatar
+CG
+Armoni Zeigler
+Claim Profile
+JR
+6-4
+180
+Upper Room Christian School
+(Huntington Station, NY)
+-
+Entered
+4/07/2026
+
+Ball State Avatar
+Default Avatar
+SG
+Richard Barron
+JR
+6-5
+215
+St. Ignatius
+(Chicago, IL)
+-
+Expected
+Providence Avatar
+Default Avatar
+PG
+Parker Gerrits
+RS-SO
+6-2
+180
+Olympia
+(Olympia, WA)
+-
+Entered
+3/26/2026
+
+Washington State Avatar
+Default Avatar
+CG
+Mikkel Tyne
+JR
+5-10
+180
+Bishop Walsh School
+(Cumberland, MD)
+-
+Entered
+4/01/2026
+
+Richmond Avatar
+Default Avatar
+PF
+Macon Emory
+SO
+6-8
+Perkiomen School
+(Pennsburg, PA)
+-
+Entered
+4/07/2026
+
+Delaware Avatar
+Default Avatar
+PG
+Derin Saran
+Claim Profile
+JR
+6-3
+180
+Asheville School
+(Asheville, NC)
+-
+Entered
+4/09/2026
+
+University of California Irvine Avatar
+Default Avatar
+PF
+AJ LaBeau
+RS-SO
+7-0
+215
+Timberline
+(Boise, ID)
+-
+Entered
+3/16/2026
+
+Cornell Avatar
+Default Avatar
+SF
+MJ Thomas
+SO
+6-5
+Calvert
+(Calvert, TX)
+-
+Entered
+4/07/2026
+
+New Orleans Avatar
+Avatar
+SF
+Dasear Haskins
+RS-SO
+6-6
+Camden
+(Willingboro, NJ)
+-
+Entered
+4/07/2026
+
+Saint Joseph's University Avatar
+Avatar
+SG
+Trajan Thompson
+Claim Profile
+FR
+6-6
+180
+Providence Day School
+(Charlotte, NC)
+-
+Entered
+4/07/2026
+
+Denver University Avatar
+Default Avatar
+SG
+AJ Smith
+SR
+6-3
+190
+Combine Academy
+(Charlotte, NC)
+-
+Expected
+Temple Avatar
+Default Avatar
+SG
+Nazar Mahmoud
+JR
+6-5
+185
+Rouse
+(Leander, TX)
+-
+Expected
+Grambling State Avatar
+Default Avatar
+SF
+Antonio Munoz
+FR
+6-6
+185
+Whitney Young
+(Chicago, IL)
+-
+Committed
+Grambling State Avatar
+San Diego Toreros Avatar
+Default Avatar
+SG
+Demari Williams
+SR
+6-6
+210
+Dream City Christian
+(Glendale, AZ)
+-
+Expected
+Houston Christian Avatar
+Default Avatar
+PG
+Orlando Horton
+JR
+5-8
+150
+Houston Christian
+(Houston, TX)
+-
+Entered
+3/21/2026
+
+Prairie View A&M Avatar
+Default Avatar
+PF
+Dionjahe Thomas
+RS-JR
+6-8
+236
+Ellender Memorial
+(Houma, LA)
+-
+Expected
+Jackson State Avatar
+Default Avatar
+SG
+Isaiah Washington
+Claim Profile
+RS-FR
+6-5
+175
+Winston Salem Christian School
+(Fayetteville, NC)
+-
+Entered
+3/26/2026
+
+Northern Illinois Avatar
+Default Avatar
+SG
+Cam Thrower
+RS-JR
+6-3
+180
+Harvard-Westlake
+(Studio City, CA)
+-
+Entered
+3/27/2026
+
+Pennsylvania Avatar
+Default Avatar
+PF
+Karson Templin
+JR
+6-6
+205
+Lovejoy
+(Lucas, TX)
+-
+Expected
+Utah State Avatar
+Default Avatar
+PG
+Josh Dixon
+FR
+6-1
+165
+Milton
+(Milton, GA)
+-
+Expected
+Wisconsin Milwaukee Avatar
+Default Avatar
+SF
+Eddie Ricks III
+JR
+6-7
+185
+Clarksville Academy
+(Clarksville, TN)
+-
+Committed
+James Madison Avatar
+Loyola (Chi) Ramblers Avatar
+Default Avatar
+SF
+Frankquon Sherman
+JR
+6-6
+195
+Grovetown
+(Grovetown, GA)
+-
+Committed
+Kennesaw State Avatar
+High Point Panthers Avatar
+Default Avatar
+SF
+Justin Neely
+SR
+6-5
+200
+West Oaks Academy
+(Orlando, FL)
+-
+Entered
+3/30/2026
+
+UNC Greensboro Avatar
+Default Avatar
+C
+Henri Adiassa
+RS-JR
+6-11
+240
+Crossroads School
+(Santa Monica, CA)
+-
+Entered
+3/30/2026
+
+Lehigh Avatar
+Default Avatar
+PF
+Max Burton
+SR
+6-9
+230
+Williamston
+(Williamston, MI)
+-
+Entered
+3/30/2026
+
+Western Michigan Avatar
+Default Avatar
+SG
+Cameron Patterson
+RS-FR
+6-4
+175
+Summer Creek
+(Humble, TX)
+-
+Expected
+Texas Southern Avatar
+Default Avatar
+PG
+KJ Thomas
+SO
+6-1
+175
+Randall
+(Canyon, TX)
+-
+Expected
+UTEP Avatar
+Default Avatar
+SF
+TJ Johnson
+RS-JR
+6-6
+195
+Belton
+(Temple, TX)
+-
+Expected
+Virginia Military Institute Avatar
+Default Avatar
+SG
+Hudson Mayes
+FR
+6-4
+200
+Redondo Union
+(Redondo Beach, CA)
+-
+Entered
+3/30/2026
+
+University of California San Diego Avatar
+Default Avatar
+PG
+Adante Holiman
+SR
+5-9
+160
+McAlester
+(Mcalester, OK)
+-
+Expected
+Arizona State Avatar
+Default Avatar
+PG
+Zaon Collins
+JR
+6-1
+165
+Bishop Gorman
+(Las Vegas, NV)
+-
+Expected
+Fresno State Avatar
+Default Avatar
+SG
+Larry Hughes II
+SR
+6-4
+185
+Christian Brothers College
+(Saint Louis, MO)
+-
+Expected
+California State University Northridge Avatar
+Default Avatar
+PG
+Darryl Simmons II
+JR
+5-10
+160
+Putnam Science Academy
+(Detroit, MI)
+-
+Expected
+St. Bonaventure University Avatar
+Default Avatar
+SF
+Javoy Thompson
+JR
+6-5
+195
+Mount St Michael Academy
+(Bronx, NY)
+-
+Expected
+Maryland Eastern Shore Avatar
+Default Avatar
+CG
+Cooper Campbell
+SO
+6-2
+195
+PHHoenix Prep
+(Phoenix, AZ)
+-
+Committed
+Troy Avatar
+Liberty Flames Avatar
+Default Avatar
+PF
+Jayden Fort
+SO
+6-8
+210
+Jackson-Reed
+(Washington, DC)
+-
+Entered
+4/01/2026
+
+Georgetown Avatar
+Default Avatar
+PG
+Josiah Davis
+SR
+6-1
+190
+Teays Valley Christian School
+(Scott Depot, WV)
+-
+Expected
+California State University Northridge Avatar
+Default Avatar
+PG
+Ja'Corey Robinson
+FR
+6-6
+205
+Highland Park
+(Topeka, KS)
+-
+Entered
+4/01/2026
+
+Austin Peay Avatar
+Default Avatar
+PG
+Quaran McPherson
+RS-SR
+6-3
+180
+Woodstock Academy
+(Woodstock, CT)
+-
+Expected
+UAB Avatar
+Default Avatar
+SG
+Leon Horner
+SO
+6-5
+195
+Memorial
+(Frisco, TX)
+-
+Expected
+Texas Tech Avatar
+Default Avatar
+PG
+Aaron Powell
+SO
+6-1
+175
+Campbell Hall School
+(Valley Village, CA)
+-
+Entered
+4/01/2026
+
+Rice Avatar
+Default Avatar
+PF
+Ron Jessamy
+JR
+6-8
+200
+Oak Hill Academy
+(Mouth Of Wilson, VA)
+-
+Expected
+California State University Bakersfield Avatar
+Default Avatar
+SF
+Ramone Seals
+SO
+6-5
+190
+SLAM Charter
+(Tampa, FL)
+-
+Entered
+4/01/2026
+
+Kennesaw State Avatar
+Default Avatar
+SG
+Chancellor White
+SR
+6-5
+175
+Foster
+(Richmond, TX)
+-
+Expected
+Northern Colorado Avatar
+Default Avatar
+PG
+Layne Taylor
+SO
+5-9
+175
+Farmington
+(Farmington, AR)
+-
+Expected
+Murray State Avatar
+Default Avatar
+SG
+Shaheed Solebo
+RS-FR
+6-4
+205
+Lane Technical
+(Chicago, IL)
+-
+Entered
+4/02/2026
+
+Youngstown State Avatar
+Default Avatar
+SF
+Garrett Johnson
+RS-JR
+6-8
+220
+Episcopal
+(Alexandria, VA)
+-
+Committed
+George Washington University Avatar
+USF Bulls Avatar
+Default Avatar
+C
+Alier Maluk
+SO
+6-10
+180
+Long Island Lutheran
+(Pittsburgh, PA)
+-
+Entered
+4/03/2026
+
+Florida State Avatar
+Default Avatar
+SG
+Caleb Sanders
+FR
+6-5
+190
+North Tampa Christian Academy
+(Tampa, FL)
+-
+Entered
+4/03/2026
+
+USF Avatar
+Default Avatar
+C
+Paul Mbiya
+FR
+6-11
+240
+France
+(Kinshasa)
+-
+Expected
+Kansas Avatar
+Default Avatar
+PF
+Jacob Bannarbie
+JR
+6-8
+215
+Torrey Pines
+(Encinitas, CA)
+-
+Expected
+UNLV Avatar
+Default Avatar
+CG
+Seth Hubbard
+SR
+6-4
+175
+Huntington Prep
+(Alpharetta, GA)
+-
+Entered
+4/06/2026
+
+Wisconsin Milwaukee Avatar
+Default Avatar
+SG
+Trey Moss
+SR
+6-3
+170
+Windermere Prep
+(Windermere, FL)
+-
+Committed
+George Washington University Avatar
+La Salle Explorers Avatar
+Default Avatar
+C
+Xander Wedlow
+SO
+6-9
+225
+University Preparatory Academy-high
+(Detroit, MI)
+-
+Expected
+St. Bonaventure University Avatar
+Default Avatar
+PG
+C.J. Anthony
+SR
+5-11
+180
+Harvest Preparatory School
+(Columbus, OH)
+-
+Entered
+4/06/2026
+
+Iona Avatar
+Default Avatar
+SF
+Christian Alston
+SO
+6-5
+165
+Bartlett
+(Memphis, TN)
+-
+Entered
+4/06/2026
+
+Abilene Christian Avatar
+Default Avatar
+SF
+Keshawn Fisher
+FR
+6-6
+200
+River Rouge
+(River Rouge, MI)
+-
+Entered
+4/07/2026
+
+Detroit Mercy Avatar
+Default Avatar
+PG
+David Thomas
+JR
+6-2
+185
+Eagle's Landing
+(McDonough, GA)
+-
+Entered
+4/07/2026
+
+Richmond Avatar
+Default Avatar
+PF
+Braden East
+SO
+6-8
+205
+Stafford
+(Stafford, TX)
+-
+Entered
+4/07/2026
+
+Lamar Avatar
+Default Avatar
+SG
+C.J. O'Hara
+SO
+6-4
+180
+Totino-Grace
+(Minneapolis, MN)
+-
+Entered
+4/07/2026
+
+Wisconsin Green Bay Avatar
+Default Avatar
+PF
+Darkaun King
+SO
+6-6
+230
+Texas Alliance of Christian Athletes
+(Dallas, TX)
+-
+Entered
+4/07/2026
+
+North Alabama Avatar
+Default Avatar
+SG
+Sharod Barnes
+FR
+6-2
+170
+St. Mary's
+(West Bloomfield, MI)
+-
+Entered
+4/07/2026
+
+Western Michigan Avatar
+Default Avatar
+CG
+Tyshawn Archie
+JR
+6-1
+160
+C.E. King
+(Houston, TX)
+-
+Entered
+4/07/2026
+
+McNeese State Avatar
+Default Avatar
+PG
+Jacob Theodosiou
+JR
+6-3
+180
+Western Reserve Academy
+(Hudson, OH)
+-
+Entered
+4/07/2026
+
+Loyola Maryland Avatar
+Default Avatar
+SG
+Ben Roseborough
+RS-FR
+6-3
+200
+Met Sacramento Charter
+(Denver, CO)
+-
+Entered
+4/07/2026
+
+San Jose State Avatar
+Avatar
+CG
+Jakel Powell
+-
+6-5
+170
+The Burlington School
+(Burlington, NC)
+-
+Entered
+4/07/2026
+
+University of North Carolina Asheville Avatar
+Default Avatar
+SG
+Jaxon Prunty
+RS-FR
+6-5
+170
+Lexington
+(Charlotte, NC)
+-
+Entered
+4/07/2026
+
+College of Charleston Avatar
+Default Avatar
+SF
+Andreo Ash
+FR
+6-6
+180
+Liverpool
+(Liverpool, NY)
+-
+Entered
+4/07/2026
+
+Canisius University Avatar
+Default Avatar
+SG
+Chris Arias
+Claim Profile
+SO
+6-6
+185
+Providence
+(Jacksonville, FL)
+-
+Entered
+4/07/2026
+
+Jacksonville Avatar
+Default Avatar
+SG
+Kyle Cuffe Jr.
+RS-SR
+6-2
+185
+Blair Academy
+(Blairstown, NJ)
+-
+Entered
+4/07/2026
+
+Mercer Avatar
+Default Avatar
+PF
+Jalen Pitre
+SR
+6-7
+200
+Woodstock Academy
+(Long Beach, CA)
+-
+Entered
+4/07/2026
+
+Tennessee State Avatar
+Avatar
+SF
+Truman Claytor
+JR
+6-5
+190
+Cape Fear Christian Academy
+(Erwin, NC)
+-
+Entered
+4/07/2026
+
+Arkansas Little Rock Avatar
+Avatar
+SF
+Jermaine Coleman
+RS-SO
+6-6
+190
+Park Tudor
+(Indianapolis, IN)
+-
+Entered
+4/07/2026
+
+St. Thomas Avatar
+Default Avatar
+PG
+Stevie Elam
+FR
+6-2
+185
+Adrian
+(Adrian, MI)
+-
+Entered
+4/07/2026
+
+Wisconsin Milwaukee Avatar
+Default Avatar
+PG
+Gavin Hightower
+FR
+6-1
+Sierra Canyon
+(Los Angeles, CA)
+-
+Committed
+USF Avatar
+Providence Friars Avatar
+Default Avatar
+PG
+Aleksandar Gavalyugov
+SO
+6-2
+165
+Bulgaria
+(Sofia)
+-
+Entered
+4/07/2026
+
+Santa Clara University Avatar
+Avatar
+PG
+Micah Tucker
+FR
+6-3
+170
+Overtime Elite
+(Huntington, WV)
+-
+Entered
+4/07/2026
+
+Georgia State Avatar
+Default Avatar
+PG
+Julien Gomez
+FR
+6-2
+180
+La Mirada
+(La Mirada, CA)
+-
+Committed
+The University of Texas Rio Grande Valley Avatar
+Western Michigan Broncos Avatar
+Default Avatar
+PG
+Ahmad Harrison
+-
+6-1
+175
+National Christian Academy
+(Fort Washington, MD)
+-
+Entered
+4/07/2026
+
+Saint Francis (PA) Avatar
+Avatar
+PG
+Eduardo Placer
+JR
+6-4
+185
+Windermere Prep
+(Windermere, FL)
+-
+Entered
+4/07/2026
+
+Wagner Avatar
+Default Avatar
+SF
+Tucker Anderson
+JR
+6-8
+200
+Bentonville West
+(Bentonville, AR)
+-
+Entered
+4/07/2026
+
+Utah State Avatar
+Avatar
+PF
+Jaxson Ford
+SO
+6-7
+220
+Prosper
+(Prosper, TX)
+-
+Entered
+4/07/2026
+
+Sam Houston State Avatar
+Default Avatar
+CG
+Damone King
+RS-FR
+6-1
+Dupont Manual
+(Louisville, KY)
+-
+Entered
+4/07/2026
+
+Rhode Island Avatar
+Default Avatar
+PF
+Treyson Anderson
+SO
+6-9
+215
+Pius X
+(Lincoln, NE)
+-
+Committed
+North Dakota State Avatar
+Butler Bulldogs Avatar
+Default Avatar
+CG
+Ashton Williamson
+JR
+6-2
+170
+Calumet
+(Gary, IN)
+-
+Entered
+4/07/2026
+
+FIU Avatar
+Default Avatar
+PG
+TJ Burch
+SO
+6-1
+160
+Texas Alliance of Christian Athletes
+(Dallas, TX)
+-
+Entered
+4/07/2026
+
+Wright State Avatar
+Default Avatar
+C
+Ashton Smith
+RS-SR
+6-9
+230
+Legacy School of Sports Sciences
+(Spring, TX)
+-
+Entered
+4/07/2026
+
+South Dakota Avatar
+Default Avatar
+SG
+Lewis Duarte
+JR
+6-5
+165
+Victory Christian Center School
+(Charlotte, NC)
+-
+Committed
+New Mexico State Avatar
+Rutgers Scarlet Knights Avatar
+Default Avatar
+CG
+Demarion Burch
+JR
+6-3
+180
+Hamilton
+(Milwaukee, WI)
+-
+Entered
+4/07/2026
+
+Bradley Avatar
+Default Avatar
+PG
+Aaron Claytor
+SO
+6-3
+175
+Salesian College Preparatory
+(Richmond, CA)
+-
+Entered
+4/07/2026
+
+Hawaii Avatar
+Default Avatar
+PG
+Montana Wheeler
+FR
+5-7
+160
+Houston Christian
+(Houston, TX)
+-
+Entered
+4/07/2026
+
+Bradley Avatar
+Default Avatar
+PG
+Elijah Perryman
+FR
+6-1
+170
+Clayton Valley
+(Concord, CA)
+-
+Entered
+4/07/2026
+
+Utah State Avatar
+Default Avatar
+PG
+Connor Amundsen
+SO
+5-10
+150
+Clovis North
+(Fresno, CA)
+-
+Entered
+4/08/2026
+
+Dartmouth Avatar
+Default Avatar
+SG
+Ziare Wells
+SR
+6-5
+170
+South Shore
+(Brooklyn, NY)
+-
+Entered
+4/08/2026
+
+Oakland Avatar
+Default Avatar
+PG
+Justin Menard
+JR
+6-3
+St. Thomas More
+(Haddam, CT)
+-
+Expected
+Marist Avatar
+Default Avatar
+PF
+Brandon Walker
+SR
+6-7
+260
+Waxahachie Faith Family Academy
+(Cedar Hill, TX)
+-
+Entered
+4/08/2026
+
+Mississippi State Avatar
+Default Avatar
+SG
+Po'Boigh King
+SR
+6-4
+185
+Mount Zion Christian Academy
+(Durham, NC)
+-
+Entered
+4/08/2026
+
+Sam Houston State Avatar
+Default Avatar
+SG
+Vincent Brady
+SR
+6-4
+185
+Cathedral
+(Indianapolis, IN)
+-
+Entered
+4/08/2026
+
+High Point Avatar
+Default Avatar
+SG
+Alyn Breed
+SR
+6-3
+165
+McEachern
+(Powder Springs, GA)
+-
+Entered
+4/09/2026
+
+NC State Avatar
+Default Avatar
+CG
+Darius Washington III
+FR
+6-5
+185
+Orlando Christian Prep
+(Orlando, FL)
+-
+Entered
+4/09/2026
+
+Kennesaw State Avatar
+Default Avatar
+CG
+KJ Perry
+JR
+6-2
+165
+Palisades
+(Pacific Palisades, CA)
+-
+Expected
+BYU Avatar
+Default Avatar
+SG
+Jurian Dixon
+RS-SO
+6-4
+195
+St. Augustine
+(San Diego, CA)
+-
+Entered
+4/09/2026
+
+University of California Irvine Avatar
+Default Avatar
+PF
+Liam McChesney
+-
+6-9
+195
+Canada
+(Toronto, ON)
+-
+Entered
+4/09/2026
+
+Creighton Avatar
+Default Avatar
+SG
+Jayden Dawson
+SR
+6-4
+195
+Adams Central
+(Omaha, NE)
+-
+Entered
+4/09/2026
+
+Kansas Avatar
+Default Avatar
+PG
+Jordan Williams
+RS-JR
+6-3
+210
+Second Baptist
+(Houston, TX)
+-
+Entered
+4/09/2026
+
+Rice Avatar
+Default Avatar
+SG
+Jon Mani
+SO
+6-5
+175
+Palisades
+(Pacific Palisades, CA)
+-
+Entered
+4/09/2026
+
+Colorado Avatar
+Default Avatar
+PF
+Jackson Rasmussen
+FR
+6-7
+200
+Owyhee
+(Meridian, ID)
+-
+Committed
+Idaho Avatar
+Oregon State Beavers Avatar
+Default Avatar
+C
+David Onanina
+RS-JR
+6-8
+215
+Bishop O'Connell
+(Arlington, VA)
+-
+Entered
+4/10/2026
+
+Bethune Cookman Avatar
+Default Avatar
+SG
+Jack Turner
+SO
+6-3
+170
+St. John Bosco
+(Bellflower, CA)
+-
+Entered
+4/10/2026
+
+Oral Roberts Avatar
+Default Avatar
+SF
+Imran Suljanovic
+FR
+6-8
+200
+Pallacanestro Reggiana
+(Vienna)
+-
+Entered
+4/13/2026
+
+St. John's Avatar
+Default Avatar
+SG
+Chance Stephens
+SR
+6-3
+170
+Polytechnic
+(Riverside, CA)
+-
+Entered
+4/13/2026
+
+Minnesota Avatar
+Default Avatar
+SF
+Makhi Myles
+SO
+6-6
+195
+Sunrise Christian Post Grad
+(Starkville, MS)
+-
+Entered
+4/13/2026
+
+Southeastern Louisiana Avatar
+Default Avatar
+SG
+Ben Schwieger
+RS-SR
+6-5
+180
+Waubonsie Valley
+(Aurora, IL)
+-
+Entered
+4/13/2026
+
+Northern Iowa Avatar
+Default Avatar
+PG
+Ty'Reek Coleman
+FR
+6-1
+165
+Waubonsie Valley
+(Aurora, IL)
+-
+Entered
+4/10/2026
+
+Illinois State Avatar
+Default Avatar
+C
+Stefan Cicic
+RS-FR
+6-11
+210
+Riverside Brookfield
+(Riverside, IL)
+-
+Entered
+4/13/2026
+
+Pepperdine Avatar
+Default Avatar
+C
+Ben Winker
+FR
+6-9
+205
+Chaminade
+(Saint Louis, MO)
+-
+Entered
+4/13/2026
+
+California State University Fullerton Avatar
+Default Avatar
+SF
+Keenan Bey
+RS-SO
+6-5
+175
+Bishop Gorman
+(Las Vegas, NV)
+-
+Entered
+4/13/2026
+
+University of Massachusetts Lowell Avatar
+Default Avatar
+SG
+Mathieu Grujicic
+FR
+6-5
+200
+FC Barcelona Lassa B
+(Berlin)
+-
+Entered
+4/13/2026
+
+Ohio State Avatar
+Default Avatar
+SG
+Aidan McDowell
+SO
+6-4
+193
+Crete
+(Crete, NE)
+-
+Expected
+Western Colorado Avatar
+Default Avatar
+SG
+Chris Walker
+SR
+6-6
+195
+Wellington
+(West Palm Beach, FL)
+-
+Entered
+3/04/2026
+
+Illinois Chicago Avatar
+Default Avatar
+PG
+Quin Berger
+RS-JR
+6-1
+200
+Westtown School
+(Malvern, PA)
+-
+Entered
+3/06/2026
+
+Bucknell Avatar
+Default Avatar
+PG
+Christian Hughes
+RS-SO
+6-2
+180
+Kirkwood
+(Saint Louis, MO)
+-
+Entered
+3/10/2026
+
+Arkansas Little Rock Avatar
+Default Avatar
+SG
+Joseph Thomas
+RS-FR
+6-3
+165
+Portal
+(Portal, GA)
+-
+Entered
+3/10/2026
+
+Arkansas Little Rock Avatar
+Default Avatar
+PF
+Isaac Garrett
+JR
+6-8
+230
+Pleasant Grove
+(Pleasant Grove, UT)
+-
+Expected
+Oakland Avatar
+Default Avatar
+PF
+Matas Deniusas
+FR
+6-9
+220
+Lithuania
+-
+Expected
+UT Martin Avatar
+Default Avatar
+SG
+Alexander Lesburt Jr.
+JR
+6-5
+197
+Bradford Christian Academy
+(Derry, NH)
+-
+Entered
+3/13/2026
+
+Brown Avatar
+Default Avatar
+CG
+Jaden Baker
+SR
+6-2
+190
+Wicomico
+(Salisbury, MD)
+-
+Entered
+3/13/2026
+
+Wagner Avatar
+Default Avatar
+SG
+Logan Carey
+JR
+6-3
+185
+St. Paul's School
+(Shelton, CT)
+-
+Expected
+Maine Avatar
+Default Avatar
+SG
+Jace Whiting
+RS-JR
+6-1
+185
+Burley Senior
+(Burley, ID)
+-
+Entered
+3/17/2026
+
+Weber State Avatar
+Default Avatar
+PG
+Ethan Duncan
+RS-SR
+6-0
+170
+Trinity Christian School
+(Lubbock, TX)
+-
+Entered
+3/17/2026
+
+Lipscomb Avatar
+Default Avatar
+PG
+KJ Swain
+RS-JR
+6-1
+165
+Cincinnati Christian Schools
+(Fairfield, OH)
+-
+Entered
+3/17/2026
+
+Saint Francis (PA) Avatar
+Default Avatar
+SG
+Kyle Marshall
+SO
+6-4
+Air Force Academy Prep School
+(Oyster Bay, NY)
+-
+Entered
+3/17/2026
+
+Air Force Avatar
+Default Avatar
+PG
+Uzziah Buntyn
+FR
+6-1
+170
+Stony Point
+(Round Rock, TX)
+-
+Expected
+South Dakota Avatar
+Default Avatar
+CG
+Xavier Spencer
+JR
+6-1
+210
+Edge School
+(Calgary, AB)
+-
+Expected
+University of Massachusetts Lowell Avatar
+Default Avatar
+PG
+Ethan Copeland
+JR
+6-2
+184
+Lone Peak
+(American Fork, UT)
+-
+Entered
+3/17/2026
+
+Stetson Avatar
+Default Avatar
+SG
+Kahlil Singleton
+JR
+6-3
+195
+Scotland Campus
+(Vancouver, WA)
+-
+Entered
+3/17/2026
+
+Canisius University Avatar
+Default Avatar
+SG
+Rowan Irelan
+RS-SO
+6-3
+195
+Lucy Beckham
+(Mount Pleasant, SC)
+-
+Entered
+3/20/2026
+
+The Citadel Avatar
+Default Avatar
+PF
+Nehemiah Turner
+SO
+6-10
+265
+Auburndale
+(Auburndale, FL)
+-
+Entered
+3/21/2026
+
+Minnesota Avatar
+Default Avatar
+CG
+Fazl Oshodi
+SO
+6-3
+183
+Friends' Central School
+(Wynnewood, PA)
+-
+Expected
+Southern University Avatar
+Default Avatar
+PG
+Gianni Cobb
+SO
+6-0
+150
+Homewood-Flossmoor
+(Chicago, IL)
+-
+Entered
+3/20/2026
+
+Northern Illinois Avatar
+Default Avatar
+PG
+Anthony Smith III
+FR
+6-1
+170
+Hopkins
+(Hopkins, MN)
+-
+Committed
+North Dakota Avatar
+Winthrop Eagles Avatar
+Default Avatar
+SG
+Dawson Barr
+JR
+6-4
+195
+Hagerty
+(Oviedo, FL)
+-
+Entered
+3/20/2026
+
+Embry Riddle Avatar
+Default Avatar
+PF
+Bube Momah
+SR
+6-8
+240
+Brewster Academy
+(Farmington, CT)
+-
+Entered
+3/23/2026
+
+Lehigh Avatar
+Default Avatar
+PG
+Drew King
+SR
+6-2
+175
+PHHoenix Prep
+(Phoenix, AZ)
+-
+Entered
+3/23/2026
+
+Youngstown State Avatar
+Default Avatar
+PF
+Alessandro Perotti
+FR
+6-10
+245
+Italy
+-
+Entered
+3/23/2026
+
+Wofford Avatar
+Default Avatar
+SG
+Max Majerle
+SR
+6-4
+200
+Arcadia
+(Scottsdale, AZ)
+-
+Entered
+3/24/2026
+
+North Dakota State Avatar
+Default Avatar
+SG
+Jalen Brown
+JR
+6-2
+Modesto Christian
+(Modesto, CA)
+-
+Expected
+Cal State Dominguez Hills Avatar
+Default Avatar
+SG
+Jamil Muttilib
+JR
+6-6
+190
+(Kilgore, TX)
+-
+Entered
+3/21/2026
+
+Grambling State Avatar
+Default Avatar
+SG
+Jaden Zimmerman
+SO
+6-5
+205
+Cushing Academy
+(Bronx, NY)
+-
+Entered
+3/25/2026
+
+Quinnipiac Avatar
+Default Avatar
+SG
+Melo Sanchez
+SR
+6-4
+185
+Veritas Prep
+(Garden Grove, CA)
+-
+Entered
+3/25/2026
+
+Central Connecticut State Avatar
+Default Avatar
+SF
+Dayan Nessah
+SO
+6-7
+218
+Switzerland
+(Geneva)
+-
+Committed
+Cleveland State University Avatar
+Loyola (Chi) Ramblers Avatar
+Default Avatar
+SG
+Iilija Milijasevic
+FR
+6-3
+190
+Serbia
+(Belgrade)
+-
+Expected
+DePaul Avatar
+Default Avatar
+SG
+Jaden Jackson
+SO
+6-1
+170
+Bellevue West
+(Bellevue, NE)
+-
+Expected
+South Dakota State Avatar
+Default Avatar
+PF
+Isaac Harrell
+JR
+6-8
+218
+Jonesboro
+(Jonesboro, AR)
+-
+Committed
+Elon Avatar
+Elon Phoenix Avatar
+Default Avatar
+CG
+Kelcy Phipps
+RS-SO
+6-2
+190
+Bishop Montgomery
+(Torrance, CA)
+-
+Entered
+3/26/2026
+
+Portland State Avatar
+Default Avatar
+SF
+Milhan Charles
+FR
+6-7
+215
+France
+-
+Expected
+Arkansas Pine Bluff Avatar
+Default Avatar
+SG
+Jahni Summers
+JR
+6-6
+195
+DME Academy
+(Evansville, IN)
+-
+Expected
+Sacramento State Avatar
+Default Avatar
+PF
+Zack Davidson
+RS-SO
+6-9
+225
+Mater Dei
+(Santa Ana, CA)
+-
+Entered
+3/26/2026
+
+Northern Arizona Avatar
+Default Avatar
+SG
+David Douglas Jr.
+JR
+6-5
+208
+Yorkville Christian
+(Yorkville, IL)
+-
+Expected
+Fresno State Avatar
+Default Avatar
+SG
+Andrew Phillips
+JR
+6-4
+210
+Malvern Prep
+(Malvern, PA)
+-
+Expected
+Lafayette Avatar
+Default Avatar
+PF
+Collin Mulholland
+RS-SO
+6-11
+235
+Holy Family Catholic
+(Kitchener, ON)
+-
+Expected
+Chattanooga Avatar
+Default Avatar
+SG
+Hobert Grayson IV
+SR
+6-4
+205
+East Ascension
+(Gonzales, LA)
+-
+Entered
+3/26/2026
+
+Ole Miss Avatar
+Default Avatar
+CG
+Tahlan Pettway
+FR
+6-2
+165
+St. Thomas More
+(Worcester, MA)
+-
+Expected
+Western Carolina Avatar
+Default Avatar
+PF
+Tajae Jones
+SO
+6-8
+210
+Long Island Lutheran
+(Waterbury, CT)
+-
+Expected
+Siena Avatar
+Default Avatar
+PG
+Jacob Walker
+FR
+6-1
+185
+Sunrise Christian Academy
+(Memphis, TN)
+-
+Entered
+3/26/2026
+
+Sam Houston State Avatar
+Default Avatar
+PF
+Chris Loofe
+JR
+6-11
+240
+Leander
+(Leander, TX)
+-
+Entered
+3/26/2026
+
+Middle Tennessee State Avatar
+Default Avatar
+SG
+Juan Cranford
+SO
+6-3
+205
+Wayne
+(Dayton, OH)
+-
+Entered
+3/27/2026
+
+Saint Francis (PA) Avatar
+Default Avatar
+PF
+Grant Randall
+SO
+6-9
+195
+Putnam Science Academy
+(McDonough, GA)
+-
+Entered
+3/27/2026
+
+Quinnipiac Avatar
+Default Avatar
+SF
+William Humer
+JR
+6-10
+228
+(Stockholm, Uppl)
+-
+Expected
+Northern Colorado Avatar
+Default Avatar
+SG
+Eric Parnell
+SR
+6-3
+Holy Trinity Episcopal Academy
+(Melbourne, FL)
+-
+Entered
+3/27/2026
+
+Fairleigh Dickinson Avatar
+Default Avatar
+PF
+Rolyns Aligbe
+SO
+6-9
+240
+The Winchendon School
+(Minneapolis, MN)
+-
+Entered
+3/27/2026
+
+Southern Illinois Avatar
+Default Avatar
+SG
+Luke Almodovar
+JR
+6-3
+190
+Noblesville
+(Noblesville, IN)
+-
+Entered
+3/27/2026
+
+Southeast Missouri State Avatar
+Default Avatar
+SG
+Malik Ferguson
+JR
+6-4
+190
+Grovetown
+(Grovetown, GA)
+-
+Expected
+Tennessee Tech Avatar
+Default Avatar
+SF
+Victor Valdes
+JR
+6-7
+235
+Mexico
+-
+Expected
+Troy Avatar
+Default Avatar
+PF
+Miles Webb
+SR
+6-8
+190
+St. Stephen's & St. Agnes
+(Alexandria, VA)
+-
+Expected
+Delaware State Avatar
+Default Avatar
+PG
+Kjay Bradley Jr.
+SR
+6-1
+185
+Crenshaw
+(Los Angeles, CA)
+-
+Expected
+San Diego Avatar
+Default Avatar
+SG
+Sebastian Hartmann
+JR
+6-6
+215
+Germany
+(Munich)
+-
+Expected
+Chattanooga Avatar
+Default Avatar
+PF
+Riccardo Greppi
+SO
+6-10
+200
+Italy
+(Rome, Rome)
+-
+Expected
+Wisconsin Avatar
+Default Avatar
+PF
+Amar Kuljuhovic
+SR
+6-8
+225
+Waterloo West
+(Waterloo, IA)
+-
+Entered
+3/30/2026
+
+Missouri State University Avatar
+Default Avatar
+PF
+Aleks Szymczyk
+SR
+6-10
+240
+Wilhelm-Hausenstein-Gymnasium München
+(Frankfurt)
+-
+Entered
+3/30/2026
+
+California State University Northridge Avatar
+Default Avatar
+SF
+Joshua Wyche
+JR
+6-7
+215
+Cristo Rey
+(Philadelphia, PA)
+-
+Entered
+3/30/2026
+
+Lafayette Avatar
+Default Avatar
+C
+Otto Landrum
+SR
+6-9
+215
+Torrey Pines
+(Encinitas, CA)
+-
+Entered
+3/26/2026
+
+Boston University Avatar
+Default Avatar
+SG
+Sebastian Robinson
+JR
+6-3
+190
+Roselle Catholic
+(Montclair, NJ)
+-
+Expected
+New Jersey Institute of Technology Avatar
+Default Avatar
+PF
+Tylik Weeks
+JR
+6-7
+225
+Brooklyn School For Music & Theater
+(Brooklyn, NY)
+-
+Entered
+3/30/2026
+
+Southern Miss Avatar
+Default Avatar
+PF
+Augustinas Kiudulas
+JR
+6-8
+215
+BC Rytas Vilnius
+(Vilnius)
+-
+Entered
+3/30/2026
+
+Colorado State Avatar
+Default Avatar
+PF
+Kalu Anya
+SR
+6-8
+215
+IMG Academy
+(Worcester, MA)
+-
+Entered
+3/30/2026
+
+Saint Louis Avatar
+Default Avatar
+SG
+Franck Emmou
+JR
+6-5
+190
+Mansfield Summit
+(Mansfield, TX)
+-
+Expected
+Texas State Avatar
+Default Avatar
+CG
+Noah Norgaard
+FR
+6-2
+195
+Denmark
+(Copenhagen)
+-
+Entered
+3/30/2026
+
+UNC Greensboro Avatar
+Default Avatar
+SG
+Nyle Ralph-Beyer
+SO
+6-4
+175
+Henderson
+(West Chester, PA)
+-
+Entered
+3/30/2026
+
+Sacred Heart Avatar
+Default Avatar
+CG
+K'Jei Parker
+JR
+6-2
+185
+Winter Haven
+(Winter Haven, FL)
+-
+Entered
+3/30/2026
+
+Massachusetts Avatar
+Default Avatar
+SG
+Michael Eley
+SR
+6-4
+188
+Veritas Prep Academy
+(Fort Wayne, IN)
+-
+Entered
+3/30/2026
+
+Hampton Avatar
+Default Avatar
+SF
+Shelton Williams-Dryden
+SR
+6-6
+220
+Bay View
+(Milwaukee, WI)
+-
+Expected
+West Georgia Avatar
+Default Avatar
+SG
+Owen Bronston Jr.
+JR
+6-6
+205
+Fairfield
+(Fairfield, OH)
+-
+Entered
+3/30/2026
+
+South Carolina State Avatar
+Default Avatar
+PG
+Will Underwood
+JR
+6-3
+180
+Mahtomedi Senior
+(Minneapolis, MN)
+-
+Entered
+3/30/2026
+
+Wake Forest Avatar
+Default Avatar
+SG
+Filip Radakovic
+FR
+6-7
+200
+Serbia
+(Belgrade)
+-
+Expected
+UT Martin Avatar
+Default Avatar
+SF
+Jerquarius Stanback
+RS-FR
+6-9
+210
+Asheboro
+(Asheboro, NC)
+-
+Expected
+Alabama State Avatar
+Default Avatar
+PF
+Noah Boyde
+SR
+7-0
+230
+St. Lucia
+(Castries)
+-
+Entered
+3/31/2026
+
+Western Kentucky Avatar
+Default Avatar
+CG
+Daniel Guetta
+FR
+6-2
+180
+(Tel Aviv)
+-
+Expected
+Oklahoma State Avatar
+Default Avatar
+PG
+Tyler Boston
+SO
+6-0
+185
+The Bullis School
+(Potomac, MD)
+-
+Entered
+3/31/2026
+
+Holy Cross Avatar
+Default Avatar
+PF
+Francis Folefac
+FR
+6-7
+245
+Mt. Zion Prep
+(Lanham, MD)
+-
+Entered
+3/31/2026
+
+Siena Avatar
+Default Avatar
+SG
+Dontae Horne
+SR
+6-4
+190
+Kirby
+(Memphis, TN)
+-
+Entered
+3/30/2026
+
+Prairie View A&M Avatar
+Default Avatar
+C
+Shahid Muhammad
+SR
+6-10
+205
+Academy Of The New Church Boys School
+(Queens Village, NY)
+-
+Expected
+Florida State Avatar
+Default Avatar
+PG
+Camren Hunter
+SR
+6-3
+200
+Bryant
+(Bryant, AR)
+-
+Expected
+Central Arkansas Avatar
+Default Avatar
+PG
+Corey Caulker
+SO
+6-0
+175
+Bishop O'Connell
+(Sterling, VA)
+-
+Expected
+East Carolina Avatar
+Default Avatar
+PF
+Youri Fritz
+SR
+6-9
+220
+Netherlands
+(Tiel)
+-
+Entered
+4/01/2026
+
+Northeastern Avatar
+Default Avatar
+PG
+Landen Joseph
+FR
+6-2
+165
+Northeast
+(Fort Lauderdale, FL)
+-
+Entered
+4/01/2026
+
+Marshall Avatar
+Default Avatar
+CG
+Quel'Ron House
+SO
+6-0
+180
+Seneca Academy
+(Louisville, KY)
+-
+Entered
+4/01/2026
+
+Southern Illinois Avatar
+Default Avatar
+CG
+Ernest Shelton
+JR
+6-5
+180
+Father Judge
+(Philadelphia, PA)
+-
+Expected
+Merrimack Avatar
+Default Avatar
+PG
+Brody Robinson
+SR
+5-11
+160
+Houston Christian
+(Houston, TX)
+-
+Expected
+Oakland Avatar
+Default Avatar
+SF
+Daniel Egbuniwe
+SR
+6-7
+210
+First Assembly Christian
+(Memphis, TN)
+-
+Expected
+St. Bonaventure University Avatar
+Default Avatar
+SG
+Brent Bland
+RS-SR
+6-3
+205
+Half Hollow Hills West
+(Huntington Station, NY)
+-
+Expected
+Saint Peter's Avatar
+Default Avatar
+PF
+Johan Munch
+SO
+6-11
+200
+Denmark
+(Copenhagen)
+-
+Entered
+4/02/2026
+
+Oregon State Avatar
+Default Avatar
+SF
+Travelle Bryson
+SO
+6-5
+185
+Hopewell
+(Anderson, SC)
+-
+Expected
+Buffalo Avatar
+Default Avatar
+SG
+Brandon Morgan
+SR
+6-4
+180
+Forsyth Country Day School
+(Greensboro, NC)
+-
+Expected
+Hofstra Avatar
+Default Avatar
+SG
+Kamrin Oriol
+SR
+6-3
+187
+Admiral Farragut Academy
+(Saint Petersburg, FL)
+-
+Entered
+4/02/2026
+
+North Florida Avatar
+Default Avatar
+PG
+Mekhi Conner
+SO
+6-1
+183
+Notre Dame West Haven
+(New Haven, CT)
+-
+Entered
+4/02/2026
+
+Sacred Heart Avatar
+Default Avatar
+PF
+Mark Lavrenov
+FR
+6-8
+220
+Rocklin
+(Rocklin, CA)
+-
+Entered
+4/02/2026
+
+Sacramento State Avatar
+Default Avatar
+PF
+Kaleb Smith
+JR
+6-9
+200
+Damien
+(Rancho Cucamonga, CA)
+-
+Entered
+4/02/2026
+
+Grand Canyon University Avatar
+Default Avatar
+PF
+Anouar Mellouk
+RS-SR
+6-8
+205
+Fork Union Military Academy
+(Amsterdam)
+-
+Expected
+Morehead State Avatar
+Default Avatar
+PF
+Yuto Yamanouchi-Williams
+RS-JR
+6-9
+205
+Ribet Academy
+(Los Angeles, CA)
+-
+Expected
+Oral Roberts Avatar
+Default Avatar
+CG
+AJ Lopez
+RS-SR
+6-5
+170
+Mount Zion Christian Schools
+(Queens Village, NY)
+-
+Expected
+Richmond Avatar
+Default Avatar
+PG
+Jacari Brim
+FR
+6-2
+180
+West Forsyth
+(Clemmons, NC)
+-
+Expected
+Appalachian State Avatar
+Default Avatar
+SG
+Cobi Campbell
+SR
+6-2
+195
+Puyallup
+(Puyallup, WA)
+-
+Committed
+Troy Avatar
+Liberty Flames Avatar
+Default Avatar
+C
+Daniel Tobiloba
+JR
+7-0
+230
+Grand View Christian
+(Des Moines, IA)
+-
+Expected
+University of California Riverside Avatar
+Default Avatar
+PG
+AJ Dancler
+JR
+6-2
+180
+Southport
+(Indianapolis, IN)
+-
+Expected
+Coastal Carolina Avatar
+Default Avatar
+PG
+Cade Kelderman
+JR
+6-1
+170
+Waukee Northwest
+(Waukee, IA)
+-
+Entered
+4/04/2026
+
+Iowa State Avatar
+Default Avatar
+PG
+Josh Holloway
+JR
+6-2
+160
+Oak Hill Academy
+(Memphis, TN)
+-
+Entered
+4/04/2026
+
+Texas A&M Avatar
+Default Avatar
+SF
+Tunde Vahlberg Fasasi
+JR
+6-8
+210
+Hoosac School
+(Stockholm, Uppl)
+-
+Expected
+William & Mary Avatar
+Default Avatar
+PF
+Bradey Henige
+SO
+7-0
+240
+Cactus
+(Glendale, AZ)
+-
+Expected
+California Baptist University Avatar
+Default Avatar
+SG
+Erik Pratt
+SR
+6-5
+180
+Park Vista Community
+(Lake Worth, FL)
+-
+Expected
+Stony Brook Avatar
+Default Avatar
+PF
+Amarri Monroe
+SR
+6-7
+220
+South Kent School
+(Newburgh, NY)
+-
+Entered
+4/06/2026
+
+Quinnipiac Avatar
+Default Avatar
+SF
+Cris Carroll
+SR
+6-6
+230
+Osborne
+(Tallahassee, FL)
+-
+Entered
+4/06/2026
+
+Youngstown State Avatar
+Default Avatar
+SF
+Evans Barning
+FR
+6-8
+Archbishop Carroll
+(Washington, DC)
+-
+Expected
+West Virginia Avatar
+Default Avatar
+SG
+Jasai Miles
+JR
+6-6
+205
+Miami Country Day School
+(Miami, FL)
+-
+Entered
+4/06/2026
+
+Indiana Avatar
+Default Avatar
+PF
+Jerald Colonel
+SR
+6-9
+200
+Groves
+(Savannah, GA)
+-
+Expected
+Stephen F. Austin Avatar
+Default Avatar
+SG
+Tyler Isaak
+JR
+6-4
+190
+San Ramon Valley
+(Danville, CA)
+-
+Entered
+4/06/2026
+
+Montana Avatar
+Default Avatar
+SF
+Amarri Tice
+SR
+6-7
+220
+South Kent School
+(Newburgh, NY)
+-
+Entered
+4/06/2026
+
+Quinnipiac Avatar
+Default Avatar
+PG
+Ronell Giles
+-
+6-4
+185
+St. Vincent Pallotti
+(Laurel, MD)
+-
+Entered
+4/06/2026
+
+Quinnipiac Avatar
+Default Avatar
+SG
+Jahari Williamson
+JR
+6-1
+193
+Royal Crown
+(Pickering, ON)
+-
+Expected
+Kent State Avatar

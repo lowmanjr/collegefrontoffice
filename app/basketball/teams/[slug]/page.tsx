@@ -131,9 +131,9 @@ export default async function BasketballTeamPage({ params }: PageProps) {
 
             {total_valuation > 0 && (
               <RosterDonut
-                retainedValue={retainedValue}
-                portalValue={portalValue}
-                recruitValue={recruitValue}
+                retainedValue={retainedValue ?? 0}
+                portalValue={portalValue ?? 0}
+                recruitValue={recruitValue ?? 0}
                 totalValuation={total_valuation}
                 variant="dark"
               />

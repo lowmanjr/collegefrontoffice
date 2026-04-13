@@ -24,6 +24,9 @@ from supabase_client import supabase
 # Map normalized portal name → normalized DB name.
 NAME_ALIASES: dict[str, str] = {
     "somto cyril": "somtochukwu cyril",
+    "rob wright": "robert wright iii",
+    "kennard davis": "kennard davis jr.",
+    "richard barron": "rich barron",
     # add others as discovered
 }
 
