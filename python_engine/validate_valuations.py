@@ -238,6 +238,24 @@ def check_data_integrity(players, overrides, report, teams):
     else:
         report.critical_pass("All nil_overrides rows have is_override=true on player")
 
+    # Orphan valuations: valued player with no team_id
+    orphan_valued = [p for p in players if p.get("cfo_valuation") is not None and not p.get("team_id")]
+    if orphan_valued:
+        details = [f"{p.get('name','?')} ({p.get('position','?')}): ${p['cfo_valuation']:,}"
+                   for p in sorted(orphan_valued, key=lambda x: -(x.get("cfo_valuation") or 0))]
+        report.critical_fail(f"{len(orphan_valued)} orphan(s) with valuation but no team_id", details)
+    else:
+        report.critical_pass("No orphan valuations (all valued players have a team_id)")
+
+    # NULL team_id records (info)
+    null_team = [p for p in players if not p.get("team_id")]
+    if null_team:
+        by_tag = defaultdict(int)
+        for p in null_team:
+            by_tag[p.get("player_tag") or "Unknown"] += 1
+        breakdown = ", ".join(f"{tag}: {ct}" for tag, ct in sorted(by_tag.items(), key=lambda x: -x[1]))
+        report.info(f"NULL team_id records: {len(null_team)} ({breakdown})")
+
     # On DC but NULL valuation (non-override)
     dc_null = [p for p in players if p.get("is_on_depth_chart") and p.get("cfo_valuation") is None
                and not p.get("is_override") and p.get("player_tag") == "College Athlete"]

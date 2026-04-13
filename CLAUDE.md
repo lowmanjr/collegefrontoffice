@@ -1,7 +1,7 @@
 # CollegeFrontOffice.com — Master Architecture Document
 
 ## Current Status (April 2026)
-- **68 Power 4 teams**, 12,787 players, 4,954 valued
+- **68 Power 4 teams**, ~15,400 players, ~4,985 valued
 - **Valuation Engine V3.6b** — QB/DL base bumps, no-data talent penalty, star proxy widening, graduated starter multiplier
 - **85 active overrides** across 3 calibrated teams: Texas (9), Texas Tech (7), Georgia (32), plus 18 original overrides + 19 On3 Top 100 overrides
 - **EA Sports CFB 26 ratings** now cover all 68 Power 4 teams (expanded from 16). 4,674 ratings applied, 2,372 on-DC players with EA data (61.5% coverage)
@@ -183,6 +183,7 @@ Aggregates active college athletes + 2026 incoming recruits per team. Excludes d
 * Routes use slugs, not UUIDs: `/players/[slug]` and `/teams/[slug]`.
 * The `/futures` route has been renamed to `/recruits` with a permanent redirect.
 * 2026 HS recruits are merged into team active rosters (post national signing day).
+* 3-star 2026 recruits are tracked in the database (3,088 total recruits: 41 five-star, 437 four-star, 2,610 three-star) but only 4★/5★ receive valuations. 3-star recruits appear on team pages as incoming recruits with no dollar figure.
 * 2027/2028 commits do NOT appear on team pages.
 * Team logos use ESPN CDN format: `https://a.espncdn.com/i/teamlogos/ncaa/500/{espn_id}.png`
 * Player headshots use ESPN CDN: `https://a.espncdn.com/combiner/i?img=/i/headshots/college-football/players/full/{espn_id}.png&w=200&h=146`

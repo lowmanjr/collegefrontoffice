@@ -132,9 +132,9 @@ def is_eligible_for_valuation(player: dict, is_override: bool = False) -> bool:
         return player.get("is_on_depth_chart") is True
 
     if tag == "High School Recruit":
-        # Must be 4★ or 5★
+        # Must be 4★ or 5★ AND committed to a team
         star = player.get("star_rating") or 0
-        return star >= 4
+        return star >= 4 and player.get("team_id") is not None
 
     return True  # unknown tag — be conservative, include
 
@@ -533,7 +533,7 @@ def run_valuations(
     # Counters
     eligible_count       = 0
     ineligible_off_dc    = 0   # college athlete, not on depth chart
-    ineligible_low_star  = 0   # HS recruit < 4★
+    ineligible_low_star  = 0   # HS recruit < 4★ or uncommitted
     ineligible_excluded  = 0   # excluded positions (LS)
     override_count       = 0
     errors               = 0
@@ -685,7 +685,7 @@ def print_summary(results: list[dict], stats: dict, top_n: int = 20) -> None:
     print(f"    Override (✓)     : {stats['overrides']:,}")
     print(f"  Ineligible         : {stats['ineligible_total']:,}")
     print(f"    Off depth chart  : {stats['ineligible_off_dc']:,}")
-    print(f"    HS recruit <4★   : {stats['ineligible_low_star']:,}")
+    print(f"    HS recruit inelig: {stats['ineligible_low_star']:,}")
     print(f"    Excluded pos     : {stats['ineligible_excluded']:,}")
     if vals:
         print(f"  Valuation range    : ${min(vals):,} – ${max(vals):,}")
