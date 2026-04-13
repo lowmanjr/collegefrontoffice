@@ -230,7 +230,15 @@ def compute_valuation(
     else:
         combined_prem = role_mult
 
-    basketball_value = pos_base * combined_prem * talent_mod * market_mult * exp_mult
+    # For incoming players: floor at neutral 1.00× baseline so recruits
+    # aren't penalized for committing to a lower-market school.
+    if not has_stats:
+        neutral_val = pos_base * combined_prem * talent_mod * 1.00 * exp_mult
+        school_val = pos_base * combined_prem * talent_mod * market_mult * exp_mult
+        basketball_value = max(neutral_val, school_val)
+    else:
+        basketball_value = pos_base * combined_prem * talent_mod * market_mult * exp_mult
+
     valuation = max(int(basketball_value + social_prem), VALUATION_FLOOR)
 
     # Label for display
@@ -289,7 +297,7 @@ def main() -> None:
         .select(
             "id, name, position, role_tier, usage_rate, ppg, rpg, apg, per, "
             "star_rating, composite_score, class_year, experience_level, "
-            "is_override, roster_status, team_id, espn_athlete_id, "
+            "is_override, roster_status, team_id, espn_athlete_id, player_tag, "
             "nba_draft_projection, "
             "ig_followers, x_followers, tiktok_followers, total_followers"
         )
@@ -387,6 +395,49 @@ def main() -> None:
                     print(f"  [ERROR NULL] {pid}: {exc}")
 
         print()
+
+    # Uncommitted recruits pass: players with no team_id
+    uncommitted = [
+        p for p in players
+        if not p.get("team_id")
+        and p.get("player_tag") == "High School Recruit"
+        and not p.get("is_override")
+    ]
+    if uncommitted and not team_filter:
+        print(f"Uncommitted recruits ({len(uncommitted)} players)")
+        neutral_team = {"market_multiplier": 1.00}
+        uncommitted_updates: list[dict] = []
+        for player in sorted(uncommitted, key=lambda p: p.get("name", "")):
+            pid = player["id"]
+            name = player.get("name", "?")
+
+            if not is_eligible_for_valuation(player):
+                total_ineligible += 1
+                continue
+
+            draft_pick = player.get("nba_draft_projection")
+            breakdown = compute_valuation(player, neutral_team, draft_pick)
+            val = breakdown["valuation"]
+
+            uncommitted_updates.append({"id": pid, "cfo_valuation": val})
+            total_valued += 1
+            team_total += val
+
+            if val > highest["valuation"]:
+                highest = {"name": name, "valuation": val}
+            if val < lowest["valuation"]:
+                lowest = {"name": name, "valuation": val}
+
+        if not dry_run and uncommitted_updates:
+            for row in uncommitted_updates:
+                try:
+                    supabase.table("basketball_players").update(
+                        {"cfo_valuation": row["cfo_valuation"]}
+                    ).eq("id", row["id"]).execute()
+                except Exception as exc:
+                    print(f"  [ERROR] {row['id']}: {exc}")
+
+        print(f"  {len(uncommitted_updates)} uncommitted recruits valued\n")
 
     # Second pass: overrides
     overrides_resp = supabase.table("basketball_nil_overrides").select("player_id, annualized_value").execute()

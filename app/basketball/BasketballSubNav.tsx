@@ -7,6 +7,7 @@ const LINKS = [
   { label: "Players", href: "/basketball/players" },
   { label: "Teams", href: "/basketball/teams" },
   { label: "Portal", href: "/basketball/portal" },
+  { label: "Recruits", href: "/basketball/recruits" },
   { label: "Methodology", href: "/basketball/methodology" },
 ];
 

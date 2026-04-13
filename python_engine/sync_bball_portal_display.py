@@ -57,6 +57,8 @@ SCHOOL_ALIASES: dict[str, str] = {
     "providence friars": "Providence",
     "louisville cardinals": "Louisville",
     "oregon ducks": "Oregon",
+    "miami hurricanes": "Miami",
+    "miami (fl)": "Miami",
 }
 
 # Schools that contain our team names as substrings — explicit non-matches
@@ -65,6 +67,7 @@ SCHOOL_NON_MATCHES: set[str] = {
     "kansas state", "michigan state", "northern michigan", "western michigan",
     "eastern michigan", "central michigan", "georgia tech", "georgia state",
     "georgia southern", "north carolina", "east carolina", "south carolina",
+    "miami (oh)", "miami ohio", "miami redhawks", "miami university redhawks",
 }
 
 

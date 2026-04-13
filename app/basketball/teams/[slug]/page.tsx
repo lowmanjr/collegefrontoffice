@@ -4,6 +4,7 @@ import { formatCurrency, formatCompactCurrency } from "@/lib/utils";
 import { BASE_URL } from "@/lib/constants";
 import { basketballPositionBadgeClass, roleTierBadgeClass } from "@/lib/ui-helpers";
 import PlayerAvatar from "@/components/PlayerAvatar";
+import RosterDonut from "@/components/RosterDonut";
 
 export const revalidate = 900;
 
@@ -55,7 +56,7 @@ export default async function BasketballTeamPage({ params }: PageProps) {
   const { data: playersRaw } = await supabase
     .from("basketball_players")
     .select(
-      "id, slug, name, position, role_tier, class_year, cfo_valuation, is_public, roster_status, headshot_url, usage_rate, ppg, rpg, apg"
+      "id, slug, name, position, role_tier, class_year, cfo_valuation, is_public, roster_status, headshot_url, usage_rate, ppg, rpg, apg, acquisition_type"
     )
     .eq("team_id", team.id)
     .eq("roster_status", "active")
@@ -66,6 +67,16 @@ export default async function BasketballTeamPage({ params }: PageProps) {
   const total_valuation = roster.reduce(
     (sum, p) => sum + (p.is_public && p.cfo_valuation != null ? p.cfo_valuation : 0),
     0
+  );
+
+  const retainedValue = roster.reduce(
+    (s, p) => s + ((p.acquisition_type ?? "retained") === "retained" && p.cfo_valuation ? p.cfo_valuation : 0), 0
+  );
+  const portalValue = roster.reduce(
+    (s, p) => s + (p.acquisition_type === "portal" && p.cfo_valuation ? p.cfo_valuation : 0), 0
+  );
+  const recruitValue = roster.reduce(
+    (s, p) => s + (p.acquisition_type === "recruit" && p.cfo_valuation ? p.cfo_valuation : 0), 0
   );
 
   return (
@@ -86,47 +97,47 @@ export default async function BasketballTeamPage({ params }: PageProps) {
         }}
       />
 
-      {/* ── Hero ─────────────────────────────────────────────────────────── */}
+      {/* ── Hero + Donut ────────────────────────────────────────────────── */}
       <section className="bg-slate-900 text-white px-4 pt-8 pb-20">
         <div className="mx-auto max-w-6xl">
-          <div className="flex flex-col sm:flex-row sm:items-center gap-6">
-            {team.logo_url && (
-              /* eslint-disable-next-line @next/next/no-img-element */
-              <img
-                src={team.logo_url}
-                alt={`${team.university_name} logo`}
-                width={80}
-                height={80}
-                className="h-20 w-20 object-contain shrink-0"
-              />
-            )}
-            <div>
-              <h1
-                className="text-4xl sm:text-5xl font-bold uppercase tracking-tight leading-none"
-                style={{ fontFamily: "var(--font-oswald), sans-serif" }}
-              >
-                {team.university_name}
-              </h1>
-              {team.conference && (
-                <span className="mt-2 inline-block rounded px-2.5 py-0.5 text-xs font-semibold uppercase tracking-widest bg-slate-700 text-slate-300">
-                  {team.conference}
-                </span>
-              )}
-              <div className="mt-4">
-                <p className="text-xs uppercase tracking-widest text-slate-500 mb-1">
-                  Est. Roster Value
-                </p>
-                <p
-                  className="text-3xl sm:text-4xl font-bold text-emerald-400 leading-none"
-                  style={{ fontFamily: "var(--font-oswald), sans-serif" }}
-                >
-                  {formatCompactCurrency(total_valuation)}
-                </p>
-                <p className="mt-1.5 text-[10px] text-slate-500">
-                  Includes only players participating in the NIL market
-                </p>
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-8">
+            <div className="flex flex-col items-center md:items-start gap-4">
+              <div className="flex flex-col sm:flex-row items-center sm:items-center gap-5">
+                {team.logo_url && (
+                  /* eslint-disable-next-line @next/next/no-img-element */
+                  <img
+                    src={team.logo_url}
+                    alt={`${team.university_name} logo`}
+                    width={80}
+                    height={80}
+                    className="h-20 w-20 object-contain shrink-0"
+                  />
+                )}
+                <div className="text-center sm:text-left">
+                  <h1
+                    className="text-4xl sm:text-5xl font-bold uppercase tracking-tight leading-none"
+                    style={{ fontFamily: "var(--font-oswald), sans-serif" }}
+                  >
+                    {team.university_name}
+                  </h1>
+                  {team.conference && (
+                    <span className="mt-2 inline-block rounded px-2.5 py-0.5 text-xs font-semibold uppercase tracking-widest bg-slate-700 text-slate-300">
+                      {team.conference}
+                    </span>
+                  )}
+                </div>
               </div>
             </div>
+
+            {total_valuation > 0 && (
+              <RosterDonut
+                retainedValue={retainedValue}
+                portalValue={portalValue}
+                recruitValue={recruitValue}
+                totalValuation={total_valuation}
+                variant="dark"
+              />
+            )}
           </div>
         </div>
       </section>
