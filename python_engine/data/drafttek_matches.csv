@@ -1,179 +1,503 @@
 drafttek_rank,drafttek_name,drafttek_school,drafttek_position,player_name,player_team,player_position,cfo_valuation,current_roster_status,current_draft_projection,is_override,class_year,match_confidence
-2,Arvell Reese,Ohio State,EDGE,Arvell Reese,Ohio State,LB,1207500,departed_draft,1,False,4,1.0
-3,Jeremiyah Love,Notre Dame,RB,Jeremiyah Love,Notre Dame,RB,994174,departed_draft,6,False,4,1.05
-4,Sonny Styles,Ohio State,OLB,Sonny Styles,Ohio State,LB,957600,departed_draft,7,False,5,1.0
-5,Caleb Downs,Ohio State,S,Caleb Downs,Ohio State,S,1690499,departed_draft,2,False,4,1.05
-6,Francis Mauigoa,Miami (FL),OT,Francis Mauigoa,Miami,OL,450656,departed_draft,8,False,4,1.0
-8,Mansoor Delane,LSU,CB,Mansoor Delane,LSU,CB,564300,departed_draft,11,False,5,1.05
-9,Carnell Tate,Ohio State,WR,Carnell Tate,Ohio State,WR,1468320,departed_draft,9,False,4,1.05
-10,Kenyon Sadiq,Oregon,TE,Kenyon Sadiq,Oregon,TE,796949,departed_draft,18,False,4,1.05
-11,Rueben Bain Jr.,Miami (FL),EDGE,Rueben Bain Jr.,Miami,DL,1207500,departed_draft,5,False,4,1.0
-12,Monroe Freeling,Georgia,OT,Monroe Freeling,Georgia,OL,983249,departed_draft,13,False,4,1.0
-13,Makai Lemon,USC,WR,Makai Lemon,USC,WR,1468320,departed_draft,12,False,4,1.05
-18,Dillon Thieneman,Oregon,S,Dillon Thieneman,Oregon,DB,869399,departed_draft,16,False,4,1.0
-19,Jermod McCoy,Tennessee,CB,Jermod McCoy,Tennessee,DB,,departed_draft,999,False,3,1.0
-20,Peter Woods,Clemson,DL3T,Peter Woods,Clemson,DT,827999,departed_draft,23,False,4,1.0
-21,Ty Simpson,Alabama,QB,Ty Simpson,Alabama,QB,1836000,departed_draft,33,False,5,1.05
-24,T.J. Parker,Clemson,EDGE,T.J. Parker,Clemson,DE,1034999,departed_draft,27,False,4,1.0
-25,Kadyn Proctor,Alabama,OT,Kadyn Proctor,Alabama,OL,892687,departed_draft,21,False,4,1.0
+1,Fernando Mendoza,Indiana,QB,Fernando Mendoza,Indiana,QB,,active,999,False,3,1.05
+2,Arvell Reese,Ohio State,EDGE,Arvell Reese,Ohio State,LB,,departed_draft,1,False,4,1.0
+3,Jeremiyah Love,Notre Dame,RB,Jeremiyah Love,Notre Dame,RB,,departed_draft,6,False,4,1.05
+4,Sonny Styles,Ohio State,OLB,Sonny Styles,Ohio State,LB,,departed_draft,7,False,5,1.0
+5,Caleb Downs,Ohio State,S,Caleb Downs,Ohio State,S,,departed_draft,2,False,4,1.05
+6,Francis Mauigoa,Miami (FL),OT,Francis Mauigoa,Miami,OL,,departed_draft,8,False,4,1.0
+7,David Bailey,Texas Tech,EDGE,David Bailey,Texas Tech,EDGE,,active,999,False,4,1.05
+8,Mansoor Delane,LSU,CB,Mansoor Delane,LSU,CB,,departed_draft,11,False,5,1.05
+9,Carnell Tate,Ohio State,WR,Carnell Tate,Ohio State,WR,,departed_draft,9,False,4,1.05
+10,Kenyon Sadiq,Oregon,TE,Kenyon Sadiq,Oregon,TE,,departed_draft,18,False,4,1.05
+11,Rueben Bain Jr.,Miami (FL),EDGE,Rueben Bain Jr.,Miami,DL,,departed_draft,5,False,4,1.0
+12,Monroe Freeling,Georgia,OT,Monroe Freeling,Georgia,OL,,departed_draft,13,False,4,1.0
+13,Makai Lemon,USC,WR,Makai Lemon,USC,WR,,departed_draft,12,False,4,1.05
+14,Spencer Fano,Utah,OT,Spencer Fano,Utah,OT,,active,999,False,3,1.05
+15,Olaivavega Ioane,Penn State,OG,Olaivavega Ioane,Penn State,G,,active,999,False,3,1.0
+16,Jordyn Tyson,Arizona State,WR,Jordyn Tyson,Arizona State,WR,847000,active,999,False,3,1.05
+17,Keldric Faulk,Auburn,EDGE,Keldric Faulk,Auburn,EDGE,,active,999,False,3,1.05
+18,Dillon Thieneman,Oregon,S,Dillon Thieneman,Oregon,DB,,departed_draft,16,False,4,1.0
+19,Jermod McCoy,Tennessee,CB,Jermod McCoy,Tennessee,CB,,active,999,False,3,1.05
+20,Peter Woods,Clemson,DL3T,Peter Woods,Clemson,DT,,active,999,False,3,1.0
+21,Ty Simpson,Alabama,QB,Ty Simpson,Alabama,QB,,departed_draft,33,False,5,1.05
+22,Omar Cooper Jr.,Indiana,WR,Omar Cooper Jr.,Indiana,WR,,active,999,False,3,1.05
+24,T.J. Parker,Clemson,EDGE,T.J. Parker,Clemson,EDGE,,active,999,False,3,1.05
+25,Kadyn Proctor,Alabama,OT,Kadyn Proctor,Alabama,OL,,departed_draft,21,False,4,1.0
 26,Colton Hood,Tennessee,CB,Colton Hood,Tennessee,DB,,departed_draft,999,False,2,1.0
-31,Denzel Boston,Washington,WR,Denzel Boston,Washington,WR,1209600,departed_draft,32,False,5,1.05
-33,Akheem Mesidor,Miami (FL),EDGE,Akheem Mesidor,Miami,DL,648000,departed_draft,20,False,5,1.0
-35,Avieon Terrell,Clemson,CBN,Avieon Terrell,Clemson,CB,905624,departed_draft,22,False,4,1.0
+27,KC Concepcion,Texas A&M,WR,KC Concepcion,Texas A&M,WR,1527487,active,28,False,4,1.05
+28,Caleb Lomu,Utah,OT,Caleb Lomu,Utah,OT,,active,999,False,2,1.05
+30,Cashius Howell,Texas A&M,EDGE,Cashius Howell,Texas A&M,EDGE,1296049,active,999,False,4,1.05
+31,Denzel Boston,Washington,WR,Denzel Boston,Washington,WR,,departed_draft,32,False,5,1.05
+32,Max Iheanachor,Arizona State,OT,Max Iheanachor,Arizona State,OT,1104000,active,999,False,4,1.05
+33,Akheem Mesidor,Miami (FL),EDGE,Akheem Mesidor,Miami,DL,,departed_draft,20,False,5,1.0
+34,Lee Hunter,Texas Tech,DL1T,Lee Hunter,Texas Tech,DT,,active,999,False,4,1.0
+35,Avieon Terrell,Clemson,CBN,Avieon Terrell,Clemson,CB,,departed_draft,22,False,4,1.0
 36,Brandon Cisse,South Carolina,CB,Brandon Cisse,South Carolina,DB,,departed_draft,999,False,3,1.0
-37,Blake Miller,Clemson,OT,Blake Miller,Clemson,OL,675000,departed_draft,29,False,5,1.0
-38,C.J. Allen,Georgia,OLB,CJ Allen,Georgia,LB,693000,departed_draft,30,False,3,1.0
-39,Christen Miller,Georgia,DL1T,Christen Miller,Georgia,DL,540000,departed_draft,41,False,5,1.0
-41,Kayden McDonald,Ohio State,DL1T,Kayden McDonald,Ohio State,DL,869399,departed_draft,31,False,4,1.0
-43,Anthony Hill Jr.,Texas,ILB,Anthony Hill Jr.,Texas,LB,603750,departed_draft,42,False,4,1.0
-44,Emmanuel Pregnon,Oregon,OG,Emmanuel Pregnon,Oregon,OL,140625,departed_draft,44,False,,1.0
-46,R Mason Thomas,Oklahoma,EDGE,R Mason Thomas,Oklahoma,DL,,departed_draft,49,False,5,1.0
-47,Keionte Scott,Miami (FL),CB,Keionte Scott,Miami,DB,630000,departed_draft,59,False,5,1.0
-49,Caleb Banks,Florida,DL1T,Caleb Banks,Florida,DL,87750,departed_draft,34,False,5,1.0
-50,Jadarian Price,Notre Dame,RB,Jadarian Price,Notre Dame,RB,204750,departed_draft,46,False,5,1.05
-51,Germie Bernard,Alabama,WR,Germie Bernard,Alabama,WR,1008000,departed_draft,50,False,5,1.05
-57,Chris Brazzell II,Tennessee,WR,Chris Brazzell II,Tennessee,WR,,departed_draft,999,False,3,1.05
-60,Derrick Moore,Michigan,EDGE,Derrick Moore,Michigan,EDGE,1260000,departed_draft,64,False,5,1.05
-62,Kamari Ramsey,USC,S,Kamari Ramsey,USC,S,221760,departed_draft,77,False,5,1.05
-63,Zachariah Branch,Georgia,WR,Zachariah Branch,Georgia,WR,827999,departed_draft,56,False,4,1.05
-65,Joshua Josephs,Tennessee,EDGE,Joshua Josephs,Tennessee,DL,,departed_draft,999,False,4,1.0
-68,Davison Igbinosun,Ohio State,CB,Davison Igbinosun,Ohio State,CB,594000,departed_draft,78,False,5,1.05
-69,Gracen Halton,Oklahoma,DL3T,Gracen Halton,Oklahoma,DL,570240,departed_draft,83,False,5,1.0
-70,Max Klare,Ohio State,TE,Max Klare,Ohio State,TE,609840,departed_draft,72,False,5,1.05
-71,Malik Muhammad,Texas,CB,Malik Muhammad,Texas,DB,546480,departed_draft,81,False,4,1.0
-76,Antonio Williams,Clemson,WR,Antonio Williams,Clemson,WR,720000,departed_draft,62,False,5,1.05
-78,Malachi Fields,Notre Dame,WR,Malachi Fields,Notre Dame,WR,633600,departed_draft,69,False,5,1.05
-80,Tacario Davis,Washington,CB,Tacario Davis,Washington,CB,326700,departed_draft,81,False,5,1.05
-84,Deion Burks,Oklahoma,WRS,Deion Burks,Oklahoma,WR,760320,departed_draft,88,False,5,1.0
-87,Garrett Nussmeier,LSU,QB,Garrett Nussmeier,LSU,QB,1346400,departed_draft,82,False,5,1.05
-90,A.J. Haulcy,LSU,S,A.J. Haulcy,LSU,S,346500,departed_draft,51,False,5,1.05
-93,Jake Slaughter,Florida,OC,Jake Slaughter,Florida,OL,534600,departed_draft,98,False,5,1.0
-98,Daylen Everette,Georgia,CB,Daylen Everette,Georgia,DB,237600,departed_draft,113,False,5,1.0
-100,Carson Beck,Miami (FL),QB,Carson Beck,Miami,QB,1346400,departed_draft,94,False,5,1.05
-102,Jonah Coleman,Washington,RB,Jonah Coleman,Washington,RB,617760,departed_draft,92,False,5,1.05
-103,Anthony Lucas,USC,EDGE,Anthony Lucas,USC,DE,475200,departed_draft,103,False,5,1.0
-104,Rayshaun Benny,Michigan,DL3T,Rayshaun Benny,Michigan,DL,518400,departed_draft,104,False,5,1.0
-107,Ja'Kobi Lane,USC,WR,Ja'Kobi Lane,USC,WR,728640,departed_draft,95,False,4,1.05
-108,Jaishawn Barham,Michigan,EDGE,Jaishawn Barham,Michigan,LB,504000,departed_draft,108,False,5,1.0
-110,Markel Bell,Miami (FL),OT,Markel Bell,Miami,OL,84375,departed_draft,112,False,1,1.0
-114,C.J. Daniels,Miami (FL),WR,CJ Daniels,Miami,WR,576000,departed_draft,116,False,5,1.05
-115,Deontae Lawson,Alabama,ILB,Deontae Lawson,Alabama,LB,567836,departed_draft,117,False,5,1.0
-117,Michael Taaffe,Texas,S,Michael Taaffe,Texas,DB,432000,departed_draft,119,False,,1.0
-119,Billy Schrauth,Notre Dame,OG,Billy Schrauth,Notre Dame,OL,450000,departed_draft,121,False,5,1.0
-120,Austin Barber,Florida,OT,Austin Barber,Florida,OL,216000,departed_draft,107,False,5,1.0
-124,Tyreak Sapp,Florida,DL5T,Tyreak Sapp,Florida,EDGE,288000,departed_draft,125,False,5,1.0
-125,Jalon Kilgore,South Carolina,S,Jalon Kilgore,South Carolina,DB,,departed_draft,999,False,3,1.0
-129,L.T. Overton,Alabama,DL5T,LT Overton,Alabama,DL,570240,departed_draft,86,False,5,1.0
-130,Harold Perkins Jr.,LSU,OLB,Harold Perkins Jr.,LSU,LB,504000,departed_draft,129,False,5,1.0
-133,Oscar Delp,Georgia,TE,Oscar Delp,Georgia,TE,166320,active,999,False,5,1.05
-134,Domani Jackson,Alabama,CB,Domani Jackson,Alabama,DB,108000,departed_draft,134,False,5,1.0
-135,Devin Moore,Florida,CB,Devin Moore,Florida,DB,570240,departed_draft,93,False,5,1.0
-136,Jack Endries,Texas,TE,Jack Endries,Texas,TE,462000,departed_draft,123,False,,1.05
-137,Cade Klubnik,Clemson,QB,Cade Klubnik,Clemson,QB,1224000,departed_draft,137,False,5,1.05
-138,Tim Keenan III,Alabama,DL1T,Tim Keenan III,Alabama,DL,432000,departed_draft,139,False,,1.0
-139,Bryce Boettcher,Oregon,ILB,Bryce Boettcher,Oregon,LB,504000,departed_draft,141,False,5,1.0
-148,Isaiah World,Oregon,OT,Isaiah World,Oregon,OL,121500,departed_draft,138,False,5,1.0
-150,D.J. Campbell,Texas,OG,DJ Campbell,Texas,OL,620999,departed_draft,135,False,5,1.0
-158,DeMonte Capehart,Clemson,DL3T,DeMonte Capehart,Clemson,DT,576000,departed_draft,160,False,5,1.0
-160,Bishop Fitzgerald,USC,S,Bishop Fitzgerald,USC,S,504000,departed_draft,162,False,,1.05
-161,Parker Brailsford,Alabama,OC,Parker Brailsford,Alabama,OL,121500,departed_draft,140,False,5,1.0
-168,Micah Morris,Georgia,OG,Micah Morris,Georgia,OL,540000,departed_draft,166,False,5,1.0
-170,Marlin Klein,Michigan,TE,Marlin Klein,Michigan,TE,475200,active,999,False,5,1.05
-171,Lorenzo Styles Jr.,Ohio State,S,Lorenzo Styles Jr.,Ohio State,CB,297000,departed_draft,168,False,5,1.0
-173,Eli Raridon,Notre Dame,TE,Eli Raridon,Notre Dame,TE,396000,departed_draft,151,False,5,1.05
-176,Caden Curry,Ohio State,EDGE,Caden Curry,Ohio State,DE,1008000,departed_draft,170,False,5,1.0
-178,Jaeden Roberts,Alabama,OG,Jaeden Roberts,Alabama,OL,540000,departed_draft,172,False,5,1.0
-182,Ephesians Prysock,Washington,CB,Ephesians Prysock,Washington,CB,540000,active,999,False,5,1.05
-188,Jimmy Rolder,Michigan,ILB,Jimmy Rolder,Michigan,LB,504000,active,999,False,5,1.0
-197,Josh Cuevas,Alabama,TE,Josh Cuevas,Alabama,TE,508200,active,999,False,3,1.05
-199,Aamil Wagner,Notre Dame,OT,Aamil Wagner,Notre Dame,OL,450000,active,999,False,5,1.0
-202,Adam Randall,Clemson,RB,Adam Randall,Clemson,RB,468000,active,999,False,5,1.05
-204,Aaron Anderson,LSU,WRS,Aaron Anderson,LSU,WR,576000,active,999,False,5,1.0
-206,Patrick Payton,LSU,EDGE,Patrick Payton,LSU,DE,864000,active,999,False,5,1.0
-208,Trey Moore,Texas,EDGE,Trey Moore,Texas,LB,277200,active,999,False,5,1.0
-213,Colbie Young,Georgia,WR,Colbie Young,Georgia,WR,316800,active,999,False,5,1.05
-216,Justin Jefferson,Alabama,ILB,Justin Jefferson,Alabama,LB,504000,active,999,False,5,1.0
-218,Ethan Burke,Texas,EDGE,Ethan Burke,Texas,LB,178575,active,999,False,5,1.0
-221,Owen Heinecke,Oklahoma,ILB,Owen Heinecke,Oklahoma,LB,420000,active,999,False,,1.0
-222,Jaydn Ott,Oklahoma,RB,Jaydn Ott,Oklahoma,RB,81062,active,999,False,5,1.05
-225,Zach Durfee,Washington,EDGE,Zach Durfee,Washington,EDGE,,active,999,False,,1.05
-231,Bryson Eason,Tennessee,DL1T,Bryson Eason,Tennessee,DL,,active,999,False,4,1.0
-232,Jakobe Thomas,Miami (FL),S,Jakobe Thomas,Miami,DB,504000,active,999,False,5,1.0
-233,Anez Cooper,Miami (FL),OG,Anez Cooper,Miami,OL,450000,active,999,False,5,1.0
-236,George Gumbs,Florida,EDGE,George Gumbs Jr.,Florida,EDGE,475200,active,999,False,5,0.939
-238,Jam Miller,Alabama,RB,Jam Miller,Alabama,RB,468000,active,999,False,5,1.05
-241,Noah Whittington,Oregon,RB,Noah Whittington,Oregon,RB,196560,active,999,False,5,1.05
-244,Rahsul Faison,South Carolina,RB,Rahsul Faison,South Carolina,RB,,active,999,False,4,1.05
-245,Eric Gentry,USC,OLB,Eric Gentry,USC,LB,504000,active,999,False,5,1.0
-247,Zavion Thomas,LSU,WRS,Zavion Thomas,LSU,WR,691200,active,999,False,5,1.0
-249,Kendal Daniels,Oklahoma,OLB,Kendal Daniels,Oklahoma,LB,504000,active,999,False,5,1.0
-251,Bryan Thomas Jr.,South Carolina,EDGE,Bryan Thomas Jr.,South Carolina,LB,,active,999,False,4,1.0
-252,Malik Benson,Oregon,WR,Malik Benson,Oregon,WR,604800,active,999,False,1,1.05
-254,Carver Willis,Washington,OT,Carver Willis,Washington,OL,112500,active,999,False,,1.0
-259,Nick Barrett,South Carolina,DL3T,Nick Barrett,South Carolina,DL,,active,999,False,4,1.0
-261,Jadon Canady,Oregon,CBN,Jadon Canady,Oregon,DB,172800,active,999,False,5,1.0
-270,Max Bredeson,Michigan,FB,Max Bredeson,Michigan,TE,15840,active,999,False,,1.0
-273,Robert Spears-Jennings,Oklahoma,S,Robert Spears-Jennings,Oklahoma,DB,432000,active,999,False,5,1.0
-283,Alex Harkey,Oregon,OG,Alex Harkey,Oregon,OL,112500,active,999,False,,1.0
-286,Tristan Leigh,Clemson,OT,Tristan Leigh,Clemson,OL,471226,active,999,False,5,1.0
-292,Cole Brevard,Texas,DL1T,Cole Brevard,Texas,DL,176463,active,999,False,5,1.0
-296,T.J. Guy,Michigan,EDGE,TJ Guy,Michigan,EDGE,872096,active,999,False,5,1.05
-299,Damonic Williams,Oklahoma,DL3T,Damonic Williams,Oklahoma,DL,207360,departed_draft,999,False,5,1.0
-302,Febechi Nwaiwu,Oklahoma,OG,Febechi Nwaiwu,Oklahoma,OL,112500,active,999,False,,1.0
-303,Jack Pyburn,LSU,EDGE,Jack Pyburn,LSU,DE,1008000,active,999,False,5,1.0
-311,Bauer Sharp,LSU,TE,Bauer Sharp,LSU,TE,138600,active,999,False,,1.05
-313,Anterio Thompson,Washington,DL3T,Anterio Thompson,Washington,DL,,active,999,False,4,1.0
-314,Barion Brown,LSU,WR,Barion Brown,LSU,WR,576000,active,999,False,5,1.05
-317,Joey Aguilar,Tennessee,QB,Joey Aguilar,Tennessee,QB,,active,999,False,4,1.05
-320,Dillon Bell,Georgia,WR,Dillon Bell,Georgia,WR,230400,active,999,False,5,1.05
-321,Mohamed Toure,Miami (FL),ILB,Mohamed Toure,Miami,LB,431051,active,999,False,5,1.0
-322,Lake McRee,USC,TE,Lake McRee,USC,TE,554400,active,999,False,5,1.05
-324,Jaren Kanak,Oklahoma,TE,Jaren Kanak,Oklahoma,TE,475200,active,999,False,5,1.05
-326,J. Michael Sturdivant,Florida,WR,J. Michael Sturdivant,Florida,WR,,active,999,False,5,1.05
-329,Will Pauling,Notre Dame,WRS,Will Pauling,Notre Dame,WR,576000,active,999,False,5,1.0
-330,James Brockermeyer,Miami (FL),OC,James Brockermeyer,Miami,OL,458876,active,999,False,5,1.0
-336,Tyre West,Tennessee,DL5T,Tyre West,Tennessee,DL,,active,999,False,4,1.0
-342,Trey Smack,Florida,PK,Trey Smack,Florida,PK,432000,active,999,False,5,1.05
-345,D.Q. Smith,South Carolina,S,DQ Smith,South Carolina,DB,,active,999,False,4,1.0
-348,Will Kacmarek,Ohio State,TE,Will Kacmarek,Ohio State,TE,138600,active,999,False,,1.05
-352,Wesley Bissainthe,Miami (FL),OLB,Wesley Bissainthe,Miami,LB,360000,active,999,False,5,1.0
-353,Marvin Jones Jr.,Oklahoma,EDGE,Marvin Jones Jr.,Oklahoma,DL,129600,active,999,False,5,1.0
-355,Tommy Doman,Florida,P,Tommy Doman,Florida,P,97200,active,999,False,5,1.05
-364,Donaven McCulley,Michigan,WR,Donaven McCulley,Michigan,WR,691200,active,999,False,5,1.05
-369,C.J. Donaldson,Ohio State,RB,CJ Donaldson,Ohio State,RB,163800,active,999,False,5,1.05
-370,Jalen Stroman,Notre Dame,S,Jalen Stroman,Notre Dame,S,570402,active,999,False,5,1.05
-372,West Weeks,LSU,ILB,West Weeks,LSU,LB,510761,active,999,False,5,1.0
-376,Jalen McMurray,Tennessee,CB,Jalen McMurray,Tennessee,DB,,active,999,False,4,1.0
-379,Miles Kitselman,Tennessee,TE,Miles Kitselman,Tennessee,TE,,active,999,False,4,1.05
-387,Omari Evans,Washington,WR,Omari Evans,Washington,WR,586339,active,999,False,5,1.05
-389,Josh Thompson,LSU,OG,Josh Thompson,LSU,OL,489195,active,999,False,5,1.0
-391,Wade Woodaz,Clemson,OLB,Wade Woodaz,Clemson,LB,360000,active,999,False,5,1.0
-407,Noah Thomas,Georgia,WR,Noah Thomas,Georgia,WR,568278,active,999,False,2,1.05
-413,Kam Dewberry,Alabama,OG,Kam Dewberry,Alabama,OL,560444,active,999,False,5,1.0
-430,Geno VanDeMark,Alabama,OG,Geno VanDeMark,Alabama,OL,,active,999,False,5,1.0
-432,Star Thomas,Tennessee,RB,Star Thomas,Tennessee,RB,,active,999,False,4,1.05
-433,Chris Hilton Jr.,LSU,WR,Chris Hilton Jr.,LSU,WR,205920,active,999,False,5,1.05
-436,Jaylon Guilbeau,Texas,CBN,Jaylon Guilbeau,Texas,DB,108000,active,999,False,5,1.0
-441,DeVonta Smith,Notre Dame,CB,DeVonta Smith,Notre Dame,CB,471414,active,999,False,5,1.05
-444,Brett Thorson,Georgia,P,Brett Thorson,Georgia,P,97200,active,999,False,5,1.05
-451,DeCarlos Nicholson,USC,CB,DeCarlos Nicholson,USC,CB,569568,active,999,False,,1.05
-467,Nic Anderson,LSU,WR,Nic Anderson,LSU,WR,,departed_transfer,999,False,5,1.05
-469,Dominic Zvada,Michigan,PK,Dominic Zvada,Michigan,PK,360000,active,999,False,,1.05
-480,Keelan Marion,Miami (FL),WR,Keelan Marion,Miami,WR,576000,active,999,False,5,1.05
-501,Ethan Onianwa,Ohio State,OG,Ethan Onianwa,Ohio State,OT,716549,active,999,False,5,1.0
-503,D.J. Harvey,USC,CBN,DJ Harvey,USC,CB,189412,active,999,False,5,1.0
-510,Keeshawn Silver,USC,DL1T,Keeshawn Silver,USC,DT,598417,active,999,False,5,1.0
-517,Dominic Bailey,Tennessee,DL5T,Dominic Bailey,Tennessee,DL,,active,999,False,4,1.0
-518,Beau Gardner,Georgia,LS,Beau Gardner,Georgia,LS,97200,active,999,False,5,1.05
-523,Luke Basso,Oregon,LS,Luke Basso,Oregon,LS,90000,active,999,False,,1.05
-527,Derek Simmons,Oklahoma,OT,Derek Simmons,Oklahoma,OL,450000,active,999,False,2,1.0
-542,Cash Jones,Georgia,RB,Cash Jones,Georgia,RB,39815,active,999,False,5,1.05
-551,John Ferlmann,Ohio State,LS,John Ferlmann,Ohio State,LS,31499,active,999,False,,1.05
-559,Jared Dawson,Notre Dame,DL3T,Jared Dawson,Notre Dame,DL,172800,active,999,False,5,1.0
-562,Josh McCray,Georgia,RB,Josh McCray,Georgia,RB,66604,active,999,False,5,1.05
-564,Theran Johnson,Oregon,CB,Theran Johnson,Oregon,DB,518870,active,999,False,5,1.0
-565,Rocco Underwood,Florida,LS,Rocco Underwood,Florida,LS,112116,active,999,False,5,1.05
-566,Damon Payne Jr.,Michigan,DL1T,Damon Payne,Michigan,DL,245593,active,999,False,5,0.88
-571,Jacobian Guillory II,LSU,DL1T,Jacobian Guillory II,LSU,DT,591805,active,999,False,5,1.0
-576,Giovanni El-Hadi,Michigan,OG,Giovanni El-Hadi,Michigan,OL,547542,active,999,False,5,1.0
-596,Noah Burnette,Notre Dame,PK,Noah Burnette,Notre Dame,PK,105000,active,999,False,,1.05
+37,Blake Miller,Clemson,OT,Blake Miller,Clemson,OL,,departed_draft,29,False,5,1.0
+38,C.J. Allen,Georgia,OLB,CJ Allen,Georgia,LB,,departed_draft,30,False,3,1.0
+39,Christen Miller,Georgia,DL1T,Christen Miller,Georgia,DL,,departed_draft,41,False,5,1.0
+40,Gabe Jacas,Illinois,EDGE,Gabe Jacas,Illinois,EDGE,,active,999,False,4,1.05
+41,Kayden McDonald,Ohio State,DL1T,Kayden McDonald,Ohio State,DT,,active,999,False,3,1.0
+42,Eli Stowers,Vanderbilt,TE,Eli Stowers,Vanderbilt,TE,,active,999,False,4,1.05
+43,Anthony Hill Jr.,Texas,ILB,Anthony Hill Jr.,Texas,LB,,departed_draft,42,False,4,1.0
+44,Emmanuel Pregnon,Oregon,OG,Emmanuel Pregnon,Oregon,OL,,departed_draft,44,False,,1.0
+45,D'Angelo Ponds,Indiana,CBN,D'Angelo Ponds,Indiana,CB,,active,999,False,3,1.0
+46,R Mason Thomas,Oklahoma,EDGE,R Mason Thomas,Oklahoma,EDGE,,active,999,False,4,1.05
+47,Keionte Scott,Miami (FL),CB,Keionte Scott,Miami,DB,,departed_draft,59,False,5,1.0
+48,Malachi Lawrence,UCF,EDGE,Malachi Lawrence,UCF,EDGE,,active,999,False,4,1.05
+49,Caleb Banks,Florida,DL1T,Caleb Banks,Florida,DL,,departed_draft,34,False,5,1.0
+50,Jadarian Price,Notre Dame,RB,Jadarian Price,Notre Dame,RB,,departed_draft,46,False,5,1.05
+51,Germie Bernard,Alabama,WR,Germie Bernard,Alabama,WR,,departed_draft,50,False,5,1.05
+52,Dani Dennis-Sutton,Penn State,EDGE,Dani Dennis-Sutton,Penn State,EDGE,,active,999,False,4,1.05
+53,Keith Abney II,Arizona State,CBN,Keith Abney II,Arizona State,CB,770000,active,999,False,3,1.0
+54,Zion Young,Missouri,EDGE,Zion Young,Missouri,EDGE,,active,999,False,4,1.05
+55,Jacob Rodriguez,Texas Tech,ILB,Jacob Rodriguez,Texas Tech,LB,,active,999,False,4,1.0
+56,Jake Golday,Cincinnati,OLB,Jake Golday,Cincinnati,LB,,active,999,False,4,1.0
+57,Chase Bisontis,Texas A&M,OG,Chase Bisontis,Texas A&M,G,396577,active,999,False,3,1.0
+58,Max Klare,Ohio State,TE,Max Klare,Ohio State,TE,,departed_draft,72,False,5,1.05
+59,Derrick Moore,Michigan,EDGE,Derrick Moore,Michigan,EDGE,,departed_draft,64,False,5,1.05
+60,Chris Bell,Louisville,WR,Chris Bell,Louisville,WR,,active,999,False,4,1.05
+61,Kamari Ramsey,USC,S,Kamari Ramsey,USC,S,,departed_draft,77,False,5,1.05
+62,Mike Washington Jr.,Arkansas,RB,Mike Washington Jr.,Arkansas,RB,,active,999,False,4,1.05
+63,Chris Brazzell II,Tennessee,WR,Chris Brazzell II,Tennessee,WR,,departed_draft,999,False,3,1.05
+64,Gennings Dunker,Iowa,OG,Gennings Dunker,Iowa,OT,,active,999,False,4,1.0
+65,Domonique Orange,Iowa State,DL1T,Domonique Orange,Iowa State,DT,827999,active,999,False,4,1.0
+66,Davison Igbinosun,Ohio State,CB,Davison Igbinosun,Ohio State,CB,,active,999,False,4,1.05
+67,Gracen Halton,Oklahoma,DL3T,Gracen Halton,Oklahoma,DL,,departed_draft,83,False,5,1.0
+68,Malik Muhammad,Texas,CB,Malik Muhammad,Texas,DB,,departed_draft,81,False,4,1.0
+69,Caleb Tiernan,Northwestern,OT,Caleb Tiernan,Northwestern,OT,,active,999,False,4,1.05
+71,Romello Height,Texas Tech,EDGE,Romello Height,Texas Tech,EDGE,,active,999,False,4,1.05
+72,Elijah Sarratt,Indiana,WR,Elijah Sarratt,Indiana,WR,,active,999,False,4,1.05
+73,Keylan Rutledge,Georgia Tech,OG,Keylan Rutledge,Georgia Tech,G,764749,active,999,False,4,1.0
+74,Antonio Williams,Clemson,WR,Antonio Williams,Clemson,WR,,departed_draft,62,False,5,1.05
+75,Josiah Trotter,Missouri,ILB,Josiah Trotter,Missouri,LB,,active,999,False,2,1.0
+76,Zachariah Branch,Georgia,WR,Zachariah Branch,Georgia,WR,,departed_draft,56,False,4,1.05
+77,Malachi Fields,Notre Dame,WR,Malachi Fields,Notre Dame,WR,,departed_draft,69,False,5,1.05
+78,Tacario Davis,Washington,CB,Tacario Davis,Washington,CB,,departed_draft,81,False,5,1.05
+79,Jalen Farmer,Kentucky,OG,Jalen Farmer,Kentucky,G,,active,999,False,3,1.0
+80,Darrell Jackson Jr.,Florida State,DL3T,Darrell Jackson Jr.,Florida State,DT,869399,active,999,False,4,1.0
+81,Treydan Stukes,Arizona,S,Treydan Stukes,Arizona,S,,active,999,False,4,1.05
+82,Kyle Louis,Pittsburgh,OLB,Kyle Louis,Pittsburgh,LB,,active,999,False,3,1.0
+83,Sam Hecht,Kansas State,OC,Sam Hecht,Kansas State,C,655500,active,999,False,4,1.0
+84,Garrett Nussmeier,LSU,QB,Garrett Nussmeier,LSU,QB,,departed_draft,82,False,5,1.05
+85,Connor Lew,Auburn,OC,Connor Lew,Auburn,C,,active,999,False,3,1.0
+86,Zane Durant,Penn State,DL3T,Zane Durant,Penn State,DT,,active,999,False,4,1.0
+87,A.J. Haulcy,LSU,S,A.J. Haulcy,LSU,S,,departed_draft,51,False,5,1.05
+88,Drew Allar,Penn State,QB,Drew Allar,Penn State,QB,,active,999,False,4,1.05
+89,Sam Roush,Stanford,TE,Sam Roush,Stanford,TE,,active,999,False,4,1.05
+90,Jake Slaughter,Florida,OC,Jake Slaughter,Florida,OL,,departed_draft,98,False,5,1.0
+92,Bud Clark,TCU,S,Bud Clark,TCU,S,,active,999,False,4,1.05
+93,Keyron Crawford,Auburn,EDGE,Keyron Crawford,Auburn,EDGE,,active,999,False,4,1.05
+94,Deion Burks,Oklahoma,WRS,Deion Burks,Oklahoma,WR,,departed_draft,88,False,5,1.0
+95,Julian Neal,Arkansas,CB,Julian Neal,Arkansas,CB,,active,999,False,4,1.05
+96,Logan Jones,Iowa,OC,Logan Jones,Iowa,C,,active,999,False,4,1.0
+97,Jaishawn Barham,Michigan,EDGE,Jaishawn Barham,Michigan,LB,,departed_draft,108,False,5,1.0
+98,Daylen Everette,Georgia,CB,Daylen Everette,Georgia,DB,,departed_draft,113,False,5,1.0
+99,Zakee Wheatley,Penn State,S,Zakee Wheatley,Penn State,S,,active,999,False,4,1.05
+100,Rayshaun Benny,Michigan,DL3T,Rayshaun Benny,Michigan,DL,,departed_draft,104,False,5,1.0
+101,Emmett Johnson,Nebraska,RB,Emmett Johnson,Nebraska,RB,,active,999,False,3,1.05
+102,Jonah Coleman,Washington,RB,Jonah Coleman,Washington,RB,,active,999,False,4,1.05
+103,De'Zhaun Stribling,Ole Miss,WR,De'Zhaun Stribling,Ole Miss,WR,,active,999,False,4,1.05
+106,Justin Joly,NC State,TE,Justin Joly,NC State,TE,,active,999,False,4,1.05
+107,Keyshaun Elliott,Arizona State,ILB,Keyshaun Elliott,Arizona State,LB,448499,active,999,False,4,1.0
+108,Markel Bell,Miami (FL),OT,Markel Bell,Miami,OL,,departed_draft,112,False,1,1.0
+109,Carson Beck,Miami (FL),QB,Carson Beck,Miami,QB,,departed_draft,94,False,5,1.05
+111,Joshua Josephs,Tennessee,EDGE,Joshua Josephs,Tennessee,DL,,departed_draft,999,False,4,1.0
+112,Chandler Rivers,Duke,CBN,Chandler Rivers,Duke,CB,,active,999,False,4,1.0
+113,Michael Taaffe,Texas,S,Michael Taaffe,Texas,DB,,departed_draft,119,False,,1.0
+114,Taylen Green,Arkansas,QB,Taylen Green,Arkansas,QB,,active,999,False,4,1.05
+115,Billy Schrauth,Notre Dame,OG,Billy Schrauth,Notre Dame,OL,,departed_draft,121,False,5,1.0
+116,Austin Barber,Florida,OT,Austin Barber,Florida,OL,,active,107,False,5,1.0
+117,Dametrious Crownover,Texas A&M,OT,Dametrious Crownover,Texas A&M,OT,1269600,active,999,False,4,1.05
+118,Chris McClellan,Missouri,DL3T,Chris McClellan,Missouri,DT,,active,999,False,4,1.0
+119,Kaytron Allen,Penn State,RB,Kaytron Allen,Penn State,RB,,active,999,False,4,1.05
+120,Jalon Kilgore,South Carolina,S,Jalon Kilgore,South Carolina,DB,,departed_draft,999,False,3,1.0
+121,Ja'Kobi Lane,USC,WR,Ja'Kobi Lane,USC,WR,,departed_draft,95,False,4,1.05
+123,Brian Parker II,Duke,OC,Brian Parker II,Duke,G,,active,999,False,3,1.0
+124,Brenen Thompson,Mississippi State,WRS,Brenen Thompson,Mississippi State,WR,,active,999,False,4,1.0
+125,L.T. Overton,Alabama,DL5T,LT Overton,Alabama,DL,,departed_draft,86,False,5,1.0
+126,Albert Regis,Texas A&M,DL3T,Albert Regis,Texas A&M,DT,856979,active,999,False,4,1.0
+127,Oscar Delp,Georgia,TE,Oscar Delp,Georgia,TE,,departed_draft,999,False,5,1.05
+128,Devin Moore,Florida,CB,Devin Moore,Florida,DB,,departed_draft,93,False,5,1.0
+129,Seth McGowan,Kentucky,RB,Seth McGowan,Kentucky,RB,,active,999,False,4,1.05
+130,Cade Klubnik,Clemson,QB,Cade Klubnik,Clemson,QB,,departed_draft,137,False,5,1.05
+131,Tim Keenan III,Alabama,DL1T,Tim Keenan III,Alabama,DL,,departed_draft,139,False,,1.0
+132,Bryce Boettcher,Oregon,ILB,Bryce Boettcher,Oregon,LB,,active,999,False,4,1.0
+133,Tyler Onyedim,Texas A&M,DL5T,Tyler Onyedim,Texas A&M,DT,952199,active,999,False,4,1.0
+134,Jude Bowry,Boston College,OT,Jude Bowry,Boston College,OT,,active,999,False,3,1.05
+135,Max Llewellyn,Iowa,EDGE,Max Llewellyn,Iowa,EDGE,,active,999,False,4,1.05
+136,V.J. Payne,Kansas State,S,VJ Payne,Kansas State,S,621000,active,999,False,4,1.05
+137,Will Lee III,Texas A&M,CB,Will Lee III,Texas A&M,CB,793499,active,999,False,4,1.05
+138,Trey Zuhn III,Texas A&M,OC,Trey Zuhn III,Texas A&M,C,879462,active,999,False,4,1.0
+139,Nick Singleton,Penn State,RB,Nicholas Singleton,Penn State,RB,,active,999,False,4,0.863
+140,Demond Claiborne,Wake Forest,RB,Demond Claiborne,Wake Forest,RB,,active,999,False,4,1.05
+141,Nick Barrett,South Carolina,DL3T,Nick Barrett,South Carolina,DL,,departed_draft,999,False,4,1.0
+143,Jalen Huskey,Maryland,S,Jalen Huskey,Maryland,CB,,active,999,False,4,1.0
+144,Isaiah World,Oregon,OT,Isaiah World,Oregon,OL,,departed_draft,138,False,5,1.0
+145,Kaleb Elarms-Orr,TCU,OLB,Kaleb Elarms-Orr,TCU,LB,,active,999,False,4,1.0
+147,Michael Trigg,Baylor,TE,Michael Trigg,Baylor,TE,,active,999,False,4,1.05
+149,J.C. Davis,Illinois,OT,J.C. Davis,Illinois,OT,,active,999,False,4,1.05
+150,Jadon Canady,Oregon,CBN,Jadon Canady,Oregon,DB,,departed_draft,999,False,5,1.0
+151,DeShon Singleton,Nebraska,S,DeShon Singleton,Nebraska,S,,active,999,False,4,1.05
+152,Harold Perkins Jr.,LSU,OLB,Harold Perkins Jr.,LSU,LB,,departed_draft,129,False,5,1.0
+153,Anthony Lucas,USC,EDGE,Anthony Lucas,USC,DE,,departed_draft,103,False,5,1.0
+154,Deontae Lawson,Alabama,ILB,Deontae Lawson,Alabama,LB,,active,999,False,4,1.0
+155,Taurean York,Texas A&M,ILB,Taurean York,Texas A&M,LB,575575,active,999,False,3,1.0
+156,Reggie Virgil,Texas Tech,WR,Reggie Virgil,Texas Tech,WR,,active,999,False,4,1.05
+157,DeMonte Capehart,Clemson,DL3T,DeMonte Capehart,Clemson,DT,,departed_draft,160,False,5,1.0
+158,Bishop Fitzgerald,USC,S,Bishop Fitzgerald,USC,S,,departed_draft,162,False,,1.05
+159,Kevin Coleman Jr.,Missouri,WR,Kevin Coleman Jr.,Missouri,WR,,active,999,False,4,1.05
+160,Jack Endries,Texas,TE,Jack Endries,Texas,TE,,departed_draft,123,False,,1.05
+161,Parker Brailsford,Alabama,OC,Parker Brailsford,Alabama,C,,active,999,False,3,1.0
+162,Keagen Trost,Missouri,OT,Keagen Trost,Missouri,OT,,active,999,False,4,1.05
+163,Tyreak Sapp,Florida,EDGE,Tyreak Sapp,Florida,EDGE,,departed_draft,125,False,5,1.05
+164,Diego Pounds,Ole Miss,OT,Diego Pounds,Ole Miss,OT,,active,999,False,4,1.05
+165,Wesley Bailey,Louisville,EDGE,Wesley Bailey,Louisville,EDGE,,active,999,False,4,1.05
+167,Nate Boerkircher,Texas A&M,TE,Nate Boerkircher,Texas A&M,TE,236396,active,999,False,4,1.05
+168,Dallen Bentley,Utah,TE,Dallen Bentley,Utah,TE,,active,999,False,4,1.05
+169,Logan Fano,Utah,EDGE,Logan Fano,Utah,EDGE,,active,999,False,3,1.05
+170,Marlin Klein,Michigan,TE,Marlin Klein,Michigan,TE,,active,999,False,4,1.05
+171,Jeff Caldwell,Cincinnati,WR,Jeff Caldwell,Cincinnati,WR,,active,999,False,4,1.05
+172,Dontay Corleone,Cincinnati,DL1T,Dontay Corleone,Cincinnati,DT,,active,999,False,4,1.0
+173,Eli Raridon,Notre Dame,TE,Eli Raridon,Notre Dame,TE,,departed_draft,151,False,5,1.05
+174,Le'Veon Moss,Texas A&M,RB,Le'Veon Moss,Texas A&M,RB,740600,active,999,False,4,1.05
+175,Jeremiah Wright,Auburn,OG,Jeremiah Wright,Auburn,G,,active,999,False,4,1.0
+176,Caden Curry,Ohio State,EDGE,Caden Curry,Ohio State,DE,,departed_draft,170,False,5,1.0
+177,Drew Shelton,Penn State,OT,Drew Shelton,Penn State,OT,,active,999,False,4,1.05
+178,Ephesians Prysock,Washington,CB,Ephesians Prysock,Washington,CB,,departed_draft,999,False,5,1.05
+179,Mason Reiger,Wisconsin,EDGE,Mason Reiger,Wisconsin,EDGE,,active,999,False,4,1.05
+180,Toriano Pride Jr.,Missouri,CBN,Toriano Pride Jr.,Missouri,CB,,active,999,False,4,1.0
+181,Jack Kelly,BYU,OLB,Jack Kelly,BYU,LB,,active,999,False,4,1.0
+182,Joe Royer,Cincinnati,TE,Joe Royer,Cincinnati,TE,,active,999,False,4,1.05
+184,Ar'Maj Reed-Adams,Texas A&M,OG,Ar'maj Reed-Adams,Texas A&M,G,879462,active,999,False,4,1.0
+185,Colbie Young,Georgia,WR,Colbie Young,Georgia,WR,,active,999,False,5,1.05
+186,Jimmy Rolder,Michigan,ILB,Jimmy Rolder,Michigan,LB,,departed_draft,999,False,5,1.0
+187,J'Mari Taylor,Virginia,RB,J'Mari Taylor,Virginia,RB,,active,999,False,4,1.05
+188,Zxavian Harris,Ole Miss,DL1T,Zxavian Harris,Ole Miss,DT,,active,999,False,4,1.0
+189,Louis Moore,Indiana,S,Louis Moore,Indiana,S,,active,999,False,4,1.05
+190,Jordan van den Berg,Georgia Tech,DL3T,Jordan van den Berg,Georgia Tech,DL,827999,active,999,False,4,1.0
+191,Domani Jackson,Alabama,CB,Domani Jackson,Alabama,DB,,departed_draft,134,False,5,1.0
+192,Aiden Fisher,Indiana,ILB,Aiden Fisher,Indiana,LB,,active,999,False,4,1.0
+193,Riley Nowakowski,Indiana,TE,Riley Nowakowski,Indiana,TE,,active,999,False,4,1.05
+194,D.J. Campbell,Texas,OG,DJ Campbell,Texas,OL,,departed_draft,135,False,5,1.0
+196,Skyler Gill-Howard,Texas Tech,DL5T,Skyler Gill-Howard,Texas Tech,DT,,active,999,False,4,1.0
+197,Febechi Nwaiwu,Oklahoma,OG,Febechi Nwaiwu,Oklahoma,OL,,departed_draft,999,False,,1.0
+198,Jager Burton,Kentucky,OC,Jager Burton,Kentucky,C,,active,999,False,4,1.0
+199,Lander Barton,Utah,ILB,Lander Barton,Utah,LB,,active,999,False,4,1.0
+200,Josh Cuevas,Alabama,TE,Josh Cuevas,Alabama,TE,,departed_draft,999,False,3,1.05
+201,Jaeden Roberts,Alabama,OG,Jaeden Roberts,Alabama,OL,,active,172,False,5,1.0
+202,Kaelon Black,Indiana,RB,Kaelon Black,Indiana,RB,,active,999,False,4,1.05
+203,Logan Taylor,Boston College,OG,Logan Taylor,Boston College,G,,active,999,False,4,1.0
+204,Aamil Wagner,Notre Dame,OT,Aamil Wagner,Notre Dame,OL,,departed_draft,999,False,5,1.0
+206,C.J. Daniels,Miami (FL),WR,CJ Daniels,Miami,WR,,departed_draft,116,False,5,1.05
+207,Adam Randall,Clemson,RB,Adam Randall,Clemson,RB,,active,999,False,4,1.05
+208,Josh Cameron,Baylor,WR,Josh Cameron,Baylor,WR,,active,999,False,4,1.05
+209,Micah Morris,Georgia,OG,Micah Morris,Georgia,OL,,departed_draft,166,False,5,1.0
+210,Pat Coogan,Indiana,OC,Pat Coogan,Indiana,C,,active,999,False,4,1.0
+211,Patrick Payton,LSU,EDGE,Patrick Payton,LSU,DE,,departed_draft,999,False,5,1.0
+212,Kendrick Law,Kentucky,WR,Kendrick Law,Kentucky,WR,,active,999,False,4,1.05
+213,Sawyer Robertson,Baylor,QB,Sawyer Robertson,Baylor,QB,,active,999,False,4,1.05
+214,Trey Moore,Texas,EDGE,Trey Moore,Texas,LB,,departed_draft,999,False,5,1.0
+215,Dae'Quan Wright,Ole Miss,TE,Dae'Quan Wright,Ole Miss,TE,,active,999,False,4,1.05
+216,Malik Benson,Oregon,WR,Malik Benson,Oregon,WR,,departed_draft,999,False,1,1.05
+217,Quintayvious Hutchins,Boston College,EDGE,Quintayvious Hutchins,Boston College,EDGE,,active,999,False,4,1.05
+218,Vincent Anthony,Duke,EDGE,Vincent Anthony Jr.,Duke,EDGE,,active,999,False,4,0.959
+219,Beau Stephens,Iowa,OG,Beau Stephens,Iowa,G,,active,999,False,4,1.0
+220,Rene Konga,Louisville,DL5T,Rene Konga,Louisville,DT,,active,999,False,4,1.0
+221,Lorenzo Styles Jr.,Ohio State,S,Lorenzo Styles Jr.,Ohio State,CB,,departed_draft,168,False,5,1.0
+222,Thaddeus Dixon,North Carolina,CB,Thaddeus Dixon,North Carolina,CB,,active,999,False,4,1.05
+223,Justin Jefferson,Alabama,ILB,Justin Jefferson,Alabama,LB,,departed_draft,999,False,5,1.0
+224,Caleb Douglas,Texas Tech,WR,Caleb Douglas,Texas Tech,WR,,active,999,False,4,1.05
+225,Ethan Burke,Texas,EDGE,Ethan Burke,Texas,LB,,departed_draft,999,False,5,1.0
+226,Roman Hemby,Indiana,RB,Roman Hemby,Indiana,RB,,active,999,False,4,1.05
+227,Fa'alili Fa'amoe,Wake Forest,OT,Fa'alili Fa'amoe,Wake Forest,OT,,active,999,False,4,1.05
+228,Collin Wright,Stanford,CB,Collin Wright,Stanford,CB,,active,999,False,4,1.05
+229,Matt Gulbin,Michigan State,OC,Matt Gulbin,Michigan State,C,802987,active,999,False,4,1.0
+230,Owen Heinecke,Oklahoma,ILB,Owen Heinecke,Oklahoma,LB,,departed_draft,999,False,,1.0
+231,Max Bredeson,Michigan,FB,Max Bredeson,Michigan,TE,,departed_draft,999,False,,1.0
+232,Cameron Ball,Arkansas,DL3T,Cameron Ball,Arkansas,DT,,active,999,False,4,1.0
+233,Jaydn Ott,Oklahoma,RB,Jaydn Ott,Oklahoma,RB,,departed_draft,999,False,5,1.05
+234,Eric McAlister,TCU,WR,Eric McAlister,TCU,WR,,active,999,False,4,1.05
+235,Alex Harkey,Oregon,OG,Alex Harkey,Oregon,OL,,departed_draft,999,False,,1.0
+236,T.J.Hall,Iowa,CB,TJ Hall,Iowa,CB,,active,999,False,4,0.973
+237,Deven Eastern,Minnesota,DL1T,Deven Eastern,Minnesota,DT,,active,999,False,4,1.0
+238,Zach Durfee,Washington,EDGE,Zach Durfee,Washington,EDGE,,departed_draft,999,False,,1.05
+240,Eric Rivers,Georgia Tech,WRS,Eric Rivers,Georgia Tech,WR,758999,active,999,False,4,1.0
+241,Fernando Carmona Jr.,Arkansas,OG,Fernando Carmona,Arkansas,G,,active,999,False,4,0.914
+242,Jalon Daniels,Kansas,QB,Jalon Daniels,Kansas,QB,,active,999,False,4,1.05
+243,Tanner Koziol,Houston,TE,Tanner Koziol,Houston,TE,,active,999,False,4,1.05
+244,Bryson Eason,Tennessee,DL1T,Bryson Eason,Tennessee,DL,,departed_draft,999,False,4,1.0
+246,Jakobe Thomas,Miami (FL),S,Jakobe Thomas,Miami,DB,,departed_draft,999,False,5,1.0
+247,Anez Cooper,Miami (FL),OG,Anez Cooper,Miami,OL,,departed_draft,999,False,5,1.0
+248,Mikail Kamara,Indiana,EDGE,Mikail Kamara,Indiana,EDGE,,active,999,False,4,1.05
+249,George Gumbs,Florida,EDGE,George Gumbs Jr.,Florida,EDGE,,departed_draft,999,False,5,0.939
+250,Luke Altmyer,Illinois,QB,Luke Altmyer,Illinois,QB,,active,999,False,4,1.05
+251,David Gusta,Kentucky,DL3T,David Gusta,Kentucky,DT,,active,999,False,4,1.0
+252,Will Kacmarek,Ohio State,TE,Will Kacmarek,Ohio State,TE,,departed_draft,999,False,,1.05
+253,Jam Miller,Alabama,RB,Jam Miller,Alabama,RB,,departed_draft,999,False,5,1.05
+255,Enrique Cruz Jr.,Kansas,OT,Enrique Cruz Jr.,Kansas,OT,,active,999,False,4,1.05
+256,Noah Whittington,Oregon,RB,Noah Whittington,Oregon,RB,,departed_draft,999,False,5,1.05
+257,Diego Pavia,Vanderbilt,QB,Diego Pavia,Vanderbilt,QB,,active,999,False,4,1.05
+258,Cyrus Allen,Cincinnati,WR,Cyrus Allen,Cincinnati,WR,,active,999,False,4,1.05
+259,Xavier Nwankpa,Iowa,S,Xavier Nwankpa,Iowa,S,,active,999,False,4,1.05
+260,Rahsul Faison,South Carolina,RB,Rahsul Faison,South Carolina,RB,,departed_draft,999,False,4,1.05
+261,Eric Gentry,USC,OLB,Eric Gentry,USC,LB,,departed_draft,999,False,5,1.0
+262,Xavian Sorey Jr.,Arkansas,OLB,Xavian Sorey Jr.,Arkansas,LB,,active,999,False,4,1.0
+263,J. Michael Sturdivant,Florida,WR,J. Michael Sturdivant,Florida,WR,,active,999,False,4,1.05
+264,Zavion Thomas,LSU,WRS,Zavion Thomas,LSU,WR,,departed_draft,999,False,5,1.0
+265,Aaron Anderson,LSU,WRS,Aaron Anderson,LSU,WR,,departed_draft,999,False,5,1.0
+266,Kendal Daniels,Oklahoma,OLB,Kendal Daniels,Oklahoma,LB,,departed_draft,999,False,5,1.0
+267,Bryan Thomas Jr.,South Carolina,EDGE,Bryan Thomas Jr.,South Carolina,LB,,departed_draft,999,False,4,1.0
+268,Kaden Wetjen,Iowa,WRS,Kaden Wetjen,Iowa,WR,,active,999,False,4,1.0
+269,Carver Willis,Washington,OT,Carver Willis,Washington,OL,,departed_draft,999,False,,1.0
+270,Brandon Cleveland,NC State,DL3T,Brandon Cleveland,NC State,DT,,active,999,False,4,1.0
+271,Cian Slone,NC State,EDGE,Cian Slone,NC State,EDGE,,active,999,False,4,1.05
+272,Haynes King,Georgia Tech,QB,Haynes King,Georgia Tech,QB,,departed_draft,999,False,4,1.05
+274,Aaron Graves,Iowa,DL3T,Aaron Graves,Iowa,DT,,active,999,False,4,1.0
+275,Karson Sharar,Iowa,ILB,Karson Sharar,Iowa,LB,,active,999,False,4,1.0
+276,Chase Roberts,BYU,WR,Chase Roberts,BYU,WR,,active,999,False,4,1.05
+277,James Thompson Jr.,Illinois,DL3T,James Thompson Jr.,Illinois,DT,,active,999,False,4,1.0
+278,Ceyair Wright,Nebraska,CB,Ceyair Wright,Nebraska,CB,,active,999,False,4,1.05
+279,Gary Smith III,UCLA,DL1T,Gary Smith III,UCLA,DT,,active,999,False,4,1.0
+280,Larry Worth III,Arkansas,S,Larry Worth III,Arkansas,S,,active,999,False,4,1.05
+282,Harrison Wallace III,Ole Miss,WR,Harrison Wallace III,Ole Miss,WR,,active,999,False,4,1.05
+285,Robert Spears-Jennings,Oklahoma,S,Robert Spears-Jennings,Oklahoma,DB,,departed_draft,999,False,5,1.0
+286,Nolan Rucci,Penn State,OT,Nolan Rucci,Penn State,OL,,active,999,False,4,1.0
+287,Jack Dingle,Cincinnati,ILB,Jack Dingle,Cincinnati,LB,,active,999,False,4,1.0
+288,Ahmari Harvey,Georgia Tech,CB,Ahmari Harvey,Georgia Tech,CB,690000,active,999,False,4,1.05
+290,Evan Beerntsen,Northwestern,OG,Evan Beerntsen,Northwestern,G,,active,999,False,4,1.0
+291,Ernest Hausmann,Michigan,OLB,Ernest Hausmann,Michigan,LB,,active,999,False,4,1.0
+293,Ethan Hurkett,Iowa,EDGE,Ethan Hurkett,Iowa,DL,,active,999,False,4,1.0
+294,Wade Woodaz,Clemson,OLB,Wade Woodaz,Clemson,LB,,departed_draft,999,False,5,1.0
+295,Namdi Obiazor,TCU,OLB,Namdi Obiazor,TCU,LB,,active,999,False,4,1.0
+296,Michael Coats Jr.,West Virginia,CBN,Michael Coats Jr.,West Virginia,CB,,active,999,False,4,1.0
+297,Eric O'Neill,Rutgers,EDGE,Eric O'Neill,Rutgers,EDGE,,active,999,False,4,1.05
+298,Tristan Leigh,Clemson,OT,Tristan Leigh,Clemson,OL,,departed_draft,999,False,5,1.0
+299,Scooby Williams,Texas A&M,ILB,Scooby Williams,Texas A&M,LB,464197,active,999,False,4,1.0
+300,Jordan Hudson,SMU,WR,Jordan Hudson,SMU,WR,,active,999,False,4,1.05
+301,Latrell McCutchin Sr.,Houston,CB,Latrell McCutchin Sr.,Houston,CB,,active,999,False,4,1.05
+302,Wes Pahl,Oklahoma State,P,Wes Pahl,Oklahoma State,P,114999,active,999,False,4,1.05
+303,Caullin Lacy,Louisville,WRS,Caullin Lacy,Louisville,WR,,active,999,False,4,1.0
+306,D.J. Rogers,TCU,TE,DJ Rogers,TCU,TE,,active,999,False,4,1.05
+307,Cole Brevard,Texas,DL1T,Cole Brevard,Texas,DL,,departed_draft,999,False,5,1.0
+308,Alan Herron,Maryland,OT,Alan Herron,Maryland,OT,,active,999,False,4,1.05
+309,Carsen Ryan,BYU,TE,Carsen Ryan,BYU,TE,,active,999,False,4,1.05
+310,Dalton Johnson,Arizona,S,Dalton Johnson,Arizona,S,,active,999,False,4,1.05
+311,Garrett DiGiorgio,UCLA,OG,Garrett DiGiorgio,UCLA,OT,,active,999,False,4,1.0
+312,T.J. Guy,Michigan,EDGE,TJ Guy,Michigan,EDGE,,departed_draft,999,False,5,1.05
+313,Mitchell Melton,Virginia,EDGE,Mitchell Melton,Virginia,EDGE,,active,999,False,4,1.05
+314,R.J. Maryland,SMU,TE,RJ Maryland,SMU,TE,,active,999,False,4,1.05
+316,Vinny Anthony II,Wisconsin,WR,Vinny Anthony II,Wisconsin,WR,,active,999,False,4,1.05
+318,Behren Morton,Texas Tech,QB,Behren Morton,Texas Tech,QB,,active,999,False,4,1.05
+319,Damonic Williams,Oklahoma,DL3T,Damonic Williams,Oklahoma,DL,,departed_draft,999,False,5,1.0
+320,Austin Brown,Wisconsin,S,Austin Brown,Wisconsin,S,,active,999,False,4,1.05
+321,Desmond Reid,Pittsburgh,RB,Desmond Reid,Pittsburgh,RB,,active,999,False,4,1.05
+322,Jack Pyburn,LSU,EDGE,Jack Pyburn,LSU,DE,,departed_draft,999,False,5,1.0
+323,Trebor Pena,Penn State,WR,Trebor Pena,Penn State,WR,,active,999,False,4,1.05
+324,Stephen Daley,Indiana,EDGE,Stephen Daley,Indiana,DL,,active,999,False,4,1.0
+325,Khalil Jacobs,Missouri,OLB,Khalil Jacobs,Missouri,LB,,active,999,False,4,1.0
+326,Wesley Williams,Duke,EDGE,Wesley Williams,Duke,EDGE,,active,999,False,3,1.05
+327,Isaiah Smith,SMU,EDGE,Isaiah Smith,SMU,EDGE,,active,999,False,4,1.05
+328,David Blay Jr.,Miami,DL3T,David Blay Jr.,Miami,DL,,active,999,False,4,1.0
+332,Bauer Sharp,LSU,TE,Bauer Sharp,LSU,TE,,departed_draft,999,False,,1.05
+333,Ben Bell,Virginia Tech,EDGE,Ben Bell,Virginia Tech,EDGE,,active,999,False,4,1.05
+335,Riley Mahlman,Wisconsin,OT,Riley Mahlman,Wisconsin,OT,,active,999,False,4,1.05
+336,Anterio Thompson,Washington,DL3T,Anterio Thompson,Washington,DL,,departed_draft,999,False,4,1.0
+337,Barion Brown,LSU,WR,Barion Brown,LSU,WR,,departed_draft,999,False,5,1.05
+338,C.J. Donaldson,Ohio State,RB,CJ Donaldson,Ohio State,RB,,departed_draft,999,False,5,1.05
+339,Emmanuel Henderson,Kansas,WR,Emmanuel Henderson Jr.,Kansas,WR,,active,999,False,4,0.973
+340,Jordan White,Vanderbilt,OC,Jordan White,Vanderbilt,OL,,active,999,False,4,1.0
+341,Kobe Baynes,Kansas,OG,Kobe Baynes,Kansas,G,,active,999,False,4,1.0
+342,Joey Aguilar,Tennessee,QB,Joey Aguilar,Tennessee,QB,,departed_draft,999,False,4,1.05
+343,Jackie Marshall,Baylor,DL5T,Jackie Marshall,Baylor,DT,,active,999,False,4,1.0
+346,Dillon Bell,Georgia,WR,Dillon Bell,Georgia,WR,,departed_draft,999,False,5,1.05
+347,Mohamed Toure,Miami (FL),ILB,Mohamed Toure,Miami,LB,493350,active,999,False,4,1.0
+348,Jaylon Guilbeau,Texas,CBN,Jaylon Guilbeau,Texas,DB,,departed_draft,999,False,5,1.0
+349,Micah Pettus,Florida State,OT,Micah Pettus,Florida State,OT,1181297,active,999,False,4,1.05
+350,Lake McRee,USC,TE,Lake McRee,USC,TE,,active,999,False,4,1.05
+352,Mory Bamba,BYU,CB,Mory Bamba,BYU,CB,,active,999,False,4,1.05
+353,Athan Kaliakmanis,Rutgers,QB,Athan Kaliakmanis,Rutgers,QB,,active,999,False,4,1.05
+354,Jaren Kanak,Oklahoma,TE,Jaren Kanak,Oklahoma,TE,,departed_draft,999,False,5,1.05
+355,Marcus Allen,North Carolina,CB,Marcus Allen,North Carolina,CB,,active,999,False,4,1.05
+357,Corey Robinson II,Arkansas,OT,Corey Robinson II,Arkansas,OT,,active,999,False,4,1.05
+358,Khalil Dinkins,Penn State,TE,Khalil Dinkins,Penn State,TE,,active,999,False,4,1.05
+359,Dane Key,Nebraska,WR,Dane Key,Nebraska,WR,,active,999,False,4,1.05
+360,Will Pauling,Notre Dame,WRS,Will Pauling,Notre Dame,WR,,departed_draft,999,False,5,1.0
+361,James Brockermeyer,Miami (FL),OC,James Brockermeyer,Miami,OL,,departed_draft,999,False,5,1.0
+362,Aidan Hubbard,Northwestern,EDGE,Aidan Hubbard,Northwestern,EDGE,,active,999,False,4,1.05
+364,Kevin Jobity Jr.,Syracuse,DL3T,Kevin Jobity Jr.,Syracuse,DL,,active,999,False,4,1.0
+366,Tyre West,Tennessee,DL5T,Tyre West,Tennessee,DL,,active,999,False,4,1.0
+367,Josh Gesky,Illinois,OG,Josh Gesky,Illinois,G,,active,999,False,4,1.0
+369,Kody Huisman,Virginia Tech,DL1T,Kody Huisman,Virginia Tech,DT,,active,999,False,4,1.0
+370,Dillon Wade,Auburn,OG,Dillon Wade,Auburn,G,,active,999,False,4,1.0
+371,Jeadyn Lukus,Clemson,CB,Jeadyn Lukus,Clemson,CB,,active,999,False,5,1.05
+372,Joshua Braun,Kentucky,OG,Joshua Braun,Kentucky,G,,active,999,False,4,1.0
+373,Trey Smack,Florida,PK,Trey Smack,Florida,PK,,departed_draft,999,False,5,1.05
+374,Nyjalik Kelly,UCF,EDGE,Nyjalik Kelly,UCF,EDGE,,active,999,False,4,1.05
+375,Dasan McCullough,Nebraska,EDGE,Dasan McCullough,Nebraska,EDGE,,active,999,False,4,1.05
+376,D.Q. Smith,South Carolina,S,DQ Smith,South Carolina,DB,,departed_draft,999,False,4,1.0
+377,Jayden Williams,Ole Miss,OG,Wydett Williams Jr.,Ole Miss,S,,active,999,False,4,0.727
+379,Brent Austin,Cal,CB,Brent Austin,Cal,CB,,active,999,False,,1.05
+380,Dean Conners,Houston,RB,Dean Connors,Houston,RB,,active,999,False,4,0.967
+381,Lewis Bond,Boston College,WR,Lewis Bond,Boston College,WR,,active,999,False,4,1.05
+382,Dan Villari,Syracuse,TE,Dan Villari,Syracuse,TE,,active,999,False,4,1.05
+384,Wesley Bissainthe,Miami (FL),OLB,Wesley Bissainthe,Miami,LB,,departed_draft,999,False,5,1.0
+385,Marvin Jones Jr.,Oklahoma,EDGE,Marvin Jones Jr.,Oklahoma,DL,,departed_draft,999,False,5,1.0
+387,Tommy Doman,Florida,P,Tommy Doman,Florida,P,,departed_draft,999,False,5,1.05
+388,Khordae Sydnor,Vanderbilt,EDGE,Khordae Sydnor,Vanderbilt,DT,,active,999,False,4,1.0
+390,Connor Tollison,Missouri,OC,Connor Tollison,Missouri,C,,active,999,False,4,1.0
+391,Jamal Haynes,Georgia Tech,RB,Jamal Haynes,Georgia Tech,RB,670095,active,999,False,4,1.05
+392,Lance Mason,Wisconsin,TE,Lance Mason,Wisconsin,TE,,active,999,False,4,1.05
+394,Matthew Hibner,SMU,TE,Matthew Hibner,SMU,TE,,active,999,False,4,1.05
+395,Ahmaad Moses,SMU,S,Ahmaad Moses,SMU,S,,active,999,False,4,1.05
+396,Donaven McCulley,Michigan,WR,Donaven McCulley,Michigan,WR,,departed_draft,999,False,5,1.05
+397,Jayden Loving,Wake Forest,DL3T,Jayden Loving,Wake Forest,DL,,active,999,False,4,1.0
+399,Bobby Jamison-Travis,Auburn,DL1T,Bobby Jamison-Travis,Auburn,DT,,active,999,False,,1.0
+400,Jalen Stroman,Notre Dame,S,Jalen Stroman,Notre Dame,S,,departed_draft,999,False,5,1.05
+402,West Weeks,LSU,ILB,West Weeks,LSU,LB,,departed_draft,999,False,5,1.0
+403,Kahlil Benson,Indiana,OT,Kahlil Benson,Indiana,OL,,active,999,False,4,1.0
+404,Jalen McMurray,Tennessee,CB,Jalen McMurray,Tennessee,DB,,departed_draft,999,False,4,1.0
+405,Jaren Kump,Utah,OC,Jaren Kump,Utah,C,,active,999,False,4,1.0
+406,Fred Davis II,Northwestern,CB,Fred Davis II,Northwestern,CB,,active,999,False,,1.05
+407,Miles Kitselman,Tennessee,TE,Miles Kitselman,Tennessee,TE,,departed_draft,999,False,4,1.05
+408,Caden Fordham,NC State,OLB,Caden Fordham,NC State,LB,,active,999,False,4,1.0
+409,Ryan Eckley,Michigan State,P,Ryan Eckley,Michigan State,P,138600,active,999,False,3,1.05
+410,Kolbey Taylor,Vanderbilt,CB,Kolbey Taylor,Vanderbilt,CB,,active,999,False,4,1.05
+411,Desmond Purnell,Kansas State,ILB,Desmond Purnell,Kansas State,LB,449378,active,999,False,4,1.0
+412,Omari Evans,Washington,WR,Omari Evans,Washington,WR,,departed_draft,999,False,5,1.05
+413,Hank Beatty,Illinois,WRS,Hank Beatty,Illinois,WR,,active,999,False,4,1.0
+414,Josh Thompson,LSU,OG,Josh Thompson,LSU,OL,,active,999,False,5,1.0
+415,Seydou Traore,Mississippi State,TE,Seydou Traore,Mississippi State,TE,,active,999,False,4,1.05
+416,Kahlil Saunders,Kentucky,DL3T,Kahlil Saunders,Kentucky,DL,,active,999,False,4,1.0
+417,James Neal,Iowa State,OT,James Neal III,Iowa State,OT,919999,active,999,False,4,0.883
+418,Tanner Arkin,Illinois,TE,Tanner Arkin,Illinois,TE,,active,999,False,4,1.05
+419,Ethan Onianwa,Ohio State,OG,Ethan Onianwa,Ohio State,OT,,departed_draft,999,False,5,1.0
+420,Terion Stewart,Virginia Tech,RB,Terion Stewart,Virginia Tech,RB,,active,999,False,4,1.05
+421,Malik Spencer,Michigan State,S,Malik Spencer,Michigan State,S,593994,active,999,False,4,1.05
+422,Miller Moss,Louisville,QB,Miller Moss,Louisville,QB,,active,999,False,4,1.05
+426,Nick Dawkins,Penn State,OC,Nick Dawkins,Penn State,C,,active,999,False,4,1.0
+429,Nick Andersen,Wake Forest,S,Nick Andersen,Wake Forest,S,,active,999,False,4,1.05
+431,Mark Gronowski,Iowa,QB,Mark Gronowski,Iowa,QB,,active,999,False,4,1.05
+432,Wydett Williams Jr.,Ole Miss,S,Wydett Williams Jr.,Ole Miss,S,,active,999,False,4,1.05
+433,Noah Thomas,Georgia,WR,Noah Thomas,Georgia,WR,,departed_draft,999,False,2,1.05
+434,Stephen Hall,Missouri,CB,Stephen Hall,Missouri,CB,,active,999,False,4,1.05
+436,Ayden Garnes,Arizona,CB,Ayden Garnes,Arizona,CB,,active,999,False,4,1.05
+437,O'Mega Blake,Arkansas,WR,O'Mega Blake,Arkansas,WR,,active,999,False,4,1.05
+438,Xavion Alford,Arizona State,S,Xavion Alford,Arizona State,DB,740930,active,999,False,4,1.0
+439,Jacob De Jesus,Cal,WRS,Jacob De Jesus,Cal,WR,,active,999,False,,1.0
+440,Kam Dewberry,Alabama,OG,Kam Dewberry,Alabama,OL,,departed_draft,999,False,5,1.0
+442,Sebastian Harsh,NC State,EDGE,Sabastian Harsh,NC State,EDGE,,active,999,False,4,0.983
+443,Karon Prunty,Wake Forest,CB,Karon Prunty,Wake Forest,CB,,active,999,False,4,1.05
+444,Joshua Eaton,Michigan State,CB,Joshua Eaton,Michigan State,CB,630426,active,999,False,4,1.05
+447,Derek Simmons,Oklahoma,OT,Derek Simmons,Oklahoma,OL,,departed_draft,999,False,2,1.0
+449,Cole Wisniewski,Texas Tech,S,Cole Wisniewski,Texas Tech,S,,active,999,False,4,1.05
+450,Logan Diggs,Ole Miss,RB,Logan Diggs,Ole Miss,RB,,active,999,False,4,1.05
+451,Davion Carter,Texas Tech,OG,Davion Carter,Texas Tech,G,,active,999,False,4,1.0
+452,Trevonte Sylvester,Louisville,OT,Trevonte Sylvester,Louisville,OT,,active,999,False,4,1.05
+456,Anthony Frias II,UCLA,RB,Anthony Frias II,UCLA,RB,,active,999,False,4,1.05
+459,Drew Biber,Minnesota,TE,Drew Biber,Minnesota,TE,,active,999,False,4,1.05
+460,Clayton Smith,Arizona State,EDGE,Clayton Smith,Arizona State,DE,983064,active,999,False,4,1.0
+461,Jalen Catalon,Missouri,S,Jalen Catalon,Missouri,S,,active,999,False,4,1.05
+462,D.T. Sheffield,Rutgers,WRS,DT Sheffield,Rutgers,WR,,active,999,False,4,1.0
+463,Jack Stonehouse,Syracuse,P,Jack Stonehouse,Syracuse,P,,active,999,False,4,1.05
+464,Bryce Foster,Kansas,OC,Bryce Foster,Kansas,C,,active,999,False,4,1.0
+465,Geno VanDeMark,Alabama,OG,Geno VanDeMark,Alabama,OL,,active,999,False,4,1.0
+466,Clay Patterson,Stanford,EDGE,Clay Patterson,Stanford,DL,,active,999,False,4,1.0
+467,Star Thomas,Tennessee,RB,Star Thomas,Tennessee,RB,,departed_draft,999,False,4,1.05
+468,Cash Jones,Georgia,RB,Cash Jones,Georgia,RB,,departed_draft,999,False,5,1.05
+469,Chris Hilton Jr.,LSU,WR,Chris Hilton Jr.,LSU,WR,,departed_draft,999,False,5,1.05
+470,Isaiah Jatta,BYU,OT,Isaiah Jatta,BYU,OL,,active,999,False,4,1.0
+474,DeVonta Smith,Notre Dame,CB,DeVonta Smith,Notre Dame,CB,,active,999,False,5,1.05
+475,Eddie Walls III,Houston,EDGE,Eddie Walls III,Houston,EDGE,,active,999,False,4,1.05
+477,T.J. Harden,SMU,RB,T.J. Harden,SMU,RB,,active,999,False,4,1.05
+478,Brett Thorson,Georgia,P,Brett Thorson,Georgia,P,,departed_draft,999,False,5,1.05
+480,Rasheed Miller,Louisville,OT,Rasheed Miller,Louisville,G,,active,999,False,4,1.0
+482,Henry Lutovsky,Nebraska,OG,Henry Lutovsky,Nebraska,G,,active,999,False,4,1.0
+483,DeCarlos Nicholson,USC,CB,DeCarlos Nicholson,USC,CB,,departed_draft,999,False,,1.05
+484,Tomas Rimac,Virginia Tech,OG,Tomas Rimac,Virginia Tech,G,,active,999,False,4,1.0
+487,Aaron Hall,Duke,DL3T,Aaron Hall,Duke,DT,,active,999,False,4,1.0
+488,Romello Brinson,SMU,WR,Romello Brinson,SMU,WR,,active,999,False,4,1.05
+489,Clayton Powell-Lee,Georgia Tech,S,Clayton Powell-Lee,Georgia Tech,S,476200,active,999,False,4,1.05
+490,Drew Stevens,Iowa,PK,Drew Stevens,Iowa,PK,,active,999,False,4,1.05
+491,Bruno Fina,Duke,OT,Bruno Fina,Duke,OT,,active,999,False,4,1.05
+492,Jeremiah Franklin,Boston College,TE,Jeremiah Franklin,Boston College,TE,,active,999,False,4,1.05
+493,Omar Aigbedion,Baylor,OG,Omar Aigbedion,Baylor,OL,,active,999,False,4,1.0
+494,Keli Lawson,UCF,OLB,Keli Lawson,UCF,EDGE,,active,999,False,4,1.0
+495,Jameson Geers,Minnesota,TE,Jameson Geers,Minnesota,TE,,active,999,False,4,1.05
+496,Cam Rice,Maryland,DL3T,Cam Rice,Maryland,DL,,active,999,False,4,1.0
+497,Devin Bale,Arkansas,P,Devin Bale,Arkansas,P,,active,999,False,4,1.05
+498,Tyler Duzansky,Penn State,LS,Tyler Duzansky,Penn State,LS,,active,999,False,4,1.05
+499,James Jackson,Virginia,ILB,James Jackson,Virginia,LB,,active,999,False,4,1.0
+500,Kobe Prentice,Baylor,WRS,Kobe Prentice,Baylor,WR,,active,999,False,4,1.0
+501,Dominic Zvada,Michigan,PK,Dominic Zvada,Michigan,PK,,departed_draft,999,False,,1.05
+502,Jack Velling,Michigan State,TE,Jack Velling,Michigan State,TE,474214,active,999,False,4,1.05
+503,Ethan Sanchez,Houston,PK,Ethan Sanchez,Houston,PK,,active,999,False,4,1.05
+504,Tyreek Chappell,Texas A&M,CBN,Tyreek Chappell,Texas A&M,CB,264500,active,999,False,4,1.0
+505,E.J. Williams Jr.,Indiana,WR,E.J. Williams Jr.,Indiana,WR,,active,999,False,4,1.05
+506,Reuben Fatheree II,Texas A&M,OT,Reuben Fatheree II,Texas A&M,OT,952199,active,999,False,4,1.05
+508,Izavion Miller,Auburn,OG,Izavion Miller,Auburn,OT,,active,999,False,4,1.0
+509,Kevin Cline,Boston College,OT,Kevin Cline,Boston College,OL,,active,999,False,4,1.0
+510,Jaden Keller,Virginia Tech,ILB,Jaden Keller,Virginia Tech,LB,,active,999,False,4,1.0
+511,Rocco Spindler,Nebraska,OG,Rocco Spindler,Nebraska,OL,,active,999,False,4,1.0
+512,Daylan Carnell,Missouri,S,Daylan Carnell,Missouri,S,,active,999,False,4,1.05
+513,Gus Zilinskas,Rutgers,OC,Gus Zilinskas,Rutgers,OL,,active,999,False,4,1.0
+514,Keelan Marion,Miami (FL),WR,Keelan Marion,Miami,WR,,departed_draft,999,False,5,1.05
+517,Luke Petitbon,Florida State,OC,Luke Petitbon,Florida State,C,692042,active,999,False,4,1.0
+518,Isaiah Nwokobia,SMU,S,Isaiah Nwokobia,SMU,S,,active,999,False,4,1.05
+522,Jeffrey M'Ba,SMU,DL3T,Jeffrey M'ba,SMU,DT,,active,999,False,4,1.0
+523,Kris Hutson,Arizona,WRS,Kris Hutson,Arizona,WR,,active,999,False,4,1.0
+524,Kapena Gushiken,Ole Miss,S,Kapena Gushiken,Ole Miss,S,,active,999,False,4,1.05
+526,Aidan Laros,Kentucky,P,Aidan Laros,Kentucky,P,,active,999,False,4,1.05
+527,Paul Rubelt,UCF,OT,Paul Rubelt,UCF,OT,,active,999,False,4,1.05
+528,Carlos Allen Jr.,Houston,DL3T,Carlos Allen Jr.,Houston,DT,,active,999,False,4,1.0
+529,Josh Kattus,Kentucky,TE,Josh Kattus,Kentucky,TE,,active,999,False,4,1.05
+530,Dariel Djabome,Rutgers,ILB,Dariel Djabome,Rutgers,LB,,active,999,False,4,1.0
+531,Mason Murphy,Auburn,OT,Mason Murphy,Auburn,OT,,active,999,False,4,1.05
+532,Lardarius Webb Jr.,Wake Forest,CBN,Lardarius Webb Jr.,Wake Forest,S,,active,999,False,4,1.0
+533,Laith Marjan,Kansas,PK,Laith Marjan,Kansas,PK,,active,999,False,4,1.05
+535,Dreyden Norwood,Missouri,CB,Drey Norwood,Missouri,CB,,active,999,False,4,0.939
+536,Chamon Metayer,Arizona State,TE,Chamon Metayer,Arizona State,TE,454014,active,999,False,4,1.05
+539,Myles Montgomery,UCF,RB,Myles Montgomery,UCF,RB,,active,999,False,4,1.05
+540,D.J. Harvey,USC,CBN,DJ Harvey,USC,CB,,active,999,False,4,1.0
+541,Javin Wright,Nebraska,OLB,Javin Wright,Nebraska,EDGE,,active,999,False,4,1.0
+543,Will Ferrin,BYU,PK,Will Ferrin,BYU,PK,,active,999,False,4,1.05
+544,Albert Reese IV,Mississippi State,OT,Albert Reese IV,Mississippi State,OT,,active,999,False,4,1.05
+545,Langston Patterson,Vanderbilt,ILB,Langston Patterson,Vanderbilt,LB,,active,999,False,4,1.0
+546,Austin Leausa,BYU,OG,Austin Leausa,BYU,G,,active,999,False,3,1.0
+547,Keeshawn Silver,USC,DL1T,Keeshawn Silver,USC,DT,,departed_draft,999,False,5,1.0
+548,Davon Booth,Mississippi State,RB,Davon Booth,Mississippi State,RB,,active,999,False,4,1.05
+549,Phillip Dunnam,UCF,S,Phillip Dunnam,UCF,S,,active,999,False,4,1.05
+551,Jeremiah Wilson,Florida State,CBN,Jeremiah Johnson,Florida State,RB,,active,999,False,1,0.774
+553,Dominic Bailey,Tennessee,DL5T,Dominic Bailey,Tennessee,DL,,departed_draft,999,False,4,1.0
+554,Beau Gardner,Georgia,LS,Beau Gardner,Georgia,LS,,departed_draft,999,False,5,1.05
+556,Channing Canada,TCU,CB,Channing Canada,TCU,CB,,active,999,False,4,1.05
+557,Tony Grimes,Purdue,CB,Tony Grimes,Purdue,DB,,active,999,False,4,1.0
+558,Squirrel White,Florida State,WRS,Squirrel White,Florida State,WR,674117,active,999,False,4,1.0
+559,Jackson Carsello,Northwestern,OC,Jackson Carsello,Northwestern,OL,521410,active,999,False,4,1.0
+560,Luke Basso,Oregon,LS,Luke Basso,Oregon,LS,,departed_draft,999,False,,1.05
+564,Gavin Gerhardt,Cincinnati,OC,Gavin Gerhardt,Cincinnati,C,,active,999,False,4,1.0
+565,Bangally Kamara,Kansas,OLB,Bangally Kamara,Kansas,LB,,active,999,False,3,1.0
+566,Arden Walker,Colorado,EDGE,Arden Walker,Colorado,DE,,active,999,False,4,1.0
+567,Chase Wilson,West Virginia,ILB,Chase Wilson,West Virginia,LB,,active,999,False,4,1.0
+568,Devon Marshall,NC State,CB,Devon Marshall,NC State,CB,,active,999,False,4,1.05
+569,Pete Nygra,Louisville,OC,Pete Nygra,Louisville,C,,active,999,False,4,1.0
+570,Bernard Gooden,LSU,DL5T,Bernard Gooden,LSU,DL,,active,999,False,5,1.0
+571,Ty Buchanan,Arizona,OT,Ty Buchanan,Arizona,OL,,active,999,False,4,1.0
+573,Isaiah Glasker,BYU,EDGE,Isaiah Glasker,BYU,LB,429000,active,999,False,3,1.0
+574,Preston Hodge,Colorado,CB,Preston Hodge,Colorado,CB,,active,999,False,4,1.05
+576,Malick Sylla,Mississippi State,EDGE,Malick Sylla,Mississippi State,EDGE,,active,999,False,4,1.05
+578,Blake Shapen,Mississippi State,QB,Blake Shapen,Mississippi State,QB,,active,999,False,4,1.05
+581,T.J. Quinn,Louisville,ILB,TJ Quinn,Louisville,LB,,active,999,False,4,1.0
+583,Jahmeer Carter,Virginia,DL3T,Jahmeer Carter,Virginia,DT,,active,999,False,4,1.0
+584,John Ferlmann,Ohio State,LS,John Ferlmann,Ohio State,LS,,departed_draft,999,False,,1.05
+585,Ricardo Hallman,Wisconsin,CBN,Ricardo Hallman,Wisconsin,S,,active,999,False,4,1.0
+586,Tommy Castellanos,Florida State,QB,Tommy Castellanos,Florida State,QB,2173500,active,999,False,4,1.05
+589,Cam Miller,Rutgers,CB,Cam Miller,Rutgers,CB,,active,999,False,4,1.05
+590,Jared Dawson,Notre Dame,DL3T,Jared Dawson,Notre Dame,DL,,departed_draft,999,False,5,1.0
+591,Gunnar Hansen,Florida State,OT,Gunnar Hansen,Florida State,OT,880071,active,999,False,4,1.05
+592,Dayon Hayes,Texas A&M,EDGE,Dayon Hayes,Texas A&M,EDGE,999809,active,999,False,4,1.05
+593,Josh McCray,Georgia,RB,Josh McCray,Georgia,RB,,departed_draft,999,False,5,1.05
+595,Theran Johnson,Oregon,CB,Theran Johnson,Oregon,DB,,departed_draft,999,False,5,1.0
+596,Rocco Underwood,Florida,LS,Rocco Underwood,Florida,LS,,departed_draft,999,False,5,1.05
+597,Damon Payne Jr.,Michigan,DL1T,Damon Payne,Michigan,DL,,departed_draft,999,False,5,0.88
+599,Tanoa Togiai,Utah,OG,Tanoa Togiai,Utah,OL,,active,999,False,4,1.0
