@@ -47,31 +47,39 @@ export default function BasketballMethodologyPage() {
           <div className="space-y-4">
             <div>
               <p className="text-xs uppercase tracking-widest text-slate-400 mb-2">
-                Returning players (with stats)
+                Step 1 — Combined Premium
               </p>
               <div className="bg-slate-50 rounded-lg border border-slate-200 p-4 font-mono text-sm text-slate-700 leading-relaxed">
-                NIL Value = Position Base &times; NBA Draft Premium &times; Role Tier<br />
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&times; Talent (PER) &times; Market &times; Experience<br />
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+ Social Premium
+                Drafted players:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;max(Draft Premium, Role Tier)<br />
+                Non-drafted players:&nbsp;Role Tier only
               </div>
+              <p className="mt-2 text-xs text-slate-500 leading-relaxed">
+                Draft premium and role tier both measure player importance — one from NBA scouts,
+                one from minutes. When draft data exists, the stronger signal wins. When it
+                doesn&apos;t, role tier applies alone.
+              </p>
             </div>
 
             <div>
               <p className="text-xs uppercase tracking-widest text-slate-400 mb-2">
-                Incoming players (no college minutes)
+                Step 2 — Valuation
               </p>
               <div className="bg-slate-50 rounded-lg border border-slate-200 p-4 font-mono text-sm text-slate-700 leading-relaxed">
-                NIL Value = Position Base &times; NBA Draft Premium &times; 0.60<br />
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&times; Talent (Composite) &times; Market &times; Experience<br />
+                NIL Value = Position Base &times; Combined Premium<br />
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&times; Talent &times; Market &times; Experience<br />
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+ Social Premium
               </div>
+              <p className="mt-2 text-xs text-slate-500 leading-relaxed">
+                Incoming players (no college minutes) use a fixed 0.60&times; role tier and
+                composite score for talent. All valuations have a $5,000 floor.
+              </p>
             </div>
           </div>
 
           <p className="mt-4 text-sm text-slate-500 leading-relaxed">
             Every component is independently calibrated. The multiplicative structure means each
-            factor compounds — a franchise player at a blue-blood program with a lottery projection
-            receives the full benefit of all three multipliers stacking.
+            factor compounds — a franchise player at a blue-blood program receives the full
+            benefit of every multiplier stacking.
           </p>
         </section>
 
@@ -84,9 +92,10 @@ export default function BasketballMethodologyPage() {
             Position Base
           </h2>
           <p className="text-sm text-slate-600 leading-relaxed mb-4">
-            Sets the economic floor by position. Basketball position bases are intentionally flat —
+            Sets the economic floor by position. Bases are calibrated to the Power 4 market floor —
             a center and a point guard are within 55% of each other. Role tier and draft premium
-            create the real spread, not position.
+            create the real spread, not position. ESPN provides generic G/F/C positions for some
+            players; these map to SG ($600K), SF ($550K), and C ($450K) respectively.
           </p>
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
@@ -98,11 +107,11 @@ export default function BasketballMethodologyPage() {
               </thead>
               <tbody className="divide-y divide-slate-100">
                 {[
-                  ["PG — Point Guard", "$350,000"],
-                  ["SG — Shooting Guard", "$300,000"],
-                  ["SF — Small Forward", "$275,000"],
-                  ["PF — Power Forward", "$250,000"],
-                  ["C — Center", "$225,000"],
+                  ["PG — Point Guard", "$700,000"],
+                  ["SG — Shooting Guard", "$600,000"],
+                  ["SF — Small Forward", "$550,000"],
+                  ["PF — Power Forward", "$500,000"],
+                  ["C — Center", "$450,000"],
                 ].map(([pos, val]) => (
                   <tr key={pos}>
                     <td className="py-2 pr-4 text-slate-600">{pos}</td>
@@ -208,7 +217,41 @@ export default function BasketballMethodologyPage() {
           </div>
         </section>
 
-        {/* ── Section 5: Talent Modifier ───────────────────────────────── */}
+        {/* ── Section 5: Eligibility Gate ──────────────────────────────── */}
+        <section className="bg-white rounded-xl shadow-md p-8">
+          <h2
+            className="text-xl font-bold text-slate-900 uppercase tracking-wide mb-4"
+            style={{ fontFamily: "var(--font-oswald), sans-serif" }}
+          >
+            Eligibility Gate
+          </h2>
+          <p className="text-sm text-slate-600 leading-relaxed mb-4">
+            Not every rostered player participates in the NIL market. The formula only runs for
+            players who clear at least one threshold:
+          </p>
+          <div className="space-y-3">
+            <div className="flex gap-3 items-start">
+              <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-blue-500" />
+              <p className="text-sm text-slate-600 leading-relaxed">
+                <span className="font-semibold text-slate-800">Returning players:</span>{" "}
+                Minutes per game &ge; 8.0
+              </p>
+            </div>
+            <div className="flex gap-3 items-start">
+              <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-purple-500" />
+              <p className="text-sm text-slate-600 leading-relaxed">
+                <span className="font-semibold text-slate-800">Incoming players:</span>{" "}
+                247Sports star rating &ge; 4
+              </p>
+            </div>
+          </div>
+          <p className="mt-4 text-sm text-slate-500 leading-relaxed">
+            Players below these thresholds appear on team rosters without a dollar figure. Team
+            totals reflect only valued players.
+          </p>
+        </section>
+
+        {/* ── Section 6: Talent Modifier ───────────────────────────────── */}
         <section className="bg-white rounded-xl shadow-md p-8">
           <h2
             className="text-xl font-bold text-slate-900 uppercase tracking-wide mb-4"
@@ -314,11 +357,12 @@ export default function BasketballMethodologyPage() {
               </thead>
               <tbody className="divide-y divide-slate-100">
                 {[
-                  ["1.25–1.30", "Blue bloods", "Duke, Kentucky, Kansas, UNC"],
+                  ["1.25–1.35", "Blue bloods", "Duke, Kentucky, Kansas, UNC"],
                   ["1.15–1.24", "Elite programs", "Gonzaga, Houston, UConn"],
-                  ["1.05–1.14", "Strong P4", "BYU (1.08), Iowa State, Baylor"],
-                  ["0.95–1.04", "Mid conference", "TCU, UCF, Saint Mary's"],
-                  ["0.80–0.94", "Lower visibility", "Smaller conference programs"],
+                  ["1.05–1.14", "Strong Power 4", "BYU (1.08), Iowa State, Baylor"],
+                  ["0.95–1.04", "Mid Power 4", "TCU, UCF, Saint Mary's"],
+                  ["0.55–0.75", "Mid-major", "A-10, MWC, WCC programs"],
+                  ["0.30–0.50", "Lower D1", "Smaller conference programs"],
                 ].map(([mult, tier, examples]) => (
                   <tr key={mult}>
                     <td className="py-2 pr-4 text-slate-600 font-mono text-xs">{mult}</td>
@@ -431,7 +475,7 @@ export default function BasketballMethodologyPage() {
                   ["Rosters", "ESPN API"],
                   ["Season stats (MPG, PPG, RPG, APG, PER)", "ESPN Core Stats API"],
                   ["Recruiting composite scores", "247Sports"],
-                  ["NBA draft projections", "CFO editorial (updated manually)"],
+                  ["NBA draft projections", "ESPN draft prospects API"],
                   ["Social followers", "On3 NIL database"],
                   ["Transfer portal movements", "On3 transfer portal"],
                   ["Reported NIL deals", "Public reporting + CFO estimates"],
@@ -476,8 +520,8 @@ export default function BasketballMethodologyPage() {
         {/* ── Version / CTA ───────────────────────────────────────────── */}
         <div className="text-center pt-4">
           <p className="text-xs text-slate-400 mb-6">
-            Basketball Valuation Engine V1.0 — launched 2025. Formula and calibration
-            updated as new data becomes available.
+            Basketball Valuation Engine V1.3 — launched 2025, calibration updated April 2026.
+            Formula and calibration updated as new data becomes available.
           </p>
           <Link
             href="/basketball/players"

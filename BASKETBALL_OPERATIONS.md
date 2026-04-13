@@ -155,13 +155,16 @@ python enrich_bball_class_years.py
 #    Create data/{SLUG}_basketball_recruits_2025.csv FIRST
 python enrich_bball_star_ratings.py --team SLUG
 
-# 6. Compute valuations
+# 6. Scrape recruit headshots from 247Sports
+python scrape_bball_247_headshots.py
+
+# 7. Compute valuations
 python calculate_bball_valuations.py --team SLUG
 
-# 7. Apply any known deals
+# 8. Apply any known deals
 python apply_bball_overrides.py
 
-# 8. Generate URL slugs
+# 9. Generate URL slugs
 python generate_bball_slugs.py
 ```
 
@@ -653,6 +656,7 @@ All basketball pipeline scripts in `python_engine/`:
 | `calculate_bball_valuations.py` | Formula → cfo_valuation | `--team SLUG`, `--dry-run` |
 | `apply_bball_overrides.py` | CSV → override valuations | — |
 | `generate_bball_slugs.py` | Name → URL slug | — |
+| `scrape_bball_247_headshots.py` | 247Sports → recruit headshot URLs | `--dry-run`, `--year YYYY` |
 | `parse_bball_portal_txt.py` | Raw On3 txt → roster moves/departures/flags | `--parse-only`, `--dry-run` |
 | `sync_bball_portal_display.py` | On3 portal → `basketball_portal_entries` (display) | `--dry-run` |
 | `sync_bball_roster_from_portal.py` | Portal entries → roster moves/departures/flags | `--dry-run` |
