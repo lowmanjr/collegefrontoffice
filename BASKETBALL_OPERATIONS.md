@@ -496,11 +496,23 @@ cd python_engine && python sync_bball_portal_display.py --dry-run    # preview
 cd python_engine && python sync_bball_portal_display.py              # sync
 ```
 
-Clears and rebuilds the table on each run. Run daily during active windows.
+Clears and rebuilds the table on each run.
 
 **Portal windows:**
 - Spring: ~April 7–21 (post-tournament)
 - Fall: ~November 8–18 (pre-season)
+
+### Daily Sync Sequence (During Portal Windows)
+
+Run in this exact order:
+
+```bash
+cd python_engine
+python sync_bball_portal_display.py       # refresh portal entries from On3
+python sync_bball_roster_from_portal.py   # update rosters: moves, departures, flags
+python calculate_bball_valuations.py      # reprice all teams
+python apply_bball_overrides.py           # reapply known deal values
+```
 
 The script captures both committed and evaluating players where origin OR destination is a CFO-tracked team. Valuations use the full formula with the destination team's market multiplier (committed) or origin team's multiplier (evaluating).
 
@@ -640,7 +652,9 @@ All basketball pipeline scripts in `python_engine/`:
 | `calculate_bball_valuations.py` | Formula → cfo_valuation | `--team SLUG`, `--dry-run` |
 | `apply_bball_overrides.py` | CSV → override valuations | — |
 | `generate_bball_slugs.py` | Name → URL slug | — |
-| `sync_basketball_transfer_portal.py` | On3 portal → roster moves | `--dry-run`, `--max-pages N` |
+| `sync_bball_portal_display.py` | On3 portal → `basketball_portal_entries` | `--dry-run` |
+| `sync_bball_roster_from_portal.py` | Portal entries → roster moves/departures/flags | `--dry-run` |
+| `sync_basketball_transfer_portal.py` | On3 portal → roster moves (legacy) | `--dry-run`, `--max-pages N` |
 
 ### Data Files
 

@@ -68,6 +68,7 @@ SCHOOL_NON_MATCHES: set[str] = {
     "eastern michigan", "central michigan", "georgia tech", "georgia state",
     "georgia southern", "north carolina", "east carolina", "south carolina",
     "miami (oh)", "miami ohio", "miami redhawks", "miami university redhawks",
+    "oregon state",
 }
 
 

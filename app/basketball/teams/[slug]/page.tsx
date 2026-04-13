@@ -275,6 +275,15 @@ export default async function BasketballTeamPage({ params }: PageProps) {
                               >
                                 {player.name}
                               </Link>
+                              {player.acquisition_type === "portal" && (
+                                <span className="inline-block rounded px-1.5 py-0.5 text-[10px] font-semibold bg-blue-100 text-blue-800 ml-1.5">Transfer</span>
+                              )}
+                              {player.acquisition_type === "portal_evaluating" && (
+                                <span className="inline-block rounded px-1.5 py-0.5 text-[10px] font-semibold bg-amber-100 text-amber-800 ml-1.5">In Portal</span>
+                              )}
+                              {player.acquisition_type === "recruit" && (
+                                <span className="inline-block rounded px-1.5 py-0.5 text-[10px] font-semibold bg-purple-100 text-purple-800 ml-1.5">Recruit</span>
+                              )}
                             </div>
                           </td>
 
