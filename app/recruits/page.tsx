@@ -9,7 +9,7 @@ export const revalidate = 1800;
 
 export const metadata: Metadata = {
   title: "Top Football Recruit NIL Valuations — HS Recruit Rankings | College Front Office",
-  description: "Projected NIL valuations for elite high school football recruits. Ranked by composite recruiting score with position and program premiums.",
+  description: "Projected NIL valuations for elite high school football recruits. Ranked by recruiting profile with position and program premiums.",
   openGraph: {
     title: "Top Football Recruit NIL Valuations | College Front Office",
     description: "Projected NIL valuations for elite high school football recruits.",
@@ -146,9 +146,6 @@ export default async function FuturesMarketPage({ searchParams }: PageProps) {
                           >
                             {recruit.name}
                           </h3>
-                          {recruit.national_rank != null && (
-                            <p className="text-xs text-slate-400 font-mono">#{recruit.national_rank} national</p>
-                          )}
                         </div>
                         {recruit.position && (
                           <span className={`shrink-0 inline-block rounded px-2 py-0.5 text-xs font-semibold uppercase tracking-wide ${positionBadgeClass(recruit.position)}`}>
@@ -250,9 +247,6 @@ export default async function FuturesMarketPage({ searchParams }: PageProps) {
                               >
                                 {recruit.name}
                               </Link>
-                              {recruit.national_rank != null && (
-                                <p className="text-xs text-slate-400 mt-0.5 font-mono">#{recruit.national_rank} national</p>
-                              )}
                             </div>
                           </div>
                         </td>
@@ -290,18 +284,15 @@ export default async function FuturesMarketPage({ searchParams }: PageProps) {
                           )}
                         </td>
 
-                        {/* Rating (stars + composite) */}
+                        {/* Rating (stars) */}
                         <td className="px-4 py-3.5 text-right">
-                          <div className="flex flex-col items-end">
-                            {recruit.star_rating && recruit.star_rating > 0 ? (
-                              <span className="text-sm leading-none tracking-tight">
-                                <span className="text-yellow-400">{"★".repeat(Math.min(recruit.star_rating, 5))}</span>
-                              </span>
-                            ) : null}
-                            <span className="font-mono text-xs text-slate-500 tabular-nums mt-0.5">
-                              {recruit.composite_score != null ? Number(recruit.composite_score).toFixed(4) : "—"}
+                          {recruit.star_rating && recruit.star_rating > 0 ? (
+                            <span className="text-sm leading-none tracking-tight">
+                              <span className="text-yellow-400">{"★".repeat(Math.min(recruit.star_rating, 5))}</span>
                             </span>
-                          </div>
+                          ) : (
+                            <span className="text-slate-400 text-xs">—</span>
+                          )}
                         </td>
 
                         {/* Projected value */}

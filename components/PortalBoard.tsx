@@ -113,27 +113,6 @@ export default function PortalBoard({
 
   return (
     <>
-      {/* ── Aggregate header ─────────────────────────────────────────────── */}
-      <div className="mb-6">
-        <p className="text-sm text-slate-500">
-          <span
-            className="text-2xl font-bold text-slate-900"
-            style={{ fontFamily: "var(--font-oswald), sans-serif" }}
-          >
-            {totalCount.toLocaleString()}
-          </span>{" "}
-          Portal Transfers{" "}
-          <span className="mx-2 text-slate-300">|</span>{" "}
-          Est. Total Value:{" "}
-          <span
-            className="text-xl font-bold text-emerald-600"
-            style={{ fontFamily: "var(--font-oswald), sans-serif" }}
-          >
-            {formatCompactCurrency(totalValue)}
-          </span>
-        </p>
-      </div>
-
       {/* ── View tabs ────────────────────────────────────────────────────── */}
       <div className="flex gap-2 mb-4">
         <button

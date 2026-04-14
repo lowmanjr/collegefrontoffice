@@ -7,13 +7,13 @@ import PortalBoard from "@/components/PortalBoard";
 export const revalidate = 900;
 
 export const metadata: Metadata = {
-  title: "Transfer Portal | College Front Office",
+  title: "Transfer Portal Valuations | College Front Office",
   description:
-    "Track the estimated value of every transfer portal acquisition across all 68 Power 4 programs.",
+    "Transfer portal acquisitions ranked by estimated NIL value across all 68 Power 4 programs.",
   openGraph: {
-    title: "Transfer Portal | College Front Office",
+    title: "Transfer Portal Valuations | College Front Office",
     description:
-      "Track the estimated value of every transfer portal acquisition across all 68 Power 4 programs.",
+      "Transfer portal acquisitions ranked by estimated NIL value across all 68 Power 4 programs.",
   },
   alternates: { canonical: `${BASE_URL}/portal` },
 };
@@ -102,11 +102,8 @@ export default async function PortalPage() {
             className="text-4xl sm:text-5xl font-bold uppercase tracking-tight leading-none"
             style={{ fontFamily: "var(--font-oswald), sans-serif" }}
           >
-            Transfer Portal
+            Transfer Portal Valuations
           </h1>
-          <p className="mt-2 text-sm text-slate-400">
-            Estimated value of every portal acquisition across all 68 Power 4 programs
-          </p>
         </div>
       </div>
 
