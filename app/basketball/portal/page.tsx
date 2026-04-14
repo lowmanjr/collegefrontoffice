@@ -1,9 +1,11 @@
 import Link from "next/link";
+import { Suspense } from "react";
 import { supabase } from "@/lib/supabase";
 import type { Metadata } from "next";
 import { BASE_URL } from "@/lib/constants";
-import { formatCurrency } from "@/lib/utils";
+import { formatCurrency, formatCompactCurrency } from "@/lib/utils";
 import { basketballPositionBadgeClass } from "@/lib/ui-helpers";
+import PortalFilters from "@/components/PortalFilters";
 
 export const revalidate = 300;
 
@@ -18,16 +20,6 @@ export const metadata: Metadata = {
   },
   alternates: { canonical: `${BASE_URL}/basketball/portal` },
 };
-
-function StarRating({ stars }: { stars: number | null }) {
-  if (!stars) return <span className="text-slate-400">—</span>;
-  return (
-    <span className="text-amber-500 text-xs tracking-tight">
-      {"★".repeat(Math.min(stars, 5))}
-      {"☆".repeat(Math.max(0, 5 - stars))}
-    </span>
-  );
-}
 
 function StatusBadge({ status }: { status: string }) {
   if (status === "committed") {
@@ -106,8 +98,18 @@ interface PortalEntry {
   headshot_url: string | null;
   origin_school: string | null;
   destination_school: string | null;
-  origin_team: { university_name: string; slug: string | null; logo_url: string | null } | null;
-  destination_team: { university_name: string; slug: string | null; logo_url: string | null } | null;
+  origin_team_id: string | null;
+  destination_team_id: string | null;
+  origin_team: { university_name: string; slug: string | null; logo_url: string | null; conference: string | null } | null;
+  destination_team: { university_name: string; slug: string | null; logo_url: string | null; conference: string | null } | null;
+}
+
+interface TeamInfo {
+  id: string;
+  university_name: string;
+  slug: string;
+  logo_url: string | null;
+  conference: string | null;
 }
 
 // Portal names that differ from DB names
@@ -119,8 +121,20 @@ const NAME_ALIASES: Record<string, string> = {
   "jp estrella": "j.p. estrella",
 };
 
-export default async function BasketballPortalPage() {
-  const [{ data: entries, error }, { data: playerSlugs }] = await Promise.all([
+interface PageProps {
+  searchParams: Promise<{ view?: string; q?: string; pos?: string; status?: string; conf?: string }>;
+}
+
+export default async function BasketballPortalPage({ searchParams }: PageProps) {
+  const params = await searchParams;
+  const view = params.view ?? "player";
+  const search = params.q ?? "";
+  const position = params.pos ?? "";
+  const statusFilter = params.status?.toLowerCase() ?? "";
+  const confFilter = params.conf ?? "";
+
+  // Fetch all data in parallel
+  const [{ data: entries, error }, { data: playerSlugs }, { data: teams }] = await Promise.all([
     supabase
       .from("basketball_portal_entries")
       .select(
@@ -128,19 +142,26 @@ export default async function BasketballPortalPage() {
          cfo_valuation, on3_nil_value, headshot_url,
          origin_school, destination_school,
          origin_team_id, destination_team_id,
-         origin_team:origin_team_id (university_name, slug, logo_url),
-         destination_team:destination_team_id (university_name, slug, logo_url)`
+         origin_team:origin_team_id (university_name, slug, logo_url, conference),
+         destination_team:destination_team_id (university_name, slug, logo_url, conference)`
       )
       .order("cfo_valuation", { ascending: false }),
     supabase
       .from("basketball_players")
       .select("name, slug")
       .neq("slug", ""),
+    supabase
+      .from("basketball_teams")
+      .select("id, university_name, slug, logo_url, conference")
+      .order("university_name"),
   ]);
 
   if (error) console.error("Portal query error:", error);
 
-  // Build slug lookup: normalized name → slug
+  const allRows = (entries ?? []) as unknown as PortalEntry[];
+  const allTeams = (teams ?? []) as TeamInfo[];
+
+  // Build slug lookup
   const slugMap = new Map(
     (playerSlugs ?? [])
       .filter((p: { slug: string | null }) => p.slug)
@@ -152,11 +173,45 @@ export default async function BasketballPortalPage() {
     return slugMap.get(norm) ?? slugMap.get(NAME_ALIASES[norm] ?? "") ?? null;
   }
 
-  const rows = (entries ?? []) as unknown as PortalEntry[];
-  const committed = rows.filter((e) => e.status === "committed");
-  const evaluating = rows.filter((e) => e.status === "evaluating");
-  // Show committed first, then evaluating — each group by valuation desc
+  // Conference team IDs for filtering
+  const confTeamIds = confFilter
+    ? new Set(allTeams.filter((t) => t.conference === confFilter).map((t) => t.id))
+    : null;
+
+  // Filter entries for By Player view
+  let filtered = allRows;
+  if (search) filtered = filtered.filter((e) => e.player_name.toLowerCase().includes(search.toLowerCase()));
+  if (position) filtered = filtered.filter((e) => e.position === position);
+  if (statusFilter) filtered = filtered.filter((e) => e.status === statusFilter);
+  if (confTeamIds) {
+    filtered = filtered.filter(
+      (e) => (e.origin_team_id && confTeamIds.has(e.origin_team_id)) || (e.destination_team_id && confTeamIds.has(e.destination_team_id)),
+    );
+  }
+
+  // Sort: committed first, then evaluating
+  const committed = filtered.filter((e) => e.status === "committed");
+  const evaluating = filtered.filter((e) => e.status === "evaluating");
   const sorted = [...committed, ...evaluating];
+
+  // By Team stats
+  const teamStats = allTeams
+    .filter((t) => !confFilter || t.conference === confFilter)
+    .map((t) => {
+      const incoming = allRows.filter((e) => e.destination_team_id === t.id && e.status === "committed");
+      const outgoing = allRows.filter((e) => e.origin_team_id === t.id && e.status === "committed" && e.destination_team_id !== t.id);
+      const portal = allRows.filter((e) => e.origin_team_id === t.id && e.status === "evaluating");
+      const inVal = incoming.reduce((s, e) => s + (e.cfo_valuation ?? 0), 0);
+      const outVal = outgoing.reduce((s, e) => s + (e.cfo_valuation ?? 0), 0);
+      return {
+        ...t,
+        inCount: incoming.length,
+        outCount: outgoing.length,
+        evalCount: portal.length,
+        netValue: inVal - outVal,
+      };
+    })
+    .sort((a, b) => b.netValue - a.netValue);
 
   return (
     <main className="min-h-screen bg-gray-100">
@@ -178,19 +233,101 @@ export default async function BasketballPortalPage() {
         </div>
       </div>
 
-      {/* Table */}
+      {/* Filters */}
+      <div className="mx-auto max-w-7xl px-4">
+        <Suspense>
+          <PortalFilters
+            view={view}
+            totalPlayers={allRows.length}
+            totalTeams={allTeams.length}
+          />
+        </Suspense>
+      </div>
+
+      {/* Content */}
       <div className="mx-auto max-w-7xl px-4 pb-8">
-        {sorted.length === 0 ? (
+        {view === "team" ? (
+          /* ── By Team View ──────────────────────────────────────────── */
+          <div className="bg-white rounded-xl shadow-md overflow-hidden border border-gray-200">
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm">
+                <thead className="sticky top-0 z-10 bg-slate-900 text-slate-300">
+                  <tr>
+                    <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-widest">Team</th>
+                    <th className="px-3 py-3 text-left text-xs font-semibold uppercase tracking-widest w-28">Conference</th>
+                    <th className="px-3 py-3 text-center text-xs font-semibold uppercase tracking-widest w-14">In</th>
+                    <th className="px-3 py-3 text-center text-xs font-semibold uppercase tracking-widest w-14">Out</th>
+                    <th className="px-3 py-3 text-center text-xs font-semibold uppercase tracking-widest w-20">In Portal</th>
+                    <th className="px-4 py-3 text-right text-xs font-semibold uppercase tracking-widest">Net Value</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-gray-100">
+                  {teamStats.map((t) => (
+                    <tr key={t.id} className="hover:bg-slate-50 transition-colors">
+                      <td className="px-4 py-3">
+                        <Link
+                          href={`/basketball/teams/${t.slug}`}
+                          className="flex items-center gap-3 hover:underline"
+                        >
+                          {t.logo_url && (
+                            // eslint-disable-next-line @next/next/no-img-element
+                            <img src={t.logo_url} alt={t.university_name} width={24} height={24} className="h-6 w-6 object-contain shrink-0" />
+                          )}
+                          <span
+                            className="font-semibold text-slate-900 uppercase tracking-tight"
+                            style={{ fontFamily: "var(--font-oswald), sans-serif" }}
+                          >
+                            {t.university_name}
+                          </span>
+                        </Link>
+                      </td>
+                      <td className="px-3 py-3 text-xs text-slate-500">{t.conference}</td>
+                      <td className="px-3 py-3 text-center">
+                        {t.inCount > 0 ? (
+                          <span className="font-semibold text-green-700">{t.inCount}</span>
+                        ) : (
+                          <span className="text-slate-300">0</span>
+                        )}
+                      </td>
+                      <td className="px-3 py-3 text-center">
+                        {t.outCount > 0 ? (
+                          <span className="font-semibold text-red-600">{t.outCount}</span>
+                        ) : (
+                          <span className="text-slate-300">0</span>
+                        )}
+                      </td>
+                      <td className="px-3 py-3 text-center">
+                        {t.evalCount > 0 ? (
+                          <span className="font-semibold text-amber-600">{t.evalCount}</span>
+                        ) : (
+                          <span className="text-slate-300">0</span>
+                        )}
+                      </td>
+                      <td className="px-4 py-3 text-right">
+                        <span
+                          className={`font-bold tabular-nums ${t.netValue >= 0 ? "text-green-700" : "text-red-600"}`}
+                          style={{ fontFamily: "var(--font-oswald), sans-serif" }}
+                        >
+                          {t.netValue >= 0 ? "+" : ""}{formatCompactCurrency(t.netValue)}
+                        </span>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        ) : sorted.length === 0 ? (
           <div className="bg-white rounded-xl shadow-md p-16 text-center">
             <p className="text-slate-400 text-sm">
-              No portal entries found. Run sync_bball_portal_display.py to populate.
+              No portal entries match your filters.
             </p>
           </div>
         ) : (
           <>
-            {/* Mobile cards */}
+            {/* ── By Player: Mobile cards ────────────────────────────── */}
             <div className="md:hidden space-y-3">
-              {sorted.map((entry, i) => {
+              {sorted.map((entry) => {
                 const mobileSlug = getPlayerSlug(entry.player_name);
                 return (
                 <div
@@ -238,7 +375,7 @@ export default async function BasketballPortalPage() {
                             <img src={(entry.origin_team?.logo_url || schoolLogo(entry.origin_school))!} alt="" width={14} height={14} className="h-3.5 w-3.5 object-contain shrink-0" />
                           )}
                           {entry.origin_team?.university_name ?? entry.origin_school ?? "?"}
-                          <span className="text-slate-400 mx-0.5">→</span>
+                          <span className="text-slate-400 mx-0.5">&rarr;</span>
                           {entry.status === "committed" && (
                             <>
                               {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -247,7 +384,7 @@ export default async function BasketballPortalPage() {
                               )}
                             </>
                           )}
-                          {entry.status === "committed" ? (entry.destination_team?.university_name ?? entry.destination_school ?? "—") : "—"}
+                          {entry.status === "committed" ? (entry.destination_team?.university_name ?? entry.destination_school ?? "\u2014") : "\u2014"}
                         </span>
                         <span
                           className="font-bold text-emerald-600 tabular-nums shrink-0"
@@ -255,7 +392,7 @@ export default async function BasketballPortalPage() {
                         >
                           {entry.cfo_valuation != null
                             ? formatCurrency(entry.cfo_valuation)
-                            : "—"}
+                            : "\u2014"}
                         </span>
                       </div>
                     </div>
@@ -265,46 +402,28 @@ export default async function BasketballPortalPage() {
               })}
             </div>
 
-            {/* Desktop table */}
+            {/* ── By Player: Desktop table ───────────────────────────── */}
             <div className="hidden md:block bg-white rounded-xl shadow-md overflow-hidden border border-gray-200">
               <div className="overflow-x-auto">
                 <table className="w-full text-sm">
                   <thead className="sticky top-0 z-10 bg-slate-900 text-slate-300">
                     <tr>
-                      <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-widest">
-                        Player
-                      </th>
-                      <th className="px-3 py-3 text-left text-xs font-semibold uppercase tracking-widest w-14">
-                        Pos
-                      </th>
-                      <th className="px-3 py-3 text-center text-xs font-semibold uppercase tracking-widest w-20">
-                        Stars
-                      </th>
-                      <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-widest">
-                        From
-                      </th>
-                      <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-widest">
-                        To
-                      </th>
-                      <th className="px-3 py-3 text-center text-xs font-semibold uppercase tracking-widest w-24">
-                        Status
-                      </th>
-                      <th className="px-4 py-3 text-right text-xs font-semibold uppercase tracking-widest">
-                        CFO Value
-                      </th>
+                      <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-widest">Player</th>
+                      <th className="px-3 py-3 text-left text-xs font-semibold uppercase tracking-widest w-14">Pos</th>
+                      <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-widest">From</th>
+                      <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-widest">To</th>
+                      <th className="px-3 py-3 text-center text-xs font-semibold uppercase tracking-widest w-24">Status</th>
+                      <th className="px-4 py-3 text-right text-xs font-semibold uppercase tracking-widest">Est. NIL Value</th>
                     </tr>
                   </thead>
 
                   <tbody className="divide-y divide-gray-100">
-                    {sorted.map((entry, i) => {
+                    {sorted.map((entry) => {
                       const originTeam = entry.origin_team;
                       const destTeam = entry.destination_team;
                       const playerSlug = getPlayerSlug(entry.player_name);
                       return (
-                        <tr
-                          key={entry.id}
-                          className="hover:bg-slate-50 transition-colors"
-                        >
+                        <tr key={entry.id} className="hover:bg-slate-50 transition-colors">
                           <td className="px-4 py-3">
                             <div className="flex items-center gap-3">
                               {entry.headshot_url ? (
@@ -346,11 +465,8 @@ export default async function BasketballPortalPage() {
                                 {entry.position}
                               </span>
                             ) : (
-                              <span className="text-slate-400">—</span>
+                              <span className="text-slate-400">&mdash;</span>
                             )}
-                          </td>
-                          <td className="px-3 py-3 text-center">
-                            <StarRating stars={entry.star_rating} />
                           </td>
                           <td className="px-4 py-3 text-xs text-slate-600">
                             {originTeam?.slug ? (
@@ -370,7 +486,7 @@ export default async function BasketballPortalPage() {
                                   // eslint-disable-next-line @next/next/no-img-element
                                   <img src={schoolLogo(entry.origin_school)!} alt={entry.origin_school ?? ""} width={20} height={20} className="h-5 w-5 object-contain shrink-0" />
                                 )}
-                                <span>{entry.origin_school ?? "—"}</span>
+                                <span>{entry.origin_school ?? "\u2014"}</span>
                               </div>
                             )}
                           </td>
@@ -393,11 +509,11 @@ export default async function BasketballPortalPage() {
                                     // eslint-disable-next-line @next/next/no-img-element
                                     <img src={schoolLogo(entry.destination_school)!} alt={entry.destination_school ?? ""} width={20} height={20} className="h-5 w-5 object-contain shrink-0" />
                                   )}
-                                  <span>{entry.destination_school ?? "—"}</span>
+                                  <span>{entry.destination_school ?? "\u2014"}</span>
                                 </div>
                               )
                             ) : (
-                              <span className="text-slate-400">—</span>
+                              <span className="text-slate-400">&mdash;</span>
                             )}
                           </td>
                           <td className="px-3 py-3 text-center">
@@ -412,7 +528,7 @@ export default async function BasketballPortalPage() {
                                 {formatCurrency(entry.cfo_valuation)}
                               </span>
                             ) : (
-                              <span className="text-slate-400 text-xs">—</span>
+                              <span className="text-slate-400 text-xs">&mdash;</span>
                             )}
                           </td>
                         </tr>
@@ -424,11 +540,9 @@ export default async function BasketballPortalPage() {
 
               <div className="border-t border-gray-100 bg-slate-50 px-4 py-3 flex items-center justify-between">
                 <p className="text-xs text-slate-400">
-                  Showing portal activity for{" "}
-                  <span className="font-semibold text-slate-600">
-                    CFO-tracked programs
-                  </span>{" "}
-                  only
+                  Showing{" "}
+                  <span className="font-semibold text-slate-600">{sorted.length}</span>{" "}
+                  portal entries
                 </p>
                 <p className="text-xs text-slate-400">
                   <Link
