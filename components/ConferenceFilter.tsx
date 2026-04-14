@@ -51,10 +51,3 @@ export default function ConferenceFilter({
     </div>
   );
 }
-
-/** Map URL slug to DB conference value */
-export function confSlugToDb(slug: string | null): string | null {
-  if (!slug) return null;
-  const entry = CONFERENCES.find((c) => c.slug === slug);
-  return entry?.dbValue || null;
-}

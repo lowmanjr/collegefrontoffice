@@ -5,7 +5,14 @@ import { formatCurrency, formatCompactCurrency } from "@/lib/utils";
 import type { TeamRosterSummary } from "@/lib/database.types";
 import type { Metadata } from "next";
 import { BASE_URL } from "@/lib/constants";
-import ConferenceFilter, { confSlugToDb } from "@/components/ConferenceFilter";
+import ConferenceFilter from "@/components/ConferenceFilter";
+
+const CONF_SLUG_TO_DB: Record<string, string> = {
+  sec: "SEC",
+  "big-ten": "Big Ten",
+  "big-12": "Big 12",
+  acc: "ACC",
+};
 
 export const revalidate = 3600;
 
@@ -35,7 +42,7 @@ function TeamsTableSkeleton() {
 // ─── async data component ─────────────────────────────────────────────────────
 
 async function TeamsGrid({ confSlug }: { confSlug: string | null }) {
-  const confDb = confSlugToDb(confSlug);
+  const confDb = confSlug ? CONF_SLUG_TO_DB[confSlug] ?? null : null;
 
   // Always fetch all teams for conference counts
   const allQuery = supabase
