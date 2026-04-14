@@ -2,7 +2,7 @@ import Link from "next/link";
 import { supabase } from "@/lib/supabase";
 import { formatCurrency, formatCompactCurrency } from "@/lib/utils";
 import { BASE_URL } from "@/lib/constants";
-import { basketballPositionBadgeClass, roleTierBadgeClass } from "@/lib/ui-helpers";
+import { basketballPositionBadgeClass } from "@/lib/ui-helpers";
 import PlayerAvatar from "@/components/PlayerAvatar";
 import RosterDonut from "@/components/RosterDonut";
 
@@ -56,7 +56,7 @@ export default async function BasketballTeamPage({ params }: PageProps) {
   const { data: playersRaw } = await supabase
     .from("basketball_players")
     .select(
-      "id, slug, name, position, role_tier, class_year, cfo_valuation, is_public, roster_status, headshot_url, usage_rate, ppg, rpg, apg, acquisition_type"
+      "id, slug, name, position, class_year, cfo_valuation, is_public, roster_status, headshot_url, usage_rate, ppg, rpg, apg, acquisition_type"
     )
     .eq("team_id", team.id)
     .eq("roster_status", "active")
@@ -163,8 +163,6 @@ export default async function BasketballTeamPage({ params }: PageProps) {
             <div className="md:hidden space-y-3">
               {roster.map((player) => {
                 const isPrivate = !player.is_public;
-                const hasStats = (player.usage_rate ?? 0) > 0;
-                const tierLabel = hasStats ? player.role_tier : "incoming";
                 return (
                   <Link
                     key={player.id}
@@ -193,13 +191,6 @@ export default async function BasketballTeamPage({ params }: PageProps) {
                                 className={`inline-block rounded px-2 py-0.5 text-xs font-semibold uppercase tracking-wide ${basketballPositionBadgeClass(player.position)}`}
                               >
                                 {player.position}
-                              </span>
-                            )}
-                            {tierLabel && (
-                              <span
-                                className={`inline-block rounded px-1.5 py-0.5 text-[10px] font-semibold capitalize ${roleTierBadgeClass(tierLabel)}`}
-                              >
-                                {tierLabel}
                               </span>
                             )}
                           </div>
@@ -237,9 +228,6 @@ export default async function BasketballTeamPage({ params }: PageProps) {
                       <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-widest w-16">
                         Pos
                       </th>
-                      <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-widest w-24">
-                        Role
-                      </th>
                       <th className="px-4 py-3 text-right text-xs font-semibold uppercase tracking-widest w-16">
                         PPG
                       </th>
@@ -252,8 +240,6 @@ export default async function BasketballTeamPage({ params }: PageProps) {
                   <tbody className="divide-y divide-gray-100">
                     {roster.map((player) => {
                       const isPrivate = !player.is_public;
-                      const hasStats = (player.usage_rate ?? 0) > 0;
-                      const tierLabel = hasStats ? player.role_tier : "incoming";
                       return (
                         <tr
                           key={player.id}
@@ -296,16 +282,6 @@ export default async function BasketballTeamPage({ params }: PageProps) {
                               </span>
                             ) : (
                               <span className="text-slate-400">—</span>
-                            )}
-                          </td>
-
-                          <td className="px-4 py-3.5">
-                            {tierLabel && (
-                              <span
-                                className={`inline-block rounded px-2 py-0.5 text-xs font-semibold capitalize ${roleTierBadgeClass(tierLabel)}`}
-                              >
-                                {tierLabel}
-                              </span>
                             )}
                           </td>
 

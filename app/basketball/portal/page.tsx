@@ -181,8 +181,18 @@ export default async function BasketballPortalPage() {
                         <StatusBadge status={entry.status} />
                       </div>
                       <div className="flex items-center justify-between mt-1">
-                        <span className="text-xs text-slate-500 truncate">
-                          {entry.origin_school ?? "?"} → {entry.destination_school ?? "—"}
+                        <span className="text-xs text-slate-500 truncate flex items-center gap-1">
+                          {entry.origin_team?.logo_url && (
+                            // eslint-disable-next-line @next/next/no-img-element
+                            <img src={entry.origin_team.logo_url} alt="" width={14} height={14} className="h-3.5 w-3.5 object-contain shrink-0" />
+                          )}
+                          {entry.origin_school ?? "?"}
+                          <span className="text-slate-400 mx-0.5">→</span>
+                          {entry.status === "committed" && entry.destination_team?.logo_url && (
+                            // eslint-disable-next-line @next/next/no-img-element
+                            <img src={entry.destination_team.logo_url} alt="" width={14} height={14} className="h-3.5 w-3.5 object-contain shrink-0" />
+                          )}
+                          {entry.status === "committed" ? (entry.destination_school ?? "—") : "—"}
                         </span>
                         <span
                           className="font-bold text-emerald-600 tabular-nums shrink-0"
@@ -285,12 +295,16 @@ export default async function BasketballPortalPage() {
                             {originTeam?.slug ? (
                               <Link
                                 href={`/basketball/teams/${originTeam.slug}`}
-                                className="hover:text-emerald-600 hover:underline transition-colors"
+                                className="flex items-center gap-2 hover:underline transition-colors"
                               >
-                                {entry.origin_school}
+                                {originTeam.logo_url && (
+                                  // eslint-disable-next-line @next/next/no-img-element
+                                  <img src={originTeam.logo_url} alt={originTeam.university_name} width={20} height={20} className="h-5 w-5 object-contain shrink-0" />
+                                )}
+                                <span>{originTeam.university_name}</span>
                               </Link>
                             ) : (
-                              entry.origin_school ?? "—"
+                              <span>{entry.origin_school ?? "—"}</span>
                             )}
                           </td>
                           <td className="px-4 py-3 text-xs text-slate-600">
@@ -298,12 +312,16 @@ export default async function BasketballPortalPage() {
                               destTeam?.slug ? (
                                 <Link
                                   href={`/basketball/teams/${destTeam.slug}`}
-                                  className="hover:text-emerald-600 hover:underline transition-colors font-medium text-slate-800"
+                                  className="flex items-center gap-2 hover:underline transition-colors font-medium text-slate-800"
                                 >
-                                  {entry.destination_school}
+                                  {destTeam.logo_url && (
+                                    // eslint-disable-next-line @next/next/no-img-element
+                                    <img src={destTeam.logo_url} alt={destTeam.university_name} width={20} height={20} className="h-5 w-5 object-contain shrink-0" />
+                                  )}
+                                  <span>{destTeam.university_name}</span>
                                 </Link>
                               ) : (
-                                entry.destination_school ?? "—"
+                                <span>{entry.destination_school ?? "—"}</span>
                               )
                             ) : (
                               <span className="text-slate-400">—</span>

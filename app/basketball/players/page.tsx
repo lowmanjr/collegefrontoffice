@@ -5,7 +5,7 @@ import type { Metadata } from "next";
 import { BASE_URL } from "@/lib/constants";
 import PlayerAvatar from "@/components/PlayerAvatar";
 import { formatCurrency } from "@/lib/utils";
-import { basketballPositionBadgeClass, roleTierBadgeClass } from "@/lib/ui-helpers";
+import { basketballPositionBadgeClass } from "@/lib/ui-helpers";
 import type { BasketballPlayerWithTeam } from "@/lib/database.types";
 
 export const revalidate = 900;
@@ -34,7 +34,7 @@ export default async function BasketballBigBoardPage({ searchParams }: PageProps
   let query = supabase
     .from("basketball_players")
     .select(
-      `id, name, position, role_tier, cfo_valuation, slug,
+      `id, name, position, cfo_valuation, slug,
        player_tag, class_year, ppg, rpg, apg, rotation_rank,
        is_override, star_rating, headshot_url, is_public, usage_rate,
        basketball_teams (university_name, slug, logo_url)`
@@ -141,10 +141,6 @@ export default async function BasketballBigBoardPage({ searchParams }: PageProps
             <div className="md:hidden space-y-3">
               {rows.map((player) => {
                 const team = player.basketball_teams;
-                const hasStats = (player.usage_rate ?? 0) > 0;
-                const tierLabel = hasStats
-                  ? player.role_tier
-                  : "incoming";
                 return (
                   <Link
                     key={player.id}
@@ -179,8 +175,12 @@ export default async function BasketballBigBoardPage({ searchParams }: PageProps
                         </div>
                         <div className="flex items-center justify-between mt-1">
                           <div className="flex items-center gap-2">
-                            {team && (
-                              <div className="flex items-center gap-1.5">
+                            {team && team.slug && (
+                              <Link
+                                href={`/basketball/teams/${team.slug}`}
+                                className="flex items-center gap-1.5 hover:underline"
+                                onClick={(e) => e.stopPropagation()}
+                              >
                                 {team.logo_url && (
                                   /* eslint-disable-next-line @next/next/no-img-element */
                                   <img
@@ -194,14 +194,7 @@ export default async function BasketballBigBoardPage({ searchParams }: PageProps
                                 <span className="text-xs text-slate-500">
                                   {team.university_name}
                                 </span>
-                              </div>
-                            )}
-                            {tierLabel && (
-                              <span
-                                className={`inline-block rounded px-1.5 py-0.5 text-[10px] font-semibold capitalize ${roleTierBadgeClass(tierLabel)}`}
-                              >
-                                {tierLabel}
-                              </span>
+                              </Link>
                             )}
                           </div>
                           <span
@@ -243,9 +236,6 @@ export default async function BasketballBigBoardPage({ searchParams }: PageProps
                       <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-widest w-16">
                         Pos
                       </th>
-                      <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-widest w-24">
-                        Role
-                      </th>
                       <th className="px-4 py-3 text-right text-xs font-semibold uppercase tracking-widest w-16">
                         PPG
                       </th>
@@ -264,10 +254,6 @@ export default async function BasketballBigBoardPage({ searchParams }: PageProps
                   <tbody className="divide-y divide-gray-100">
                     {rows.map((player) => {
                       const team = player.basketball_teams;
-                      const hasStats = (player.usage_rate ?? 0) > 0;
-                      const tierLabel = hasStats
-                        ? player.role_tier
-                        : "incoming";
                       return (
                         <tr
                           key={player.id}
@@ -295,8 +281,11 @@ export default async function BasketballBigBoardPage({ searchParams }: PageProps
                           </td>
 
                           <td className="px-4 py-3.5">
-                            {team ? (
-                              <div className="flex items-center gap-2">
+                            {team && team.slug ? (
+                              <Link
+                                href={`/basketball/teams/${team.slug}`}
+                                className="flex items-center gap-2 hover:underline"
+                              >
                                 {team.logo_url && (
                                   /* eslint-disable-next-line @next/next/no-img-element */
                                   <img
@@ -310,7 +299,7 @@ export default async function BasketballBigBoardPage({ searchParams }: PageProps
                                 <span className="text-slate-700 text-xs font-medium leading-tight">
                                   {team.university_name}
                                 </span>
-                              </div>
+                              </Link>
                             ) : (
                               <span className="text-slate-400 text-xs">—</span>
                             )}
@@ -325,16 +314,6 @@ export default async function BasketballBigBoardPage({ searchParams }: PageProps
                               </span>
                             ) : (
                               <span className="text-slate-400">—</span>
-                            )}
-                          </td>
-
-                          <td className="px-4 py-3.5">
-                            {tierLabel && (
-                              <span
-                                className={`inline-block rounded px-2 py-0.5 text-xs font-semibold capitalize ${roleTierBadgeClass(tierLabel)}`}
-                              >
-                                {tierLabel}
-                              </span>
                             )}
                           </td>
 

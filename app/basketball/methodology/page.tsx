@@ -5,9 +5,9 @@ import { BASE_URL } from "@/lib/constants";
 export const revalidate = false;
 
 export const metadata: Metadata = {
-  title: "Basketball Methodology | CollegeFrontOffice",
+  title: "How Basketball NIL Valuations Work — CFO Methodology | College Front Office",
   description:
-    "How CFO calculates NIL valuations for college basketball players — formula components, data sources, and calibration.",
+    "Learn how College Front Office calculates NIL valuations for college basketball players and recruits. Our proprietary multi-factor model explained.",
   alternates: { canonical: `${BASE_URL}/basketball/methodology` },
 };
 
@@ -21,277 +21,106 @@ export default function BasketballMethodologyPage() {
             className="text-4xl sm:text-5xl font-bold uppercase tracking-tight leading-none"
             style={{ fontFamily: "var(--font-oswald), sans-serif" }}
           >
-            How We Value College Basketball Players
+            How CFO Basketball Valuations Work
           </h1>
           <p className="mt-4 text-slate-400 text-base leading-relaxed max-w-2xl">
-            College Front Office uses a multiplicative formula to estimate every basketball
-            player&apos;s annualized NIL market value. With only 13 scholarships and 5 starters,
-            basketball economics are driven by minutes share and role — not depth chart position.
-            Players with no college minutes yet are valued on their recruiting profile and draft
-            projection.
+            College Front Office uses a proprietary multi-factor model to estimate every
+            basketball player&apos;s annualized NIL market value. With only 13 scholarships
+            and five starters, basketball NIL economics are driven by role, program prestige,
+            draft projection, and market reach. These are proprietary estimates, not official
+            financial disclosures.
           </p>
         </div>
       </section>
 
       {/* ── Body ─────────────────────────────────────────────────────────── */}
       <div className="mx-auto max-w-3xl px-6 py-12 space-y-8">
-        {/* ── Section 1: The Formula ───────────────────────────────────── */}
+        {/* ── Section 1: What We Measure ─────────────────────────────────── */}
         <section className="bg-white rounded-xl shadow-md p-8">
           <h2
             className="text-xl font-bold text-slate-900 uppercase tracking-wide mb-4"
             style={{ fontFamily: "var(--font-oswald), sans-serif" }}
           >
-            The Formula
+            What We Measure
           </h2>
-
-          <div className="space-y-4">
-            <div>
-              <p className="text-xs uppercase tracking-widest text-slate-400 mb-2">
-                Step 1 — Combined Premium
-              </p>
-              <div className="bg-slate-50 rounded-lg border border-slate-200 p-4 font-mono text-sm text-slate-700 leading-relaxed">
-                Drafted players:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;max(Draft Premium, Role Tier)<br />
-                Non-drafted players:&nbsp;Role Tier only
-              </div>
-              <p className="mt-2 text-xs text-slate-500 leading-relaxed">
-                Draft premium and role tier both measure player importance — one from NBA scouts,
-                one from minutes. When draft data exists, the stronger signal wins. When it
-                doesn&apos;t, role tier applies alone.
-              </p>
-            </div>
-
-            <div>
-              <p className="text-xs uppercase tracking-widest text-slate-400 mb-2">
-                Step 2 — Valuation
-              </p>
-              <div className="bg-slate-50 rounded-lg border border-slate-200 p-4 font-mono text-sm text-slate-700 leading-relaxed">
-                NIL Value = Position Base &times; Combined Premium<br />
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&times; Talent &times; Market &times; Experience<br />
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+ Social Premium
-              </div>
-              <p className="mt-2 text-xs text-slate-500 leading-relaxed">
-                Incoming players (no college minutes) use a fixed 0.60&times; role tier and
-                composite score for talent. All valuations have a $5,000 floor.
-              </p>
-            </div>
-          </div>
-
-          <p className="mt-4 text-sm text-slate-500 leading-relaxed">
-            Every component is independently calibrated. The multiplicative structure means each
-            factor compounds — a franchise player at a blue-blood program receives the full
-            benefit of every multiplier stacking.
-          </p>
-        </section>
-
-        {/* ── Section 2: Position Base ─────────────────────────────────── */}
-        <section className="bg-white rounded-xl shadow-md p-8">
-          <h2
-            className="text-xl font-bold text-slate-900 uppercase tracking-wide mb-4"
-            style={{ fontFamily: "var(--font-oswald), sans-serif" }}
-          >
-            Position Base
-          </h2>
-          <p className="text-sm text-slate-600 leading-relaxed mb-4">
-            Sets the economic floor by position. Bases are calibrated to the Power 4 market floor —
-            a center and a point guard are within 55% of each other. Role tier and draft premium
-            create the real spread, not position. ESPN provides generic G/F/C positions for some
-            players; these map to SG ($600K), SF ($550K), and C ($450K) respectively.
-          </p>
-          <div className="overflow-x-auto">
-            <table className="w-full text-sm">
-              <thead>
-                <tr className="border-b border-slate-200 text-left">
-                  <th className="py-2 pr-4 font-semibold text-slate-700">Position</th>
-                  <th className="py-2 text-right font-semibold text-slate-700">Base Value</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-slate-100">
-                {[
-                  ["PG — Point Guard", "$700,000"],
-                  ["SG — Shooting Guard", "$600,000"],
-                  ["SF — Small Forward", "$550,000"],
-                  ["PF — Power Forward", "$500,000"],
-                  ["C — Center", "$450,000"],
-                ].map(([pos, val]) => (
-                  <tr key={pos}>
-                    <td className="py-2 pr-4 text-slate-600">{pos}</td>
-                    <td className="py-2 text-right font-semibold text-slate-900 tabular-nums">{val}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </section>
-
-        {/* ── Section 3: NBA Draft Premium ─────────────────────────────── */}
-        <section className="bg-white rounded-xl shadow-md p-8">
-          <h2
-            className="text-xl font-bold text-slate-900 uppercase tracking-wide mb-4"
-            style={{ fontFamily: "var(--font-oswald), sans-serif" }}
-          >
-            NBA Draft Premium
-          </h2>
-          <p className="text-sm text-slate-600 leading-relaxed mb-4">
-            Players with NBA draft projections receive a premium that reflects the massive
-            gap between lottery contracts and the undrafted market. The curve is steeper than
-            the NFL equivalent because NBA lottery picks sign 4-year guaranteed deals worth
-            $10M+ per year.
-          </p>
-          <div className="overflow-x-auto">
-            <table className="w-full text-sm">
-              <thead>
-                <tr className="border-b border-slate-200 text-left">
-                  <th className="py-2 pr-4 font-semibold text-slate-700">Projected Pick</th>
-                  <th className="py-2 pr-4 font-semibold text-slate-700">Tier</th>
-                  <th className="py-2 text-right font-semibold text-slate-700">Premium</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-slate-100">
-                {[
-                  ["1–5", "Consensus lottery", "3.50×"],
-                  ["6–14", "Lottery", "2.60×"],
-                  ["15–30", "Late first round", "1.80×"],
-                  ["31–60", "Second round", "1.25×"],
-                  ["Not projected", "Baseline", "1.00×"],
-                ].map(([pick, tier, premium]) => (
-                  <tr key={pick}>
-                    <td className="py-2 pr-4 text-slate-600">{pick}</td>
-                    <td className="py-2 pr-4 text-slate-500">{tier}</td>
-                    <td className="py-2 text-right font-semibold text-slate-900 tabular-nums">{premium}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </section>
-
-        {/* ── Section 4: Role Tier ─────────────────────────────────────── */}
-        <section className="bg-white rounded-xl shadow-md p-8">
-          <h2
-            className="text-xl font-bold text-slate-900 uppercase tracking-wide mb-4"
-            style={{ fontFamily: "var(--font-oswald), sans-serif" }}
-          >
-            Role Tier
-          </h2>
-          <p className="text-sm text-slate-600 leading-relaxed mb-4">
-            The single biggest spread driver for players without a draft projection. Role tier
-            is derived from minutes per game — a transparent, auditable proxy that coaches and
-            fans already use to describe player roles.
-          </p>
-          <div className="overflow-x-auto">
-            <table className="w-full text-sm">
-              <thead>
-                <tr className="border-b border-slate-200 text-left">
-                  <th className="py-2 pr-4 font-semibold text-slate-700">MPG</th>
-                  <th className="py-2 pr-4 font-semibold text-slate-700">Role</th>
-                  <th className="py-2 text-right font-semibold text-slate-700">Multiplier</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-slate-100">
-                {[
-                  ["30+", "Franchise", "2.20×"],
-                  ["24–29", "Star", "1.65×"],
-                  ["16–23", "Starter", "1.20×"],
-                  ["8–15", "Rotation", "0.75×"],
-                  ["< 8", "Bench", "0.30×"],
-                  ["No stats", "Incoming", "0.60×"],
-                ].map(([mpg, role, mult]) => (
-                  <tr key={mpg}>
-                    <td className="py-2 pr-4 text-slate-600">{mpg}</td>
-                    <td className="py-2 pr-4 text-slate-500">{role}</td>
-                    <td className="py-2 text-right font-semibold text-slate-900 tabular-nums">{mult}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-          <div className="mt-4 rounded-lg bg-slate-50 border border-slate-200 p-4">
-            <p className="text-sm text-slate-600 leading-relaxed">
-              <span className="font-semibold text-slate-800">Sixth man handling:</span>{" "}
-              A player logging 20+ minutes off the bench slots into Starter tier — we
-              don&apos;t penalize rotation status, only minutes. The &ldquo;incoming&rdquo;
-              multiplier (0.60&times;) sits between rotation and bench, so a 5-star freshman
-              arriving with a lottery draft projection is valued well above a low-minutes
-              veteran.
-            </p>
-          </div>
-        </section>
-
-        {/* ── Section 5: Eligibility Gate ──────────────────────────────── */}
-        <section className="bg-white rounded-xl shadow-md p-8">
-          <h2
-            className="text-xl font-bold text-slate-900 uppercase tracking-wide mb-4"
-            style={{ fontFamily: "var(--font-oswald), sans-serif" }}
-          >
-            Eligibility Gate
-          </h2>
-          <p className="text-sm text-slate-600 leading-relaxed mb-4">
-            Not every rostered player participates in the NIL market. The formula only runs for
-            players who clear at least one threshold:
-          </p>
-          <div className="space-y-3">
-            <div className="flex gap-3 items-start">
-              <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-blue-500" />
-              <p className="text-sm text-slate-600 leading-relaxed">
-                <span className="font-semibold text-slate-800">Returning players:</span>{" "}
-                Minutes per game &ge; 8.0
-              </p>
-            </div>
-            <div className="flex gap-3 items-start">
-              <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-purple-500" />
-              <p className="text-sm text-slate-600 leading-relaxed">
-                <span className="font-semibold text-slate-800">Incoming players:</span>{" "}
-                247Sports star rating &ge; 4
-              </p>
-            </div>
-          </div>
-          <p className="mt-4 text-sm text-slate-500 leading-relaxed">
-            Players below these thresholds appear on team rosters without a dollar figure. Team
-            totals reflect only valued players.
-          </p>
-        </section>
-
-        {/* ── Section 6: Talent Modifier ───────────────────────────────── */}
-        <section className="bg-white rounded-xl shadow-md p-8">
-          <h2
-            className="text-xl font-bold text-slate-900 uppercase tracking-wide mb-4"
-            style={{ fontFamily: "var(--font-oswald), sans-serif" }}
-          >
-            Talent Modifier
-          </h2>
-          <p className="text-sm text-slate-600 leading-relaxed mb-4">
-            Measures individual talent above or below the college average. The signal source
-            depends on whether a player has college game data.
-          </p>
-
           <div className="space-y-6">
             <div className="border-l-4 border-blue-500 pl-5">
               <h3
                 className="text-lg font-bold text-slate-900 mb-2"
                 style={{ fontFamily: "var(--font-oswald), sans-serif" }}
               >
-                Returning Players: PER
+                Minutes &amp; Role
               </h3>
-              <p className="text-sm text-slate-600 leading-relaxed mb-3">
-                Player Efficiency Rating (PER) is the primary talent signal. NCAA average is
-                roughly 15.0 — the tiers are calibrated around that baseline.
+              <p className="text-sm text-slate-600 leading-relaxed">
+                A player&apos;s contribution on the court is the foundation of their value. We
+                measure how much a program depends on a player — not just their statistics, but
+                how central they are to the team&apos;s rotation. The more a program relies on a
+                player, the more that player is worth in the NIL market.
               </p>
-              <table className="w-full text-sm">
-                <thead>
-                  <tr className="border-b border-slate-200 text-left">
-                    <th className="py-2 pr-4 font-semibold text-slate-700">PER</th>
-                    <th className="py-2 text-right font-semibold text-slate-700">Modifier</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-slate-100">
-                  {[["25+", "1.30×"], ["20–24", "1.20×"], ["15–19", "1.10×"], ["10–14", "1.00×"], ["< 10", "0.90×"]].map(([per, mod]) => (
-                    <tr key={per}>
-                      <td className="py-2 pr-4 text-slate-600">{per}</td>
-                      <td className="py-2 text-right font-semibold text-slate-900 tabular-nums">{mod}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
+            </div>
+
+            <div className="border-l-4 border-emerald-500 pl-5">
+              <h3
+                className="text-lg font-bold text-slate-900 mb-2"
+                style={{ fontFamily: "var(--font-oswald), sans-serif" }}
+              >
+                Position Value
+              </h3>
+              <p className="text-sm text-slate-600 leading-relaxed">
+                Not all positions command equal NIL earning power. Guards who run offenses and
+                create for teammates tend to attract more NIL interest than bigs, reflecting
+                broader market dynamics in how programs and brands value different roles on the
+                floor. Our position-specific base values are calibrated to the Power 4 market
+                using transfer portal deal data and publicly reported NIL figures.
+              </p>
+            </div>
+
+            <div className="border-l-4 border-blue-500 pl-5">
+              <h3
+                className="text-lg font-bold text-slate-900 mb-2"
+                style={{ fontFamily: "var(--font-oswald), sans-serif" }}
+              >
+                NBA Draft Projection
+              </h3>
+              <p className="text-sm text-slate-600 leading-relaxed">
+                Players with credible NBA draft stock carry a premium that reflects their scarcity
+                and the time-limited window for programs to keep them. The gap between a lottery
+                pick and an undrafted player is massive — NBA lottery contracts are four-year
+                guaranteed deals worth tens of millions. When a player has meaningful draft
+                attention, that projection is weighted heavily in our model.
+              </p>
+            </div>
+
+            <div className="border-l-4 border-emerald-500 pl-5">
+              <h3
+                className="text-lg font-bold text-slate-900 mb-2"
+                style={{ fontFamily: "var(--font-oswald), sans-serif" }}
+              >
+                Program &amp; Market
+              </h3>
+              <p className="text-sm text-slate-600 leading-relaxed">
+                Where a player plays matters. The same player is worth more at a blue-blood
+                program than at a mid-major, because NIL collectives, alumni networks, and media
+                markets differ dramatically by school. Basketball market multipliers are calibrated
+                independently from football — Duke basketball is a top-tier brand even though
+                Duke football is mid-market.
+              </p>
+            </div>
+
+            <div className="border-l-4 border-amber-500 pl-5">
+              <h3
+                className="text-lg font-bold text-slate-900 mb-2"
+                style={{ fontFamily: "var(--font-oswald), sans-serif" }}
+              >
+                Talent Assessment
+              </h3>
+              <p className="text-sm text-slate-600 leading-relaxed">
+                For players with college game tape, we assess efficiency and production relative
+                to the average college player. For incoming players without college stats,
+                recruiting profile and national ranking serve as the primary talent signal. The
+                model uses the best available signal for each player — never guessing when real
+                data exists.
+              </p>
             </div>
 
             <div className="border-l-4 border-purple-500 pl-5">
@@ -299,162 +128,188 @@ export default function BasketballMethodologyPage() {
                 className="text-lg font-bold text-slate-900 mb-2"
                 style={{ fontFamily: "var(--font-oswald), sans-serif" }}
               >
-                Incoming Players: Composite Score
+                Experience &amp; Eligibility
               </h3>
-              <p className="text-sm text-slate-600 leading-relaxed mb-3">
-                Players without college stats are evaluated on their 247Sports composite
-                recruiting score — the best available pre-college talent signal.
+              <p className="text-sm text-slate-600 leading-relaxed">
+                A senior who has built name recognition over four years of college basketball
+                commands more NIL earning power than an identical freshman. Our model adjusts
+                for class year, recognizing that mid-career players with established tape and
+                marketing history often command the strongest position.
               </p>
-              <table className="w-full text-sm">
-                <thead>
-                  <tr className="border-b border-slate-200 text-left">
-                    <th className="py-2 pr-4 font-semibold text-slate-700">Composite</th>
-                    <th className="py-2 pr-4 font-semibold text-slate-700">Stars</th>
-                    <th className="py-2 text-right font-semibold text-slate-700">Modifier</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-slate-100">
-                  {[
-                    ["0.9900+", "5-star", "1.30×"],
-                    ["0.8900–0.9899", "4-star", "1.15×"],
-                    ["0.7900–0.8899", "3-star", "1.00×"],
-                    ["< 0.7900", "Unranked", "0.85×"],
-                  ].map(([comp, stars, mod]) => (
-                    <tr key={comp}>
-                      <td className="py-2 pr-4 text-slate-600 font-mono text-xs">{comp}</td>
-                      <td className="py-2 pr-4 text-slate-500">{stars}</td>
-                      <td className="py-2 text-right font-semibold text-slate-900 tabular-nums">{mod}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
+            </div>
+
+            <div className="border-l-4 border-pink-500 pl-5">
+              <h3
+                className="text-lg font-bold text-slate-900 mb-2"
+                style={{ fontFamily: "var(--font-oswald), sans-serif" }}
+              >
+                Social &amp; Brand Reach
+              </h3>
+              <p className="text-sm text-slate-600 leading-relaxed">
+                Personal brand matters in NIL. Followers, engagement, and platform presence
+                translate directly into deal value. A player with a significant social following
+                earns a premium on top of their on-court valuation. Social reach is a meaningful
+                bonus but is intentionally capped — College Front Office is a basketball-first
+                valuation.
+              </p>
             </div>
           </div>
         </section>
 
-        {/* ── Section 6: Market Multiplier ─────────────────────────────── */}
+        {/* ── Section 2: How We Value Recruits ────────────────────────────── */}
         <section className="bg-white rounded-xl shadow-md p-8">
           <h2
             className="text-xl font-bold text-slate-900 uppercase tracking-wide mb-4"
             style={{ fontFamily: "var(--font-oswald), sans-serif" }}
           >
-            Program &amp; Market
+            How We Value Recruits
           </h2>
-          <p className="text-sm text-slate-600 leading-relaxed mb-4">
-            Where a player plays matters. Programs with larger fanbases, stronger NIL
-            collectives, and more media exposure generate more NIL opportunity. Basketball
-            market multipliers are calibrated independently from football — Duke basketball
-            is a top-tier brand even though Duke football is mid-market.
+          <p className="text-sm text-slate-600 leading-relaxed mb-5">
+            College Front Office also values elite high school basketball recruits — the
+            four-star and five-star prospects who make up the next generation of college talent.
+            Valuing recruits requires a different approach than valuing college athletes, because
+            high school players don&apos;t have college production data, minutes logs, or draft
+            projections. Instead, we rely on the signals that actually drive the recruiting market.
           </p>
-          <div className="overflow-x-auto">
-            <table className="w-full text-sm">
-              <thead>
-                <tr className="border-b border-slate-200 text-left">
-                  <th className="py-2 pr-4 font-semibold text-slate-700">Multiplier</th>
-                  <th className="py-2 pr-4 font-semibold text-slate-700">Program Tier</th>
-                  <th className="py-2 font-semibold text-slate-700">Examples</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-slate-100">
-                {[
-                  ["1.25–1.35", "Blue bloods", "Duke, Kentucky, Kansas, UNC"],
-                  ["1.15–1.24", "Elite programs", "Gonzaga, Houston, UConn"],
-                  ["1.05–1.14", "Strong Power 4", "BYU (1.08), Iowa State, Baylor"],
-                  ["0.95–1.04", "Mid Power 4", "TCU, UCF, Saint Mary's"],
-                  ["0.55–0.75", "Mid-major", "A-10, MWC, WCC programs"],
-                  ["0.30–0.50", "Lower D1", "Smaller conference programs"],
-                ].map(([mult, tier, examples]) => (
-                  <tr key={mult}>
-                    <td className="py-2 pr-4 text-slate-600 font-mono text-xs">{mult}</td>
-                    <td className="py-2 pr-4 font-semibold text-slate-700">{tier}</td>
-                    <td className="py-2 text-slate-500 text-xs">{examples}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+          <div className="space-y-6">
+            <div className="border-l-4 border-purple-500 pl-5">
+              <h3
+                className="text-lg font-bold text-slate-900 mb-2"
+                style={{ fontFamily: "var(--font-oswald), sans-serif" }}
+              >
+                Recruiting Profile
+              </h3>
+              <p className="text-sm text-slate-600 leading-relaxed">
+                For high school players who haven&apos;t taken a college floor yet, national
+                recruiting rankings and composite scores serve as our primary talent signal.
+                Higher-rated recruits consistently command larger NIL packages, and our model
+                reflects that relationship.
+              </p>
+            </div>
+
+            <div className="border-l-4 border-blue-500 pl-5">
+              <h3
+                className="text-lg font-bold text-slate-900 mb-2"
+                style={{ fontFamily: "var(--font-oswald), sans-serif" }}
+              >
+                Program Commitment
+              </h3>
+              <p className="text-sm text-slate-600 leading-relaxed">
+                A five-star recruit committed to a powerhouse program with a strong NIL collective
+                and large fanbase has a different market than the same player who is uncommitted or
+                headed to a smaller program. Our model accounts for the financial ecosystem a recruit
+                is entering.
+              </p>
+            </div>
+
+            <div className="border-l-4 border-emerald-500 pl-5">
+              <h3
+                className="text-lg font-bold text-slate-900 mb-2"
+                style={{ fontFamily: "var(--font-oswald), sans-serif" }}
+              >
+                Class Year
+              </h3>
+              <p className="text-sm text-slate-600 leading-relaxed">
+                Recruits closer to arriving on campus — signed seniors about to enroll — are
+                valued higher than younger prospects whose commitments and development are less
+                certain. We currently track the Classes of 2026, 2027, and 2028.
+              </p>
+            </div>
+          </div>
+
+          <div className="mt-6 rounded-lg bg-slate-50 border border-slate-200 p-4">
+            <p className="text-sm text-slate-600 leading-relaxed">
+              <span className="font-semibold text-slate-800">We only value four-star and five-star recruits.</span>{" "}
+              Below that threshold, high school basketball NIL markets are too speculative
+              to model responsibly. We believe it&apos;s better to show no number than a
+              misleading one.
+            </p>
+            <p className="text-sm text-slate-500 leading-relaxed mt-3">
+              Once a recruit enrolls in college and begins accumulating real playing time, their
+              valuation naturally transitions from our recruiting model to our college athlete model
+              as production data and draft projections become available.
+            </p>
           </div>
         </section>
 
-        {/* ── Section 7: Experience Multiplier ─────────────────────────── */}
+        {/* ── Section 3: Reported Deals ─────────────────────────────────── */}
         <section className="bg-white rounded-xl shadow-md p-8">
           <h2
             className="text-xl font-bold text-slate-900 uppercase tracking-wide mb-4"
             style={{ fontFamily: "var(--font-oswald), sans-serif" }}
           >
-            Experience
+            Reported Deals
           </h2>
           <p className="text-sm text-slate-600 leading-relaxed mb-4">
-            NIL earning power increases over a college career as players build name recognition,
-            marketing history, and on-court track record.
+            When a player has a publicly reported NIL deal from a credible source, we use
+            that reported figure as their valuation instead of our algorithmic estimate. We
+            believe real market data is always more accurate than any model.
           </p>
-          <div className="overflow-x-auto">
-            <table className="w-full text-sm">
-              <thead>
-                <tr className="border-b border-slate-200 text-left">
-                  <th className="py-2 pr-4 font-semibold text-slate-700">Class Year</th>
-                  <th className="py-2 text-right font-semibold text-slate-700">Multiplier</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-slate-100">
-                {[
-                  ["Freshman", "0.85×"],
-                  ["Sophomore", "0.95×"],
-                  ["Junior", "1.05×"],
-                  ["Senior", "1.10×"],
-                  ["Graduate", "1.15×"],
-                ].map(([year, mult]) => (
-                  <tr key={year}>
-                    <td className="py-2 pr-4 text-slate-600">{year}</td>
-                    <td className="py-2 text-right font-semibold text-slate-900 tabular-nums">{mult}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+          <p className="text-sm text-slate-600 leading-relaxed">
+            Reported deal data is sourced from public reporting, NIL collectives, and direct
+            submissions. Each source is attributed on the player&apos;s profile when available.
+          </p>
         </section>
 
-        {/* ── Section 8: Social Premium ────────────────────────────────── */}
+        {/* ── Section 4: What We Don't Do ──────────────────────────────── */}
         <section className="bg-white rounded-xl shadow-md p-8">
           <h2
             className="text-xl font-bold text-slate-900 uppercase tracking-wide mb-4"
             style={{ fontFamily: "var(--font-oswald), sans-serif" }}
           >
-            Social &amp; Brand Reach
+            What We Don&apos;t Do
           </h2>
-          <p className="text-sm text-slate-600 leading-relaxed mb-4">
-            A flat dollar bonus added after the multiplicative formula. Social followers are
-            weighted by platform: TikTok at 1.2&times; Instagram&apos;s weight and Twitter/X at
-            0.7&times; — basketball players skew younger and TikTok reach converts to NIL deals
-            at a higher rate.
-          </p>
-          <div className="overflow-x-auto">
-            <table className="w-full text-sm">
-              <thead>
-                <tr className="border-b border-slate-200 text-left">
-                  <th className="py-2 pr-4 font-semibold text-slate-700">Weighted Followers</th>
-                  <th className="py-2 text-right font-semibold text-slate-700">Premium</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-slate-100">
-                {[
-                  ["1,000,000+", "$150,000"],
-                  ["500,000+", "$75,000"],
-                  ["100,000+", "$25,000"],
-                  ["50,000+", "$10,000"],
-                  ["10,000+", "$3,000"],
-                  ["< 10,000", "$0"],
-                ].map(([followers, premium]) => (
-                  <tr key={followers}>
-                    <td className="py-2 pr-4 text-slate-600">{followers}</td>
-                    <td className="py-2 text-right font-semibold text-slate-900 tabular-nums">{premium}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+          <ul className="space-y-4">
+            {[
+              {
+                title: "We don't value players based on star rating alone.",
+                body: "Star ratings are a useful scouting shorthand, but they don't directly predict NIL market value. A three-star starter at a major program can out-earn a five-star bench player.",
+              },
+              {
+                title: "We don't speculate on unsigned deals.",
+                body: "If a deal isn't publicly reported, it doesn't replace our model.",
+              },
+              {
+                title: "We don't penalize for injury or limited availability.",
+                body: "Players with medical exemptions or inactive status retain their projected healthy valuation. We note the status transparently on their profile.",
+              },
+              {
+                title: "We don't value every high school player.",
+                body: "The NIL market for recruits below four-star status is minimal and highly speculative. We focus on the players whose market activity is real and measurable.",
+              },
+              {
+                title: "We don't reduce value when a player transfers down.",
+                body: "A player's value adjusts to reflect their new program's market, but we never penalize someone for choosing a school that's the right fit.",
+              },
+            ].map(({ title, body }) => (
+              <li key={title} className="flex gap-3">
+                <span className="mt-1.5 h-2 w-2 shrink-0 rounded-full bg-slate-400" />
+                <div>
+                  <p className="text-sm font-semibold text-slate-800">{title}</p>
+                  <p className="text-sm text-slate-500 mt-0.5 leading-relaxed">{body}</p>
+                </div>
+              </li>
+            ))}
+          </ul>
         </section>
 
-        {/* ── Section 9: Data Sources ──────────────────────────────────── */}
+        {/* ── Section 5: Update Frequency ──────────────────────────────── */}
+        <section className="bg-white rounded-xl shadow-md p-8">
+          <h2
+            className="text-xl font-bold text-slate-900 uppercase tracking-wide mb-4"
+            style={{ fontFamily: "var(--font-oswald), sans-serif" }}
+          >
+            How Often Valuations Update
+          </h2>
+          <p className="text-sm text-slate-600 leading-relaxed">
+            Valuations are recalculated regularly as new data becomes available — including
+            updated stats, roster changes, draft projections, and social media growth. During
+            active portal windows we update daily. Portal and recruiting pages reflect the most
+            current available data.
+          </p>
+        </section>
+
+        {/* ── Section 6: Data Sources ──────────────────────────────────── */}
         <section className="bg-white rounded-xl shadow-md p-8">
           <h2
             className="text-xl font-bold text-slate-900 uppercase tracking-wide mb-4"
@@ -473,7 +328,7 @@ export default function BasketballMethodologyPage() {
               <tbody className="divide-y divide-slate-100">
                 {[
                   ["Rosters", "ESPN API"],
-                  ["Season stats (MPG, PPG, RPG, APG, PER)", "ESPN Core Stats API"],
+                  ["Season stats", "ESPN Core Stats API"],
                   ["Recruiting composite scores", "247Sports"],
                   ["NBA draft projections", "ESPN draft prospects API"],
                   ["Social followers", "On3 NIL database"],
@@ -490,38 +345,33 @@ export default function BasketballMethodologyPage() {
           </div>
         </section>
 
-        {/* ── Section 11: Limitations ──────────────────────────────────── */}
+        {/* ── Section 7: A Note on Accuracy ────────────────────────────── */}
         <section className="bg-slate-900 text-white rounded-xl shadow-md p-6">
           <h2
             className="text-xl font-bold text-white uppercase tracking-wide mb-4"
             style={{ fontFamily: "var(--font-oswald), sans-serif" }}
           >
-            Transparency &amp; Limitations
+            A Note on Accuracy
           </h2>
-          <ul className="space-y-3">
-            {[
-              "Usage rate is minutes-based, not true possession-level usage. MPG is a transparent proxy that correlates tightly with actual role.",
-              "Social data coverage varies by player. On3 does not track every athlete — players not in their database show $0 social premium.",
-              "ESPN provides generic positions (G/F/C) for some players. Granular positions are corrected where recruiting data is available.",
-            ].map((text) => (
-              <li key={text} className="flex gap-3">
-                <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-slate-500" />
-                <p className="text-sm text-slate-300 leading-relaxed">{text}</p>
-              </li>
-            ))}
-          </ul>
-          <p className="mt-4 text-sm text-slate-400 leading-relaxed">
+          <p className="text-sm text-slate-300 leading-relaxed mb-4">
+            No model is perfect. NIL is a young, rapidly evolving market with limited public
+            data. CFO valuations are estimates — informed by the best available data and a
+            rigorous methodology, but not guarantees of what a player will or should earn.
+            For most scholarship players at tracked programs, our valuations fall within the
+            range that market participants — agents, collectives, and programs — would consider
+            reasonable for a player of that profile.
+          </p>
+          <p className="text-sm text-slate-400 leading-relaxed">
             We&apos;re transparent about our approach because we believe the NIL market works
-            better when everyone has access to credible, independent valuations. These are
-            estimates, not guarantees of what a player will or should earn.
+            better when everyone — players, families, collectives, and programs — has access to
+            credible, independent valuations.
           </p>
         </section>
 
         {/* ── Version / CTA ───────────────────────────────────────────── */}
         <div className="text-center pt-4">
           <p className="text-xs text-slate-400 mb-6">
-            Basketball Valuation Engine V1.3 — launched 2025, calibration updated April 2026.
-            Formula and calibration updated as new data becomes available.
+            Basketball Valuation Engine — methodology updated April 2026.
           </p>
           <Link
             href="/basketball/players"
