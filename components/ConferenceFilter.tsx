@@ -1,6 +1,6 @@
 "use client";
 
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 const CONFERENCES = [
   { label: "All", slug: "", dbValue: "" },
@@ -22,17 +22,9 @@ export default function ConferenceFilter({
   totalCount,
 }: ConferenceFilterProps) {
   const router = useRouter();
-  const searchParams = useSearchParams();
 
   function handleClick(slug: string) {
-    const params = new URLSearchParams(searchParams.toString());
-    if (slug) {
-      params.set("conf", slug);
-    } else {
-      params.delete("conf");
-    }
-    const qs = params.toString();
-    router.push(qs ? `/teams?${qs}` : "/teams", { scroll: false });
+    router.push(slug ? `/teams?conf=${slug}` : "/teams", { scroll: false });
   }
 
   return (
