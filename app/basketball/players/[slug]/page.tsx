@@ -57,6 +57,8 @@ interface Player {
   per: number | null;
   nba_draft_projection: number | null;
   headshot_url: string | null;
+  roster_status: string | null;
+  acquisition_type: string | null;
   team_id: string | null;
   basketball_teams: Team | null;
 }
@@ -183,6 +185,21 @@ export default async function BasketballPlayerProfilePage({ params }: PageProps)
                     {p.position}
                   </span>
                 )}
+                {p.acquisition_type === "portal" && (
+                  <span className="rounded px-2.5 py-0.5 text-xs font-semibold bg-blue-500/20 text-blue-300">
+                    Transfer
+                  </span>
+                )}
+                {p.acquisition_type === "portal_evaluating" && (
+                  <span className="rounded px-2.5 py-0.5 text-xs font-semibold bg-amber-500/20 text-amber-300">
+                    In Portal
+                  </span>
+                )}
+                {p.roster_status === "departed_transfer" && (
+                  <span className="rounded px-2.5 py-0.5 text-xs font-semibold bg-red-500/20 text-red-300">
+                    Departed
+                  </span>
+                )}
               </div>
 
               {/* Name */}
@@ -207,9 +224,18 @@ export default async function BasketballPlayerProfilePage({ params }: PageProps)
                     />
                   )}
                   <span className="text-sm text-slate-400">
-                    <span className="text-slate-200 font-medium">
-                      {team.university_name}
-                    </span>
+                    {team.slug ? (
+                      <Link
+                        href={`/basketball/teams/${team.slug}`}
+                        className="text-slate-200 font-medium hover:text-emerald-400 hover:underline transition-colors"
+                      >
+                        {team.university_name}
+                      </Link>
+                    ) : (
+                      <span className="text-slate-200 font-medium">
+                        {team.university_name}
+                      </span>
+                    )}
                     {team.conference && (
                       <span className="text-slate-500">
                         {" "}

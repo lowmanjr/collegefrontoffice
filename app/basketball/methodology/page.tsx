@@ -251,49 +251,7 @@ export default function BasketballMethodologyPage() {
           </p>
         </section>
 
-        {/* ── Section 4: What We Don't Do ──────────────────────────────── */}
-        <section className="bg-white rounded-xl shadow-md p-8">
-          <h2
-            className="text-xl font-bold text-slate-900 uppercase tracking-wide mb-4"
-            style={{ fontFamily: "var(--font-oswald), sans-serif" }}
-          >
-            What We Don&apos;t Do
-          </h2>
-          <ul className="space-y-4">
-            {[
-              {
-                title: "We don't value players based on star rating alone.",
-                body: "Star ratings are a useful scouting shorthand, but they don't directly predict NIL market value. A three-star starter at a major program can out-earn a five-star bench player.",
-              },
-              {
-                title: "We don't speculate on unsigned deals.",
-                body: "If a deal isn't publicly reported, it doesn't replace our model.",
-              },
-              {
-                title: "We don't penalize for injury or limited availability.",
-                body: "Players with medical exemptions or inactive status retain their projected healthy valuation. We note the status transparently on their profile.",
-              },
-              {
-                title: "We don't value every high school player.",
-                body: "The NIL market for recruits below four-star status is minimal and highly speculative. We focus on the players whose market activity is real and measurable.",
-              },
-              {
-                title: "We don't reduce value when a player transfers down.",
-                body: "A player's value adjusts to reflect their new program's market, but we never penalize someone for choosing a school that's the right fit.",
-              },
-            ].map(({ title, body }) => (
-              <li key={title} className="flex gap-3">
-                <span className="mt-1.5 h-2 w-2 shrink-0 rounded-full bg-slate-400" />
-                <div>
-                  <p className="text-sm font-semibold text-slate-800">{title}</p>
-                  <p className="text-sm text-slate-500 mt-0.5 leading-relaxed">{body}</p>
-                </div>
-              </li>
-            ))}
-          </ul>
-        </section>
-
-        {/* ── Section 5: Update Frequency ──────────────────────────────── */}
+        {/* ── Section 4: Update Frequency ──────────────────────────────── */}
         <section className="bg-white rounded-xl shadow-md p-8">
           <h2
             className="text-xl font-bold text-slate-900 uppercase tracking-wide mb-4"
@@ -309,43 +267,7 @@ export default function BasketballMethodologyPage() {
           </p>
         </section>
 
-        {/* ── Section 6: Data Sources ──────────────────────────────────── */}
-        <section className="bg-white rounded-xl shadow-md p-8">
-          <h2
-            className="text-xl font-bold text-slate-900 uppercase tracking-wide mb-4"
-            style={{ fontFamily: "var(--font-oswald), sans-serif" }}
-          >
-            Data Sources
-          </h2>
-          <div className="overflow-x-auto">
-            <table className="w-full text-sm">
-              <thead>
-                <tr className="border-b border-slate-200 text-left">
-                  <th className="py-2 pr-4 font-semibold text-slate-700">Data</th>
-                  <th className="py-2 font-semibold text-slate-700">Source</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-slate-100">
-                {[
-                  ["Rosters", "ESPN API"],
-                  ["Season stats", "ESPN Core Stats API"],
-                  ["Recruiting composite scores", "247Sports"],
-                  ["NBA draft projections", "ESPN draft prospects API"],
-                  ["Social followers", "On3 NIL database"],
-                  ["Transfer portal movements", "On3 transfer portal"],
-                  ["Reported NIL deals", "Public reporting + CFO estimates"],
-                ].map(([data, source]) => (
-                  <tr key={data}>
-                    <td className="py-2 pr-4 text-slate-600">{data}</td>
-                    <td className="py-2 text-slate-500">{source}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </section>
-
-        {/* ── Section 7: A Note on Accuracy ────────────────────────────── */}
+        {/* ── Section 5: A Note on Accuracy ────────────────────────────── */}
         <section className="bg-slate-900 text-white rounded-xl shadow-md p-6">
           <h2
             className="text-xl font-bold text-white uppercase tracking-wide mb-4"

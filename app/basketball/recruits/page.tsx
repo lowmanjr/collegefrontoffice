@@ -138,12 +138,40 @@ export default async function BasketballRecruitsPage({ searchParams }: PageProps
                       <tr key={recruit.id} className="hover:bg-slate-50 transition-colors">
                         <td className="px-3 py-3 text-center text-xs text-slate-400 tabular-nums">{i + 1}</td>
                         <td className="px-4 py-3">
-                          <span
-                            className="font-semibold text-slate-900 uppercase tracking-tight"
-                            style={{ fontFamily: "var(--font-oswald), sans-serif" }}
-                          >
-                            {recruit.name}
-                          </span>
+                          <div className="flex items-center gap-3">
+                            {recruit.headshot_url ? (
+                              // eslint-disable-next-line @next/next/no-img-element
+                              <img
+                                src={recruit.headshot_url}
+                                alt={recruit.name}
+                                width={32}
+                                height={32}
+                                className="rounded-full object-cover w-8 h-8 shrink-0 bg-slate-200"
+                              />
+                            ) : (
+                              <div className="w-8 h-8 rounded-full bg-slate-200 flex items-center justify-center shrink-0">
+                                <span className="text-slate-500 text-xs font-bold">
+                                  {recruit.name.split(" ").map((n: string) => n[0]).slice(0, 2).join("")}
+                                </span>
+                              </div>
+                            )}
+                            {recruit.slug ? (
+                              <Link
+                                href={`/basketball/players/${recruit.slug}`}
+                                className="font-semibold text-slate-900 hover:text-emerald-600 hover:underline transition-colors uppercase tracking-tight"
+                                style={{ fontFamily: "var(--font-oswald), sans-serif" }}
+                              >
+                                {recruit.name}
+                              </Link>
+                            ) : (
+                              <span
+                                className="font-semibold text-slate-900 uppercase tracking-tight"
+                                style={{ fontFamily: "var(--font-oswald), sans-serif" }}
+                              >
+                                {recruit.name}
+                              </span>
+                            )}
+                          </div>
                         </td>
                         <td className="px-3 py-3">
                           {recruit.position ? (

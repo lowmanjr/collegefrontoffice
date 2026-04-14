@@ -138,13 +138,23 @@ def main() -> None:
     # Fetch existing players to enable idempotent re-runs
     existing_resp = (
         supabase.table("basketball_players")
-        .select("id, espn_athlete_id")
+        .select("id, espn_athlete_id, acquisition_type, roster_status")
         .not_.is_("espn_athlete_id", "null")
         .execute()
     )
     existing_by_espn_id: dict[str, str] = {
         p["espn_athlete_id"]: p["id"]
         for p in (existing_resp.data or [])
+    }
+    # Track portal-protected players: never overwrite team_id or roster_status
+    # for players already moved/departed/evaluating via the portal pipeline.
+    PROTECTED_ACQUISITION = {"portal", "portal_evaluating"}
+    PROTECTED_ROSTER = {"departed_transfer"}
+    protected_ids: set[str] = {
+        p["espn_athlete_id"]
+        for p in (existing_resp.data or [])
+        if p.get("acquisition_type") in PROTECTED_ACQUISITION
+        or p.get("roster_status") in PROTECTED_ROSTER
     }
 
     total_upserted = 0
@@ -210,6 +220,11 @@ def main() -> None:
 
             if athlete_id_str in existing_by_espn_id:
                 record["id"] = existing_by_espn_id[athlete_id_str]
+                # Guard: never overwrite roster state for portal players
+                if athlete_id_str in protected_ids:
+                    record.pop("team_id", None)
+                    record.pop("roster_status", None)
+                    record.pop("player_tag", None)
                 records_to_update.append(record)
             else:
                 records_to_insert.append(record)

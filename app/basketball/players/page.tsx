@@ -35,7 +35,7 @@ export default async function BasketballBigBoardPage({ searchParams }: PageProps
     .from("basketball_players")
     .select(
       `id, name, position, cfo_valuation, slug,
-       player_tag, class_year, ppg, rpg, apg, rotation_rank,
+       player_tag, class_year, rotation_rank,
        is_override, star_rating, headshot_url, is_public, usage_rate,
        basketball_teams (university_name, slug, logo_url)`
     )
@@ -232,15 +232,6 @@ export default async function BasketballBigBoardPage({ searchParams }: PageProps
                       <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-widest w-16">
                         Pos
                       </th>
-                      <th className="px-4 py-3 text-right text-xs font-semibold uppercase tracking-widest w-16">
-                        PPG
-                      </th>
-                      <th className="px-4 py-3 text-right text-xs font-semibold uppercase tracking-widest w-16">
-                        RPG
-                      </th>
-                      <th className="px-4 py-3 text-right text-xs font-semibold uppercase tracking-widest w-16">
-                        APG
-                      </th>
                       <th className="px-4 py-3 text-right text-xs font-semibold uppercase tracking-widest">
                         NIL Value
                       </th>
@@ -311,22 +302,6 @@ export default async function BasketballBigBoardPage({ searchParams }: PageProps
                             ) : (
                               <span className="text-slate-400">—</span>
                             )}
-                          </td>
-
-                          <td className="px-4 py-3.5 text-right tabular-nums text-slate-600">
-                            {player.ppg != null
-                              ? Number(player.ppg).toFixed(1)
-                              : "—"}
-                          </td>
-                          <td className="px-4 py-3.5 text-right tabular-nums text-slate-600">
-                            {player.rpg != null
-                              ? Number(player.rpg).toFixed(1)
-                              : "—"}
-                          </td>
-                          <td className="px-4 py-3.5 text-right tabular-nums text-slate-600">
-                            {player.apg != null
-                              ? Number(player.apg).toFixed(1)
-                              : "—"}
                           </td>
 
                           <td className="px-4 py-3.5 text-right">
