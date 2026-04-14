@@ -110,6 +110,8 @@ python import_recruiting_class.py --year 2027 --min-stars 4
 python populate_hs_grad_year.py
 ```
 
+> **Note:** Use `--min-stars 3` to import 3-star recruits. These are tracked in the database and appear on team pages as incoming recruits, but do NOT receive valuations (eligibility gate requires star_rating >= 4). 3-star import adds ~2,600 players.
+
 ### 1.8 Sync Depth Charts
 
 ```bash
@@ -269,6 +271,18 @@ python calculate_cfo_valuations.py
 ```
 
 Active comparison CSVs: `data/texas_comparison.csv`, `data/texas_tech_comparison.csv`, `data/georgia_comparison.csv`
+
+**Portal-Wide Comparison (cross-platform audit):**
+
+```bash
+# 1. Parse On3 portal raw text dump into structured CSV
+python parse_on3_portal.py                        # reads data/on3_portal_raw.txt → data/on3_portal_2026.csv
+
+# 2. Match against DB and generate comparison with CFO valuations
+# (run the matching script inline or via Claude Code)
+# Output: data/on3_portal_comparison.csv (1,221 committed transfers)
+# Sourced version: data/on3_portal_comparison_sourced.csv (with reported deal values + source URLs)
+```
 
 **Post-Transfer Portal (January through April):**
 

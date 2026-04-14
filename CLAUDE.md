@@ -1,9 +1,9 @@
 # CollegeFrontOffice.com — Master Architecture Document
 
 ## Current Status (April 2026)
-- **68 Power 4 teams**, ~15,400 players, ~4,985 valued
+- **68 Power 4 teams**, ~15,400 players, ~4,545 valued
 - **Valuation Engine V3.6b** — QB/DL base bumps, no-data talent penalty, star proxy widening, graduated starter multiplier
-- **85 active overrides** across 3 calibrated teams: Texas (9), Texas Tech (7), Georgia (32), plus 18 original overrides + 19 On3 Top 100 overrides
+- **86 active overrides** across 3 calibrated teams: Texas (9), Texas Tech (7), Georgia (32), plus 18 original overrides + 20 On3/reported deal overrides
 - **EA Sports CFB 26 ratings** now cover all 68 Power 4 teams (expanded from 16). 4,674 ratings applied, 2,372 on-DC players with EA data (61.5% coverage)
 - **Pipeline order**: ESPN rosters → On3 transfer portal → Ourlads depth charts → valuations
 - ESPN sync runs first (base truth), On3 portal sync runs second (catches recent transfers ESPN missed)
@@ -23,7 +23,7 @@ College Front Office is a data dashboard and valuation tool for the modern colle
 * **Database:** Supabase (PostgreSQL)
 * **Hosting:** Vercel
 * **Data Pipeline:** Python (pandas, requests, BeautifulSoup) → Supabase API (service role)
-* **Testing:** Vitest (TypeScript, 145 tests), pytest (Python, 142 tests + 44 name_utils tests) — 331 total
+* **Testing:** Vitest (TypeScript, 147 tests), pytest (Python, 188 tests) — 335 total
 
 ## 3. Valuation Engine
 **The canonical valuation engine specification lives in `VALUATION_ENGINE.md`. All valuation logic must conform to that document.**
@@ -101,6 +101,8 @@ Key algorithm files:
 | `diagnose_duplicates.py` | Comprehensive duplicate detection across all 68 teams with merge-before-delete logic |
 | `fix_class_years.py` | Populates class_year NULLs via CFBD team+name matching (broader than update_class_years.py) |
 | `backfill_acquisition_type.py` | Tags players as 'retained', 'portal', or 'recruit' using CFBD transfer portal data |
+| `validate_valuations.py` | Post-valuation validation: 6 check categories (position config, sanity ceilings, rank inversions, data integrity incl. orphan check, distribution, override health). Run after every valuation recompute |
+| `parse_on3_portal.py` | Parses On3 transfer portal raw text dump into structured CSV for portal comparison workflow |
 
 ### Overrides
 66 active overrides as of April 2026 (18 original + 9 Texas + 7 Texas Tech + 32 Georgia). Overrides bypass the algorithmic formula entirely. Managed via `python_engine/data/approved_overrides.csv` → `apply_overrides.py`, or directly via the comparison CSV workflow.
@@ -179,11 +181,16 @@ Aggregates active college athletes + 2026 incoming recruits per team. Excludes d
 * Import `positionBadgeClass` from `lib/ui-helpers.ts` for position badge color coding.
 * Import `BASE_URL` from `lib/constants.ts` for canonical URLs and structured data.
 * Use `<PlayerAvatar>` from `components/PlayerAvatar.tsx` for player headshots with initials fallback.
+* Use `<TeamRoster>` from `components/TeamRoster.tsx` for team page roster tabs (Full Roster, Portal, Recruits, Retained) with URL state via `?view=`.
+* Use `<RosterDonut>` from `components/RosterDonut.tsx` for SVG donut chart showing roster value breakdown (dark/light variants).
+* Use `<PortalBoard>` from `components/PortalBoard.tsx` for the /portal page player/team leaderboard with tabs, filters, search.
+* Use `<ConferenceFilter>` from `components/ConferenceFilter.tsx` for conference pill buttons on /teams page.
 * All valuation math must use `lib/valuation.ts` (TypeScript) or `calculate_cfo_valuations.py` (Python). Do not implement valuation logic inline.
 * Routes use slugs, not UUIDs: `/players/[slug]` and `/teams/[slug]`.
 * The `/futures` route has been renamed to `/recruits` with a permanent redirect.
 * 2026 HS recruits are merged into team active rosters (post national signing day).
 * 3-star 2026 recruits are tracked in the database (3,088 total recruits: 41 five-star, 437 four-star, 2,610 three-star) but only 4★/5★ receive valuations. 3-star recruits appear on team pages as incoming recruits with no dollar figure.
+* Long snappers (LS) are excluded from algorithmic valuation — no meaningful NIL market exists. LS players with verified deals can still be valued via the override system.
 * 2027/2028 commits do NOT appear on team pages.
 * Team logos use ESPN CDN format: `https://a.espncdn.com/i/teamlogos/ncaa/500/{espn_id}.png`
 * Player headshots use ESPN CDN: `https://a.espncdn.com/combiner/i?img=/i/headshots/college-football/players/full/{espn_id}.png&w=200&h=146`
@@ -199,9 +206,10 @@ Aggregates active college athletes + 2026 incoming recruits per team. Excludes d
 | `/` (Homepage) | Hero search + route cards (Teams, Players, Recruits) | Static |
 | `/players` (Big Board) | Top 100 college athletes by valuation | players + teams join |
 | `/players/[slug]` (Player Profile) | Name, avatar, team, valuation; override contract details; recruit profile card | players + teams + nil_overrides |
-| `/recruits` | 4/5★ HS recruits by composite score, filtered by class year | players + teams join |
-| `/teams` (Team Index) | Programs ranked by Est. Roster Value | team_roster_summary view |
-| `/teams/[slug]` (Team Detail) | Active roster + 2026 recruits merged, sorted by valuation | players + teams |
+| `/recruits` | 4/5★ HS recruits by star rating, filtered by class year | players + teams join |
+| `/teams` (Team Index) | Programs ranked by Est. Roster Value, conference filter buttons (SEC, Big Ten, Big 12, ACC) | team_roster_summary view |
+| `/teams/[slug]` (Team Detail) | Active roster + 2026 recruits merged, roster breakdown tabs (Full Roster, Portal, Recruits, Retained) with donut chart visualization | players + teams |
+| `/portal` (Transfer Portal) | Portal acquisitions ranked by valuation with player and team leaderboard views, filterable by position and conference | players + teams join |
 | `/methodology` | Static content explaining valuation approach | Static JSX |
 
 ## 8. SEO

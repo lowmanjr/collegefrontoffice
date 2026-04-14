@@ -1,6 +1,6 @@
 # CFO Valuation Engine — Internal Technical Specification
 
-> **Status:** Canonical (V3.5) | **Last Updated:** April 7, 2026
+> **Status:** Canonical (V3.6b) | **Last Updated:** April 14, 2026
 > **Audience:** Developers, Claude Code sessions, internal team only
 > **⚠️ PROPRIETARY — Do not share externally or commit to a public repo.**
 
@@ -57,7 +57,7 @@ IF college athlete AND is_on_depth_chart ≠ true:
     cfo_valuation = NULL (no valuation — profile only)
     STOP
 
-IF HS recruit AND star_rating < 4:
+IF HS recruit AND (star_rating < 4 OR team_id IS NULL):
     cfo_valuation = NULL
     STOP
 ```
@@ -113,6 +113,8 @@ Average annualized NIL market value for a Power 4 starter at each position. Cali
 POSITION_BASE_VALUES = {
     "QB":   1_500_000,
     "OT":     800_000,
+    "LT":     800_000,
+    "RT":     800_000,
     "EDGE":   700_000,
     "DE":     700_000,
     "DT":     600_000,
@@ -123,13 +125,19 @@ POSITION_BASE_VALUES = {
     "C":      475_000,
     "IOL":    475_000,
     "OL":     475_000,
+    "G":      475_000,
     "S":      450_000,
+    "DB":     450_000,
     "RB":     400_000,
+    "FB":     400_000,
+    "KR":     400_000,
+    "ATH":    400_000,
     "TE":     325_000,
     "LB":     325_000,
+    "OLB":    325_000,
     "K":      100_000,
     "P":      100_000,
-    "ATH":    400_000,
+    "PK":     100_000,
     "LS":     100_000,
 }
 
@@ -835,3 +843,20 @@ Tests cover:
 - **Social media data refresh:** Tennessee followers are sparse — need On3 social scrape for Tennessee
 - **PFF grade integration:** Premium data source for OL/DL performance metrics
 - **2028 class monitoring:** Watch for On3 calibration drift as 2028 class approaches signing day
+
+---
+
+## 12. Calibration Benchmarks (April 2026)
+
+### On3 Transfer Portal Comparison
+- 1,221 committed portal transfers parsed from On3
+- 91 players with both CFO and On3 valuations
+- Average CFO/On3 ratio: 2.85x (overall), 1.0-1.5x for top-tier ($500K+)
+- Top-15 players: median ratio 1.14x (CFO tracks On3 closely for high-value players)
+- Override players (verified deals): exact match by design
+
+### On3 Top 100 Football Comparison
+- 45 football players from the On3 NIL Top 100 matched to our DB
+- Average CFO/On3 ratio: 0.89x, median: 1.00x
+- 22 at or above On3, 22 below, 1 NULL
+- Override players cluster at 1.0x confirming calibration accuracy
