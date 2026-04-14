@@ -192,8 +192,8 @@ def main():
         committed = r.get("committedTo")
         cfbd_recruit_id = r.get("id")
 
-        # Convert rating from 0-1 scale to our format if needed
-        composite = float(rating) if rating else None
+        # Convert rating from 0-1 scale to 0-100 scale
+        composite = round(float(rating) * 100, 2) if rating and float(rating) < 1.0 else (float(rating) if rating else None)
 
         # Match to our team
         team_id = match_committed_school(committed, team_map)

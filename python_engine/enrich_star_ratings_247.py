@@ -220,7 +220,8 @@ def main():
         if star > 0:
             update["star_rating"] = star
         if comp and comp > 0:
-            update["composite_score"] = comp
+            # 247Sports returns composites on 0-1 scale; DB uses 0-100
+            update["composite_score"] = round(comp * 100, 2) if comp < 1.0 else comp
 
         if not update:
             continue
