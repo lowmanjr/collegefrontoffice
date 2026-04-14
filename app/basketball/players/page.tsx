@@ -85,7 +85,7 @@ export default async function BasketballBigBoardPage({ searchParams }: PageProps
             className="text-4xl sm:text-5xl font-bold uppercase tracking-tight leading-none"
             style={{ fontFamily: "var(--font-oswald), sans-serif" }}
           >
-            Basketball Valuations
+            Top Basketball Player Valuations
           </h1>
         </div>
       </div>
@@ -233,7 +233,7 @@ export default async function BasketballBigBoardPage({ searchParams }: PageProps
                         Pos
                       </th>
                       <th className="px-4 py-3 text-right text-xs font-semibold uppercase tracking-widest">
-                        NIL Value
+                        Est. NIL Value
                       </th>
                     </tr>
                   </thead>
