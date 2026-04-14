@@ -121,22 +121,6 @@ export default function MethodologyPage() {
               </p>
             </div>
 
-            <div className="border-l-4 border-purple-500 pl-5">
-              <h3
-                className="text-lg font-bold text-slate-900 mb-2"
-                style={{ fontFamily: "var(--font-oswald), sans-serif" }}
-              >
-                Recruiting Pedigree
-              </h3>
-              <p className="text-sm text-slate-600 leading-relaxed">
-                Elite recruits — four-star and five-star players — maintain a valuation floor
-                during their first three college years, even if they haven&apos;t yet earned a
-                starting role. Their recruiting pedigree represents real market value: programs
-                invested in them, and their NFL draft ceiling is part of their NIL worth. By their
-                senior year, a player&apos;s on-field production is expected to speak for itself.
-              </p>
-            </div>
-
             <div className="border-l-4 border-slate-500 pl-5">
               <h3
                 className="text-lg font-bold text-slate-900 mb-2"
@@ -148,7 +132,7 @@ export default function MethodologyPage() {
                 A player&apos;s role on the team — starter, backup, or reserve — directly affects
                 their valuation. Starters command full market value. Backup players at
                 single-starter positions (like quarterback) face steeper discounts than backups at
-                multi-starter positions (like offensive line, where five players start). We source
+                multi-starter positions. We source
                 depth chart data from independent scouting services and update it throughout the
                 season.
               </p>
@@ -282,45 +266,7 @@ export default function MethodologyPage() {
           </p>
         </section>
 
-        {/* ── Section 4: What We Don't Do ──────────────────────────────── */}
-        <section className="bg-white rounded-xl shadow-md p-8">
-          <h2
-            className="text-xl font-bold text-slate-900 uppercase tracking-wide mb-4"
-            style={{ fontFamily: "var(--font-oswald), sans-serif" }}
-          >
-            What We Don&apos;t Do
-          </h2>
-          <ul className="space-y-4">
-            {[
-              {
-                title: "We don't use recruiting stars alone.",
-                body: "Star ratings are a useful scouting shorthand, but they don't directly predict NIL market value. A 3-star starter at a major program can out-earn a 5-star backup.",
-              },
-              {
-                title: "We don't speculate on unsigned deals.",
-                body: "If a deal isn't publicly reported, it doesn't replace our model.",
-              },
-              {
-                title: "We don't penalize for injury or status.",
-                body: "Players with medical exemptions or inactive status retain their projected healthy valuation. We note the status transparently on their profile.",
-              },
-              {
-                title: "We don't value every high school player.",
-                body: "The NIL market for recruits below four-star status is minimal and highly speculative. We focus on the players whose market activity is real and measurable.",
-              },
-            ].map(({ title, body }) => (
-              <li key={title} className="flex gap-3">
-                <span className="mt-0.5 h-2 w-2 shrink-0 rounded-full bg-slate-400 mt-1.5" />
-                <div>
-                  <p className="text-sm font-semibold text-slate-800">{title}</p>
-                  <p className="text-sm text-slate-500 mt-0.5 leading-relaxed">{body}</p>
-                </div>
-              </li>
-            ))}
-          </ul>
-        </section>
-
-        {/* ── Section 5: Update Frequency ──────────────────────────────── */}
+        {/* ── Section 4: Update Frequency ──────────────────────────────── */}
         <section className="bg-white rounded-xl shadow-md p-8">
           <h2
             className="text-xl font-bold text-slate-900 uppercase tracking-wide mb-4"
