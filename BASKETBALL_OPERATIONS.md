@@ -514,8 +514,11 @@ cd python_engine
 python parse_bball_portal_txt.py --parse-only   # 1. verify parsing + school resolution
 python parse_bball_portal_txt.py --dry-run       # 2. preview DB changes (A/B/C ops)
 python parse_bball_portal_txt.py                 # 3. apply roster moves + departures + flags
-python calculate_bball_valuations.py             # 4. reprice all teams
-python apply_bball_overrides.py                  # 5. reapply known deal values
+python enrich_bball_portal_players.py            # 4. create records for new portal players
+python calculate_bball_valuations.py             # 5. reprice all teams
+python apply_bball_overrides.py                  # 6. reapply known deal values
+python generate_bball_slugs.py                   # 7. slugs for new players
+python scrape_bball_247_headshots.py             # 8. headshots for new recruits
 ```
 
 Name mismatches between On3 and our DB are handled by `NAME_ALIASES` in `parse_bball_portal_txt.py`. School name variants are resolved via `SCHOOL_ALIASES` in the same file.
@@ -657,6 +660,7 @@ All basketball pipeline scripts in `python_engine/`:
 | `apply_bball_overrides.py` | CSV → override valuations | — |
 | `generate_bball_slugs.py` | Name → URL slug | — |
 | `scrape_bball_247_headshots.py` | 247Sports → recruit headshot URLs | `--dry-run`, `--year YYYY` |
+| `enrich_bball_portal_players.py` | Creates DB records for portal players from untracked schools | `--dry-run` |
 | `parse_bball_portal_txt.py` | Raw On3 txt → roster moves/departures/flags | `--parse-only`, `--dry-run` |
 | `sync_bball_portal_display.py` | On3 portal → `basketball_portal_entries` (display) | `--dry-run` |
 | `sync_bball_roster_from_portal.py` | Portal entries → roster moves/departures/flags | `--dry-run` |

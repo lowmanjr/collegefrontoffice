@@ -62,6 +62,39 @@ function Initials({ name, size = 36 }: { name: string; size?: number }) {
   );
 }
 
+const ESPN_LOGO: Record<string, number> = {
+  "Alabama Crimson Tide": 333,
+  "Boise State Broncos": 68,
+  "California Golden Bears": 25,
+  "Creighton Bluejays": 156,
+  "Florida Gators": 57,
+  "Georgetown Hoyas": 46,
+  "Houston Cougars": 248,
+  "Illinois Fighting Illini": 356,
+  "Indiana Hoosiers": 84,
+  "Iowa State Cyclones": 66,
+  "Kansas State Wildcats": 2306,
+  "Loyola (Chi) Ramblers": 2350,
+  "North Carolina Tar Heels": 153,
+  "Ohio State Buckeyes": 194,
+  "Oklahoma Sooners": 201,
+  "Oklahoma State Cowboys": 197,
+  "Oregon State Beavers": 204,
+  "Pittsburgh Panthers": 221,
+  "Tennessee Volunteers": 2633,
+  "Texas A&M Aggies": 245,
+  "USF Bulls": 58,
+  "University of San Francisco Dons": 2539,
+  "Villanova Wildcats": 222,
+  "Xavier Musketeers": 2752,
+};
+
+function schoolLogo(name: string | null): string | null {
+  if (!name) return null;
+  const id = ESPN_LOGO[name];
+  return id ? `https://a.espncdn.com/i/teamlogos/ncaa/500/${id}.png` : null;
+}
+
 interface PortalEntry {
   id: string;
   player_name: string;
@@ -77,20 +110,46 @@ interface PortalEntry {
   destination_team: { university_name: string; slug: string | null; logo_url: string | null } | null;
 }
 
+// Portal names that differ from DB names
+const NAME_ALIASES: Record<string, string> = {
+  "somto cyril": "somtochukwu cyril",
+  "rob wright": "robert wright iii",
+  "kennard davis": "kennard davis jr.",
+  "richard barron": "rich barron",
+};
+
 export default async function BasketballPortalPage() {
-  const { data: entries, error } = await supabase
-    .from("basketball_portal_entries")
-    .select(
-      `id, player_name, position, status, star_rating,
-       cfo_valuation, on3_nil_value, headshot_url,
-       origin_school, destination_school,
-       origin_team_id, destination_team_id,
-       origin_team:origin_team_id (university_name, slug, logo_url),
-       destination_team:destination_team_id (university_name, slug, logo_url)`
-    )
-    .order("cfo_valuation", { ascending: false });
+  const [{ data: entries, error }, { data: playerSlugs }] = await Promise.all([
+    supabase
+      .from("basketball_portal_entries")
+      .select(
+        `id, player_name, position, status, star_rating,
+         cfo_valuation, on3_nil_value, headshot_url,
+         origin_school, destination_school,
+         origin_team_id, destination_team_id,
+         origin_team:origin_team_id (university_name, slug, logo_url),
+         destination_team:destination_team_id (university_name, slug, logo_url)`
+      )
+      .order("cfo_valuation", { ascending: false }),
+    supabase
+      .from("basketball_players")
+      .select("name, slug")
+      .neq("slug", ""),
+  ]);
 
   if (error) console.error("Portal query error:", error);
+
+  // Build slug lookup: normalized name → slug
+  const slugMap = new Map(
+    (playerSlugs ?? [])
+      .filter((p: { slug: string | null }) => p.slug)
+      .map((p: { name: string; slug: string }) => [p.name.toLowerCase().trim(), p.slug]),
+  );
+
+  function getPlayerSlug(name: string): string | null {
+    const norm = name.toLowerCase().trim();
+    return slugMap.get(norm) ?? slugMap.get(NAME_ALIASES[norm] ?? "") ?? null;
+  }
 
   const rows = (entries ?? []) as unknown as PortalEntry[];
   const committed = rows.filter((e) => e.status === "committed");
@@ -151,7 +210,9 @@ export default async function BasketballPortalPage() {
           <>
             {/* Mobile cards */}
             <div className="md:hidden space-y-3">
-              {sorted.map((entry, i) => (
+              {sorted.map((entry, i) => {
+                const mobileSlug = getPlayerSlug(entry.player_name);
+                return (
                 <div
                   key={entry.id}
                   className="bg-white rounded-xl border border-gray-200 p-4 shadow-sm"
@@ -172,27 +233,41 @@ export default async function BasketballPortalPage() {
                     )}
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center justify-between gap-2">
-                        <h3
-                          className="font-bold text-slate-900 uppercase tracking-tight truncate"
-                          style={{ fontFamily: "var(--font-oswald), sans-serif" }}
-                        >
-                          {entry.player_name}
-                        </h3>
+                        {mobileSlug ? (
+                          <Link
+                            href={`/basketball/players/${mobileSlug}`}
+                            className="font-bold text-slate-900 uppercase tracking-tight truncate hover:text-emerald-600 hover:underline transition-colors"
+                            style={{ fontFamily: "var(--font-oswald), sans-serif" }}
+                          >
+                            {entry.player_name}
+                          </Link>
+                        ) : (
+                          <h3
+                            className="font-bold text-slate-900 uppercase tracking-tight truncate"
+                            style={{ fontFamily: "var(--font-oswald), sans-serif" }}
+                          >
+                            {entry.player_name}
+                          </h3>
+                        )}
                         <StatusBadge status={entry.status} />
                       </div>
                       <div className="flex items-center justify-between mt-1">
                         <span className="text-xs text-slate-500 truncate flex items-center gap-1">
-                          {entry.origin_team?.logo_url && (
-                            // eslint-disable-next-line @next/next/no-img-element
-                            <img src={entry.origin_team.logo_url} alt="" width={14} height={14} className="h-3.5 w-3.5 object-contain shrink-0" />
+                          {/* eslint-disable-next-line @next/next/no-img-element */}
+                          {(entry.origin_team?.logo_url || schoolLogo(entry.origin_school)) && (
+                            <img src={(entry.origin_team?.logo_url || schoolLogo(entry.origin_school))!} alt="" width={14} height={14} className="h-3.5 w-3.5 object-contain shrink-0" />
                           )}
-                          {entry.origin_school ?? "?"}
+                          {entry.origin_team?.university_name ?? entry.origin_school ?? "?"}
                           <span className="text-slate-400 mx-0.5">→</span>
-                          {entry.status === "committed" && entry.destination_team?.logo_url && (
-                            // eslint-disable-next-line @next/next/no-img-element
-                            <img src={entry.destination_team.logo_url} alt="" width={14} height={14} className="h-3.5 w-3.5 object-contain shrink-0" />
+                          {entry.status === "committed" && (
+                            <>
+                              {/* eslint-disable-next-line @next/next/no-img-element */}
+                              {(entry.destination_team?.logo_url || schoolLogo(entry.destination_school)) && (
+                                <img src={(entry.destination_team?.logo_url || schoolLogo(entry.destination_school))!} alt="" width={14} height={14} className="h-3.5 w-3.5 object-contain shrink-0" />
+                              )}
+                            </>
                           )}
-                          {entry.status === "committed" ? (entry.destination_school ?? "—") : "—"}
+                          {entry.status === "committed" ? (entry.destination_team?.university_name ?? entry.destination_school ?? "—") : "—"}
                         </span>
                         <span
                           className="font-bold text-emerald-600 tabular-nums shrink-0"
@@ -206,7 +281,8 @@ export default async function BasketballPortalPage() {
                     </div>
                   </div>
                 </div>
-              ))}
+              );
+              })}
             </div>
 
             {/* Desktop table */}
@@ -246,6 +322,7 @@ export default async function BasketballPortalPage() {
                     {sorted.map((entry, i) => {
                       const originTeam = entry.origin_team;
                       const destTeam = entry.destination_team;
+                      const playerSlug = getPlayerSlug(entry.player_name);
                       return (
                         <tr
                           key={entry.id}
@@ -269,12 +346,22 @@ export default async function BasketballPortalPage() {
                               ) : (
                                 <Initials name={entry.player_name} size={36} />
                               )}
-                              <span
-                                className="font-semibold text-slate-900 uppercase tracking-tight"
-                                style={{ fontFamily: "var(--font-oswald), sans-serif" }}
-                              >
-                                {entry.player_name}
-                              </span>
+                              {playerSlug ? (
+                                <Link
+                                  href={`/basketball/players/${playerSlug}`}
+                                  className="font-semibold text-slate-900 hover:text-emerald-600 hover:underline transition-colors uppercase tracking-tight"
+                                  style={{ fontFamily: "var(--font-oswald), sans-serif" }}
+                                >
+                                  {entry.player_name}
+                                </Link>
+                              ) : (
+                                <span
+                                  className="font-semibold text-slate-900 uppercase tracking-tight"
+                                  style={{ fontFamily: "var(--font-oswald), sans-serif" }}
+                                >
+                                  {entry.player_name}
+                                </span>
+                              )}
                             </div>
                           </td>
                           <td className="px-3 py-3">
@@ -304,7 +391,13 @@ export default async function BasketballPortalPage() {
                                 <span>{originTeam.university_name}</span>
                               </Link>
                             ) : (
-                              <span>{entry.origin_school ?? "—"}</span>
+                              <div className="flex items-center gap-2">
+                                {schoolLogo(entry.origin_school) && (
+                                  // eslint-disable-next-line @next/next/no-img-element
+                                  <img src={schoolLogo(entry.origin_school)!} alt={entry.origin_school ?? ""} width={20} height={20} className="h-5 w-5 object-contain shrink-0" />
+                                )}
+                                <span>{entry.origin_school ?? "—"}</span>
+                              </div>
                             )}
                           </td>
                           <td className="px-4 py-3 text-xs text-slate-600">
@@ -321,7 +414,13 @@ export default async function BasketballPortalPage() {
                                   <span>{destTeam.university_name}</span>
                                 </Link>
                               ) : (
-                                <span>{entry.destination_school ?? "—"}</span>
+                                <div className="flex items-center gap-2">
+                                  {schoolLogo(entry.destination_school) && (
+                                    // eslint-disable-next-line @next/next/no-img-element
+                                    <img src={schoolLogo(entry.destination_school)!} alt={entry.destination_school ?? ""} width={20} height={20} className="h-5 w-5 object-contain shrink-0" />
+                                  )}
+                                  <span>{entry.destination_school ?? "—"}</span>
+                                </div>
                               )
                             ) : (
                               <span className="text-slate-400">—</span>

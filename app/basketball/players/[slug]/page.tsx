@@ -3,7 +3,7 @@ import { supabase } from "@/lib/supabase";
 import { formatCurrency } from "@/lib/utils";
 import { BASE_URL } from "@/lib/constants";
 import PlayerAvatar from "@/components/PlayerAvatar";
-import { basketballPositionBadgeClass, roleTierBadgeClass } from "@/lib/ui-helpers";
+import { basketballPositionBadgeClass } from "@/lib/ui-helpers";
 
 export const revalidate = 300;
 
@@ -40,7 +40,6 @@ interface Player {
   slug: string | null;
   name: string;
   position: string | null;
-  role_tier: string | null;
   star_rating: number | null;
   composite_score: number | null;
   class_year: string | null;
@@ -126,7 +125,6 @@ export default async function BasketballPlayerProfilePage({ params }: PageProps)
   const isPrivate = p.is_public === false;
   const hasStats = (p.usage_rate ?? 0) > 0;
   const mpg = p.usage_rate ? (p.usage_rate * 40).toFixed(1) : null;
-  const tierLabel = hasStats ? p.role_tier : "incoming";
 
   const hasOverrideData = p.is_override === true && nilOverrides.length > 0;
   const bestOverride = hasOverrideData
@@ -183,13 +181,6 @@ export default async function BasketballPlayerProfilePage({ params }: PageProps)
                     className={`rounded px-2.5 py-0.5 text-xs font-semibold uppercase tracking-widest ${basketballPositionBadgeClass(p.position)}`}
                   >
                     {p.position}
-                  </span>
-                )}
-                {tierLabel && (
-                  <span
-                    className={`rounded px-2.5 py-0.5 text-xs font-semibold capitalize ${roleTierBadgeClass(tierLabel)}`}
-                  >
-                    {tierLabel}
                   </span>
                 )}
               </div>
