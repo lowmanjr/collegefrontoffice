@@ -396,15 +396,14 @@ def main() -> None:
 
         print()
 
-    # Uncommitted recruits pass: players with no team_id
+    # Unattached players pass: recruits with no team + portal players from untracked schools
     uncommitted = [
         p for p in players
         if not p.get("team_id")
-        and p.get("player_tag") == "High School Recruit"
         and not p.get("is_override")
     ]
     if uncommitted and not team_filter:
-        print(f"Uncommitted recruits ({len(uncommitted)} players)")
+        print(f"Unattached players ({len(uncommitted)} players — recruits + untracked portal)")
         neutral_team = {"market_multiplier": 1.00}
         uncommitted_updates: list[dict] = []
         for player in sorted(uncommitted, key=lambda p: p.get("name", "")):
@@ -437,7 +436,7 @@ def main() -> None:
                 except Exception as exc:
                     print(f"  [ERROR] {row['id']}: {exc}")
 
-        print(f"  {len(uncommitted_updates)} uncommitted recruits valued\n")
+        print(f"  {len(uncommitted_updates)} unattached players valued\n")
 
     # Second pass: overrides
     overrides_resp = supabase.table("basketball_nil_overrides").select("player_id, annualized_value").execute()
