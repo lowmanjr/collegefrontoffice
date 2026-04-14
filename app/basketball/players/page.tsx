@@ -175,12 +175,8 @@ export default async function BasketballBigBoardPage({ searchParams }: PageProps
                         </div>
                         <div className="flex items-center justify-between mt-1">
                           <div className="flex items-center gap-2">
-                            {team && team.slug && (
-                              <Link
-                                href={`/basketball/teams/${team.slug}`}
-                                className="flex items-center gap-1.5 hover:underline"
-                                onClick={(e) => e.stopPropagation()}
-                              >
+                            {team && (
+                              <div className="flex items-center gap-1.5">
                                 {team.logo_url && (
                                   /* eslint-disable-next-line @next/next/no-img-element */
                                   <img
@@ -194,7 +190,7 @@ export default async function BasketballBigBoardPage({ searchParams }: PageProps
                                 <span className="text-xs text-slate-500">
                                   {team.university_name}
                                 </span>
-                              </Link>
+                              </div>
                             )}
                           </div>
                           <span
