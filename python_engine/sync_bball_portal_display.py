@@ -64,11 +64,39 @@ SCHOOL_ALIASES: dict[str, str] = {
 # Schools that contain our team names as substrings — explicit non-matches
 # to prevent "Kansas State" matching "Kansas", "Northern Michigan" matching "Michigan", etc.
 SCHOOL_NON_MATCHES: set[str] = {
-    "kansas state", "michigan state", "northern michigan", "western michigan",
-    "eastern michigan", "central michigan", "georgia tech", "georgia state",
-    "georgia southern", "north carolina", "east carolina", "south carolina",
+    # Kansas / Arkansas overlap ("kansas" is a substring of "arkansas")
+    "kansas state", "kansas state wildcats",
+    "arkansas", "arkansas razorbacks",
+    "arkansas-little rock", "little rock trojans",
+    "arkansas-pine bluff", "arkansas pine bluff golden lions",
+    "arkansas state", "arkansas state red wolves",
+    "central arkansas", "central arkansas bears",
+    "missouri-kansas city", "missouri-kansas city kangaroos",
+    # Duke / Dukes overlap ("duke" is a substring of "dukes")
+    "james madison", "james madison dukes",
+    "duquesne", "duquesne dukes",
+    # Kentucky overlap
+    "eastern kentucky", "eastern kentucky colonels",
+    "western kentucky", "western kentucky hilltoppers",
+    "northern kentucky", "northern kentucky norse",
+    # Georgia overlap
+    "west georgia", "west georgia wolves",
+    "georgia tech", "georgia state", "georgia southern",
+    # Tennessee overlap
+    "tennessee state", "tennessee tech",
+    "east tennessee", "east tennessee state",
+    "middle tennessee", "middle tennessee blue raiders",
+    # Michigan overlap
+    "michigan state", "northern michigan", "western michigan",
+    "eastern michigan", "central michigan",
+    # Miami overlap
     "miami (oh)", "miami ohio", "miami redhawks", "miami university redhawks",
-    "oregon state",
+    # Oregon overlap
+    "oregon state", "oregon state beavers",
+    # Connecticut overlap
+    "central connecticut", "central connecticut state",
+    # Carolina overlap
+    "north carolina", "east carolina", "south carolina",
 }
 
 

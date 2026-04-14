@@ -69,16 +69,37 @@ SCHOOL_ALIASES: dict[str, str] = {
 
 # Prevent false positives on exact-match collisions
 SCHOOL_NON_MATCHES = {
+    # Kansas / Arkansas overlap ("kansas" is a substring of "arkansas")
     "kansas state", "kansas state wildcats",
+    "arkansas", "arkansas razorbacks",
+    "arkansas-little rock", "little rock trojans",
+    "arkansas-pine bluff", "arkansas pine bluff golden lions",
+    "arkansas state", "arkansas state red wolves",
+    "central arkansas", "central arkansas bears",
+    "missouri-kansas city", "missouri-kansas city kangaroos",
+    # Duke / Dukes overlap
+    "james madison", "james madison dukes",
+    "duquesne", "duquesne dukes",
+    # Kentucky overlap
+    "eastern kentucky", "eastern kentucky colonels",
+    "western kentucky", "western kentucky hilltoppers",
+    "northern kentucky", "northern kentucky norse",
+    # Georgia overlap
+    "west georgia", "west georgia wolves",
     "georgia tech", "georgia state", "georgia southern",
-    "miami (oh)", "miami ohio", "miami redhawks",
-    "oregon state", "oregon state beavers",
-    "eastern kentucky",
-    "northern michigan", "western michigan",
-    "eastern michigan", "central michigan",
-    "central connecticut state",
+    # Tennessee overlap
     "tennessee state", "tennessee tech",
-    "east tennessee state", "middle tennessee",
+    "east tennessee", "east tennessee state",
+    "middle tennessee", "middle tennessee blue raiders",
+    # Michigan overlap
+    "michigan state", "northern michigan", "western michigan",
+    "eastern michigan", "central michigan",
+    # Miami overlap
+    "miami (oh)", "miami ohio", "miami redhawks",
+    # Oregon overlap
+    "oregon state", "oregon state beavers",
+    # Connecticut overlap
+    "central connecticut", "central connecticut state",
 }
 
 NAME_ALIASES: dict[str, str] = {
