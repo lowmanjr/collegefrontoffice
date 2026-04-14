@@ -64,11 +64,8 @@ export default async function BasketballRecruitsPage({ searchParams }: PageProps
             className="text-4xl sm:text-5xl font-bold uppercase tracking-tight leading-none"
             style={{ fontFamily: "var(--font-oswald), sans-serif" }}
           >
-            Basketball Recruits
+            Basketball Recruit Valuations
           </h1>
-          <p className="mt-1 text-sm text-slate-400">
-            NIL valuations for top college basketball recruits
-          </p>
         </div>
       </div>
 
@@ -122,13 +119,11 @@ export default async function BasketballRecruitsPage({ searchParams }: PageProps
               <table className="w-full text-sm">
                 <thead className="sticky top-0 z-10 bg-slate-900 text-slate-300">
                   <tr>
-                    <th className="px-3 py-3 text-center text-xs font-semibold uppercase tracking-widest w-10">#</th>
                     <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-widest">Player</th>
                     <th className="px-3 py-3 text-left text-xs font-semibold uppercase tracking-widest w-14">Pos</th>
                     <th className="px-3 py-3 text-center text-xs font-semibold uppercase tracking-widest w-16">Stars</th>
-                    <th className="px-3 py-3 text-right text-xs font-semibold uppercase tracking-widest w-20">Composite</th>
                     <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-widest">Team</th>
-                    <th className="px-4 py-3 text-right text-xs font-semibold uppercase tracking-widest">CFO Value</th>
+                    <th className="px-4 py-3 text-right text-xs font-semibold uppercase tracking-widest">Est. NIL Value</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-100">
@@ -136,7 +131,6 @@ export default async function BasketballRecruitsPage({ searchParams }: PageProps
                     const team = recruit.basketball_teams;
                     return (
                       <tr key={recruit.id} className="hover:bg-slate-50 transition-colors">
-                        <td className="px-3 py-3 text-center text-xs text-slate-400 tabular-nums">{i + 1}</td>
                         <td className="px-4 py-3">
                           <div className="flex items-center gap-3">
                             {recruit.headshot_url ? (
@@ -186,11 +180,6 @@ export default async function BasketballRecruitsPage({ searchParams }: PageProps
                           <span className="text-amber-500 text-xs tracking-tight">
                             {"★".repeat(Math.min(recruit.star_rating ?? 0, 5))}
                           </span>
-                        </td>
-                        <td className="px-3 py-3 text-right font-mono text-xs text-slate-600 tabular-nums">
-                          {recruit.composite_score != null
-                            ? Number(recruit.composite_score).toFixed(4)
-                            : "—"}
                         </td>
                         <td className="px-4 py-3">
                           {team ? (
