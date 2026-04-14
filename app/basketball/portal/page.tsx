@@ -168,34 +168,13 @@ export default async function BasketballPortalPage() {
               className="text-4xl sm:text-5xl font-bold uppercase tracking-tight leading-none"
               style={{ fontFamily: "var(--font-oswald), sans-serif" }}
             >
-              Transfer Portal
+              Basketball Transfer Portal Valuations
             </h1>
-            <p className="mt-1 text-sm text-slate-400">
-              NIL valuations for portal players at CFO-tracked programs
-            </p>
           </div>
           <span className="hidden sm:inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold bg-emerald-500/20 text-emerald-400 ring-1 ring-emerald-500/40">
             <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
             Portal Open
           </span>
-        </div>
-      </div>
-
-      {/* Stats row */}
-      <div className="mx-auto max-w-7xl px-4 py-4">
-        <div className="flex gap-4 text-sm">
-          <div className="bg-white rounded-lg border border-gray-200 px-4 py-2.5 shadow-sm">
-            <span className="text-slate-400 text-xs">Total</span>
-            <p className="font-bold text-slate-900 tabular-nums">{sorted.length}</p>
-          </div>
-          <div className="bg-white rounded-lg border border-gray-200 px-4 py-2.5 shadow-sm">
-            <span className="text-xs text-green-600">Committed</span>
-            <p className="font-bold text-green-700 tabular-nums">{committed.length}</p>
-          </div>
-          <div className="bg-white rounded-lg border border-gray-200 px-4 py-2.5 shadow-sm">
-            <span className="text-xs text-amber-600">Evaluating</span>
-            <p className="font-bold text-amber-700 tabular-nums">{evaluating.length}</p>
-          </div>
         </div>
       </div>
 
@@ -292,9 +271,6 @@ export default async function BasketballPortalPage() {
                 <table className="w-full text-sm">
                   <thead className="sticky top-0 z-10 bg-slate-900 text-slate-300">
                     <tr>
-                      <th className="px-3 py-3 text-center text-xs font-semibold uppercase tracking-widest w-10">
-                        #
-                      </th>
                       <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-widest">
                         Player
                       </th>
@@ -329,9 +305,6 @@ export default async function BasketballPortalPage() {
                           key={entry.id}
                           className="hover:bg-slate-50 transition-colors"
                         >
-                          <td className="px-3 py-3 text-center text-xs text-slate-400 tabular-nums">
-                            {i + 1}
-                          </td>
                           <td className="px-4 py-3">
                             <div className="flex items-center gap-3">
                               {entry.headshot_url ? (
