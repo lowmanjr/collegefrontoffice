@@ -1,6 +1,6 @@
 # CFO Basketball Valuation Engine — Internal Technical Specification
 
-> **Status:** Canonical (V1.1) | **Last Updated:** April 10, 2026
+> **Status:** Canonical (V1.3) | **Last Updated:** April 14, 2026
 > **Audience:** Developers, Claude Code sessions, internal team only
 > **⚠️ PROPRIETARY — Do not share externally or commit to a public repo.**
 
@@ -10,7 +10,7 @@
 
 The CFO Basketball Valuation Engine produces a single integer dollar value (`cfo_valuation`) for every active college basketball player in the system. This value represents College Front Office's proprietary estimate of a player's annualized NIL market value.
 
-It is a companion to the CFO Football Valuation Engine (V3.5) and shares the same architectural philosophy: a multiplicative formula built from independently calibrated components.
+It is a companion to the CFO Football Valuation Engine (V3.6b) and shares the same architectural philosophy: a multiplicative formula built from independently calibrated components.
 
 Basketball valuations differ from football in three fundamental ways:
 
@@ -62,9 +62,9 @@ Not every rostered player participates in the NIL market. The formula only runs 
 
 Players below these thresholds appear on team roster pages without a dollar figure. Team totals reflect only valued players.
 
-Current gate results (V1.2, 4 teams):
-- 48 of 63 rostered players are valued (76%)
-- 15 players are rostered but below the gate
+Current gate results (V1.3, 13 teams):
+- 146 valued players across 13 teams
+- Players below thresholds appear on roster pages without a dollar figure
 
 ---
 
@@ -224,7 +224,7 @@ weighted_followers = ig + (x × 0.7) + (tiktok × 1.2)
 | ≥ 10,000 | $3,000 |
 | < 10,000 | $0 |
 
-**Current state:** Social data is not yet enriched for BYU v1. All players receive $0 social premium. This will be addressed in a future pipeline pass using On3 social follower data.
+**Current state:** Social data is enriched via `enrich_bball_social_data.py` (On3 scraping) and `apply_bball_social_manual.py` (manual CSV for players not covered by On3). Social premium is active for all tracked teams.
 
 **Implementation:** `calculate_social_premium()` in `calculate_bball_valuations.py`.
 
@@ -298,59 +298,39 @@ Schema migration: `supabase/migrations/00013_basketball_schema.sql`
 
 ---
 
-## 7. Known Limitations (V1)
+## 7. Known Limitations (V1.3)
 
-1. **Social data not enriched.** All social premiums are $0. Future pipeline pass will scrape On3 social follower counts.
+1. **ESPN position granularity.** ESPN provides G/F/C only. Granular positions (PG/SG/SF/PF/C) are corrected for incoming players via recruiting CSV but not yet for all returning players.
 
-2. **ESPN position granularity.** ESPN provides G/F/C only. Granular positions (PG/SG/SF/PF/C) are corrected for incoming players via recruiting CSV but not yet for all returning players.
+2. **Usage rate is MPG-based, not true usage%.** True usage rate (`(FGA + 0.44×FTA + TOV) / team_possessions × minutes_share`) requires possession-level data. MPG/40 is used as a transparent, auditable proxy. The column is named `usage_rate` for formula compatibility if upgraded later.
 
-3. **Usage rate is MPG-based, not true usage%.** True usage rate (`(FGA + 0.44×FTA + TOV) / team_possessions × minutes_share`) requires possession-level data. MPG/40 is used as a transparent, auditable proxy. The column is named `usage_rate` for formula compatibility if upgraded later.
+3. **Blue-chip recruits projected as top-3 NBA picks represent anomalies the formula is not designed to capture.** These players are valued using market information rather than the standard formula.
 
-4. **Blue-chip recruits projected as top-3 NBA picks represent anomalies the formula is not designed to capture.** These players are valued using market information rather than the standard formula.
-
-5. **Single team (BYU).** V1 covers BYU only. Adding teams requires: team row in `basketball_teams`, ESPN ID in `ingest_bball_espn_rosters.py`, and running the full pipeline.
-
-6. **No team_roster_summary view.** Basketball team aggregates are computed inline on the frontend. A materialized view will be created when team count exceeds 5.
+4. **No team_roster_summary view.** Basketball team aggregates are computed inline on the frontend. A materialized view will be created when team count grows further.
 
 ---
 
 ## 8. Calibration Reference
 
-### BYU Roster Snapshot (V1.1, April 2026)
+### Team Totals (V1.3, April 2026 — 13 teams)
 
-| Player | Position | Tier | Class | Valuation | Note |
-|--------|----------|------|-------|-----------|------|
-| AJ Dybantsa | SF | — | FR | $4,400,000 | Reported (On3/multiple) |
-| Richie Saunders | SG | star | SR | $1,764,180 | Pick 58, PER 24.0 |
-| Kennard Davis Jr. | SF | franchise | JR | $1,509,354 | PER 17.3, 34.1 MPG |
-| Nate Pickens | SG | star | SR | $1,176,120 | PER 14.1 |
-| Tyler Mrus | SF | star | JR | $1,029,105 | PER 11.2 |
-| Robert Wright III | SG | star | SO | $1,018,740 | PER 14.6 |
-| Dawson Baker | SG | starter | SR | $940,896 | PER 16.1 |
-| Keba Keita | SF | starter | SR | $940,896 | PER 23.4, 7.9 RPG |
-| Mihailo Boskovic | SF | rotation | JR | $490,050 | PER 11.4 |
-| (8 incoming/bench) | — | incoming/bench | — | $170K–$386K | Recruiting-based |
+| Team | Conference | Market Mult. | Valued Players | Est. Roster Value |
+|------|-----------|-------------|----------------|-------------------|
+| BYU | Big 12 | 1.08 | 14 | $14,713,451 |
+| Michigan | Big Ten | 1.18 | 14 | $14,321,456 |
+| Louisville | ACC | 1.10 | 13 | $13,484,304 |
+| Kansas | Big 12 | 1.28 | 14 | $12,059,222 |
+| UConn | Big East | 1.28 | 11 | $11,366,455 |
+| Tennessee | SEC | 1.24 | 10 | $10,392,517 |
+| Duke | ACC | 1.30 | 10 | $10,288,173 |
+| Miami | ACC | 1.12 | 11 | $9,645,326 |
+| Oregon | Big Ten | 1.22 | 11 | $8,741,439 |
+| Providence | Big East | 0.95 | 11 | $8,555,771 |
+| Kentucky | SEC | 1.20 | 9 | $8,441,098 |
+| Georgia | SEC | 1.06 | 9 | $7,241,869 |
+| San Diego State | Mountain West | 0.72 | 9 | $5,097,870 |
 
-**Team total:** $15,495,140
-
-### Kentucky Roster Snapshot (V1.1, April 2026)
-
-| Player | Position | Tier | Class | Valuation | Note |
-|--------|----------|------|-------|-----------|------|
-| Jayden Quaintance | SF | star | SO | $2,000,000 | Reported (Yahoo/multiple) |
-| Jaland Lowe | SG | franchise | JR | $1,829,520 | PER 18.9 |
-| Otega Oweh | SG | star | SR | $1,571,160 | PER 22.7 |
-| Kam Williams | SG | franchise | SO | $1,504,800 | PER 14.6 |
-| Denzel Aberdeen | SG | starter | SR | $950,400 | PER 12.8 |
-| Brandon Garrison | SF | starter | JR | $914,760 | PER 16.6 |
-| Reece Potter | SF | starter | JR | $914,760 | PER 15.7 |
-| Mouhamed Dioubate | SF | rotation | JR | $626,700 | PER 24.9 |
-| Jasper Johnson | SG | incoming | FR | $502,360 | 5-star |
-| (7 remaining) | — | bench/incoming | — | $238K–$470K | |
-
-**Team total:** $13,403,520
-
-Team totals include reported values for known deals. Formula-only totals: BYU $11.1M, Kentucky $11.4M.
+**Total valued players:** 146 across 13 teams. Team totals include reported override values for known deals.
 
 ---
 

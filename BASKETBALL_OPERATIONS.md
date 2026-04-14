@@ -1,8 +1,8 @@
 # College Front Office — Basketball Operations Runbook
 
-> **Last Updated:** April 10, 2026
+> **Last Updated:** April 14, 2026
 > **Scope:** Men's college basketball NIL valuations
-> **Current teams:** BYU, Kentucky (2 of 68 Power 4)
+> **Current teams:** 13 — BYU, Duke, Georgia, Kansas, Kentucky, Louisville, Miami, Michigan, Oregon, Providence, San Diego State, Tennessee, UConn
 > **Companion docs:** `BASKETBALL_VALUATION_ENGINE.md` (formula detail), `OPERATIONS.md` (football pipeline reference)
 
 ---
@@ -13,7 +13,7 @@ The basketball product produces CFO Valuations for men's college basketball play
 
 The tech stack is identical to football: Next.js (App Router) on Vercel, Supabase (PostgreSQL), Python data pipeline. Basketball uses its own set of tables (`basketball_teams`, `basketball_players`, `basketball_nil_overrides`, `basketball_player_events`) and its own pipeline scripts (all prefixed `*_bball_*` or `*_basketball_*`).
 
-The valuation engine is V1.1. See `BASKETBALL_VALUATION_ENGINE.md` for the full formula specification.
+The valuation engine is V1.3. See `BASKETBALL_VALUATION_ENGINE.md` for the full formula specification.
 
 ---
 
@@ -51,7 +51,7 @@ for r in t.data:
 "
 ```
 
-Expected output: BYU and Kentucky rows with their market multipliers (1.08 and 1.20 respectively).
+Expected output: all 13 tracked teams with their market multipliers.
 
 ---
 
@@ -132,6 +132,12 @@ ON3_ORG_KEYS: dict[str, int] = {
 
 This is the **only script file that needs updating** for a new team. To find the On3 org key: search for the team at `https://www.on3.com/nil/rankings/player/nil-100/?team-key=XXXXX` or inspect the URL on their On3 school page.
 
+### 3.3b Portal Player Auto-Linking
+
+When a new school is onboarded, portal players already in `basketball_players` with `team_id = NULL` and a matching `espn_athlete_id` are automatically linked to the new team during `ingest_bball_espn_rosters.py`. This happens because `enrich_bball_portal_players.py` creates records for incoming portal players from non-tracked schools with `team_id = NULL`. When that school is later added to `basketball_teams`, the ESPN roster ingest matches by `espn_athlete_id` and fills in `team_id`.
+
+**ESPN ingest guard:** `ingest_bball_espn_rosters.py` protects portal-managed players via `PROTECTED_ACQUISITION` (`portal`, `portal_evaluating`) and `PROTECTED_ROSTER` (`departed_transfer`) sets. Players with a non-NULL `team_id` and a protected acquisition type or roster status are never overwritten by the ESPN roster ingest. Players with `team_id = NULL` are always eligible for linking regardless of acquisition type.
+
 ### 3.4 Run the Full Pipeline
 
 Run in this exact order:
@@ -195,54 +201,61 @@ Replace `SLUG` with the team slug. Expected: 13–17 players, zero issues, total
 
 ---
 
-## 4. Recruiting CSV — Required for Incoming Players
+## 4. National Recruit Pipeline
 
-Every new team needs a recruiting CSV for incoming players (freshmen and first-semester transfers with no ESPN stats).
+High school recruits are managed via national CSV files organized by class year, not per-team CSVs. The source of truth is `build_bball_recruit_csvs.py`, which contains hardcoded recruit lists and generates the CSVs.
 
-### 4.1 File Location
-
-```
-python_engine/data/{team_slug}_basketball_recruits_2025.csv
-```
-
-### 4.2 Format
-
-```csv
-espn_athlete_id,player_name,star_rating,composite_score,position_247
-5142718,AJ Dybantsa,5,0.9999,SF
-5095153,Jasper Johnson,5,0.9958,SG
-```
-
-### 4.3 How to Identify Who Needs It
-
-After running steps 1–2 of the pipeline (roster ingest + usage rate enrichment), query for players with no stats:
+### 4.1 Pipeline Steps (Run During Signing Periods)
 
 ```bash
-cd python_engine && python3 -c "
-from supabase_client import supabase
-team = supabase.table('basketball_teams') \
-    .select('id').eq('slug', 'SLUG').single().execute()
-players = supabase.table('basketball_players') \
-    .select('name, position, espn_athlete_id, usage_rate, star_rating') \
-    .eq('team_id', team.data['id']) \
-    .eq('roster_status', 'active') \
-    .execute()
-incoming = [p for p in players.data if not p.get('usage_rate')]
-print(f'{len(incoming)} players need recruiting CSV:')
-for p in incoming:
-    print(f'  {p[\"espn_athlete_id\"]} | {p[\"name\"]} | {p[\"position\"]} | stars: {p.get(\"star_rating\", \"?\")}')"
+cd python_engine
+
+# 1. Edit RECRUITS_2026/2027/2028 lists in build_bball_recruit_csvs.py
+#    when new commits occur or rankings change
+
+# 2. Regenerate CSVs
+python build_bball_recruit_csvs.py
+
+# 3. Ingest recruits into basketball_players
+python ingest_bball_recruits.py
+
+# 4. Calculate valuations
+python calculate_bball_valuations.py
+
+# 5. Apply known deal values
+python apply_bball_overrides.py
+
+# 6. Generate URL slugs for new players
+python generate_bball_slugs.py
+
+# 7. Scrape 247Sports headshots for new recruits
+python scrape_bball_247_headshots.py
 ```
 
-### 4.4 Data Source
+### 4.2 CSV Files
 
-247Sports basketball composite rankings (public). If scraping is unavailable, use manually verified public data. Mark composite scores as estimates with a `#` comment if unverified.
+| File | Contents |
+|------|----------|
+| `data/basketball_recruits_2026.csv` | Committed 2026 class (national) |
+| `data/basketball_recruits_2027.csv` | National 4-star+ big board |
+| `data/basketball_recruits_2028.csv` | National 4-star+ big board |
 
-### 4.5 Existing CSVs
+Format:
 
-| File | Team |
-|------|------|
-| `byu_basketball_recruits_2025.csv` | BYU |
-| `kentucky_basketball_recruits_2025.csv` | Kentucky |
+```csv
+espn_athlete_id,player_name,star_rating,composite_score,position_247,committed_school_slug,hs_grad_year
+hs2026_aj-dybantsa,AJ Dybantsa,5,0.9999,SF,byu,2026
+```
+
+The `espn_athlete_id` uses a deterministic placeholder format `hs{year}_{slug}` for recruits who don't yet have an ESPN athlete ID. When a recruit enrolls and receives an ESPN ID, the placeholder is updated during `ingest_bball_espn_rosters.py`.
+
+### 4.3 Data Source
+
+247Sports basketball composite rankings (public). Recruit lists in `build_bball_recruit_csvs.py` are updated manually as commits are announced or rankings shift.
+
+### 4.4 Legacy Per-Team CSVs
+
+The original per-team CSV approach (`data/{slug}_basketball_recruits_2025.csv` + `enrich_bball_star_ratings.py`) is still supported for star rating enrichment but is superseded by the national pipeline for new recruit ingestion.
 
 ---
 
@@ -341,7 +354,7 @@ python generate_bball_slugs.py
 
 When a reported NIL figure becomes public for a basketball player.
 
-### 6.1 Confirm ESPN Athlete ID
+### 7.1 Confirm ESPN Athlete ID
 
 ```bash
 cd python_engine && python3 -c "
@@ -353,7 +366,7 @@ print(p.data)
 "
 ```
 
-### 6.2 Add to Overrides CSV
+### 7.2 Add to Overrides CSV
 
 File: `python_engine/data/basketball_approved_overrides.csv`
 
@@ -371,13 +384,13 @@ Example:
 
 For multi-year deals, set `years` accordingly — the `annualized_value` column in `basketball_nil_overrides` is a generated column (`total_value / years`).
 
-### 6.3 Apply
+### 7.3 Apply
 
 ```bash
 cd python_engine && python apply_bball_overrides.py
 ```
 
-### 6.4 Verify
+### 7.4 Verify
 
 ```bash
 cd python_engine && python3 -c "
@@ -389,7 +402,7 @@ print(p.data)
 "
 ```
 
-### 6.5 Current Known Values (V1.1)
+### 7.5 Current Known Values (V1.3)
 
 | Player | Team | Value | Source |
 |--------|------|-------|--------|
@@ -402,7 +415,7 @@ print(p.data)
 
 Scrapes On3 team NIL pages for per-player social follower counts (Instagram, Twitter/X, TikTok).
 
-### 7.1 Run
+### 8.1 Run
 
 ```bash
 cd python_engine && python enrich_bball_social_data.py --team SLUG
@@ -410,7 +423,7 @@ cd python_engine && python enrich_bball_social_data.py --team SLUG
 cd python_engine && python enrich_bball_social_data.py
 ```
 
-### 7.2 Name Alias Handling
+### 8.2 Name Alias Handling
 
 On3 player names sometimes differ from ESPN names in the database. When a player isn't matched during enrichment, add an alias to the `NAME_ALIASES` dict in `enrich_bball_social_data.py`:
 
@@ -427,7 +440,7 @@ Keys are the On3 normalized name (lowercase, no suffixes). Values are the DB nor
 
 ## 9. NBA Draft Projections
 
-### 8.1 Automated Sync (ESPN API)
+### 9.1 Automated Sync (ESPN API)
 
 ```bash
 cd python_engine && python sync_nba_draft_projections.py --dry-run    # preview
@@ -439,7 +452,7 @@ The script fetches ESPN's draft prospects API, matches prospects to our DB by ES
 
 Run before `calculate_bball_valuations.py` when mock draft consensus shifts. The valuation engine reads draft projections directly from the DB column, not the CSV — the CSV is a reference file only.
 
-### 8.2 Current Projections (ESPN API, April 2026)
+### 9.2 Current Projections (ESPN API, April 2026)
 
 | Player | Team | ESPN Rank |
 |--------|------|-----------|
@@ -461,19 +474,19 @@ Players not in ESPN's prospects list receive a neutral 1.00× draft premium.
 
 Scrapes On3 committed transfer portal data and updates roster assignments for tracked teams.
 
-### 9.1 Dry Run First
+### 10.1 Dry Run First
 
 ```bash
 cd python_engine && python sync_basketball_transfer_portal.py --dry-run --max-pages 2
 ```
 
-### 9.2 Full Sync
+### 10.2 Full Sync
 
 ```bash
 cd python_engine && python sync_basketball_transfer_portal.py
 ```
 
-### 9.3 Post-Sync Pipeline
+### 10.3 Post-Sync Pipeline
 
 After portal sync, update stats and valuations for affected teams:
 
@@ -484,7 +497,7 @@ python calculate_bball_valuations.py
 python apply_bball_overrides.py
 ```
 
-### 9.4 Matching Behavior
+### 10.4 Matching Behavior
 
 Only matches players whose destination school exists in `basketball_teams`. Unmatched transfers are skipped — this is correct behavior. They will match automatically when their school is added to the system.
 
@@ -547,13 +560,15 @@ Run after adding new players or teams. Collision handling: duplicate names recei
 
 All basketball pages live under `/basketball/`:
 
-| Route | Page | Data Source |
-|-------|------|-------------|
-| `/basketball/players` | National leaderboard | `basketball_players` + `basketball_teams` join |
-| `/basketball/players/[slug]` | Player profile | `basketball_players` + `basketball_teams` + `basketball_nil_overrides` |
-| `/basketball/teams` | Team grid | `basketball_teams` |
-| `/basketball/teams/[slug]` | Team roster | `basketball_players` + `basketball_teams` |
-| `/basketball/methodology` | Formula explanation | Static JSX |
+| Route | Page | Data Source | Revalidate |
+|-------|------|-------------|------------|
+| `/basketball/players` | National leaderboard | `basketball_players` + `basketball_teams` join | 3600s |
+| `/basketball/players/[slug]` | Player profile | `basketball_players` + `basketball_teams` + `basketball_nil_overrides` | 3600s |
+| `/basketball/teams` | Team grid | `basketball_teams` | 3600s |
+| `/basketball/teams/[slug]` | Team roster | `basketball_players` + `basketball_teams` | 3600s |
+| `/basketball/portal` | Transfer portal tracker | `basketball_portal_entries` + `basketball_teams` | 300s |
+| `/basketball/recruits` | HS recruit big board | `basketball_players` (player_tag='High School Recruit') + `basketball_teams` | 3600s |
+| `/basketball/methodology` | Formula explanation | Static JSX | — |
 
 No frontend changes are needed when adding a new team — all pages query `basketball_teams` and `basketball_players` dynamically.
 
@@ -567,22 +582,49 @@ No frontend changes are needed when adding a new team — all pages query `baske
 | `basketball_players` | All players across all teams (stats, valuations, roster status) |
 | `basketball_nil_overrides` | Known deal values (annualized_value is a generated column) |
 | `basketball_player_events` | Audit log for valuation and status changes |
+| `basketball_portal_entries` | Display-only portal tracker (rebuilt on each sync run) |
 
-### 12.1 Quick DB Health Check
+### 13.1 Quick DB Health Check
 
 ```bash
 cd python_engine && python3 -c "
 from supabase_client import supabase
 for table in ['basketball_teams', 'basketball_players',
-              'basketball_nil_overrides', 'basketball_player_events']:
+              'basketball_nil_overrides', 'basketball_player_events',
+              'basketball_portal_entries']:
     r = supabase.table(table).select('*', count='exact').execute()
     print(f'{table}: {r.count} rows')
 "
 ```
 
-### 12.2 Schema Reference
+### 13.2 basketball_portal_entries Schema
 
-Full column listing: `BASKETBALL_VALUATION_ENGINE.md` §5.
+Display-only table rebuilt on each `sync_bball_portal_display.py` run. Not permanent storage.
+
+| Column | Type | Notes |
+|--------|------|-------|
+| `id` | UUID, PK | Auto-generated |
+| `player_name` | TEXT | |
+| `position` | TEXT | |
+| `origin_school` | TEXT | School transferring from |
+| `destination_school` | TEXT | Committed destination (if any) |
+| `origin_team_id` | UUID, FK | NULL if origin school not tracked |
+| `destination_team_id` | UUID, FK | NULL if destination school not tracked |
+| `status` | TEXT | committed, entered, withdrawn |
+| `star_rating` | INTEGER | |
+| `cfo_valuation` | INTEGER | CFO valuation if player exists in system |
+| `on3_nil_value` | INTEGER | On3's NIL valuation |
+| `headshot_url` | TEXT | |
+| `entry_date` | DATE | When player entered portal |
+| `commitment_date` | DATE | When player committed (if committed) |
+| `on3_player_slug` | TEXT | For linking to On3 profiles |
+| `created_at`, `updated_at` | TIMESTAMPTZ | |
+
+Migration: `supabase/migrations/00015_basketball_portal_entries.sql`
+
+### 13.3 Schema Reference
+
+Full column listing for core tables: `BASKETBALL_VALUATION_ENGINE.md` §5.
 
 Migration: `supabase/migrations/00013_basketball_schema.sql`.
 
@@ -651,15 +693,21 @@ All basketball pipeline scripts in `python_engine/`:
 
 | Script | Purpose | Flags |
 |--------|---------|-------|
-| `ingest_bball_espn_rosters.py` | ESPN roster → `basketball_players` | `--team SLUG` |
+| `ingest_bball_espn_rosters.py` | ESPN roster → `basketball_players` (guards portal-managed players) | `--team SLUG` |
 | `enrich_bball_usage_rates.py` | ESPN stats → usage_rate, role_tier, per | `--team SLUG` |
 | `enrich_bball_class_years.py` | ESPN experience → class_year | (runs all teams) |
-| `enrich_bball_star_ratings.py` | Recruiting CSV → star_rating, composite | `--team SLUG` |
+| `enrich_bball_star_ratings.py` | Per-team recruiting CSV → star_rating, composite | `--team SLUG` |
 | `enrich_bball_social_data.py` | On3 social → follower counts | `--team SLUG`, `--dry-run` |
+| `apply_bball_social_manual.py` | Manual CSV → social follower counts (players not on On3) | `--dry-run` |
 | `calculate_bball_valuations.py` | Formula → cfo_valuation | `--team SLUG`, `--dry-run` |
 | `apply_bball_overrides.py` | CSV → override valuations | — |
 | `generate_bball_slugs.py` | Name → URL slug | — |
+| `fix_bball_headshots.py` | Validates ESPN CDN headshot URLs, NULLs broken ones | `--team SLUG` |
 | `scrape_bball_247_headshots.py` | 247Sports → recruit headshot URLs | `--dry-run`, `--year YYYY` |
+| `build_bball_recruit_csvs.py` | Source of truth for HS recruits → national CSV files | `--year YYYY`, `--dry-run` |
+| `ingest_bball_recruits.py` | National recruit CSVs → `basketball_players` | `--year YYYY`, `--dry-run` |
+| `classify_bball_acquisition_types.py` | Tags players as retained/portal/recruit | `--dry-run` |
+| `sync_nba_draft_projections.py` | ESPN draft API → nba_draft_projection + recalculate | `--dry-run`, `--season YYYY` |
 | `enrich_bball_portal_players.py` | Creates DB records for portal players from untracked schools | `--dry-run` |
 | `parse_bball_portal_txt.py` | Raw On3 txt → roster moves/departures/flags | `--parse-only`, `--dry-run` |
 | `sync_bball_portal_display.py` | On3 portal → `basketball_portal_entries` (display) | `--dry-run` |
@@ -672,14 +720,18 @@ All basketball pipeline scripts in `python_engine/`:
 |------|---------|
 | `data/basketball_approved_overrides.csv` | Known deal values |
 | `data/nba_draft_projections_2025.csv` | NBA mock draft projections |
-| `data/{slug}_basketball_recruits_2025.csv` | Incoming player recruiting data (per team) |
+| `data/basketball_recruits_2026.csv` | National recruit CSV — committed 2026 class |
+| `data/basketball_recruits_2027.csv` | National recruit CSV — 4-star+ big board |
+| `data/basketball_recruits_2028.csv` | National recruit CSV — 4-star+ big board |
+| `data/{slug}_basketball_recruits_2025.csv` | Legacy per-team recruiting data (BYU, Kentucky) |
 | `data/on3_basketballportal_raw.txt` | Raw On3 portal copy-paste for `parse_bball_portal_txt.py` |
+| `data/basketball_social_manual.csv` | Manual social follower counts for `apply_bball_social_manual.py` |
 
 ---
 
 ## 16. Rollback Procedures
 
-### 15.1 Safe Fields to Recompute
+### 16.1 Safe Fields to Recompute
 
 These can be recovered from source data at any time:
 
@@ -691,14 +743,14 @@ These can be recovered from source data at any time:
 | `star_rating`, `composite_score` | `enrich_bball_star_ratings.py` (requires CSV) |
 | `slug` | `generate_bball_slugs.py` |
 
-### 15.2 Dangerous Fields (Cannot Auto-Recover)
+### 16.2 Dangerous Fields (Cannot Auto-Recover)
 
 - `is_override` — must be manually verified against `basketball_approved_overrides.csv`
 - `roster_status` — requires manual review or portal re-sync to reconstruct
 - `team_id` — requires ESPN roster data to re-associate
 - Deleted records — cannot be recovered (use soft delete via `roster_status` instead)
 
-### 15.3 Nuclear Reset (Last Resort)
+### 16.3 Nuclear Reset (Last Resort)
 
 To wipe all valuations and recompute from scratch:
 
