@@ -148,13 +148,26 @@ def main() -> None:
     }
     # Track portal-protected players: never overwrite team_id or roster_status
     # for players already moved/departed/evaluating via the portal pipeline.
+    # Only protect players who have a team_id already set — players with
+    # team_id = NULL need their team_id filled when their school is onboarded.
     PROTECTED_ACQUISITION = {"portal", "portal_evaluating"}
     PROTECTED_ROSTER = {"departed_transfer"}
+
+    # Need team_id to check NULL — fetch it for portal/departed players
+    portal_resp = (
+        supabase.table("basketball_players")
+        .select("espn_athlete_id, team_id, acquisition_type, roster_status")
+        .not_.is_("espn_athlete_id", "null")
+        .execute()
+    )
     protected_ids: set[str] = {
         p["espn_athlete_id"]
-        for p in (existing_resp.data or [])
-        if p.get("acquisition_type") in PROTECTED_ACQUISITION
-        or p.get("roster_status") in PROTECTED_ROSTER
+        for p in (portal_resp.data or [])
+        if p.get("team_id") is not None  # only protect if already assigned
+        and (
+            p.get("acquisition_type") in PROTECTED_ACQUISITION
+            or p.get("roster_status") in PROTECTED_ROSTER
+        )
     }
 
     total_upserted = 0

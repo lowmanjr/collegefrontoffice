@@ -116,6 +116,7 @@ const NAME_ALIASES: Record<string, string> = {
   "rob wright": "robert wright iii",
   "kennard davis": "kennard davis jr.",
   "richard barron": "rich barron",
+  "jp estrella": "j.p. estrella",
 };
 
 export default async function BasketballPortalPage() {

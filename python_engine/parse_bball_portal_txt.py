@@ -63,6 +63,8 @@ SCHOOL_ALIASES: dict[str, str] = {
     "miami": "Miami",
     "miami hurricanes": "Miami",
     "miami (fl)": "Miami",
+    "tennessee": "Tennessee",
+    "tennessee volunteers": "Tennessee",
 }
 
 # Prevent false positives on exact-match collisions
@@ -75,6 +77,8 @@ SCHOOL_NON_MATCHES = {
     "northern michigan", "western michigan",
     "eastern michigan", "central michigan",
     "central connecticut state",
+    "tennessee state", "tennessee tech",
+    "east tennessee state", "middle tennessee",
 }
 
 NAME_ALIASES: dict[str, str] = {
@@ -82,6 +86,7 @@ NAME_ALIASES: dict[str, str] = {
     "rob wright": "robert wright iii",
     "kennard davis": "kennard davis jr.",
     "richard barron": "rich barron",
+    "jp estrella": "j.p. estrella",
     # add others as discovered
 }
 

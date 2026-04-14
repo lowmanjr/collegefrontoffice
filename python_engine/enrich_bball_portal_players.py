@@ -79,6 +79,7 @@ SCHOOL_ESPN_IDS: dict[str, int] = {
     "Pittsburgh Panthers": 221,
     "South Florida Bulls": 58,
     "Tennessee Volunteers": 2633,
+    "Tennessee": 2633,
     "Texas A&M Aggies": 245,
     "USF Bulls": 58,
     "University of San Francisco Dons": 2539,
