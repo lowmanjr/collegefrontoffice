@@ -5,6 +5,7 @@ import { formatCurrency, formatCompactCurrency } from "@/lib/utils";
 import type { TeamRosterSummary } from "@/lib/database.types";
 import type { Metadata } from "next";
 import { BASE_URL } from "@/lib/constants";
+import ConferenceFilter, { confSlugToDb } from "@/components/ConferenceFilter";
 
 export const revalidate = 3600;
 
@@ -33,23 +34,45 @@ function TeamsTableSkeleton() {
 
 // ─── async data component ─────────────────────────────────────────────────────
 
-async function TeamsGrid() {
-  const [summaryResp, slugsResp] = await Promise.all([
-    supabase
-      .from("team_roster_summary")
-      .select("*")
-      .order("total_program_value", { ascending: false }),
+async function TeamsGrid({ confSlug }: { confSlug: string | null }) {
+  const confDb = confSlugToDb(confSlug);
+
+  // Always fetch all teams for conference counts
+  const allQuery = supabase
+    .from("team_roster_summary")
+    .select("id, conference");
+
+  // Filtered query for display
+  const filteredQuery = supabase
+    .from("team_roster_summary")
+    .select("*")
+    .order("total_program_value", { ascending: false });
+  if (confDb) filteredQuery.eq("conference", confDb);
+
+  const [allResp, filteredResp, slugsResp] = await Promise.all([
+    allQuery,
+    filteredQuery,
     supabase.from("teams").select("id, slug"),
   ]);
 
-  const { data, error } = summaryResp;
+  const { data, error } = filteredResp;
 
   if (error) {
     return <p className="text-sm text-red-500">Failed to load teams: {error.message}</p>;
   }
 
+  // Build conference counts from the unfiltered set
+  const confCounts: Record<string, number> = {};
+  for (const t of allResp.data ?? []) {
+    const c = (t as { conference: string }).conference;
+    if (c) confCounts[c] = (confCounts[c] ?? 0) + 1;
+  }
+  const totalCount = (allResp.data ?? []).length;
+
   const slugMap = Object.fromEntries((slugsResp.data ?? []).map((t: { id: string; slug: string }) => [t.id, t.slug]));
   const teams = (data ?? []).map((t: TeamRosterSummary) => ({ ...t, slug: slugMap[t.id] ?? t.id }));
+
+  const confLabel = confDb ? `${confDb} ` : "";
 
   return (
     <>
@@ -72,6 +95,8 @@ async function TeamsGrid() {
           }),
         }}
       />
+      <ConferenceFilter activeConf={confSlug} counts={confCounts} totalCount={totalCount} />
+
       {teams.length === 0 ? (
         <div className="bg-white rounded-xl shadow-md p-16 text-center">
           <p className="text-slate-400 text-sm">No programs found.</p>
@@ -157,10 +182,10 @@ async function TeamsGrid() {
           {/* Footer */}
           <div className="border-t border-gray-100 bg-slate-50 px-4 py-3 flex items-center justify-between">
             <p className="text-xs text-slate-400">
-              <span className="font-semibold text-slate-600">{teams.length}</span> programs ranked
+              <span className="font-semibold text-slate-600">{teams.length}</span> {confLabel}programs ranked
             </p>
             <p className="text-xs text-slate-400">
-              C.F.O. Valuation Engine V3.5
+              C.F.O. Valuation Engine V3.6b
             </p>
           </div>
         </div>
@@ -171,7 +196,14 @@ async function TeamsGrid() {
 
 // ─── page ────────────────────────────────────────────────────────────────────
 
-export default function TeamsPage() {
+export default async function TeamsPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ conf?: string }>;
+}) {
+  const { conf } = await searchParams;
+  const confSlug = conf ?? null;
+
   return (
     <main className="min-h-screen bg-gray-100">
       {/* ── Hero ─────────────────────────────────────────────────────────── */}
@@ -189,7 +221,7 @@ export default function TeamsPage() {
       {/* ── Content ──────────────────────────────────────────────────────── */}
       <div className="mx-auto max-w-6xl px-4 py-8">
         <Suspense fallback={<TeamsTableSkeleton />}>
-          <TeamsGrid />
+          <TeamsGrid confSlug={confSlug} />
         </Suspense>
       </div>
     </main>
