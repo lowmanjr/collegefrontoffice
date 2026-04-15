@@ -72,7 +72,7 @@ export default async function FuturesMarketPage({ searchParams }: PageProps) {
           __html: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "ItemList",
-            name: "Recruit Valuations",
+            name: "Football Recruit Valuations",
             description: "Elite high school football recruit valuations.",
             url: `${BASE_URL}/recruits`,
             numberOfItems: rows.length,
@@ -92,7 +92,7 @@ export default async function FuturesMarketPage({ searchParams }: PageProps) {
             className="text-4xl sm:text-5xl font-bold uppercase tracking-tight leading-none"
             style={{ fontFamily: "var(--font-oswald), sans-serif" }}
           >
-            Recruit Valuations
+            Football Recruit Valuations
           </h1>
         </div>
       </div>
