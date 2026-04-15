@@ -206,7 +206,6 @@ export default function PortalBoard({
                 className="block bg-white rounded-xl border border-gray-200 p-4 hover:border-slate-300 transition-colors shadow-sm"
               >
                 <div className="flex items-center gap-3">
-                  <span className="text-xs font-bold text-slate-400 w-6 text-right shrink-0">{i + 1}</span>
                   <PlayerAvatar
                     headshot_url={player.headshot_url}
                     name={player.name}
@@ -249,17 +248,15 @@ export default function PortalBoard({
               <table className="w-full text-sm">
                 <thead className="sticky top-0 z-10 bg-slate-900 text-slate-300">
                   <tr>
-                    <th className="px-3 py-3 text-left text-xs font-semibold uppercase tracking-widest w-12">#</th>
                     <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-widest">Player</th>
                     <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-widest w-16">Pos</th>
                     <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-widest">Team</th>
-                    <th className="px-4 py-3 text-right text-xs font-semibold uppercase tracking-widest">Valuation</th>
+                    <th className="px-4 py-3 text-right text-xs font-semibold uppercase tracking-widest">Est. NIL Value</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-100">
                   {displayPlayers.map((player, i) => (
                     <tr key={player.id} className="hover:bg-slate-50 transition-colors">
-                      <td className="px-3 py-3 text-xs font-bold text-slate-400">{i + 1}</td>
                       <td className="px-4 py-3">
                         <div className="flex items-center gap-3">
                           <PlayerAvatar
