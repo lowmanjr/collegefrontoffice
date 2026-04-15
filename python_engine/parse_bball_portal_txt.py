@@ -65,6 +65,10 @@ SCHOOL_ALIASES: dict[str, str] = {
     "miami (fl)": "Miami",
     "tennessee": "Tennessee",
     "tennessee volunteers": "Tennessee",
+    "florida": "Florida",
+    "florida gators": "Florida",
+    "uf": "Florida",
+    "university of florida": "Florida",
 }
 
 # Prevent false positives on exact-match collisions
@@ -100,6 +104,14 @@ SCHOOL_NON_MATCHES = {
     "oregon state", "oregon state beavers",
     # Connecticut overlap
     "central connecticut", "central connecticut state",
+    # Florida overlap
+    "florida state", "florida state seminoles",
+    "florida atlantic", "florida atlantic owls",
+    "florida gulf coast", "florida gulf coast eagles", "fgcu",
+    "florida international", "florida international panthers", "fiu",
+    "south florida", "south florida bulls", "usf",
+    "central florida", "ucf", "ucf knights",
+    "florida a&m", "florida a&m rattlers",
 }
 
 NAME_ALIASES: dict[str, str] = {

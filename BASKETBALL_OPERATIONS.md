@@ -1,8 +1,8 @@
 # College Front Office — Basketball Operations Runbook
 
-> **Last Updated:** April 14, 2026
+> **Last Updated:** April 15, 2026
 > **Scope:** Men's college basketball NIL valuations
-> **Current teams:** 13 — BYU, Duke, Georgia, Kansas, Kentucky, Louisville, Miami, Michigan, Oregon, Providence, San Diego State, Tennessee, UConn
+> **Current teams:** 14 — BYU, Duke, Florida, Georgia, Kansas, Kentucky, Louisville, Miami, Michigan, Oregon, Providence, San Diego State, Tennessee, UConn
 > **Companion docs:** `BASKETBALL_VALUATION_ENGINE.md` (formula detail), `OPERATIONS.md` (football pipeline reference)
 
 ---
@@ -51,7 +51,7 @@ for r in t.data:
 "
 ```
 
-Expected output: all 13 tracked teams with their market multipliers.
+Expected output: all 14 tracked teams with their market multipliers.
 
 ---
 

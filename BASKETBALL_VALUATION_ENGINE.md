@@ -62,7 +62,7 @@ Not every rostered player participates in the NIL market. The formula only runs 
 
 Players below these thresholds appear on team roster pages without a dollar figure. Team totals reflect only valued players.
 
-Current gate results (V1.3, 13 teams):
+Current gate results (V1.3, 14 teams):
 - 146 valued players across 13 teams
 - Players below thresholds appear on roster pages without a dollar figure
 
@@ -312,13 +312,14 @@ Schema migration: `supabase/migrations/00013_basketball_schema.sql`
 
 ## 8. Calibration Reference
 
-### Team Totals (V1.3, April 2026 — 13 teams)
+### Team Totals (V1.3, April 2026 — 14 teams)
 
 | Team | Conference | Market Mult. | Valued Players | Est. Roster Value |
 |------|-----------|-------------|----------------|-------------------|
 | BYU | Big 12 | 1.08 | 14 | $14,713,451 |
 | Michigan | Big Ten | 1.18 | 14 | $14,321,456 |
 | Louisville | ACC | 1.10 | 13 | $13,484,304 |
+| Florida | SEC | 1.20 | 9 | $12,317,115 |
 | Kansas | Big 12 | 1.28 | 14 | $12,059,222 |
 | UConn | Big East | 1.28 | 11 | $11,366,455 |
 | Tennessee | SEC | 1.24 | 10 | $10,392,517 |
@@ -330,7 +331,7 @@ Schema migration: `supabase/migrations/00013_basketball_schema.sql`
 | Georgia | SEC | 1.06 | 9 | $7,241,869 |
 | San Diego State | Mountain West | 0.72 | 9 | $5,097,870 |
 
-**Total valued players:** 146 across 13 teams. Team totals include reported override values for known deals.
+**Total valued players:** 155 across 14 teams. Team totals include reported override values for known deals.
 
 ---
 
