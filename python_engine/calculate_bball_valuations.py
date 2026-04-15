@@ -291,25 +291,32 @@ def main() -> None:
 
     print(f"Loading {len(teams_by_id)} team(s)...\n")
 
-    # Load players
-    query = (
-        supabase.table("basketball_players")
-        .select(
-            "id, name, position, role_tier, usage_rate, ppg, rpg, apg, per, "
-            "star_rating, composite_score, class_year, experience_level, "
-            "is_override, roster_status, team_id, espn_athlete_id, player_tag, "
-            "nba_draft_projection, "
-            "ig_followers, x_followers, tiktok_followers, total_followers"
-        )
-        .eq("roster_status", "active")
+    # Load players (paginated — Supabase default limit is 1000)
+    FIELDS = (
+        "id, name, position, role_tier, usage_rate, ppg, rpg, apg, per, "
+        "star_rating, composite_score, class_year, experience_level, "
+        "is_override, roster_status, team_id, espn_athlete_id, player_tag, "
+        "nba_draft_projection, "
+        "ig_followers, x_followers, tiktok_followers, total_followers"
     )
-    if team_filter:
-        team_ids = list(teams_by_id.keys())
-        if team_ids:
-            query = query.in_("team_id", team_ids)
-
-    players_resp = query.execute()
-    players = players_resp.data or []
+    players: list[dict] = []
+    page_size = 1000
+    offset = 0
+    while True:
+        q = (
+            supabase.table("basketball_players")
+            .select(FIELDS)
+            .eq("roster_status", "active")
+        )
+        if team_filter:
+            team_ids_list = list(teams_by_id.keys())
+            if team_ids_list:
+                q = q.in_("team_id", team_ids_list)
+        batch = q.range(offset, offset + page_size - 1).execute()
+        players.extend(batch.data or [])
+        if len(batch.data or []) < page_size:
+            break
+        offset += page_size
 
     # Process by team
     total_valued = 0
