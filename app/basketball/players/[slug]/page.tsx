@@ -282,23 +282,6 @@ export default async function BasketballPlayerProfilePage({ params }: PageProps)
                               </span>
                             </>
                           )}
-                        {bestOverride.source_name && (
-                          <>
-                            <span className="text-slate-600">·</span>
-                            {bestOverride.source_url ? (
-                              <a
-                                href={bestOverride.source_url}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="text-slate-400 hover:text-white underline transition-colors"
-                              >
-                                {bestOverride.source_name}
-                              </a>
-                            ) : (
-                              <span>{bestOverride.source_name}</span>
-                            )}
-                          </>
-                        )}
                       </div>
                     )}
                   </div>
