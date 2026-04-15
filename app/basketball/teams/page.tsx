@@ -41,17 +41,28 @@ interface TeamWithValue {
 
 async function TeamsGrid() {
   // No team_roster_summary view for basketball yet — compute inline
-  const [teamsResp, playersResp] = await Promise.all([
-    supabase.from("basketball_teams").select("id, university_name, conference, logo_url, slug"),
-    supabase
+  const teamsResp = await supabase
+    .from("basketball_teams")
+    .select("id, university_name, conference, logo_url, slug");
+
+  // Paginate player fetch — Supabase default limit is 1,000 rows
+  const PAGE_SIZE = 1000;
+  let allPlayers: { team_id: string; cfo_valuation: number | null }[] = [];
+  let offset = 0;
+  while (true) {
+    const { data } = await supabase
       .from("basketball_players")
       .select("team_id, cfo_valuation")
       .eq("roster_status", "active")
-      .eq("is_public", true),
-  ]);
+      .eq("is_public", true)
+      .range(offset, offset + PAGE_SIZE - 1);
+    allPlayers.push(...(data ?? []));
+    if (!data || data.length < PAGE_SIZE) break;
+    offset += PAGE_SIZE;
+  }
 
   const teamsRaw = teamsResp.data ?? [];
-  const playersRaw = playersResp.data ?? [];
+  const playersRaw = allPlayers;
 
   // Aggregate per team
   const teamTotals: Record<string, { total: number }> = {};

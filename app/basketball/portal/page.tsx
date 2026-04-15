@@ -133,8 +133,8 @@ export default async function BasketballPortalPage({ searchParams }: PageProps) 
   const statusFilter = params.status?.toLowerCase() ?? "";
   const confFilter = params.conf ?? "";
 
-  // Fetch all data in parallel
-  const [{ data: entries, error }, { data: playerSlugs }, { data: teams }] = await Promise.all([
+  // Fetch entries and teams in parallel
+  const [{ data: entries, error }, { data: teams }] = await Promise.all([
     supabase
       .from("basketball_portal_entries")
       .select(
@@ -147,14 +147,25 @@ export default async function BasketballPortalPage({ searchParams }: PageProps) 
       )
       .order("cfo_valuation", { ascending: false }),
     supabase
-      .from("basketball_players")
-      .select("name, slug")
-      .neq("slug", ""),
-    supabase
       .from("basketball_teams")
       .select("id, university_name, slug, logo_url, conference")
       .order("university_name"),
   ]);
+
+  // Paginate player slug lookup — Supabase default limit is 1,000 rows
+  const PAGE_SIZE = 1000;
+  let allPlayerSlugs: { name: string; slug: string }[] = [];
+  let offset = 0;
+  while (true) {
+    const { data } = await supabase
+      .from("basketball_players")
+      .select("name, slug")
+      .neq("slug", "")
+      .range(offset, offset + PAGE_SIZE - 1);
+    allPlayerSlugs.push(...(data ?? []));
+    if (!data || data.length < PAGE_SIZE) break;
+    offset += PAGE_SIZE;
+  }
 
   if (error) console.error("Portal query error:", error);
 
@@ -163,9 +174,9 @@ export default async function BasketballPortalPage({ searchParams }: PageProps) 
 
   // Build slug lookup
   const slugMap = new Map(
-    (playerSlugs ?? [])
-      .filter((p: { slug: string | null }) => p.slug)
-      .map((p: { name: string; slug: string }) => [p.name.toLowerCase().trim(), p.slug]),
+    allPlayerSlugs
+      .filter((p) => p.slug)
+      .map((p) => [p.name.toLowerCase().trim(), p.slug]),
   );
 
   function getPlayerSlug(name: string): string | null {
