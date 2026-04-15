@@ -2,7 +2,7 @@
 
 > **Last Updated:** April 15, 2026
 > **Scope:** Men's college basketball NIL valuations
-> **Current teams:** 14 — BYU, Duke, Florida, Georgia, Kansas, Kentucky, Louisville, Miami, Michigan, Oregon, Providence, San Diego State, Tennessee, UConn
+> **Current teams:** 82 — All Power 4 (SEC, Big Ten, Big 12, ACC), Full Big East, Gonzaga (WCC), Memphis (AAC), San Diego State (MWC)
 > **Companion docs:** `BASKETBALL_VALUATION_ENGINE.md` (formula detail), `OPERATIONS.md` (football pipeline reference)
 
 ---
@@ -13,7 +13,7 @@ The basketball product produces CFO Valuations for men's college basketball play
 
 The tech stack is identical to football: Next.js (App Router) on Vercel, Supabase (PostgreSQL), Python data pipeline. Basketball uses its own set of tables (`basketball_teams`, `basketball_players`, `basketball_nil_overrides`, `basketball_player_events`) and its own pipeline scripts (all prefixed `*_bball_*` or `*_basketball_*`).
 
-The valuation engine is V1.3. See `BASKETBALL_VALUATION_ENGINE.md` for the full formula specification.
+The valuation engine is V1.4. See `BASKETBALL_VALUATION_ENGINE.md` for the full formula specification.
 
 ---
 
@@ -51,13 +51,15 @@ for r in t.data:
 "
 ```
 
-Expected output: all 14 tracked teams with their market multipliers.
+Expected output: all 82 tracked teams with their market multipliers.
 
 ---
 
 ## 3. Adding a New Team
 
 Step-by-step for onboarding any new program. This is the most critical section — follow in exact order.
+
+**Bulk expansion (April 2026):** The initial 82-team universe was seeded via `expand_to_basketball_universe.py`, which reads `data/basketball_expansion_teams.csv` (82 rows with ESPN IDs, market multipliers, and conference assignments). That script is idempotent — it skips existing teams and only inserts new ones. The manual §3 process below is for individual team additions going forward (e.g., adding a mid-major not in the current universe).
 
 **Automation note:** All pipeline scripts load teams dynamically from `basketball_teams`. The ESPN team ID is derived from `logo_url` automatically. The only script file that needs updating for a new team is adding their On3 org key to `ON3_ORG_KEYS` in `enrich_bball_social_data.py` (see §3.3a).
 
@@ -713,6 +715,7 @@ All basketball pipeline scripts in `python_engine/`:
 | `sync_bball_portal_display.py` | On3 portal → `basketball_portal_entries` (display) | `--dry-run` |
 | `sync_bball_roster_from_portal.py` | Portal entries → roster moves/departures/flags | `--dry-run` |
 | `sync_basketball_transfer_portal.py` | On3 portal → roster moves (legacy) | `--dry-run`, `--max-pages N` |
+| `expand_to_basketball_universe.py` | Bulk team seeding from CSV (82-team expansion) | `--dry-run` |
 
 ### Data Files
 
@@ -724,6 +727,7 @@ All basketball pipeline scripts in `python_engine/`:
 | `data/basketball_recruits_2027.csv` | National recruit CSV — 4-star+ big board |
 | `data/basketball_recruits_2028.csv` | National recruit CSV — 4-star+ big board |
 | `data/{slug}_basketball_recruits_2025.csv` | Legacy per-team recruiting data (BYU, Kentucky) |
+| `data/basketball_expansion_teams.csv` | Master CSV for 82-team universe (ESPN IDs, multipliers, conferences) |
 | `data/on3_basketballportal_raw.txt` | Raw On3 portal copy-paste for `parse_bball_portal_txt.py` |
 | `data/basketball_social_manual.csv` | Manual social follower counts for `apply_bball_social_manual.py` |
 

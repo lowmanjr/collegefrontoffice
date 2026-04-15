@@ -1,6 +1,6 @@
 # CFO Basketball Valuation Engine — Internal Technical Specification
 
-> **Status:** Canonical (V1.3) | **Last Updated:** April 14, 2026
+> **Status:** Canonical (V1.4) | **Last Updated:** April 15, 2026
 > **Audience:** Developers, Claude Code sessions, internal team only
 > **⚠️ PROPRIETARY — Do not share externally or commit to a public repo.**
 
@@ -62,8 +62,8 @@ Not every rostered player participates in the NIL market. The formula only runs 
 
 Players below these thresholds appear on team roster pages without a dollar figure. Team totals reflect only valued players.
 
-Current gate results (V1.3, 14 teams):
-- 146 valued players across 13 teams
+Current gate results (V1.4, 82 teams):
+- 848 valued players across 82 teams
 - Players below thresholds appear on roster pages without a dollar figure
 
 ---
@@ -224,7 +224,7 @@ weighted_followers = ig + (x × 0.7) + (tiktok × 1.2)
 | ≥ 10,000 | $3,000 |
 | < 10,000 | $0 |
 
-**Current state:** Social data is enriched via `enrich_bball_social_data.py` (On3 scraping) and `apply_bball_social_manual.py` (manual CSV for players not covered by On3). Social premium is active for all tracked teams.
+**Current state:** Social data is enriched via `enrich_bball_social_data.py` (On3 scraping) and `apply_bball_social_manual.py` (manual CSV for players not covered by On3). As of the 82-team expansion, On3 org keys exist for 13 teams only — the remaining 69 teams have $0 social premium until their org keys are added. The social premium is additive and does not affect the base multiplicative formula.
 
 **Implementation:** `calculate_social_premium()` in `calculate_bball_valuations.py`.
 
@@ -298,7 +298,7 @@ Schema migration: `supabase/migrations/00013_basketball_schema.sql`
 
 ---
 
-## 7. Known Limitations (V1.3)
+## 7. Known Limitations (V1.4)
 
 1. **ESPN position granularity.** ESPN provides G/F/C only. Granular positions (PG/SG/SF/PF/C) are corrected for incoming players via recruiting CSV but not yet for all returning players.
 
@@ -308,30 +308,100 @@ Schema migration: `supabase/migrations/00013_basketball_schema.sql`
 
 4. **No team_roster_summary view.** Basketball team aggregates are computed inline on the frontend. A materialized view will be created when team count grows further.
 
+5. **Social data coverage is partial.** On3 org keys are configured for 13 of 82 teams (BYU, Duke, Florida, Georgia, Kansas, Kentucky, Louisville, Miami, Michigan, Oregon, Providence, San Diego State, Tennessee). The remaining 69 teams receive $0 social premium. This is non-blocking — social premium is additive and valuations are valid without it. On3 org keys for additional teams should be added to `ON3_ORG_KEYS` in `enrich_bball_social_data.py` as they are discovered.
+
 ---
 
 ## 8. Calibration Reference
 
-### Team Totals (V1.3, April 2026 — 14 teams)
+### Team Totals (V1.4, April 2026 — 82 teams)
 
 | Team | Conference | Market Mult. | Valued Players | Est. Roster Value |
 |------|-----------|-------------|----------------|-------------------|
 | BYU | Big 12 | 1.08 | 14 | $14,713,451 |
 | Michigan | Big Ten | 1.18 | 14 | $14,321,456 |
-| Louisville | ACC | 1.10 | 13 | $13,484,304 |
+| Louisville | ACC | 1.10 | 14 | $14,242,974 |
 | Florida | SEC | 1.20 | 9 | $12,317,115 |
 | Kansas | Big 12 | 1.28 | 14 | $12,059,222 |
+| North Carolina | ACC | 1.28 | 9 | $11,938,576 |
+| Oregon | Big Ten | 1.22 | 13 | $11,490,171 |
 | UConn | Big East | 1.28 | 11 | $11,366,455 |
+| Miami | ACC | 1.12 | 12 | $10,928,990 |
+| Duke | ACC | 1.30 | 11 | $10,846,923 |
+| Providence | Big East | 0.95 | 13 | $10,629,181 |
+| Auburn | SEC | 1.16 | 10 | $10,574,586 |
+| Alabama | SEC | 1.14 | 12 | $10,403,463 |
 | Tennessee | SEC | 1.24 | 10 | $10,392,517 |
-| Duke | ACC | 1.30 | 10 | $10,288,173 |
-| Miami | ACC | 1.12 | 11 | $9,645,326 |
-| Oregon | Big Ten | 1.22 | 11 | $8,741,439 |
-| Providence | Big East | 0.95 | 11 | $8,555,771 |
-| Kentucky | SEC | 1.20 | 9 | $8,441,098 |
-| Georgia | SEC | 1.06 | 9 | $7,241,869 |
+| Kentucky | SEC | 1.20 | 12 | $10,382,848 |
+| Gonzaga | WCC | 1.14 | 10 | $10,207,600 |
+| Ohio State | Big Ten | 1.10 | 11 | $10,030,513 |
+| UCLA | Big Ten | 1.24 | 10 | $9,915,102 |
+| Maryland | Big Ten | 1.04 | 12 | $9,861,761 |
+| LSU | SEC | 1.04 | 10 | $9,759,698 |
+| USC | Big Ten | 1.08 | 12 | $9,720,243 |
+| Houston | Big 12 | 1.20 | 10 | $9,702,585 |
+| Arizona | Big 12 | 1.18 | 8 | $9,621,409 |
+| Arkansas | SEC | 1.10 | 8 | $9,564,885 |
+| Iowa State | Big 12 | 1.08 | 9 | $9,527,584 |
+| Illinois | Big Ten | 1.08 | 8 | $9,436,216 |
+| Baylor | Big 12 | 1.12 | 8 | $9,260,076 |
+| Indiana | Big Ten | 1.16 | 9 | $9,234,902 |
+| Creighton | Big East | 1.02 | 12 | $9,033,692 |
+| Missouri | SEC | 0.92 | 12 | $8,954,268 |
+| Cincinnati | Big 12 | 1.00 | 12 | $8,773,200 |
+| Michigan State | Big Ten | 1.20 | 9 | $8,732,340 |
+| Villanova | Big East | 1.10 | 9 | $8,549,145 |
+| Memphis | AAC | 0.96 | 13 | $8,523,612 |
+| Texas Tech | Big 12 | 1.02 | 9 | $8,488,057 |
+| Oklahoma | SEC | 1.00 | 10 | $8,403,937 |
+| Iowa | Big Ten | 1.04 | 10 | $8,380,710 |
+| Butler | Big East | 0.88 | 12 | $8,249,109 |
+| Oklahoma State | Big 12 | 0.88 | 13 | $8,242,938 |
+| Washington | Big Ten | 0.88 | 13 | $8,196,210 |
+| Texas | SEC | 1.18 | 9 | $8,188,020 |
+| Minnesota | Big Ten | 0.88 | 9 | $8,104,536 |
+| Syracuse | ACC | 1.04 | 9 | $7,963,488 |
+| Georgetown | Big East | 0.90 | 11 | $7,883,167 |
+| Kansas State | Big 12 | 0.90 | 11 | $7,864,559 |
+| Texas A&M | SEC | 1.06 | 11 | $7,798,234 |
+| Purdue | Big Ten | 1.14 | 9 | $7,712,694 |
+| Wisconsin | Big Ten | 1.00 | 8 | $7,711,200 |
+| Cal | ACC | 0.84 | 10 | $7,694,715 |
+| Georgia | SEC | 1.06 | 10 | $7,690,864 |
+| Marquette | Big East | 1.06 | 9 | $7,668,608 |
+| Virginia Tech | ACC | 0.88 | 10 | $7,625,178 |
+| Colorado | Big 12 | 0.94 | 10 | $7,544,663 |
+| St. John's | Big East | 1.08 | 10 | $7,516,719 |
+| NC State | ACC | 0.96 | 10 | $7,512,732 |
+| Clemson | ACC | 0.92 | 10 | $7,509,891 |
+| Ole Miss | SEC | 0.94 | 11 | $7,419,807 |
+| Georgia Tech | ACC | 0.88 | 12 | $7,353,423 |
+| Arizona State | Big 12 | 0.96 | 9 | $7,328,304 |
+| Nebraska | Big Ten | 0.84 | 10 | $7,324,222 |
+| Notre Dame | ACC | 0.96 | 9 | $7,251,408 |
+| Xavier | Big East | 0.92 | 9 | $7,240,032 |
+| Mississippi State | SEC | 0.90 | 10 | $7,229,992 |
+| Pittsburgh | ACC | 0.92 | 8 | $7,206,394 |
+| Virginia | ACC | 1.00 | 9 | $7,155,000 |
+| Florida State | ACC | 0.96 | 9 | $7,088,112 |
+| Vanderbilt | SEC | 0.86 | 10 | $6,960,581 |
+| Utah | Big 12 | 0.86 | 10 | $6,701,292 |
+| South Carolina | SEC | 0.88 | 11 | $6,691,410 |
+| Penn State | Big Ten | 0.90 | 10 | $6,684,354 |
+| Northwestern | Big Ten | 0.82 | 11 | $6,472,423 |
+| Seton Hall | Big East | 0.86 | 11 | $6,463,287 |
+| West Virginia | Big 12 | 0.92 | 10 | $6,447,222 |
+| DePaul | Big East | 0.82 | 10 | $6,351,073 |
+| SMU | ACC | 0.90 | 8 | $6,328,326 |
+| Boston College | ACC | 0.82 | 9 | $6,304,457 |
+| Stanford | ACC | 0.84 | 11 | $6,173,496 |
+| Wake Forest | ACC | 0.84 | 10 | $6,099,219 |
+| UCF | Big 12 | 0.88 | 10 | $6,030,882 |
+| TCU | Big 12 | 0.88 | 8 | $5,920,398 |
+| Rutgers | Big Ten | 0.86 | 11 | $5,565,833 |
 | San Diego State | Mountain West | 0.72 | 9 | $5,097,870 |
 
-**Total valued players:** 155 across 14 teams. Team totals include reported override values for known deals.
+**Total valued players:** 848 across 82 teams. Team totals include reported override values for known deals.
 
 ---
 
@@ -343,3 +413,4 @@ Schema migration: `supabase/migrations/00013_basketball_schema.sql`
 | 1.1 | April 2026 | Position bases doubled (Power 4 recalibration). Market multiplier bands updated for mid-major and lower tiers. Kentucky market_multiplier adjusted from 1.25 to 1.20. Dybantsa updated to $4,400,000 (reported). Quaintance added at $2,000,000 (reported). Basis: Opendorse 2025-26 market data + publicly reported deal anchors. |
 | 1.2 | April 2026 | Eligibility gate added. Players below MPG ≥ 8 (with stats) or star_rating ≥ 4 (incoming) receive NULL valuation. Team totals now reflect NIL market participants only. 15 of 63 players gated across 4 teams. |
 | 1.3 | April 2026 | Formula fix: combined_premium = max(draft, role) when draft data exists, role_tier alone otherwise. Prevents multiplicative double-counting for franchise-tier lottery picks. Discovered via Lendeborg (Michigan) producing $5.31M. Option B (conditional max) preserves incoming/rotation discounts for non-drafted players. |
+| 1.4 | April 2026 | Universe expansion: 14 → 82 teams. All Power 4 conferences (SEC 16, Big Ten 18, Big 12 16, ACC 18), full Big East (11), plus Gonzaga, Memphis, San Diego State. 1,278 players ingested, 848 valued, 66 draft prospects across 27 teams. Pagination bug fixed in valuation engine (Supabase 1,000-row default limit silently dropped players beyond first page). Social data coverage remains at 13 teams pending On3 org key expansion. |
