@@ -37,7 +37,6 @@ interface TeamWithValue {
   logo_url: string | null;
   slug: string | null;
   total_value: number;
-  player_count: number;
 }
 
 async function TeamsGrid() {
@@ -55,19 +54,17 @@ async function TeamsGrid() {
   const playersRaw = playersResp.data ?? [];
 
   // Aggregate per team
-  const teamTotals: Record<string, { total: number; count: number }> = {};
+  const teamTotals: Record<string, { total: number }> = {};
   for (const p of playersRaw) {
     if (!p.team_id) continue;
-    if (!teamTotals[p.team_id]) teamTotals[p.team_id] = { total: 0, count: 0 };
+    if (!teamTotals[p.team_id]) teamTotals[p.team_id] = { total: 0 };
     teamTotals[p.team_id].total += p.cfo_valuation ?? 0;
-    teamTotals[p.team_id].count += 1;
   }
 
   const teams: TeamWithValue[] = teamsRaw
     .map((t) => ({
       ...t,
       total_value: teamTotals[t.id]?.total ?? 0,
-      player_count: teamTotals[t.id]?.count ?? 0,
     }))
     .sort((a, b) => b.total_value - a.total_value);
 
@@ -107,9 +104,6 @@ async function TeamsGrid() {
                   </th>
                   <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-widest hidden sm:table-cell">
                     Conference
-                  </th>
-                  <th className="px-4 py-3 text-right text-xs font-semibold uppercase tracking-widest hidden sm:table-cell">
-                    Players
                   </th>
                   <th className="px-4 py-3 text-right text-xs font-semibold uppercase tracking-widest">
                     Est. Roster Value
@@ -156,12 +150,6 @@ async function TeamsGrid() {
                       )}
                     </td>
 
-                    <td className="px-4 py-3.5 text-right hidden sm:table-cell">
-                      <span className="text-xs text-slate-500 tabular-nums">
-                        {team.player_count}
-                      </span>
-                    </td>
-
                     <td className="px-4 py-3.5 text-right">
                       {team.total_value > 0 ? (
                         <span
@@ -180,13 +168,6 @@ async function TeamsGrid() {
             </table>
           </div>
 
-          <div className="border-t border-gray-100 bg-slate-50 px-4 py-3 flex items-center justify-between">
-            <p className="text-xs text-slate-400">
-              <span className="font-semibold text-slate-600">{teams.length}</span>{" "}
-              programs ranked
-            </p>
-            <p className="text-xs text-slate-400">Basketball V1</p>
-          </div>
         </div>
       )}
     </>
