@@ -219,10 +219,10 @@ export default async function BasketballPortalPage({ searchParams }: PageProps) 
         inCount: incoming.length,
         outCount: outgoing.length,
         evalCount: portal.length,
-        netValue: inVal - outVal,
+        acquiredValue: inVal,
       };
     })
-    .sort((a, b) => b.netValue - a.netValue);
+    .sort((a, b) => b.acquiredValue - a.acquiredValue);
 
   return (
     <main className="min-h-screen bg-gray-100">
@@ -269,7 +269,7 @@ export default async function BasketballPortalPage({ searchParams }: PageProps) 
                     <th className="px-3 py-3 text-center text-xs font-semibold uppercase tracking-widest w-14">In</th>
                     <th className="px-3 py-3 text-center text-xs font-semibold uppercase tracking-widest w-14">Out</th>
                     <th className="px-3 py-3 text-center text-xs font-semibold uppercase tracking-widest w-20">In Portal</th>
-                    <th className="px-4 py-3 text-right text-xs font-semibold uppercase tracking-widest">Net Value</th>
+                    <th className="px-4 py-3 text-right text-xs font-semibold uppercase tracking-widest">Acquired Value</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-100">
@@ -316,10 +316,10 @@ export default async function BasketballPortalPage({ searchParams }: PageProps) 
                       </td>
                       <td className="px-4 py-3 text-right">
                         <span
-                          className={`font-bold tabular-nums ${t.netValue >= 0 ? "text-green-700" : "text-red-600"}`}
+                          className="font-bold tabular-nums text-slate-900"
                           style={{ fontFamily: "var(--font-oswald), sans-serif" }}
                         >
-                          {t.netValue >= 0 ? "+" : ""}{formatCompactCurrency(t.netValue)}
+                          {formatCompactCurrency(t.acquiredValue)}
                         </span>
                       </td>
                     </tr>
