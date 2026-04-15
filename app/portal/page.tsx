@@ -81,7 +81,7 @@ export default async function PortalPage() {
           __html: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "ItemList",
-            name: "Transfer Portal Rankings",
+            name: "Football Transfer Portal Valuations",
             description: "College football transfer portal acquisitions ranked by estimated NIL value.",
             url: `${BASE_URL}/portal`,
             numberOfItems: totalCount,
