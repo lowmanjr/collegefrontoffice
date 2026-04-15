@@ -1,0 +1,83 @@
+university_name,slug,conference,espn_id,market_multiplier,is_existing
+Alabama,alabama,SEC,333,1.14,false
+Arkansas,arkansas,SEC,8,1.10,false
+Auburn,auburn,SEC,2,1.16,false
+Florida,florida,SEC,57,1.20,true
+Georgia,georgia,SEC,61,1.06,true
+Kentucky,kentucky,SEC,96,1.20,true
+LSU,lsu,SEC,99,1.04,false
+Mississippi State,mississippi-state,SEC,344,0.90,false
+Missouri,missouri,SEC,142,0.92,false
+Oklahoma,oklahoma,SEC,201,1.00,false
+Ole Miss,ole-miss,SEC,145,0.94,false
+South Carolina,south-carolina,SEC,2579,0.88,false
+Tennessee,tennessee,SEC,2633,1.24,true
+Texas,texas,SEC,251,1.18,false
+Texas A&M,texas-am,SEC,245,1.06,false
+Vanderbilt,vanderbilt,SEC,238,0.86,false
+Illinois,illinois,Big Ten,356,1.08,false
+Indiana,indiana,Big Ten,84,1.16,false
+Iowa,iowa,Big Ten,2294,1.04,false
+Maryland,maryland,Big Ten,120,1.04,false
+Michigan,michigan,Big Ten,130,1.18,true
+Michigan State,michigan-state,Big Ten,127,1.20,false
+Minnesota,minnesota,Big Ten,135,0.88,false
+Nebraska,nebraska,Big Ten,158,0.84,false
+Northwestern,northwestern,Big Ten,77,0.82,false
+Ohio State,ohio-state,Big Ten,194,1.10,false
+Oregon,oregon,Big Ten,2483,1.22,true
+Penn State,penn-state,Big Ten,213,0.90,false
+Purdue,purdue,Big Ten,2509,1.14,false
+Rutgers,rutgers,Big Ten,164,0.86,false
+UCLA,ucla,Big Ten,26,1.24,false
+USC,usc,Big Ten,30,1.08,false
+Washington,washington,Big Ten,264,0.88,false
+Wisconsin,wisconsin,Big Ten,275,1.00,false
+Arizona,arizona,Big 12,12,1.18,false
+Arizona State,arizona-state,Big 12,9,0.96,false
+Baylor,baylor,Big 12,239,1.12,false
+BYU,byu,Big 12,252,1.08,true
+Cincinnati,cincinnati,Big 12,2132,1.00,false
+Colorado,colorado,Big 12,38,0.94,false
+Houston,houston,Big 12,248,1.20,false
+Iowa State,iowa-state,Big 12,66,1.08,false
+Kansas,kansas,Big 12,2305,1.28,true
+Kansas State,kansas-state,Big 12,2306,0.90,false
+Oklahoma State,oklahoma-state,Big 12,197,0.88,false
+TCU,tcu,Big 12,2628,0.88,false
+Texas Tech,texas-tech,Big 12,2641,1.02,false
+UCF,ucf,Big 12,2116,0.88,false
+Utah,utah,Big 12,254,0.86,false
+West Virginia,west-virginia,Big 12,277,0.92,false
+Boston College,boston-college,ACC,103,0.82,false
+Cal,cal,ACC,25,0.84,false
+Clemson,clemson,ACC,228,0.92,false
+Duke,duke,ACC,150,1.30,true
+Florida State,florida-state,ACC,52,0.96,false
+Georgia Tech,georgia-tech,ACC,59,0.88,false
+Louisville,louisville,ACC,97,1.10,true
+Miami,miami,ACC,2390,1.12,true
+NC State,nc-state,ACC,152,0.96,false
+North Carolina,north-carolina,ACC,153,1.28,false
+Notre Dame,notre-dame,ACC,87,0.96,false
+Pittsburgh,pittsburgh,ACC,221,0.92,false
+SMU,smu,ACC,2567,0.90,false
+Stanford,stanford,ACC,24,0.84,false
+Syracuse,syracuse,ACC,183,1.04,false
+Virginia,virginia,ACC,258,1.00,false
+Virginia Tech,virginia-tech,ACC,259,0.88,false
+Wake Forest,wake-forest,ACC,154,0.84,false
+Butler,butler,Big East,2086,0.88,false
+Creighton,creighton,Big East,156,1.02,false
+DePaul,depaul,Big East,305,0.82,false
+Georgetown,georgetown,Big East,46,0.90,false
+Marquette,marquette,Big East,269,1.06,false
+Providence,providence,Big East,2507,0.95,true
+Seton Hall,seton-hall,Big East,2550,0.86,false
+St. John's,st-johns,Big East,2599,1.08,false
+UConn,uconn,Big East,41,1.28,true
+Villanova,villanova,Big East,222,1.10,false
+Xavier,xavier,Big East,2752,0.92,false
+Gonzaga,gonzaga,WCC,2250,1.14,false
+Memphis,memphis,AAC,235,0.96,false
+San Diego State,san-diego-state,Mountain West,21,0.72,true
