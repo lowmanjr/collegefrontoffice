@@ -4,6 +4,17 @@ import { supabase } from "@/lib/supabase";
 import { formatCompactCurrency } from "@/lib/utils";
 import type { Metadata } from "next";
 import { BASE_URL } from "@/lib/constants";
+import BasketballConferenceFilter from "@/components/basketball/BasketballConferenceFilter";
+
+const CONF_SLUG_TO_DB: Record<string, string> = {
+  sec: "SEC",
+  "big-ten": "Big Ten",
+  "big-12": "Big 12",
+  acc: "ACC",
+  "big-east": "Big East",
+};
+
+const MAJOR_CONFERENCES = new Set(["SEC", "Big Ten", "Big 12", "ACC", "Big East"]);
 
 export const revalidate = 3600;
 
@@ -39,7 +50,7 @@ interface TeamWithValue {
   total_value: number;
 }
 
-async function TeamsGrid() {
+async function TeamsGrid({ confSlug }: { confSlug: string | null }) {
   // No team_roster_summary view for basketball yet — compute inline
   const teamsResp = await supabase
     .from("basketball_teams")
@@ -72,15 +83,28 @@ async function TeamsGrid() {
     teamTotals[p.team_id].total += p.cfo_valuation ?? 0;
   }
 
-  const teams: TeamWithValue[] = teamsRaw
+  const allTeams: TeamWithValue[] = teamsRaw
     .map((t) => ({
       ...t,
       total_value: teamTotals[t.id]?.total ?? 0,
     }))
     .sort((a, b) => b.total_value - a.total_value);
 
+  // Apply conference filter (client-side — all data already fetched)
+  const confDb = confSlug ? CONF_SLUG_TO_DB[confSlug] ?? null : null;
+  const teams = confSlug
+    ? allTeams.filter((t) =>
+        confSlug === "other"
+          ? !MAJOR_CONFERENCES.has(t.conference ?? "")
+          : t.conference === confDb
+      )
+    : allTeams;
+
+  const confLabel = confDb ? `${confDb} ` : confSlug === "other" ? "Other " : "";
+
   return (
     <>
+      <BasketballConferenceFilter activeConf={confSlug ?? null} />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -185,7 +209,14 @@ async function TeamsGrid() {
   );
 }
 
-export default function BasketballTeamsPage() {
+export default async function BasketballTeamsPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ conf?: string }>;
+}) {
+  const { conf } = await searchParams;
+  const confSlug = conf ?? null;
+
   return (
     <main className="min-h-screen bg-gray-100">
       <section className="bg-slate-900 text-white px-6 py-8">
@@ -201,7 +232,7 @@ export default function BasketballTeamsPage() {
 
       <div className="mx-auto max-w-6xl px-4 py-8">
         <Suspense fallback={<TeamsTableSkeleton />}>
-          <TeamsGrid />
+          <TeamsGrid confSlug={confSlug} />
         </Suspense>
       </div>
     </main>
