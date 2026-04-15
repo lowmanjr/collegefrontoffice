@@ -68,7 +68,7 @@ export default async function BigBoardPage({ searchParams }: PageProps) {
           __html: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "ItemList",
-            name: "Top Player Valuations",
+            name: "Top Football Player Valuations",
             description: "The most valuable college football players ranked by CFO algorithmic valuation.",
             url: `${BASE_URL}/players`,
             numberOfItems: rows.length,
@@ -88,7 +88,7 @@ export default async function BigBoardPage({ searchParams }: PageProps) {
             className="text-4xl sm:text-5xl font-bold uppercase tracking-tight leading-none"
             style={{ fontFamily: "var(--font-oswald), sans-serif" }}
           >
-            Top Player Valuations
+            Top Football Player Valuations
           </h1>
         </div>
       </div>
@@ -209,7 +209,7 @@ export default async function BigBoardPage({ searchParams }: PageProps) {
                       Pos
                     </th>
                     <th className="px-4 py-3 text-right text-xs font-semibold uppercase tracking-widest">
-                      CFO Valuation
+                      Est. NIL Value
                     </th>
                   </tr>
                 </thead>
