@@ -1,9 +1,11 @@
 import Link from "next/link";
+import { Suspense } from "react";
 import { supabase } from "@/lib/supabase";
 import type { Metadata } from "next";
 import { BASE_URL } from "@/lib/constants";
 import { formatCurrency } from "@/lib/utils";
 import { basketballPositionBadgeClass } from "@/lib/ui-helpers";
+import BasketballRecruitsFilters from "./BasketballRecruitsFilters";
 
 export const revalidate = 3600;
 
@@ -41,7 +43,9 @@ export default async function BasketballRecruitsPage({ searchParams }: PageProps
     .not("cfo_valuation", "is", null);
 
   if (q) query = query.ilike("name", `%${q}%`);
-  if (pos && pos !== "All") query = query.eq("position", pos);
+  if (pos && pos !== "All") {
+    query = query.eq("position", pos);
+  }
   if (activeYear && activeYear !== "All") {
     query = query.eq("hs_grad_year", parseInt(activeYear));
   }
@@ -71,35 +75,27 @@ export default async function BasketballRecruitsPage({ searchParams }: PageProps
 
       {/* Filters */}
       <div className="mx-auto max-w-7xl px-4 py-4">
-        <div className="flex flex-col sm:flex-row gap-3">
-          <form className="flex-1">
-            <input
-              type="text"
-              name="q"
-              defaultValue={q ?? ""}
-              placeholder="Search recruits..."
-              className="w-full rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-sm text-slate-900 placeholder-slate-400 focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 outline-none"
-            />
-          </form>
-          <div className="flex gap-1.5 flex-wrap">
-            {CLASS_YEARS.map((y) => {
-              const active = activeYear === y;
-              const href = `/basketball/recruits?year=${y}${q ? `&q=${q}` : ""}${pos ? `&pos=${pos}` : ""}`;
-              return (
-                <Link
-                  key={y}
-                  href={href}
-                  className={`px-3 py-2 rounded-lg text-xs font-semibold transition-colors ${
-                    active
-                      ? "bg-emerald-500 text-white"
-                      : "bg-white text-slate-600 border border-gray-200 hover:border-slate-300"
-                  }`}
-                >
-                  Class of {y}
-                </Link>
-              );
-            })}
-          </div>
+        <Suspense>
+          <BasketballRecruitsFilters />
+        </Suspense>
+        <div className="flex gap-1.5 flex-wrap">
+          {CLASS_YEARS.map((y) => {
+            const active = activeYear === y;
+            const href = `/basketball/recruits?year=${y}${q ? `&q=${q}` : ""}${pos ? `&pos=${pos}` : ""}`;
+            return (
+              <Link
+                key={y}
+                href={href}
+                className={`px-3 py-2 rounded-lg text-xs font-semibold transition-colors ${
+                  active
+                    ? "bg-emerald-500 text-white"
+                    : "bg-white text-slate-600 border border-gray-200 hover:border-slate-300"
+                }`}
+              >
+                Class of {y}
+              </Link>
+            );
+          })}
         </div>
       </div>
 
