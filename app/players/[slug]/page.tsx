@@ -12,7 +12,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { data } = await supabase.from("players").select("name, position").eq("slug", slug).single();
   return {
     title: data
-      ? `${data.name} — ${data.position} | CFO NIL Valuation`
+      ? `${data.name} — ${data.position} | Est. NIL Valuation`
       : "Player Profile | College Front Office",
     description: data
       ? `NIL valuation and profile for ${data.name}, ${data.position}`
@@ -217,13 +217,13 @@ export default async function PlayerProfilePage({ params }: PageProps) {
                   <p className="text-lg text-slate-500">Financial Data Private</p>
                 ) : isIneligible ? (
                   <div>
-                    <p className="text-xs uppercase tracking-widest text-slate-500 mb-1">CFO Valuation</p>
+                    <p className="text-xs uppercase tracking-widest text-slate-500 mb-1">Est. NIL Valuation</p>
                     <p className="text-lg text-slate-500 italic">Pending</p>
                   </div>
                 ) : (
                   <div>
                     <p className="text-xs uppercase tracking-widest text-slate-500 mb-1">
-                      {hasOverrideData ? "NIL Valuation" : isHS ? "CFO Futures Value" : "CFO Valuation"}
+                      {isHS ? "CFO Futures Value" : "Est. NIL Valuation"}
                     </p>
                     <p
                       className="text-4xl sm:text-5xl font-bold text-emerald-400 leading-none"
