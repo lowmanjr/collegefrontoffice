@@ -12,14 +12,10 @@ const CONFERENCES = [
 
 interface ConferenceFilterProps {
   activeConf: string | null;
-  counts: Record<string, number>;
-  totalCount: number;
 }
 
 export default function ConferenceFilter({
   activeConf,
-  counts,
-  totalCount,
 }: ConferenceFilterProps) {
   const router = useRouter();
 
@@ -31,7 +27,6 @@ export default function ConferenceFilter({
     <div className="flex flex-wrap gap-2 mb-6">
       {CONFERENCES.map((conf) => {
         const isActive = conf.slug === (activeConf ?? "");
-        const count = conf.slug === "" ? totalCount : (counts[conf.dbValue] ?? 0);
 
         return (
           <button
@@ -44,7 +39,6 @@ export default function ConferenceFilter({
             }`}
           >
             {conf.label}
-            <span className="ml-1.5 text-xs opacity-70">({count})</span>
           </button>
         );
       })}

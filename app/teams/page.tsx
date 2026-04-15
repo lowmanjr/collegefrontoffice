@@ -68,13 +68,6 @@ async function TeamsGrid({ confSlug }: { confSlug: string | null }) {
     return <p className="text-sm text-red-500">Failed to load teams: {error.message}</p>;
   }
 
-  // Build conference counts from the unfiltered set
-  const confCounts: Record<string, number> = {};
-  for (const t of allResp.data ?? []) {
-    const c = (t as { conference: string }).conference;
-    if (c) confCounts[c] = (confCounts[c] ?? 0) + 1;
-  }
-  const totalCount = (allResp.data ?? []).length;
 
   const slugMap = Object.fromEntries((slugsResp.data ?? []).map((t: { id: string; slug: string }) => [t.id, t.slug]));
   const teams = (data ?? []).map((t: TeamRosterSummary) => ({ ...t, slug: slugMap[t.id] ?? t.id }));
@@ -89,7 +82,7 @@ async function TeamsGrid({ confSlug }: { confSlug: string | null }) {
           __html: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "ItemList",
-            name: "Team Valuations",
+            name: "Football Team Valuations",
             description: "College football programs ranked by estimated roster value.",
             url: `${BASE_URL}/teams`,
             numberOfItems: teams.length,
@@ -102,7 +95,7 @@ async function TeamsGrid({ confSlug }: { confSlug: string | null }) {
           }),
         }}
       />
-      <ConferenceFilter activeConf={confSlug} counts={confCounts} totalCount={totalCount} />
+      <ConferenceFilter activeConf={confSlug} />
 
       {teams.length === 0 ? (
         <div className="bg-white rounded-xl shadow-md p-16 text-center">
@@ -220,7 +213,7 @@ export default async function TeamsPage({
             className="text-4xl sm:text-5xl font-bold uppercase tracking-tight leading-none"
             style={{ fontFamily: "var(--font-oswald), sans-serif" }}
           >
-            Team Valuations
+            Football Team Valuations
           </h1>
         </div>
       </section>
