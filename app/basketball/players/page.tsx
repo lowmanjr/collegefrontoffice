@@ -4,6 +4,7 @@ import { supabase } from "@/lib/supabase";
 import type { Metadata } from "next";
 import { BASE_URL } from "@/lib/constants";
 import PlayerAvatar from "@/components/PlayerAvatar";
+import BasketballSearchFilters from "@/components/basketball/BasketballSearchFilters";
 import { formatCurrency } from "@/lib/utils";
 import { basketballPositionBadgeClass } from "@/lib/ui-helpers";
 import type { BasketballPlayerWithTeam } from "@/lib/database.types";
@@ -21,8 +22,6 @@ export const metadata: Metadata = {
   },
   alternates: { canonical: `${BASE_URL}/basketball/players` },
 };
-
-const POSITIONS = ["All", "PG", "SG", "SF", "PF", "C"];
 
 interface PageProps {
   searchParams: Promise<{ q?: string; pos?: string }>;
@@ -92,40 +91,9 @@ export default async function BasketballBigBoardPage({ searchParams }: PageProps
 
       {/* ── Table ──────────────────────────────────────────────────────────── */}
       <div className="mx-auto max-w-7xl px-4 py-6">
-        {/* Inline filters — basketball positions */}
-        <div className="mb-4 flex flex-col sm:flex-row gap-3">
-          <form className="flex-1">
-            <input
-              type="text"
-              name="q"
-              defaultValue={q ?? ""}
-              placeholder="Search players..."
-              className="w-full rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-sm text-slate-900 placeholder-slate-400 focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 outline-none"
-            />
-          </form>
-          <div className="flex gap-1.5 flex-wrap">
-            {POSITIONS.map((p) => {
-              const active = (pos ?? "All") === p;
-              const href =
-                p === "All"
-                  ? `/basketball/players${q ? `?q=${q}` : ""}`
-                  : `/basketball/players?pos=${p}${q ? `&q=${q}` : ""}`;
-              return (
-                <Link
-                  key={p}
-                  href={href}
-                  className={`px-3 py-2 rounded-lg text-xs font-semibold transition-colors ${
-                    active
-                      ? "bg-emerald-500 text-white"
-                      : "bg-white text-slate-600 border border-gray-200 hover:border-slate-300"
-                  }`}
-                >
-                  {p}
-                </Link>
-              );
-            })}
-          </div>
-        </div>
+        <Suspense>
+          <BasketballSearchFilters initialQuery={q ?? ""} initialPosition={pos ?? "All"} />
+        </Suspense>
 
         {rows.length === 0 ? (
           <div className="bg-white rounded-xl shadow-md p-16 text-center">
