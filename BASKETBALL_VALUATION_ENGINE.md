@@ -401,7 +401,7 @@ Schema migration: `supabase/migrations/00013_basketball_schema.sql`
 | Rutgers | Big Ten | 0.86 | 11 | $5,565,833 |
 | San Diego State | Mountain West | 0.72 | 9 | $5,097,870 |
 
-**Total valued players:** 848 across 82 teams. Team totals include reported override values for known deals.
+**Total valued players:** 848 across 82 teams. Team totals include 27 override values (10 market-anchored roster players with source URLs + 17 editorial recruit overrides). See `BASKETBALL_OPERATIONS.md` §7 for the full override table and `BASKETBALL_CALIBRATION_V1.4.md` for CFO vs On3 calibration analysis.
 
 ---
 

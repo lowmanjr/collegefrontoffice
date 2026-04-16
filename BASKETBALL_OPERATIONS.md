@@ -1,9 +1,10 @@
 # College Front Office — Basketball Operations Runbook
 
-> **Last Updated:** April 15, 2026
+> **Last Updated:** April 16, 2026
 > **Scope:** Men's college basketball NIL valuations
 > **Current teams:** 82 — All Power 4 (SEC, Big Ten, Big 12, ACC), Full Big East, Gonzaga (WCC), Memphis (AAC), San Diego State (MWC)
-> **Companion docs:** `BASKETBALL_VALUATION_ENGINE.md` (formula detail), `OPERATIONS.md` (football pipeline reference)
+> **Current state:** V1.4 engine, ~848 valued players, 550 HS recruits (259/210/81 across 2026/2027/2028), 27 overrides (10 market-anchored + 17 editorial)
+> **Companion docs:** `BASKETBALL_VALUATION_ENGINE.md` (formula detail), `BASKETBALL_CALIBRATION_V1.4.md` (CFO vs On3 reference), `OPERATIONS.md` (football pipeline reference)
 
 ---
 
@@ -205,34 +206,43 @@ Replace `SLUG` with the team slug. Expected: 13–17 players, zero issues, total
 
 ## 4. National Recruit Pipeline
 
-High school recruits are managed via national CSV files organized by class year, not per-team CSVs. The source of truth is `build_bball_recruit_csvs.py`, which contains hardcoded recruit lists and generates the CSVs.
+High school recruits are managed via national CSV files organized by class year, not per-team CSVs. The CSVs are generated from live 247Sports data via `parse_raw_247_recruits.py`. The `build_bball_recruit_csvs.py` script is the source of truth for the hardcoded Python lists and regenerates CSVs without re-scraping.
+
+**Current scale:** 550 recruits — 2026 (259), 2027 (210), 2028 (81). All 4★+ receive valuations and 247 headshots.
 
 ### 4.1 Pipeline Steps (Run During Signing Periods)
 
 ```bash
 cd python_engine
 
-# 1. Edit RECRUITS_2026/2027/2028 lists in build_bball_recruit_csvs.py
-#    when new commits occur or rankings change
+# 1. Scrape fresh data from 247Sports (writes CSV + prints Python list)
+python parse_raw_247_recruits.py --year 2026
+python parse_raw_247_recruits.py --year 2027
+python parse_raw_247_recruits.py --year 2028
 
-# 2. Regenerate CSVs
+# 2. (Optional) Paste the printed RECRUITS_{year} list into
+#    build_bball_recruit_csvs.py to keep hardcoded source in sync
+
+# 3. Regenerate CSVs from build script (idempotent)
 python build_bball_recruit_csvs.py
 
-# 3. Ingest recruits into basketball_players
+# 4. Ingest recruits into basketball_players
 python ingest_bball_recruits.py
 
-# 4. Calculate valuations
+# 5. Calculate valuations
 python calculate_bball_valuations.py
 
-# 5. Apply known deal values
+# 6. Apply known deal values
 python apply_bball_overrides.py
 
-# 6. Generate URL slugs for new players
+# 7. Generate URL slugs for new players
 python generate_bball_slugs.py
 
-# 7. Scrape 247Sports headshots for new recruits
+# 8. Scrape 247Sports headshots for new recruits
 python scrape_bball_247_headshots.py
 ```
+
+**Dedup note:** When the same recruit is ingested via both the older hardcoded list and newer scraped data, duplicates can appear with identical `espn_athlete_id` values. Run a dedup pass by grouping on `espn_athlete_id` within `hs_grad_year` and deleting all but the newest record (by `created_at`).
 
 ### 4.2 CSV Files
 
@@ -354,7 +364,13 @@ python generate_bball_slugs.py
 
 ## 7. Managing Known Deal Values
 
-When a reported NIL figure becomes public for a basketball player.
+When a reported NIL figure becomes public for a basketball player, or when an editorial valuation is applied to a recruit/player to align closer to market consensus.
+
+**Two override types (V1.4):**
+- **Market-anchored (sourced):** Overrides with a reputable non-On3 source URL. Currently 10 roster players (e.g., AJ Dybantsa $7M via Yahoo Sports). The source URL renders as a "Source: hostname" link under the valuation on the player profile page.
+- **Editorial (unsourced):** Overrides without a source URL. Currently 17 recruits (e.g., Tyran Stokes $6M). Applied to align CFO valuations with On3's recruit market consensus where no reputable dollar reporting exists.
+
+Total overrides: 27 (10 sourced + 17 editorial).
 
 ### 7.1 Confirm ESPN Athlete ID
 
@@ -378,11 +394,19 @@ Format:
 espn_athlete_id,player_name,total_value,years,source_name,source_url
 ```
 
-Example:
+**Sourced override example:**
 
 ```csv
-5142718,AJ Dybantsa,4400000,1,Reported — On3/multiple sources,$4-7M range reported
+5142718,AJ Dybantsa,7000000,1,Yahoo Sports — reported $7M deal,https://sports.yahoo.com/articles/aj-dybantsa-nil-deals-explained-081002827.html
 ```
+
+**Editorial override example (recruit, no source):**
+
+```csv
+hs2026_tyran_stokes,Tyran Stokes,6000000,1,,
+```
+
+`source_name` and `source_url` are optional. When `source_url` is present, `apply_bball_overrides.py` writes it to `basketball_players.override_source_url` and the player profile page renders a "Source: hostname" link under the valuation.
 
 For multi-year deals, set `years` accordingly — the `annualized_value` column in `basketball_nil_overrides` is a generated column (`total_value / years`).
 
@@ -404,12 +428,26 @@ print(p.data)
 "
 ```
 
-### 7.5 Current Known Values (V1.3)
+### 7.5 Current Overrides (V1.4 — 27 total)
+
+**Market-anchored roster players (10, sourced):**
 
 | Player | Team | Value | Source |
 |--------|------|-------|--------|
-| AJ Dybantsa | BYU | $4,400,000 | Multiple reported sources |
-| Jayden Quaintance | Kentucky | $2,000,000 | Multiple reported sources |
+| AJ Dybantsa | BYU | $7,000,000 | Yahoo Sports |
+| Yaxel Lendeborg | Michigan | $5,000,000 | CBS Sports |
+| JT Toppin | Texas Tech | $4,000,000 | CBS Sports |
+| P.J. Haggerty | Kansas State | $2,500,000 | Athlon Sports |
+| Cameron Boozer | Duke | $2,200,000 | SI |
+| Morez Johnson Jr. | Michigan | $2,000,000 | Yahoo Sports |
+| Jayden Quaintance | Kentucky | $2,000,000 | Front Office Sports |
+| Denzel Aberdeen | Florida | $2,000,000 | The Alligator |
+| Boogie Fland | Florida | $2,000,000 | CBS Sports |
+| Darryn Peterson | Kansas | $1,500,000 | Pro Football Network |
+
+**Editorial recruit overrides (17, unsourced):** Tyran Stokes ($6M, Kentucky), Jordan Smith Jr. ($1.6M, Arkansas), Cam Williams ($1.5M, Duke), Caleb Holt ($1.4M, Arizona), plus 13 others in the $662K–$1.3M range. See `python_engine/data/basketball_approved_overrides.csv` for full list.
+
+**Held (commented out):** Milan Momcilovic ($4.4M, UNC commit April 13 2026) — pending 2026 portal ingest to move player from Iowa State to UNC.
 
 ---
 
@@ -628,7 +666,14 @@ Migration: `supabase/migrations/00015_basketball_portal_entries.sql`
 
 Full column listing for core tables: `BASKETBALL_VALUATION_ENGINE.md` §5.
 
-Migration: `supabase/migrations/00013_basketball_schema.sql`.
+**Key migrations:**
+- `supabase/migrations/00013_basketball_schema.sql` — initial schema
+- `supabase/migrations/00014_basketball_teams_espn_id.sql` — ESPN ID column
+- `supabase/migrations/00015_basketball_portal_entries.sql` — portal display table
+- `supabase/migrations/00016_basketball_acquisition_type.sql` — acquisition type tracking
+- `supabase/migrations/00017_basketball_override_source_url.sql` — `override_source_url TEXT` on `basketball_players` for source attribution
+
+After applying a migration that adds a column, reload the PostgREST schema cache via **Supabase dashboard → Settings → API → Reload schema cache** (or run `NOTIFY pgrst, 'reload schema';` in the SQL editor) before pipeline scripts can use the new column.
 
 ---
 
@@ -701,11 +746,12 @@ All basketball pipeline scripts in `python_engine/`:
 | `enrich_bball_star_ratings.py` | Per-team recruiting CSV → star_rating, composite | `--team SLUG` |
 | `enrich_bball_social_data.py` | On3 social → follower counts | `--team SLUG`, `--dry-run` |
 | `apply_bball_social_manual.py` | Manual CSV → social follower counts (players not on On3) | `--dry-run` |
-| `calculate_bball_valuations.py` | Formula → cfo_valuation | `--team SLUG`, `--dry-run` |
-| `apply_bball_overrides.py` | CSV → override valuations | — |
+| `calculate_bball_valuations.py` | Formula → cfo_valuation (paginated over basketball_players) | `--team SLUG`, `--dry-run` |
+| `apply_bball_overrides.py` | CSV → override valuations + writes `override_source_url` when present | — |
 | `generate_bball_slugs.py` | Name → URL slug | — |
 | `fix_bball_headshots.py` | Validates ESPN CDN headshot URLs, NULLs broken ones | `--team SLUG` |
 | `scrape_bball_247_headshots.py` | 247Sports → recruit headshot URLs | `--dry-run`, `--year YYYY` |
+| `parse_raw_247_recruits.py` | Scrapes 247Sports composite rankings → recruit CSV + prints Python list | `--year 2026|2027|2028`, `--dry-run` |
 | `build_bball_recruit_csvs.py` | Source of truth for HS recruits → national CSV files | `--year YYYY`, `--dry-run` |
 | `ingest_bball_recruits.py` | National recruit CSVs → `basketball_players` | `--year YYYY`, `--dry-run` |
 | `classify_bball_acquisition_types.py` | Tags players as retained/portal/recruit | `--dry-run` |
@@ -723,9 +769,12 @@ All basketball pipeline scripts in `python_engine/`:
 |------|---------|
 | `data/basketball_approved_overrides.csv` | Known deal values |
 | `data/nba_draft_projections_2025.csv` | NBA mock draft projections |
-| `data/basketball_recruits_2026.csv` | National recruit CSV — committed 2026 class |
-| `data/basketball_recruits_2027.csv` | National recruit CSV — 4-star+ big board |
-| `data/basketball_recruits_2028.csv` | National recruit CSV — 4-star+ big board |
+| `data/basketball_recruits_2026.csv` | National recruit CSV — committed 2026 class (259 recruits) |
+| `data/basketball_recruits_2027.csv` | National recruit CSV — 4-star+ big board (210 recruits) |
+| `data/basketball_recruits_2028.csv` | National recruit CSV — 4-star+ big board (81 recruits) |
+| `data/raw_247_basketball_recruits_2026.txt` | Raw 247Sports paste (optional — parser scrapes live) |
+| `data/raw_247_basketball_recruits_2027.txt` | Raw 247Sports paste (optional — parser scrapes live) |
+| `data/raw_247_basketball_recruits_2028.txt` | Raw 247Sports paste (optional — parser scrapes live) |
 | `data/{slug}_basketball_recruits_2025.csv` | Legacy per-team recruiting data (BYU, Kentucky) |
 | `data/basketball_expansion_teams.csv` | Master CSV for 82-team universe (ESPN IDs, multipliers, conferences) |
 | `data/on3_basketballportal_raw.txt` | Raw On3 portal copy-paste for `parse_bball_portal_txt.py` |

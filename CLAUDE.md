@@ -223,3 +223,54 @@ Aggregates active college athletes + 2026 incoming recruits per team. Excludes d
 * Apple touch icon and web manifest at `/apple-icon` and `/manifest.webmanifest`.
 * `robots.txt` blocks `/admin`, `/login`, `/auth`.
 * Permanent redirect: `/futures` → `/recruits`.
+
+---
+
+## 9. Basketball Product (Men's College Basketball NIL)
+
+The basketball product is a parallel vertical to football with its own tables, pipeline scripts, and valuation engine. See `BASKETBALL_OPERATIONS.md` for the full runbook and `BASKETBALL_VALUATION_ENGINE.md` for formula details.
+
+### 9.1 Current Status (April 2026)
+- **82 teams** — All Power 4 conferences (SEC 16, Big Ten 18, Big 12 16, ACC 18), full Big East (11), plus Gonzaga (WCC), Memphis (AAC), San Diego State (MWC)
+- **Valuation Engine V1.4** — multiplicative formula with position base, NBA draft premium, role tier, talent modifier, market multiplier, experience multiplier, plus additive social premium
+- **~848 valued players** across the 82 teams
+- **550 HS recruits** — 2026 (259), 2027 (210), 2028 (81); all 4★+ receive valuations and 247 headshots
+- **27 overrides** — 10 market-anchored (sourced) + 17 editorial (unsourced recruits)
+- **On3 org keys configured for 13 teams** — remaining 69 teams receive $0 social premium until keys added
+
+### 9.2 Database Tables
+- `basketball_teams` — 82 rows
+- `basketball_players` — ~2,000 rows (varsity + recruits + portal players)
+- `basketball_nil_overrides` — 27 rows (with `total_value`, `years`, `source_name`, `source_url`)
+- `basketball_player_events` — audit log
+- `basketball_portal_entries` — display-only portal tracker, rebuilt per sync
+
+Key basketball-only player columns: `role_tier`, `rotation_rank`, `usage_rate`, `ppg`, `rpg`, `apg`, `per`, `nba_draft_projection`, `override_source_url` (NEW in migration 00017).
+
+### 9.3 Key Basketball Scripts
+- `calculate_bball_valuations.py` — V1.4 engine (paginated over `basketball_players` to handle 1,500+ row table)
+- `apply_bball_overrides.py` — reads CSV, writes overrides + `override_source_url`
+- `expand_to_basketball_universe.py` — bulk team seeding from `basketball_expansion_teams.csv`
+- `parse_raw_247_recruits.py` — scrapes 247Sports composite rankings with `--year` flag
+- `build_bball_recruit_csvs.py` — regenerates recruit CSVs from hardcoded Python lists
+- `ingest_bball_espn_rosters.py` — ESPN roster → `basketball_players` (guards portal-managed players)
+- `scrape_bball_247_headshots.py` — recruit headshot URLs from 247Sports
+- `sync_nba_draft_projections.py` — ESPN draft API → `nba_draft_projection`
+
+### 9.4 Frontend Routes
+All basketball pages under `/basketball/`: `/players`, `/players/[slug]`, `/teams`, `/teams/[slug]`, `/portal`, `/recruits`, `/methodology`. Player profile pages render a "Source: hostname" link under the valuation when `override_source_url` is populated.
+
+### 9.5 Migrations
+- `00013_basketball_schema.sql` — initial schema
+- `00014_basketball_teams_espn_id.sql` — ESPN ID column
+- `00015_basketball_portal_entries.sql` — portal display table
+- `00016_basketball_acquisition_type.sql` — acquisition type tracking
+- `00017_basketball_override_source_url.sql` — source URL attribution
+
+### 9.6 Pagination Warning
+Supabase's PostgREST default row limit is 1,000. Basketball queries that fetch all players must paginate via `.range(offset, offset + PAGE_SIZE - 1)`. This bug was silently dropping ~500 players until caught during the 14→82 team expansion; the fix is applied in `calculate_bball_valuations.py`, `app/basketball/teams/page.tsx`, and `app/basketball/portal/page.tsx`.
+
+### 9.7 Related Docs
+- `BASKETBALL_OPERATIONS.md` — pipeline runbook
+- `BASKETBALL_VALUATION_ENGINE.md` — V1.4 formula spec
+- `BASKETBALL_CALIBRATION_V1.4.md` — CFO vs On3 calibration snapshot (roster players + recruits)
