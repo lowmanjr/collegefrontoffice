@@ -86,13 +86,13 @@ export default function PortalFilters({
             onClick={() => handleViewChange("player")}
             className={view === "player" ? pillActive : pillInactive}
           >
-            By Player ({totalPlayers})
+            By Player
           </button>
           <button
             onClick={() => handleViewChange("team")}
             className={view === "team" ? pillActive : pillInactive}
           >
-            By Team ({totalTeams})
+            By Team
           </button>
         </div>
 
