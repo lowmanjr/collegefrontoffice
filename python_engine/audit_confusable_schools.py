@@ -50,6 +50,12 @@ RECRUIT_YEAR = 2026
 ROSTER_YEAR = 2025
 PAGE_SIZE = 1000
 
+# Raised from 0.85 to 0.90 on 2026-04-16 after audit found 3/5 fuzzy matches
+# in the 0.86-0.88 band were false positives (different players with similar last
+# names). Exact and exact-stripped tiers remain authoritative; only the fuzzy tier
+# requires the higher bar.
+FUZZY_THRESHOLD = 0.90
+
 CONFUSABLE_GROUPS = [
     ["Oklahoma", "Oklahoma State"],
     ["Iowa", "Iowa State"],
@@ -307,7 +313,7 @@ def audit_group(group, cfbd_recruits_all, id_to_name, name_to_id, portal_destina
         db_school = id_to_name.get(db_player["team_id"], "?")
         if not cfbd_hs_pool:
             continue
-        match = fuzzy_match_player(db_player["name"], cfbd_hs_pool, threshold=0.85)
+        match = fuzzy_match_player(db_player["name"], cfbd_hs_pool, threshold=FUZZY_THRESHOLD)
         if match:
             cfbd_school = match.player["school"]
             if cfbd_school != db_school:
@@ -334,7 +340,7 @@ def audit_group(group, cfbd_recruits_all, id_to_name, name_to_id, portal_destina
         db_school = id_to_name.get(db_player["team_id"], "?")
         if not cfbd_roster_pool:
             continue
-        match = fuzzy_match_player(db_player["name"], cfbd_roster_pool, threshold=0.85)
+        match = fuzzy_match_player(db_player["name"], cfbd_roster_pool, threshold=FUZZY_THRESHOLD)
         if match:
             cfbd_school = match.player["school"]
             if cfbd_school != db_school:
