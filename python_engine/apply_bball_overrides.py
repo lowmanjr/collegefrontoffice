@@ -112,11 +112,20 @@ def main():
             print(f"    [CREATED] override: ${annualized:,}")
             created += 1
 
-        # Set is_override = true and cfo_valuation = annualized
-        supabase.table("basketball_players").update({
+        # Set is_override = true, cfo_valuation, and source URL
+        player_update = {
             "is_override": True,
             "cfo_valuation": annualized,
-        }).eq("id", pid).execute()
+        }
+        if source_url:
+            player_update["override_source_url"] = source_url
+        try:
+            supabase.table("basketball_players").update(player_update).eq("id", pid).execute()
+        except Exception:
+            # Fallback: override_source_url column may not be in schema cache yet
+            player_update.pop("override_source_url", None)
+            supabase.table("basketball_players").update(player_update).eq("id", pid).execute()
+            print(f"    [WARN] override_source_url not in schema cache — skipped source URL")
         print(f"    [SET] is_override=True, cfo_valuation=${annualized:,}")
 
     print(f"\nSummary: {created} created, {updated} updated, {skipped} skipped, {errors} errors")

@@ -1,10 +1,15 @@
-# Dybantsa: $4-7M range reported (On3/multiple sources). Using $4.4M as conservative floor.
+# Basketball NIL Overrides — reported deal values that bypass the formula
 espn_athlete_id,player_name,total_value,years,source_name,source_url
-5142718,AJ Dybantsa,4400000,1,Reported — On3/multiple sources,$4-7M range reported
-5101845,Jayden Quaintance,2000000,1,Reported — multiple sources,https://sports.yahoo.com/articles/college-basketballs-10-highest-paid-191412522.html
+5142718,AJ Dybantsa,7000000,1,Yahoo Sports — reported $7M deal,https://sports.yahoo.com/articles/aj-dybantsa-nil-deals-explained-081002827.html
+5101845,Jayden Quaintance,2000000,1,Front Office Sports — Kentucky NIL,https://frontofficesports.com/kentucky-mens-basketball-nil-pope/
 4873153,Morez Johnson Jr.,2000000,1,Reported — multiple sources,https://sports.yahoo.com/articles/college-basketballs-10-highest-paid-191412522.html
-5041935,Cameron Boozer,2200000,1,Reported — multiple sources,https://www.si.com/college-basketball/highest-paid-college-athletes-via-nil-deals
+5041935,Cameron Boozer,2200000,1,SI — highest-paid college athletes,https://www.si.com/college-basketball/highest-paid-college-athletes-via-nil-deals
 5041955,Darryn Peterson,1500000,1,On3 NIL Valuation Feb 2026 — injury-adjusted,https://www.profootballnetwork.com/mens-cbb/darryn-peterson-nil-deals-salary-kansas-superstar-earning/
-# Jasper Johnson: 5-star Kentucky recruit, formula outputs $249K (suppressed by incoming 0.60x).
-# Kentucky NIL collective (KSR-linked) likely paying $500K-$800K range. Hold until comp surfaces.
-# 5095153,Jasper Johnson,600000,1,CFO Estimate,https://collegefrontoffice.com/methodology
+5143604,JT Toppin,4000000,1,CBS Sports — $4M NIL return to Texas Tech,https://www.cbssports.com/college-basketball/news/jt-toppin-spurns-nba-draft-will-return-to-texas-tech-for-purported-4-million-in-nil-earnings-next-year/
+5106275,P.J. Haggerty,2500000,1,Athlon Sports — $2.5M NIL deal,https://athlonsports.com/college/nil-daily/pj-haggerty-cashes-in-2-5m-nil-deal-fuels-kansas-state-transfer
+5105527,Denzel Aberdeen,2000000,1,Alligator — returns to Florida,https://www.alligator.org/article/2026/04/denzel-aberdeen-returns-to-florida
+5175737,Yaxel Lendeborg,5000000,1,CBS Sports — Michigan $5M NIL,https://www.cbssports.com/college-basketball/news/yaxel-lendeborg-nil-michigan-salary-not-match-kentucky-offer/
+5238195,Boogie Fland,2000000,1,CBS Sports — transfer to Florida,https://www.cbssports.com/college-basketball/news/boogie-fland-transferring-to-florida-national-champions-land-former-arkansas-standout-and-five-star-recruit/
+# TODO: Uncomment after 2026 portal ingest moves player to UNC
+# Milan Momcilovic: $4.4M reported (UNC commit April 13). Currently in DB as Iowa State.
+# 4848637,Milan Momcilovic,4400000,1,Hardwood Heroics — UNC commit,https://hardwoodheroics.com/milan-momcilovic-commits-to-north-carolina-on-4-4m-crypto-nil-deal-with-michael-malone/

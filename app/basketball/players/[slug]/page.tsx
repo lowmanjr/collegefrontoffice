@@ -59,6 +59,7 @@ interface Player {
   headshot_url: string | null;
   roster_status: string | null;
   acquisition_type: string | null;
+  override_source_url: string | null;
   team_id: string | null;
   basketball_teams: Team | null;
 }
@@ -283,6 +284,25 @@ export default async function BasketballPlayerProfilePage({ params }: PageProps)
                             </>
                           )}
                       </div>
+                    )}
+                    {p.is_override && p.override_source_url && (
+                      <p className="mt-1 text-xs text-slate-500 italic">
+                        Source:{" "}
+                        <a
+                          href={p.override_source_url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="underline hover:text-slate-300 transition-colors"
+                        >
+                          {(() => {
+                            try {
+                              return new URL(p.override_source_url).hostname.replace("www.", "");
+                            } catch {
+                              return "link";
+                            }
+                          })()}
+                        </a>
+                      </p>
                     )}
                   </div>
                 )}
