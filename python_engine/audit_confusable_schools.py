@@ -7,12 +7,17 @@ Proactive, READ-ONLY audit for confusable school pair misassignments
 Cross-references Supabase player data against CFBD's authoritative data
 for 10 confusable school groups (e.g. Texas / Texas A&M / Texas Tech).
 
+Also cross-references against the On3 transfer portal CSV — players whose
+DB team assignment matches their portal destination are excluded from
+the mismatch report (portal is authoritative over CFBD/ESPN).
+
 Usage:
     python audit_confusable_schools.py
 
 Output: formatted report of mismatches, no database writes.
 """
 
+import csv
 import sys
 import os
 import time
@@ -74,6 +79,33 @@ SCHOOL_ALIASES = {
     "cal": "Cal",
     "california": "Cal",
 }
+
+PORTAL_CSV = os.path.join(os.path.dirname(__file__), "data", "on3_portal_2026.csv")
+
+
+# ─── Helper: Portal CSV loading ─────────────────────────────────────────────
+
+def load_portal_destinations():
+    """
+    Load On3 transfer portal CSV and build a lookup of
+    {normalized_player_name: destination_school}.
+
+    Only includes committed transfers with a non-empty destination.
+    If a player appears multiple times, the last entry wins.
+    """
+    portal = {}
+    if not os.path.exists(PORTAL_CSV):
+        print(f"  [WARN] Portal CSV not found at {PORTAL_CSV} — skipping portal cross-reference")
+        return portal
+
+    with open(PORTAL_CSV, "r", encoding="utf-8") as f:
+        reader = csv.DictReader(f)
+        for row in reader:
+            name = (row.get("Player") or "").strip()
+            dest = (row.get("Destination") or "").strip()
+            if name and dest:
+                portal[normalize_name(name)] = dest
+    return portal
 
 
 # ─── Helper: Team loading ───────────────────────────────────────────────────
@@ -217,15 +249,17 @@ def fetch_db_players_for_teams(team_ids):
 
 # ─── Core audit logic ───────────────────────────────────────────────────────
 
-def audit_group(group, cfbd_recruits_all, id_to_name, name_to_id):
+def audit_group(group, cfbd_recruits_all, id_to_name, name_to_id, portal_destinations):
     """
     Audit one confusable school group.
 
-    Returns (hs_mismatches, ca_mismatches, api_errors) where each mismatch is a
-    dict with 'name', 'position', 'stars', 'db_school', 'cfbd_school'.
+    Returns (hs_mismatches, ca_mismatches, portal_excluded, api_errors) where
+    each mismatch/exclusion is a dict with 'name', 'position', 'stars',
+    'db_school', 'cfbd_school'.
     """
     group_label = " / ".join(group)
     api_errors = 0
+    portal_excluded = []
 
     # Resolve team_ids for this group
     group_team_ids = {}
@@ -277,7 +311,7 @@ def audit_group(group, cfbd_recruits_all, id_to_name, name_to_id):
         if match:
             cfbd_school = match.player["school"]
             if cfbd_school != db_school:
-                hs_mismatches.append({
+                entry = {
                     "name": db_player["name"],
                     "position": db_player.get("position") or "?",
                     "stars": db_player.get("star_rating") or 0,
@@ -285,7 +319,14 @@ def audit_group(group, cfbd_recruits_all, id_to_name, name_to_id):
                     "cfbd_school": cfbd_school,
                     "match_method": match.method,
                     "match_score": match.score,
-                })
+                }
+                # Portal cross-reference: if portal confirms DB school, exclude
+                norm = normalize_name(db_player["name"])
+                portal_dest = portal_destinations.get(norm)
+                if portal_dest and portal_dest == db_school:
+                    portal_excluded.append(entry)
+                else:
+                    hs_mismatches.append(entry)
 
     # ── Cross-reference: College Athletes ────────────────────────────────
     ca_mismatches = []
@@ -297,7 +338,7 @@ def audit_group(group, cfbd_recruits_all, id_to_name, name_to_id):
         if match:
             cfbd_school = match.player["school"]
             if cfbd_school != db_school:
-                ca_mismatches.append({
+                entry = {
                     "name": db_player["name"],
                     "position": db_player.get("position") or "?",
                     "stars": db_player.get("star_rating") or 0,
@@ -305,9 +346,16 @@ def audit_group(group, cfbd_recruits_all, id_to_name, name_to_id):
                     "cfbd_school": cfbd_school,
                     "match_method": match.method,
                     "match_score": match.score,
-                })
+                }
+                # Portal cross-reference: if portal confirms DB school, exclude
+                norm = normalize_name(db_player["name"])
+                portal_dest = portal_destinations.get(norm)
+                if portal_dest and portal_dest == db_school:
+                    portal_excluded.append(entry)
+                else:
+                    ca_mismatches.append(entry)
 
-    return hs_mismatches, ca_mismatches, api_errors
+    return hs_mismatches, ca_mismatches, portal_excluded, api_errors
 
 
 # ─── Output formatting ──────────────────────────────────────────────────────
@@ -318,11 +366,11 @@ def star_str(stars):
     return ""
 
 
-def print_group_report(group, hs_mismatches, ca_mismatches):
+def print_group_report(group, hs_mismatches, ca_mismatches, portal_excluded):
     group_label = " / ".join(group)
     print(f"\n=== GROUP: {group_label} ===")
 
-    if not hs_mismatches and not ca_mismatches:
+    if not hs_mismatches and not ca_mismatches and not portal_excluded:
         print("  (no mismatches found)")
         return
 
@@ -354,6 +402,18 @@ def print_group_report(group, hs_mismatches, ca_mismatches):
     else:
         print("    (none)")
 
+    # Portal-verified exclusions
+    if portal_excluded:
+        print(f"  Excluded — portal-verified ({len(portal_excluded)}):")
+        for m in portal_excluded:
+            stars = star_str(m["stars"])
+            stars_part = f", {stars}" if stars else ""
+            print(
+                f"    - {m['name']} ({m['position']}{stars_part}): "
+                f"DB says {m['db_school']}, CFBD says {m['cfbd_school']} "
+                f"→ portal confirms {m['db_school']}"
+            )
+
 
 # ─── Main ────────────────────────────────────────────────────────────────────
 
@@ -371,6 +431,11 @@ def main():
     id_to_name, name_to_id = load_teams()
     print(f"  {len(id_to_name)} teams loaded")
 
+    # Load portal destinations (authoritative source for team assignments)
+    print("Loading On3 transfer portal CSV...")
+    portal_destinations = load_portal_destinations()
+    print(f"  {len(portal_destinations)} committed transfers loaded")
+
     # Fetch all CFBD HS recruits (single API call)
     print(f"Fetching CFBD {RECRUIT_YEAR} HS recruits...")
     cfbd_recruits = fetch_all_cfbd_recruits()
@@ -379,6 +444,7 @@ def main():
     # Audit each group
     total_hs = 0
     total_ca = 0
+    total_excluded = 0
     total_api_errors = 0
     groups_audited = 0
 
@@ -389,18 +455,22 @@ def main():
         group_label = " / ".join(group)
         print(f"  Checking: {group_label} ...", end=" ", flush=True)
 
-        hs_mm, ca_mm, errs = audit_group(group, cfbd_recruits, id_to_name, name_to_id)
+        hs_mm, ca_mm, excluded, errs = audit_group(
+            group, cfbd_recruits, id_to_name, name_to_id, portal_destinations
+        )
 
         total_hs += len(hs_mm)
         total_ca += len(ca_mm)
+        total_excluded += len(excluded)
         total_api_errors += errs
         groups_audited += 1
 
         found = len(hs_mm) + len(ca_mm)
+        excl_note = f", {len(excluded)} portal-verified" if excluded else ""
         err_note = f" ({errs} API error(s))" if errs else ""
-        print(f"{found} mismatch(es){err_note}")
+        print(f"{found} mismatch(es){excl_note}{err_note}")
 
-        print_group_report(group, hs_mm, ca_mm)
+        print_group_report(group, hs_mm, ca_mm, excluded)
 
     # Summary
     total_review = total_hs + total_ca
@@ -411,6 +481,7 @@ def main():
     print(f"  Total HS recruit mismatches:       {total_hs}")
     print(f"  Total college athlete mismatches:   {total_ca}")
     print(f"  Total players to review:           {total_review}")
+    print(f"  Excluded (portal-verified):        {total_excluded}")
     if total_api_errors:
         print(f"  CFBD API errors:                   {total_api_errors}")
     print("=" * 70)

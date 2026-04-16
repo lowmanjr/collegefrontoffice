@@ -8,6 +8,7 @@
 - **Pipeline order**: ESPN rosters → On3 transfer portal → Ourlads depth charts → valuations
 - ESPN sync runs first (base truth), On3 portal sync runs second (catches recent transfers ESPN missed)
 - Transfer portal scraper: sync_transfer_portal.py (On3, paginated, 5,432 committed entries)
+- **Transfer portal file (on3_portal_raw.txt) is the AUTHORITATIVE SOURCE for team assignments.** It overrides any ESPN or CFBD roster assignments. When a player appears in on3_portal_raw.txt with a destination school, that assignment wins — even if ESPN or CFBD still lists them at their origin school. Any audit, sync, or reassignment script must check on3_portal_raw.txt before moving a player.
 - **Comparison CSV workflow**: paste On3 data → generate CSV → fill Override Value → ingest overrides. Active CSVs: texas_comparison.csv, texas_tech_comparison.csv, georgia_comparison.csv
 - **OL→OT position mapping fix**: sync_ourlads_depth_charts.py now maps LT/RT → OT ($800K) instead of generic OL ($475K). 178 tackles corrected, $93.3M recovered.
 - Methodology page cleaned (no EA Sports, no On3, no "verified" language)

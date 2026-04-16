@@ -762,7 +762,9 @@ Players with reported deals (`is_override=true`) must NEVER be auto-modified by 
 - Georgia ↔ Georgia Tech (8)
 - North Carolina ↔ NC State (0 in this batch, but known risk)
 - Mississippi State ↔ Ole Miss (0 in this batch, but known risk)
-**TODO:** Add a `SCHOOL_DISAMBIGUATION` map to `name_utils.py` that sync scripts can use to verify team assignment against transfer portal destination data before writing to DB. Until then, run the On3 portal audit periodically to catch misassignments.
+**Transfer portal exception:** Before flagging any player as misassigned, cross-reference against on3_portal_raw.txt (parsed via on3_portal_2026.csv). If the player appears there with a destination school matching our DB's team assignment, the DB is correct and CFBD/ESPN are stale. Example: Isiah Canion (WR, 4★) shows as Georgia Tech in CFBD but is correctly on Georgia in our DB because he transferred via the portal — documented in on3_portal_raw.txt.
+
+**TODO:** Update audit_confusable_schools.py to cross-reference on3_portal_raw.txt before flagging mismatches. Players appearing in the portal file with a destination matching our DB assignment should be excluded from the mismatch report. Add a `SCHOOL_DISAMBIGUATION` map to `name_utils.py` that sync scripts can use to verify team assignment against transfer portal destination data before writing to DB.
 
 ## 6. Rollback Procedures
 
