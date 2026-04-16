@@ -13,3 +13,21 @@ espn_athlete_id,player_name,total_value,years,source_name,source_url
 # TODO: Uncomment after 2026 portal ingest moves player to UNC
 # Milan Momcilovic: $4.4M reported (UNC commit April 13). Currently in DB as Iowa State.
 # 4848637,Milan Momcilovic,4400000,1,Hardwood Heroics — UNC commit,https://hardwoodheroics.com/milan-momcilovic-commits-to-north-carolina-on-4-4m-crypto-nil-deal-with-michael-malone/
+# --- Recruit overrides (editorial, no external source) ---
+hs2026_tyran_stokes,Tyran Stokes,6000000,1,,
+hs2026_cameron_williams,Cam Williams,1500000,1,,
+hs2026_jordan_smith_jr,Jordan Smith Jr.,1600000,1,,
+hs2026_caleb_holt,Caleb Holt,1400000,1,,
+hs2026_christian_collins,Christian Collins,1300000,1,,
+hs2026_dylan_mingo,Dylan Mingo,1250000,1,,
+hs2026_deron_rippey_jr,Deron Rippey Jr.,1200000,1,,
+hs2026_bruce_branch_iii,Bruce Branch III,1100000,1,,
+hs2026_jason_crowe_jr,Jason Crowe Jr.,1050000,1,,
+hs2026_brandon_mccoy_jr,Brandon McCoy,1000000,1,,
+hs2026_baba_oladotun,Baba Oladotun,943271,1,,
+hs2026_anthony_thompson,Anthony Thompson,949822,1,,
+hs2026_bryson_howard,Bryson Howard,852359,1,,
+hs2026_taylen_kinney,Tay Kinney,742119,1,,
+hs2026_jj_andrews,JJ Andrews,711232,1,,
+hs2027_javon_bardwell,Javon Bardwell,673241,1,,
+hs2026_toni_bryant,Toni Bryant,662179,1,,
