@@ -188,7 +188,75 @@ These are noted for future consideration. **None should be implemented without a
 
 ---
 
-## 11. Related Documents
+## 11. Recruit Calibration (On3 Top 100 HS)
+
+### Methodology
+
+- **Source:** On3 Top 100 High School Basketball NIL Valuations (April 2026)
+- **Sample:** 100 recruits across 2026 (40), 2027 (34), and 2028 (26) classes
+- **Matched:** 99 of 100 in CFO database (only TJ Jamison 2027 unmatched)
+- **CFO state:** V1.4 engine, 550 total recruits across 3 classes
+
+### Summary by Class
+
+| Class | Matched | On3 Total | CFO Total | Avg Delta |
+|---|---|---|---|---|
+| 2026 | 38 | $27.5M | $15.7M | -27% |
+| 2027 | 36 | $25.2M | $13.2M | -32% |
+| 2028 | 25 | $11.0M | $9.2M | -5% |
+
+### Key Finding: CFO Systematically Undervalues Elite Recruits
+
+The pattern is the **inverse** of the college player comparison. CFO runs 50-78% below On3 for the top 10 recruits, converging around On3 $350K-$450K, and running 20-80% above On3 at the bottom of the list.
+
+**Top 5 CFO under On3:**
+
+| Player | Year | On3 | CFO | Delta |
+|---|---|---|---|---|
+| CJ Rosser | 2027 | $1.5M | $332K | -78% |
+| Paul Osaruyi | 2027 | $1.2M | $298K | -75% |
+| Marcus Spears Jr. | 2027 | $1.3M | $332K | -74% |
+| Tyran Stokes | 2026 | $1.7M | $467K | -73% |
+| King Gibson | 2027 | $1.4M | $398K | -72% |
+
+**Top 5 CFO over On3:**
+
+| Player | Year | On3 | CFO | Delta |
+|---|---|---|---|---|
+| Kaden House | 2026 | $238K | $427K | +79% |
+| Kevin Savage | 2027 | $238K | $411K | +72% |
+| Tai Bell | 2028 | $299K | $464K | +55% |
+| Isaiah Hamilton | 2028 | $237K | $365K | +54% |
+| Michai White | 2028 | $313K | $464K | +48% |
+
+### Root Cause
+
+CFO uses a fixed 0.60x incoming multiplier for all recruits plus a composite-score-based talent modifier. A 5-star recruit at Kansas gets: position base x 0.60 incoming x 1.30 elite talent x market multiplier x 0.85 freshman experience = ~$467K. On3 prices anticipated NIL earning power — social media potential, school collective spending power, brand deal upside — which can be $1M+ for a #1 recruit heading to a blue-blood program.
+
+The 2028 class is closest (-5% average) because those recruits are younger with lower social profiles, bringing On3's valuations closer to CFO's formula output.
+
+### Crossover Point
+
+Around On3 $350K-$450K, CFO values converge with and then exceed On3. Below that threshold, CFO's formula (which floors at the incoming talent modifier calculation) produces values higher than On3's market-based estimate for lower-ranked recruits.
+
+### Override Assessment: No Candidates
+
+A search for reputable non-On3 reported NIL deal values for top recruits yielded almost no results. Unlike the transfer portal market (where CBS Sports, ESPN, and beat reporters routinely report deal figures), the high school recruit NIL market is largely opaque:
+
+- **Tyran Stokes** (Kentucky, #1 overall): Rumored $4-6M price tag, but sourced only to On3's Joe Tipton and fan sites. No CBS Sports, ESPN, or Front Office Sports confirmation of a specific dollar figure. Nike shoe deal confirmed but no dollar amount disclosed.
+- **All other top 40 recruits:** Zero reported dollar figures from reputable non-On3 outlets. Coverage focuses on commitment announcements and scouting reports, not financial terms.
+
+**Conclusion:** Insufficient market data to justify recruit overrides at this time. Revisit after the 2026-27 season begins and incoming freshmen begin generating production-based data that the formula can use.
+
+### Interpretation
+
+CFO's conservative recruit valuation is a deliberate design choice — recruits haven't played college basketball yet, and their production value is speculative. The formula auto-corrects once they play: a 5-star recruit who becomes a franchise-tier starter with 18+ PPG will see their valuation jump from ~$467K to $1.5M+ within their first season. This is the intended behavior.
+
+The divergence from On3 reflects a philosophical difference: On3 prices "anticipated market value" (what collectives will pay to land a recruit), while CFO prices "demonstrated production value" (what a player's on-court contribution is worth). For recruits with zero college production, CFO will always be lower.
+
+---
+
+## 12. Related Documents
 
 - `BASKETBALL_VALUATION_ENGINE.md` — Formula specification (V1.4)
 - `BASKETBALL_OPERATIONS.md` — Pipeline runbook
