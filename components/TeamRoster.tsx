@@ -85,33 +85,19 @@ export default function TeamRoster({
     <>
       {/* ── Tabs ─────────────────────────────────────────────────────────── */}
       <div className="flex gap-2 mb-4 overflow-x-auto">
-        {TABS.map((tab) => {
-          const count =
-            tab.key === "roster"
-              ? players.length
-              : players.filter((p) =>
-                  tab.key === "portal"
-                    ? p.acquisition_type === "portal"
-                    : tab.key === "recruits"
-                    ? p.acquisition_type === "recruit"
-                    : p.acquisition_type === "retained"
-                ).length;
-
-          return (
-            <button
-              key={tab.key}
-              onClick={() => handleTabClick(tab.key)}
-              className={`shrink-0 rounded-lg px-3 py-1.5 text-sm font-semibold transition-colors ${
-                activeView === tab.key
-                  ? "bg-emerald-500 text-white"
-                  : "bg-white border border-gray-200 text-slate-600 hover:bg-slate-50"
-              }`}
-            >
-              {tab.label}
-              <span className="ml-1.5 text-xs opacity-70">({count})</span>
-            </button>
-          );
-        })}
+        {TABS.map((tab) => (
+          <button
+            key={tab.key}
+            onClick={() => handleTabClick(tab.key)}
+            className={`shrink-0 rounded-lg px-3 py-1.5 text-sm font-semibold transition-colors ${
+              activeView === tab.key
+                ? "bg-emerald-500 text-white"
+                : "bg-white border border-gray-200 text-slate-600 hover:bg-slate-50"
+            }`}
+          >
+            {tab.label}
+          </button>
+        ))}
       </div>
 
       {/* ── Roster display ───────────────────────────────────────────────── */}
@@ -191,7 +177,7 @@ export default function TeamRoster({
                       Pos
                     </th>
                     <th className="px-4 py-3 text-right text-xs font-semibold uppercase tracking-widest">
-                      CFO Valuation
+                      Est. NIL Value
                     </th>
                   </tr>
                 </thead>
