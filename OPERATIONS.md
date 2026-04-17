@@ -297,6 +297,10 @@ python sync_ourlads_depth_charts.py --apply     # updated depth charts
 python assign_default_depth_chart.py --apply    # default DC for unvalued 4/5-star
 python scrape_ea_ratings.py                     # EA may update rosters
 python populate_ea_ratings.py --apply
+# REQUIRED: backfill ESPN athlete IDs + headshots for new portal arrivals.
+# Portal-imported rows arrive with NULL espn_athlete_id, which blocks
+# headshot URL generation (ESPN CDN template). See §5.19.
+python map_espn_athlete_ids.py                  # maps ESPN IDs + writes headshot_url
 python calculate_cfo_valuations.py
 ```
 
@@ -765,6 +769,15 @@ Players with reported deals (`is_override=true`) must NEVER be auto-modified by 
 **Transfer portal exception:** Before flagging any player as misassigned, cross-reference against on3_portal_raw.txt (parsed via on3_portal_2026.csv). If the player appears there with a destination school matching our DB's team assignment, the DB is correct and CFBD/ESPN are stale. Example: Isiah Canion (WR, 4★) shows as Georgia Tech in CFBD but is correctly on Georgia in our DB because he transferred via the portal — documented in on3_portal_raw.txt.
 
 **TODO:** Update audit_confusable_schools.py to cross-reference on3_portal_raw.txt before flagging mismatches. Players appearing in the portal file with a destination matching our DB assignment should be excluded from the mismatch report. Add a `SCHOOL_DISAMBIGUATION` map to `name_utils.py` that sync scripts can use to verify team assignment against transfer portal destination data before writing to DB.
+
+### 5.19 Portal Headshots / ESPN ID Backfill
+**Issue:** Portal transfer sync scripts (`sync_transfer_portal.py`, `sync_on3_rosters.py`, etc.) create or reassign player rows without populating `espn_athlete_id`. Because `headshot_url` is derived from the ESPN CDN template (`https://a.espncdn.com/combiner/i?img=/i/headshots/college-football/players/full/{espn_id}.png&w=200&h=146`), a missing `espn_athlete_id` means no headshot can be generated. Players show the `PlayerAvatar` initials fallback on profile/table views instead of the expected photo.
+**Impact:** April 2026 audit found **540 valued portal players missing headshots** (14-point coverage gap vs. retained: portal 54% vs retained 68%). Top offenders were portal QBs at $1M+ valuations — visually jarring on the /portal leaderboard.
+**Root cause:** `map_espn_athlete_ids.py` (which writes both `espn_athlete_id` and `headshot_url` via `apply_mapping`) was not run after portal sync batches. The pipeline wrote team_id/roster_status for transfers but never backfilled the ESPN mapping.
+**Fix:** `map_espn_athlete_ids.py` must run after any bulk portal sync or transfer window. Added to the Post-Transfer Portal pipeline in §2.2 as a REQUIRED step before `calculate_cfo_valuations.py`. The script is idempotent — it skips already-mapped players and only hits ESPN APIs for missing ones.
+**Preventive follow-up:** Consider wiring a call to `map_espn_athlete_ids.py` (or an inline equivalent) directly into `sync_transfer_portal.py` so new portal moves get ESPN IDs on the same run.
+
+**Known limitation discovered April 2026 re-run:** Running `map_espn_athlete_ids.py` against the 540 missing portal players mapped only **5 additional IDs**. Root cause: ESPN's roster API lags behind portal moves (e.g. Byrum Brown: DB=Auburn, but Auburn's ESPN roster doesn't include him yet — he's still listed as South Florida on ESPN). The script's Pass 3 search-API fallback rejects these matches because its team-nickname verification (line 97 of `map_espn_athlete_ids.py`) gets "South Florida" back from search and fails to match the expected "Auburn". The ESPN athlete ID and headshot URL are actually valid for the player regardless of current team affiliation. **Proposed fix:** relax the team-nickname check in Pass 3 — if a player's exact-normalized name matches a unique ESPN search result, accept the ESPN ID even if the associated team is stale, since the headshot URL is person-tied not team-tied.
 
 ## 6. Rollback Procedures
 
