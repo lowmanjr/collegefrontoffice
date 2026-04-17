@@ -4,6 +4,7 @@ import { supabase } from "@/lib/supabase";
 import { formatCurrency } from "@/lib/utils";
 import { BASE_URL } from "@/lib/constants";
 import PlayerAvatar from "@/components/PlayerAvatar";
+import OverrideSourceLink from "@/components/OverrideSourceLink";
 
 export const revalidate = 300;
 
@@ -250,32 +251,9 @@ export default async function PlayerProfilePage({ params }: PageProps) {
                             <span>{formatCurrency(bestOverride.total_value)} total</span>
                           </>
                         )}
-                        {nilOverrides.some(ov => ov.source_url || ov.source_name) && (
-                          <>
-                            <span className="text-slate-600">·</span>
-                            {nilOverrides.map((ov, i) => {
-                              const displayName = (ov.source_name ?? "")
-                                .replace(" (algorithmic)", "")
-                                .replace(" (pending verification)", "");
-                              if (!displayName) return null;
-                              const isAlgorithmic = (ov.source_name ?? "").includes("(algorithmic)") ||
-                                (ov.source_name ?? "").includes("(pending verification)");
-                              const hasRealUrl = ov.source_url != null && !isAlgorithmic;
-
-                              if (hasRealUrl) {
-                                return (
-                                  <a key={i} href={ov.source_url!} target="_blank" rel="noopener noreferrer"
-                                    className="text-slate-400 hover:text-white underline transition-colors">
-                                    {displayName}
-                                  </a>
-                                );
-                              }
-                              return <span key={i}>{displayName}</span>;
-                            })}
-                          </>
-                        )}
                       </div>
                     )}
+                    <OverrideSourceLink sourceUrl={bestOverride?.source_url} />
                   </div>
                 )}
               </div>

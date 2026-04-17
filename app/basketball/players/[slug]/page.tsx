@@ -3,6 +3,7 @@ import { supabase } from "@/lib/supabase";
 import { formatCurrency } from "@/lib/utils";
 import { BASE_URL } from "@/lib/constants";
 import PlayerAvatar from "@/components/PlayerAvatar";
+import OverrideSourceLink from "@/components/OverrideSourceLink";
 import { basketballPositionBadgeClass } from "@/lib/ui-helpers";
 
 export const revalidate = 300;
@@ -290,25 +291,7 @@ export default async function BasketballPlayerProfilePage({ params }: PageProps)
                           )}
                       </div>
                     )}
-                    {p.is_override && p.override_source_url && (
-                      <p className="mt-1 text-xs text-slate-500 italic">
-                        Source:{" "}
-                        <a
-                          href={p.override_source_url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="underline hover:text-slate-300 transition-colors"
-                        >
-                          {(() => {
-                            try {
-                              return new URL(p.override_source_url).hostname.replace("www.", "");
-                            } catch {
-                              return "link";
-                            }
-                          })()}
-                        </a>
-                      </p>
-                    )}
+                    <OverrideSourceLink sourceUrl={p.override_source_url} />
                   </div>
                 )}
               </div>
