@@ -91,7 +91,7 @@ export default async function OGImage(props: { params: Promise<{ slug: string }>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end" }}>
           <div style={{ display: "flex", flexDirection: "column" }}>
             <span style={{ color: "#64748b", fontSize: 16, fontWeight: 600, textTransform: "uppercase" as const, letterSpacing: "0.1em" }}>
-              {player.player_tag === "High School Recruit" ? "CFO Futures Value" : "Est. NIL Valuation"}
+              {player.player_tag === "High School Recruit" ? "Projected NIL Valuation" : "Est. NIL Valuation"}
             </span>
             <span style={{
               color: isPrivate ? "#475569" : "#34d399",

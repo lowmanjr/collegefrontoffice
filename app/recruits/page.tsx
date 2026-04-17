@@ -217,7 +217,7 @@ export default async function FuturesMarketPage({ searchParams }: PageProps) {
                       Rating
                     </th>
                     <th className="px-4 py-3 text-right text-xs font-semibold uppercase tracking-widest">
-                      Projected Value
+                      Proj. NIL Value
                     </th>
                   </tr>
                 </thead>
