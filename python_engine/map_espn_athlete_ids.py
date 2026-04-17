@@ -70,15 +70,8 @@ def fetch_espn_roster(espn_team_id: int) -> list[dict]:
     return athletes
 
 
-def search_espn_player(name: str, team_name_lower: str) -> dict | None:
-    """
-    Search ESPN for a player by name. Returns the best match dict
-    (with 'id' and 'displayName') if found on the expected team, else None.
-
-    Uses the team's nickname (e.g. "South Carolina") for verification instead
-    of numeric IDs, since the search API uses a different ID namespace than
-    the roster API.
-    """
+def _fetch_espn_search(name: str) -> list[dict]:
+    """Raw ESPN search API call. Returns list of college-football items, or []."""
     url = ESPN_SEARCH_URL.format(query=requests.utils.quote(name))
     try:
         r = requests.get(url, timeout=15)
@@ -86,11 +79,43 @@ def search_espn_player(name: str, team_name_lower: str) -> dict | None:
         data = r.json()
     except Exception as e:
         log.debug(f"ESPN search failed for '{name}': {e}")
-        return None
+        return []
+    return [item for item in data.get("items", []) if item.get("league") == "college-football"]
 
-    for item in data.get("items", []):
-        if item.get("league") != "college-football":
-            continue
+
+def _item_espn_team(item: dict) -> str:
+    """Best-effort ESPN team nickname from a search result item."""
+    for tr in item.get("teamRelationships", []):
+        core = tr.get("core", {})
+        nick = (core.get("nickname") or "").strip()
+        if nick:
+            return nick
+    return ""
+
+
+def _item_position(item: dict) -> str:
+    """Best-effort position abbreviation from a search result item."""
+    # The search API includes a `position` field at item level on some items,
+    # and a nested position object on others. Handle both defensively.
+    pos = item.get("position")
+    if isinstance(pos, dict):
+        return (pos.get("abbreviation") or pos.get("name") or "").upper().strip()
+    if isinstance(pos, str):
+        return pos.upper().strip()
+    return ""
+
+
+def search_espn_player(name: str, team_name_lower: str) -> dict | None:
+    """
+    Search ESPN for a player by name, verifying the ESPN team nickname matches
+    the DB team. Returns the best match dict (with 'id' and 'displayName') if
+    found on the expected team, else None.
+
+    Uses the team's nickname (e.g. "South Carolina") for verification instead
+    of numeric IDs, since the search API uses a different ID namespace than
+    the roster API.
+    """
+    for item in _fetch_espn_search(name):
         for tr in item.get("teamRelationships", []):
             core = tr.get("core", {})
             nickname = (core.get("nickname") or "").lower()
@@ -100,6 +125,47 @@ def search_espn_player(name: str, team_name_lower: str) -> dict | None:
                     "displayName": item.get("displayName", ""),
                 }
     return None
+
+
+def search_espn_player_relaxed(name: str, position: str) -> dict | None:
+    """
+    Relaxed ESPN search for portal transfers. ESPN is often stale for recent
+    moves (e.g. player still listed under origin school). Since ESPN headshot
+    URLs are PERSON-tied (the CDN key is the athlete ID, not the team), we can
+    accept a name+position match regardless of which team ESPN shows.
+
+    Safeguards:
+      - Exact normalized name match required (no fuzzy)
+      - Position match required when ESPN returns position info
+      - If multiple items match the same name+position, SKIP (ambiguous)
+
+    Returns {'id', 'displayName', 'espn_team'} on single exact match, else None.
+    """
+    target_norm = normalize(name)
+    target_pos = (position or "").upper().strip()
+    if not target_norm:
+        return None
+
+    candidates: list[dict] = []
+    for item in _fetch_espn_search(name):
+        item_name = item.get("displayName") or ""
+        if normalize(item_name) != target_norm:
+            continue
+        # Position match: only enforce if ESPN returned one. If absent, allow through.
+        item_pos = _item_position(item)
+        if item_pos and target_pos and item_pos != target_pos:
+            continue
+        candidates.append(item)
+
+    if len(candidates) != 1:
+        return None  # 0 or ambiguous
+
+    item = candidates[0]
+    return {
+        "id": int(item["id"]),
+        "displayName": item.get("displayName", ""),
+        "espn_team": _item_espn_team(item),
+    }
 
 
 def apply_mapping(player_id: str, espn_id: int, dry_run: bool) -> None:
@@ -153,6 +219,7 @@ def main():
     total_exact = 0
     total_lastname = 0
     total_search = 0
+    total_search_relaxed = 0  # portal transfers matched without ESPN team verification
     total_skipped = 0
     total_errors = 0
 
@@ -243,14 +310,18 @@ def main():
                 total_lastname += 1
 
     # ── Pass 3: ESPN search API for remaining unmatched ────────────────────
-    # Re-query to see who's still missing after passes 1 & 2
+    # Re-query to see who's still missing after passes 1 & 2.
+    # Include acquisition_type so we can apply relaxed verification for portal
+    # transfers (ESPN roster often lags behind portal moves — player still
+    # listed at origin school. Since headshot URLs are person-tied, we can
+    # accept a name+position match regardless of ESPN team for portal players).
     log.info("Pass 3: ESPN search API fallback for remaining unmatched players...")
     still_missing = []
     offset = 0
     while True:
         resp = (
             supabase.table("players")
-            .select("id, name, team_id, espn_athlete_id, position, player_tag, roster_status")
+            .select("id, name, team_id, espn_athlete_id, position, player_tag, roster_status, acquisition_type")
             .is_("espn_athlete_id", "null")
             .eq("player_tag", "College Athlete")
             .eq("roster_status", "active")
@@ -276,18 +347,38 @@ def main():
         if not team_name_lower or team_uuid not in uuid_to_espn:
             continue
 
+        # Strict path: ESPN team must match DB team
         result = search_espn_player(p["name"], team_name_lower)
         if result:
             log.info(f"  [SEARCH] {p['name']} -> ESPN {result['id']} (ESPN name: \"{result['displayName']}\")")
             apply_mapping(p["id"], result["id"], dry_run)
             total_search += 1
+            time.sleep(SEARCH_DELAY)
+            continue
+
+        # Relaxed path: portal transfers only. ESPN roster/search is often
+        # stale for recent portal moves. Since the CDN headshot URL is keyed
+        # by athlete ID (not team), the match is still correct even if ESPN
+        # still shows the origin school.
+        if p.get("acquisition_type") == "portal":
+            relaxed = search_espn_player_relaxed(p["name"], p.get("position") or "")
+            if relaxed:
+                db_team = uuid_to_name.get(team_uuid, "?")
+                espn_team = relaxed.get("espn_team") or "?"
+                log.info(
+                    f"  [PORTAL-RELAXED] {p['name']} -> ESPN {relaxed['id']}  "
+                    f"(DB says {db_team}, ESPN says {espn_team})"
+                )
+                apply_mapping(p["id"], relaxed["id"], dry_run)
+                total_search_relaxed += 1
 
         time.sleep(SEARCH_DELAY)
 
     # Summary
-    total_mapped = total_exact + total_lastname + total_search
+    total_mapped = total_exact + total_lastname + total_search + total_search_relaxed
     log.info(
-        f"Done. Exact: {total_exact}, Last-name: {total_lastname}, Search: {total_search}, "
+        f"Done. Exact: {total_exact}, Last-name: {total_lastname}, "
+        f"Search: {total_search}, Portal-relaxed: {total_search_relaxed}, "
         f"Total mapped: {total_mapped}, Skipped: {total_skipped}, Errors: {total_errors}"
     )
     if dry_run:
