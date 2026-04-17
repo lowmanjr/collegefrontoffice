@@ -2,26 +2,26 @@
 
 import Link from "next/link";
 import { formatCurrency } from "@/lib/utils";
-import { positionBadgeClass } from "@/lib/ui-helpers";
+import { basketballPositionBadgeClass } from "@/lib/ui-helpers";
 import PlayerAvatar from "@/components/PlayerAvatar";
 import RosterTabs, { type RosterTab } from "@/components/RosterTabs";
 
-interface Player {
+interface BasketballPlayer {
   id: string;
   slug: string | null;
   name: string;
   position: string | null;
   cfo_valuation: number | null;
-  is_public: boolean;
+  is_public: boolean | null;
   headshot_url: string | null;
   acquisition_type: string;
 }
 
-interface TeamRosterProps {
-  players: Player[];
+interface BasketballTeamRosterProps {
+  players: BasketballPlayer[];
 }
 
-const TABS: RosterTab<Player>[] = [
+const TABS: RosterTab<BasketballPlayer>[] = [
   {
     key: "roster",
     label: "Full Roster",
@@ -48,9 +48,9 @@ const TABS: RosterTab<Player>[] = [
   },
 ];
 
-export default function TeamRoster({ players }: TeamRosterProps) {
+export default function BasketballTeamRoster({ players }: BasketballTeamRosterProps) {
   return (
-    <RosterTabs<Player> tabs={TABS} players={players}>
+    <RosterTabs<BasketballPlayer> tabs={TABS} players={players}>
       {(filteredPlayers) => (
         <>
           {/* Mobile cards */}
@@ -60,7 +60,7 @@ export default function TeamRoster({ players }: TeamRosterProps) {
               return (
                 <Link
                   key={player.id}
-                  href={`/players/${player.slug ?? player.id}`}
+                  href={`/basketball/players/${player.slug ?? player.id}`}
                   className="block bg-white rounded-xl border border-gray-200 p-4 hover:border-slate-300 transition-colors shadow-sm"
                 >
                   <div className="flex items-center gap-3">
@@ -79,13 +79,15 @@ export default function TeamRoster({ players }: TeamRosterProps) {
                         >
                           {player.name}
                         </h3>
-                        {player.position && (
-                          <span
-                            className={`shrink-0 inline-block rounded px-2 py-0.5 text-xs font-semibold uppercase tracking-wide ${positionBadgeClass(player.position)}`}
-                          >
-                            {player.position}
-                          </span>
-                        )}
+                        <div className="flex gap-1 shrink-0">
+                          {player.position && (
+                            <span
+                              className={`inline-block rounded px-2 py-0.5 text-xs font-semibold uppercase tracking-wide ${basketballPositionBadgeClass(player.position)}`}
+                            >
+                              {player.position}
+                            </span>
+                          )}
+                        </div>
                       </div>
                       <div className="flex items-center justify-end mt-1">
                         {isPrivate ? (
@@ -143,18 +145,33 @@ export default function TeamRoster({ players }: TeamRosterProps) {
                               className="shrink-0"
                             />
                             <Link
-                              href={`/players/${player.slug ?? player.id}`}
+                              href={`/basketball/players/${player.slug ?? player.id}`}
                               className="font-semibold text-slate-900 hover:text-emerald-500 hover:underline transition-colors uppercase tracking-tight"
                               style={{ fontFamily: "var(--font-oswald), sans-serif" }}
                             >
                               {player.name}
                             </Link>
+                            {player.acquisition_type === "portal" && (
+                              <span className="inline-block rounded px-1.5 py-0.5 text-[10px] font-semibold bg-blue-100 text-blue-800 ml-1.5">
+                                Transfer
+                              </span>
+                            )}
+                            {player.acquisition_type === "portal_evaluating" && (
+                              <span className="inline-block rounded px-1.5 py-0.5 text-[10px] font-semibold bg-amber-100 text-amber-800 ml-1.5">
+                                In Portal
+                              </span>
+                            )}
+                            {player.acquisition_type === "recruit" && (
+                              <span className="inline-block rounded px-1.5 py-0.5 text-[10px] font-semibold bg-purple-100 text-purple-800 ml-1.5">
+                                Recruit
+                              </span>
+                            )}
                           </div>
                         </td>
                         <td className="px-4 py-3.5">
                           {player.position ? (
                             <span
-                              className={`inline-block rounded px-2 py-0.5 text-xs font-semibold uppercase tracking-wide ${positionBadgeClass(player.position)}`}
+                              className={`inline-block rounded px-2 py-0.5 text-xs font-semibold uppercase tracking-wide ${basketballPositionBadgeClass(player.position)}`}
                             >
                               {player.position}
                             </span>
