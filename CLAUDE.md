@@ -220,13 +220,40 @@ Aggregates active college athletes + 2026 incoming recruits per team. Excludes d
 * Run `npm test` (Vitest) and `cd python_engine && python -m pytest tests/ -v` after valuation changes.
 
 ### UI Naming Conventions (enforce across all frontend changes)
-* **Player list pages** use **"Est. NIL Value"** (never "CFO Valuation" in user-facing text).
-* **Recruit list page** (`/recruits`) uses **"Proj. NIL Value"**.
-* **Recruit individual profiles** use **"Projected NIL Valuation"**.
-* **Portal team view** uses **"Acquired Value"** (never "Est. Portal Value").
-* **Page headings** are prefixed with "Football": `Top Football Player Valuations`, `Football Recruit Valuations`, `Football Team Valuations`, `Football Transfer Portal Valuations`.
-* **Tab and filter buttons do NOT show counts in parentheses**: conference filters, roster tabs (Full Roster/Portal/Recruits/Retained), portal view toggles (By Player/By Team) — just the label.
-* **No rank "#" column** on portal player tables or team-view tables.
+
+Conventions apply to both football and basketball products unless explicitly flagged as sport-specific.
+
+* **Player list pages** use column header **"Est. NIL Value"**. Never "CFO Valuation" in user-facing text.
+* **Recruit list pages** use column header **"Proj. NIL Value"**.
+* **Player profile hero** uses valuation heading **"Est. NIL Valuation"** for rostered players.
+* **Recruit profile hero** uses valuation heading **"Projected NIL Valuation"**.
+* **Portal team-view column** uses **"Acquired Value"**. Never "Est. Portal Value" or "Net Value".
+* **Player profile `<title>` metadata** ends in **"| Projected NIL Valuation"** for High School Recruit tag, **"| Est. NIL Valuation"** otherwise. No "CFO" suffix in profile titles.
+* **Page H1s** are sport-prefixed on sport-specific pages: "Top Football Player Valuations", "Basketball Team Valuations", "Football Transfer Portal Valuations", "Basketball Recruit Valuations", etc. Homepage and site-wide methodology-style pages are sport-agnostic.
+* **Tab and filter buttons do NOT show counts in parentheses** — just the label. Applies to conference filters, roster tabs (Full Roster / Portal / Recruits / Retained), portal view toggles (By Player / By Team), and any filter pill row.
+* **No rank "#" column** on portal player tables or portal team-view tables.
+* **No table footers** with prospect counts or "X players" summaries.
+* **Roster tabs** compose `<RosterTabs>` from `components/RosterTabs.tsx`. Football composes via `<TeamRoster>` (`components/TeamRoster.tsx`); basketball composes via `<BasketballTeamRoster>` (`components/BasketballTeamRoster.tsx`). Both ship the same 4 tabs in the same order: Full Roster / Portal / Recruits / Retained. Default tab (Full Roster) omits `?view=` from the URL; non-default tabs use `?view=portal`, `?view=recruits`, `?view=retained`. The `?view=` param name is load-bearing — bookmarked URLs depend on it.
+* **Conference filter**: both sports use `<ConferenceFilter>` from `components/ConferenceFilter.tsx`, parameterized by a conferences list. The "All" pill is prepended internally; callers pass sport-specific entries only. Football passes `FOOTBALL_CONFERENCES` (SEC, Big Ten, Big 12, ACC, Independent) from `app/teams/page.tsx`; basketball passes `BASKETBALL_CONFERENCES` (SEC, Big Ten, Big 12, ACC, Big East, Other) from `app/basketball/teams/page.tsx`.
+* **Search filters**: each sport has one reactive filter component serving both its `/players` and `/recruits` routes. Football uses `<SearchFilters>` from `components/SearchFilters.tsx`; basketball uses `<BasketballSearchFilters>` from `components/basketball/BasketballSearchFilters.tsx`. Mode detection via `usePathname()` (no mode prop). 350ms debounce on the search input. Query params `q` and `pos` are load-bearing — do not rename.
+* **Override source attribution** renders via `<OverrideSourceLink>` from `components/OverrideSourceLink.tsx`. Football reads `nil_overrides.source_url` (via join); basketball reads `basketball_players.override_source_url`. Component renders "Source: hostname" with hostname parsed via `new URL(sourceUrl).hostname.replace(/^www\./, "")`. Raw `source_name` text is NOT rendered to users — the hostname link is the only user-facing attribution.
+* **Dynamic OG images** ship for both sports' player profiles and team profiles (`app/players/[slug]/opengraph-image.tsx`, `app/teams/[slug]/opengraph-image.tsx`, `app/basketball/players/[slug]/opengraph-image.tsx`, `app/basketball/teams/[slug]/opengraph-image.tsx`). Homepage OG is shared and sport-agnostic (`app/opengraph-image.tsx`).
+* **Sitemap** (`app/sitemap.ts`) includes both football and basketball static routes, team slugs, and public player slugs (paginated). Any new sport-specific route must be added here.
+* **No external branding** in user-facing text: never mention On3, 247Sports, or EA Sports. Internal source fields may reference these; the UI only renders hostname via `<OverrideSourceLink>`.
+* **No engine version numbers** (V3.x, V1.x) in user-facing strings. Internal docs and commit messages are fine.
+* **No "verified" language** in user-facing copy. Use "reported" where the distinction matters in internal docs.
+* **Currency formatting**: `formatCurrency` (full precision) for player-level values; `formatCompactCurrency` ($29.8M style) for team-level aggregates. Both from `lib/utils.ts`.
+
+**Sport-specific differences (intentional):**
+
+* **Position badge colors**: football uses `positionBadgeClass`; basketball uses `basketballPositionBadgeClass`. Both exported from `lib/ui-helpers.ts`.
+* **Inline acquisition-type badges on team roster rows**: basketball's `<BasketballTeamRoster>` shows inline **Transfer** (blue), **In Portal** (amber), and **Recruit** (purple) badges on desktop rows in the Player column. Football's `<TeamRoster>` does NOT show these — acquisition context on football is conveyed by the active tab the user is on. Divergence is intentional.
+* **`portal_evaluating` acquisition type**: basketball only. Players with this value appear on the Full Roster tab with the amber "In Portal" badge and are excluded from the Portal tab predicate, which matches `acquisition_type === "portal"` (incoming transfers) only.
+
+**Known drift (flagged for future cleanup):**
+
+* Football team OG image (`app/teams/[slug]/opengraph-image.tsx`) uses `formatCurrency` for the roster total. Basketball's equivalent uses `formatCompactCurrency` per the team-aggregate convention; football should be updated to match.
+* Basketball recruits page: class-year filter pills live inline in `app/basketball/recruits/page.tsx` rather than inside `<BasketballSearchFilters>`. Football's parallel `<ClassYearFilter>` is a standalone component; flagged for normalization on the basketball side.
 
 ### Headshot Pipeline
 * **`map_espn_athlete_ids.py` MUST run after any bulk portal sync or transfer window.** Portal transfer scripts write team_id but not `espn_athlete_id`; without backfill, headshot URLs are never generated.
