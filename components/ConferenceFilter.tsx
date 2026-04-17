@@ -1,31 +1,32 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 
-const CONFERENCES = [
-  { label: "All", slug: "", dbValue: "" },
-  { label: "SEC", slug: "sec", dbValue: "SEC" },
-  { label: "Big Ten", slug: "big-ten", dbValue: "Big Ten" },
-  { label: "Big 12", slug: "big-12", dbValue: "Big 12" },
-  { label: "ACC", slug: "acc", dbValue: "ACC" },
-] as const;
+export type ConferenceOption = { label: string; slug: string };
 
 interface ConferenceFilterProps {
+  conferences: ConferenceOption[];
   activeConf: string | null;
+  paramName?: string;
 }
 
 export default function ConferenceFilter({
+  conferences,
   activeConf,
+  paramName = "conf",
 }: ConferenceFilterProps) {
   const router = useRouter();
+  const pathname = usePathname();
+
+  const options: ConferenceOption[] = [{ label: "All", slug: "" }, ...conferences];
 
   function handleClick(slug: string) {
-    router.push(slug ? `/teams?conf=${slug}` : "/teams", { scroll: false });
+    router.push(slug ? `${pathname}?${paramName}=${slug}` : pathname, { scroll: false });
   }
 
   return (
     <div className="flex flex-wrap gap-2 mb-6">
-      {CONFERENCES.map((conf) => {
+      {options.map((conf) => {
         const isActive = conf.slug === (activeConf ?? "");
 
         return (
@@ -35,7 +36,7 @@ export default function ConferenceFilter({
             className={`shrink-0 rounded-lg px-3 py-1.5 text-sm font-semibold transition-colors ${
               isActive
                 ? "bg-emerald-500 text-white"
-                : "bg-white border border-gray-200 text-slate-600 hover:bg-slate-50"
+                : "bg-white border border-gray-200 text-slate-600 hover:border-slate-300"
             }`}
           >
             {conf.label}
