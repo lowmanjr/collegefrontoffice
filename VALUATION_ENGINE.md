@@ -57,10 +57,12 @@ IF college athlete AND is_on_depth_chart ≠ true:
     cfo_valuation = NULL (no valuation — profile only)
     STOP
 
-IF HS recruit AND (star_rating < 4 OR team_id IS NULL):
+IF HS recruit AND star_rating < 4:
     cfo_valuation = NULL
     STOP
 ```
+
+> **Note:** HS recruits with `star_rating >= 4` are eligible for valuation. Uncommitted recruits (`team_id IS NULL`) use a neutral 1.00x market multiplier — the main valuation loop falls back to 1.00 when team_id is missing (see `run_valuations` in `calculate_cfo_valuations.py`). This matches the behavior of the basketball engine's "unattached players pass" and ensures elite uncommitted recruits (e.g. Faizon Brandon, top-10 QB with no commitment) still receive a dollar figure on the /recruits page.
 
 > **Note:** Long snappers (LS) are excluded from algorithmic valuation as no meaningful NIL market exists for the position. LS players with verified deals can still be valued via the override system (§2.0).
 
@@ -535,6 +537,7 @@ This transition happens automatically — no manual intervention required.
 | `cfo_valuation` > $10,000,000 | No ceiling |
 | College athlete, `is_on_depth_chart = false` or `NULL` | `cfo_valuation = NULL`. Profile visible, no dollar figure. |
 | HS recruit, `star_rating < 4` or `NULL` | `cfo_valuation = NULL`. |
+| HS recruit, `star_rating >= 4` and `team_id IS NULL` (uncommitted) | Valued with neutral 1.00x market multiplier. |
 | `status = "Medical Exemption"` | Still calculate if eligible. UI shows badge. |
 | Position has whitespace/mixed case | Normalize: `position.upper().strip()` |
 | `market_multiplier` outside 0.8–1.3 | Clamp to boundaries |

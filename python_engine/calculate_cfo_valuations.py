@@ -132,9 +132,11 @@ def is_eligible_for_valuation(player: dict, is_override: bool = False) -> bool:
         return player.get("is_on_depth_chart") is True
 
     if tag == "High School Recruit":
-        # Must be 4★ or 5★ AND committed to a team
+        # Must be 4★ or 5★. team_id is NOT required — uncommitted recruits
+        # are valued in a separate pass using a neutral 1.00x market multiplier.
+        # See §2.1 in VALUATION_ENGINE.md.
         star = player.get("star_rating") or 0
-        return star >= 4 and player.get("team_id") is not None
+        return star >= 4
 
     return True  # unknown tag — be conservative, include
 
@@ -533,9 +535,10 @@ def run_valuations(
     # Counters
     eligible_count       = 0
     ineligible_off_dc    = 0   # college athlete, not on depth chart
-    ineligible_low_star  = 0   # HS recruit < 4★ or uncommitted
+    ineligible_low_star  = 0   # HS recruit < 4★ (3★ and below)
     ineligible_excluded  = 0   # excluded positions (LS)
     override_count       = 0
+    unattached_valued    = 0   # 4/5★ HS recruits valued with neutral 1.00x mult (no team_id)
     errors               = 0
     eligible_valuations: list[int] = []
 
@@ -606,6 +609,10 @@ def run_valuations(
             errors += 1
             continue
 
+        # Track unattached 4/5★ HS recruits valued with neutral multiplier
+        if tag == "High School Recruit" and not team_id:
+            unattached_valued += 1
+
         eligible_valuations.append(valuation)
         batch.append({
             "id":            pid,
@@ -633,6 +640,7 @@ def run_valuations(
         "total":               len(players),
         "eligible":            eligible_count,
         "overrides":           override_count,
+        "unattached_valued":   unattached_valued,
         "ineligible_total":    ineligible_off_dc + ineligible_low_star + ineligible_excluded,
         "ineligible_off_dc":   ineligible_off_dc,
         "ineligible_low_star": ineligible_low_star,
@@ -683,9 +691,10 @@ def print_summary(results: list[dict], stats: dict, top_n: int = 20) -> None:
     print(f"  Eligible           : {stats['eligible']:,}")
     print(f"    Algorithmic      : {stats['eligible'] - stats['overrides']:,}")
     print(f"    Override (✓)     : {stats['overrides']:,}")
+    print(f"    Unattached HS    : {stats.get('unattached_valued', 0):,}  (4/5★ recruits, team_id IS NULL, 1.00x neutral multiplier)")
     print(f"  Ineligible         : {stats['ineligible_total']:,}")
     print(f"    Off depth chart  : {stats['ineligible_off_dc']:,}")
-    print(f"    HS recruit inelig: {stats['ineligible_low_star']:,}")
+    print(f"    HS recruit <4★   : {stats['ineligible_low_star']:,}")
     print(f"    Excluded pos     : {stats['ineligible_excluded']:,}")
     if vals:
         print(f"  Valuation range    : ${min(vals):,} – ${max(vals):,}")

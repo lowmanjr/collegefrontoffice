@@ -67,10 +67,12 @@ const EXCLUDED_POSITIONS = new Set(["LS"]);
 /**
  * Returns true if this player should receive a valuation.
  * College athletes: must be on an active depth chart.
- * HS recruits: must be 4★ or 5★.
+ * HS recruits: must be 4★ or 5★. team_id is NOT required — uncommitted
+ * recruits are valued with a neutral 1.00x market multiplier (see
+ * getMarketMultiplier, which returns 1.0 when teamMarketMultiplier is null).
  * Excluded positions (LS): always ineligible for algorithmic valuation.
  * isOverride: if true, always returns true — verified deals bypass the eligibility gate.
- * VALUATION_ENGINE.md §3.0
+ * VALUATION_ENGINE.md §2.1
  */
 export function isEligibleForValuation(
   playerTag: string | null,

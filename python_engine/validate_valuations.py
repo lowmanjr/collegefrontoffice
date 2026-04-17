@@ -238,14 +238,31 @@ def check_data_integrity(players, overrides, report, teams):
     else:
         report.critical_pass("All nil_overrides rows have is_override=true on player")
 
-    # Orphan valuations: valued player with no team_id
-    orphan_valued = [p for p in players if p.get("cfo_valuation") is not None and not p.get("team_id")]
+    # Orphan valuations: valued College Athlete with no team_id is a critical bug.
+    # Uncommitted HS recruits legitimately have no team_id — they're valued with a
+    # neutral 1.00x multiplier per VALUATION_ENGINE.md §2.1.
+    orphan_valued = [
+        p for p in players
+        if p.get("cfo_valuation") is not None
+        and not p.get("team_id")
+        and (p.get("player_tag") or "").strip() != "High School Recruit"
+    ]
     if orphan_valued:
         details = [f"{p.get('name','?')} ({p.get('position','?')}): ${p['cfo_valuation']:,}"
                    for p in sorted(orphan_valued, key=lambda x: -(x.get("cfo_valuation") or 0))]
         report.critical_fail(f"{len(orphan_valued)} orphan(s) with valuation but no team_id", details)
     else:
-        report.critical_pass("No orphan valuations (all valued players have a team_id)")
+        report.critical_pass("No orphan valuations (all valued College Athletes have a team_id; uncommitted HS recruits permitted)")
+
+    # Info: count uncommitted HS recruits with valuations (expected behavior per §2.1)
+    uncommitted_valued = [
+        p for p in players
+        if p.get("cfo_valuation") is not None
+        and not p.get("team_id")
+        and (p.get("player_tag") or "").strip() == "High School Recruit"
+    ]
+    if uncommitted_valued:
+        report.info(f"Uncommitted HS recruits with valuations: {len(uncommitted_valued)} (neutral 1.00x mult per §2.1)")
 
     # NULL team_id records (info)
     null_team = [p for p in players if not p.get("team_id")]
