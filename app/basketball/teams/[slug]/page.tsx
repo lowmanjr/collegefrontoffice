@@ -228,11 +228,8 @@ export default async function BasketballTeamPage({ params }: PageProps) {
                       <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-widest w-16">
                         Pos
                       </th>
-                      <th className="px-4 py-3 text-right text-xs font-semibold uppercase tracking-widest w-16">
-                        PPG
-                      </th>
                       <th className="px-4 py-3 text-right text-xs font-semibold uppercase tracking-widest">
-                        NIL Value
+                        Est. NIL Value
                       </th>
                     </tr>
                   </thead>
@@ -283,10 +280,6 @@ export default async function BasketballTeamPage({ params }: PageProps) {
                             ) : (
                               <span className="text-slate-400">—</span>
                             )}
-                          </td>
-
-                          <td className="px-4 py-3.5 text-right tabular-nums text-slate-600">
-                            {player.ppg != null ? Number(player.ppg).toFixed(1) : "—"}
                           </td>
 
                           <td className="px-4 py-3.5 text-right">
