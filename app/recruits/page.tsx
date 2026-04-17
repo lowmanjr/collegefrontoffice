@@ -189,13 +189,6 @@ export default async function FuturesMarketPage({ searchParams }: PageProps) {
               );
             })}
           </div>
-          <div className="md:hidden mt-3 px-1 flex items-center justify-between">
-            <p className="text-xs text-slate-400">
-              Showing <span className="font-semibold text-slate-600">{rows.length}</span>{" "}
-              {isFiltered ? "matching prospects" : "prospects"}
-            </p>
-            <p className="text-xs text-slate-400">V3.5</p>
-          </div>
 
           {/* Desktop table */}
           <div className="hidden md:block bg-white rounded-xl shadow-md overflow-hidden border border-gray-200">
@@ -317,16 +310,6 @@ export default async function FuturesMarketPage({ searchParams }: PageProps) {
               </table>
             </div>
 
-            {/* Footer */}
-            <div className="border-t border-gray-100 bg-slate-50 px-4 py-3 flex items-center justify-between">
-              <p className="text-xs text-slate-400">
-                Showing <span className="font-semibold text-slate-600">{rows.length}</span>{" "}
-                {isFiltered ? "matching prospects" : "prospects"}
-              </p>
-              <p className="text-xs text-slate-400">
-                C.F.O. Valuation Engine V3.5
-              </p>
-            </div>
           </div>
           </>
         )}

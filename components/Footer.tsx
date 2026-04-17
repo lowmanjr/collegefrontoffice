@@ -40,7 +40,6 @@ export default function Footer() {
           <p className="text-[11px] text-slate-600">
             © 2026 College Front Office. Not affiliated with the NCAA or any university.
           </p>
-          <p className="text-[11px] text-slate-700">V3.5</p>
         </div>
       </div>
     </footer>

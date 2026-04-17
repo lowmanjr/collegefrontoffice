@@ -250,17 +250,6 @@ export default function TeamRoster({
               </table>
             </div>
 
-            <div className="border-t border-gray-100 bg-slate-50 px-4 py-3 flex items-center justify-between">
-              <p className="text-xs text-slate-400">
-                <span className="font-semibold text-slate-600">
-                  {filteredPlayers.length}
-                </span>{" "}
-                players
-              </p>
-              <p className="text-xs text-slate-400">
-                C.F.O. Valuation Engine V3.6b
-              </p>
-            </div>
           </div>
         </>
       )}

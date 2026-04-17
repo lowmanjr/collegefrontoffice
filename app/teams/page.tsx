@@ -179,15 +179,6 @@ async function TeamsGrid({ confSlug }: { confSlug: string | null }) {
             </table>
           </div>
 
-          {/* Footer */}
-          <div className="border-t border-gray-100 bg-slate-50 px-4 py-3 flex items-center justify-between">
-            <p className="text-xs text-slate-400">
-              <span className="font-semibold text-slate-600">{teams.length}</span> {confLabel}programs ranked
-            </p>
-            <p className="text-xs text-slate-400">
-              C.F.O. Valuation Engine V3.6b
-            </p>
-          </div>
         </div>
       )}
     </>
