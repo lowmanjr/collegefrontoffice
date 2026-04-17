@@ -5,7 +5,7 @@ import type { Metadata } from "next";
 import { BASE_URL } from "@/lib/constants";
 import { formatCurrency } from "@/lib/utils";
 import { basketballPositionBadgeClass } from "@/lib/ui-helpers";
-import BasketballRecruitsFilters from "./BasketballRecruitsFilters";
+import BasketballSearchFilters from "@/components/basketball/BasketballSearchFilters";
 
 export const revalidate = 3600;
 
@@ -76,7 +76,7 @@ export default async function BasketballRecruitsPage({ searchParams }: PageProps
       {/* Filters */}
       <div className="mx-auto max-w-7xl px-4 py-4">
         <Suspense>
-          <BasketballRecruitsFilters />
+          <BasketballSearchFilters />
         </Suspense>
         <div className="flex gap-1.5 flex-wrap">
           {CLASS_YEARS.map((y) => {
