@@ -256,7 +256,9 @@ export default async function BasketballPlayerProfilePage({ params }: PageProps)
                 ) : (
                   <div>
                     <p className="text-xs uppercase tracking-widest text-slate-500 mb-1">
-                      Est. NIL Valuation
+                      {p.player_tag === "High School Recruit"
+                        ? "Projected NIL Valuation"
+                        : "Est. NIL Valuation"}
                     </p>
                     <p
                       className="text-4xl sm:text-5xl font-bold text-emerald-400 leading-none"

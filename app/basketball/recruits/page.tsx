@@ -119,7 +119,7 @@ export default async function BasketballRecruitsPage({ searchParams }: PageProps
                     <th className="px-3 py-3 text-left text-xs font-semibold uppercase tracking-widest w-14">Pos</th>
                     <th className="px-3 py-3 text-center text-xs font-semibold uppercase tracking-widest w-16">Stars</th>
                     <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-widest">Team</th>
-                    <th className="px-4 py-3 text-right text-xs font-semibold uppercase tracking-widest">Est. NIL Value</th>
+                    <th className="px-4 py-3 text-right text-xs font-semibold uppercase tracking-widest">Proj. NIL Value</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-100">
