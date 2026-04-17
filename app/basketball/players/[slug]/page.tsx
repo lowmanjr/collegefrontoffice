@@ -411,16 +411,6 @@ export default async function BasketballPlayerProfilePage({ params }: PageProps)
                   {"★".repeat(Math.min(p.star_rating, 5))}
                 </span>
               </div>
-              {p.composite_score != null && (
-                <div>
-                  <p className="text-[10px] text-slate-400 uppercase tracking-wide mb-1">
-                    Composite
-                  </p>
-                  <p className="font-mono text-base font-bold text-slate-900 leading-none">
-                    {Number(p.composite_score).toFixed(4)}
-                  </p>
-                </div>
-              )}
               {p.nba_draft_projection != null && (
                 <div>
                   <p className="text-[10px] text-slate-400 uppercase tracking-wide mb-1">
