@@ -236,15 +236,16 @@ def market_multiplier(team_market_multiplier: float | None) -> float:
     return max(0.8, min(1.3, float(team_market_multiplier)))
 ```
 
-**Typical values:**
+**Typical values** (April 2026, representative — see CLAUDE.md § Market Multiplier Distribution for the authoritative per-team snapshot):
 
 | Tier | Range | Examples |
 |------|-------|---------|
-| Top SEC/Big Ten | 1.25–1.30 | Ohio State, Alabama, Texas, Michigan |
-| Strong P4 | 1.15–1.25 | Oregon, USC, Notre Dame, LSU |
-| Mid P4 | 1.0–1.15 | Iowa, TCU, Miami, Arizona State |
-| Lower P4 | 0.9–1.0 | Vanderbilt, Wake Forest, Kansas |
-| Top G5 | 0.85–0.95 | Boise State, Memphis, Liberty |
+| Blue bloods | 1.25–1.30 | Ohio State, Texas A&M, Texas Tech, Alabama, Georgia, Texas, Michigan, Oregon, LSU |
+| Strong P4 | 1.15–1.20 | Notre Dame, Penn State, Tennessee, Florida State, Clemson, Florida, Oklahoma |
+| Mid P4 | 1.05–1.10 | Auburn, Colorado, Ole Miss, Kentucky, North Carolina, South Carolina, Iowa, Wisconsin |
+| Baseline P4 | 1.00 | TCU, Baylor, Utah, Virginia Tech, Pittsburgh, Georgia Tech, Louisville, Stanford |
+| Lower P4 | 0.95 | Arizona, Vanderbilt, Wake Forest, Kansas, SMU, UCF, Virginia, Duke |
+| Top G5 | 0.85–0.95 | Boise State, Memphis, Liberty (not in tracked universe) |
 | Small G5/FCS | 0.80–0.85 | — |
 
 ---
@@ -762,6 +763,27 @@ Ongoing calibration process for any team:
 6. Run `calculate_cfo_valuations.py` to apply
 
 Active CSVs: `texas_comparison.csv`, `texas_tech_comparison.csv`, `georgia_comparison.csv`
+
+### 10.6 April 2026 Stress Tests (V3.6b)
+
+Multi-team comparison passes against external market valuation benchmarks. Each pass compared CFO algorithmic output against third-party NIL estimates for the starting roster, with owner-reviewed overrides applied for players where market consensus differed materially from the algorithm.
+
+**Texas A&M** — Batch: Mario Craver override at $1.1M annualized. Data corrections: Victor Singleton reassigned from Texas to Texas A&M (confusable-school-pair fix, §5.18 of OPERATIONS.md); Samuel Roseborough reassigned from Texas to Texas A&M; TJ Smith moved from Texas to Texas A&M with star rating corrected 4→3; orphan "Aaron Alexander" record deleted (no match in external sources).
+
+**Georgia** — Batch: 17 override adjustments moving players off flat $500K / $200K tier values to market-aligned values ranging $147K–$1.2M. New override added for Darren Ikinnagbon ($147,329) flagged as off-depth-chart but market-valued. Duplicate cleanup: "AJ Kruah" merged into "Anthony Kruah" (same physical player). 6 off-DC players identified as needing DC assignment review. Post-pass: Georgia has 49 active overrides across the starting roster.
+
+**Penn State** — Batch: 3 new overrides (Andrew Rappleyea $609,178 TE1, Benjamin Brahmer $607,239 TE2 portal, Jeremiah Cooper $501,239 S1 portal). Roster status updates: Julian Fleming, Jalen Kimber, Drew Allar flagged as `departed_draft` after verifying no reported-deal dependencies.
+
+**Michigan State** — Review confirmed low-NIL-spend program, 0 overrides needed at the time of the pass. DC coverage gap identified: 46 of 160 active players valued (compared to ~61 on average for P4 programs) — Ourlads rank coverage is thin for MSU, suggesting the `assign_default_depth_chart.py` fallback may need tuning for this program specifically.
+
+**Kentucky** — Batch: 3 new overrides (Tavion Gadson $893,201 DL1, Coleton Price $419,237 OL1 portal, Brennen Ward $237,618 QB3). Pre-pass Kentucky had 0 overrides; post-pass 3.
+
+**LSU / Texas / Texas Tech touch-ups** — Trey'Dez Green (LSU TE1) at $819,397; Colin Simmons (Texas EDGE1) position corrected from LB to EDGE with DC rank 2→1; Evan Stewart (Oregon WR1) DC rank 5→1; Ryan Coleman-Williams (Alabama WR1) DC rank 4→1; David Stone (Oklahoma DL1) DC rank 3→1. All four were overrides already; rank corrections resolved 8 of 504 platform-wide starter-below-backup inversions.
+
+**Post-stress-test totals:**
+- Overrides: 96 active
+- Valued players: 4,980 (includes 441 unattached HS recruits valued with 1.00x neutral multiplier — §2.1 parity with basketball engine)
+- Market multipliers recalibrated across 21 teams in three batches (13 + 5 + 4) based on roster value distribution and external benchmark comparison
 
 ---
 

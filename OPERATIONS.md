@@ -19,9 +19,22 @@ Insert a new row into the Supabase `teams` table with the following fields:
 
 **Market multiplier tiers:**
 
-- SEC / Big Ten: 1.20
-- ACC / Independent: 1.00
-- Adjust +/-0.05 to 0.10 based on program stature (Ohio State gets 1.30, Vanderbilt gets 0.95)
+Clamped 0.80–1.30 in the engine. Recalibrated across April 2026 based on external market data and roster-value distribution. Current distribution lives in CLAUDE.md § Market Multiplier Distribution; use that as the source of truth for any onboarding comparison.
+
+General guidance when setting a new team's multiplier:
+
+- **1.25–1.30** — Blue-blood programs with elite NIL ecosystems (Ohio State, Texas A&M, Texas Tech, Alabama, Georgia, Texas, Michigan, Oregon, LSU, USC, Miami, Indiana).
+- **1.20** — Strong Power 4 with major NIL commitments (Tennessee, Penn State, Notre Dame, Florida State, Houston, Vanderbilt).
+- **1.10–1.15** — Mid-upper P4 (Clemson, Florida, Oklahoma, Arkansas, Michigan State, Ole Miss, Kentucky, Auburn, Colorado, Iowa State, North Carolina, South Carolina).
+- **1.00–1.05** — Baseline P4 (Wisconsin, UCLA, Washington, Iowa, Nebraska, Missouri, plus most Big 12 / ACC mid-tier).
+- **0.95** — Lower P4 NIL spend (Arizona, Virginia, Duke, Stanford, etc.). Set to 0.95 by default when onboarding a new P4 team, then adjust up based on evidence.
+
+Do NOT bake per-team values into this doc; they drift. Query the DB for current state:
+
+```python
+from supabase_client import supabase
+teams = supabase.table("teams").select("university_name, market_multiplier").order("market_multiplier", desc=True).execute().data
+```
 
 Example SQL:
 
@@ -494,6 +507,39 @@ python validate_valuations.py
 - Once Ourlads publishes updated depth charts (typically August preseason), re-run `sync_ourlads_depth_charts.py` to replace EA-based assignments with real coaching depth chart data
 - The EA-based approach assigns ranks by OVR rating, which approximates starter/backup ordering reasonably well but is less accurate than real depth charts
 - Impact: Oklahoma State went from $8.1M → $27.7M, Iowa State from $5.0M → $18.9M, Michigan State from $13.2M → $29.2M, Florida State from $13.7M → $29.2M
+
+---
+
+## 2.3 Repeatable Audit Procedures
+
+Standing audits used to catch data drift. All are read-only unless called out explicitly. Re-run after any bulk sync or transfer window.
+
+### Confusable School Pair Audit
+- **Script:** `python_engine/audit_confusable_schools.py`
+- **Read-only:** Yes (reports only; fixes applied manually with human review).
+- **When to run:** After any bulk roster sync (ESPN, On3, CFBD), transfer portal window, or recruit import.
+- **What it does:** Cross-references our DB against CFBD's authoritative rosters + recruiting feeds for 10 confusable school groups (Oklahoma/Oklahoma State, Iowa/Iowa State, Florida/Florida State, Texas/Texas A&M/Texas Tech, Arizona/Arizona State, Kansas/Kansas State, Michigan/Michigan State, Georgia/Georgia Tech, North Carolina/NC State, Mississippi State/Ole Miss).
+- **Portal exception:** Before flagging a mismatch, cross-references against `data/on3_portal_2026.csv`. Players whose DB team matches their portal destination are excluded from the report (§5.18).
+- **Fuzzy threshold:** 0.90 (raised from 0.80 on 2026-04-16 after audit analysis showed 3/5 fuzzy matches in the 0.86–0.88 band were false positives — different players with similar last names).
+- **Output:** Per-group mismatch report with match method + score, plus summary and portal-verified exclusion count.
+
+### 2026 Recruit Audit
+- **Script:** `python_engine/audit_2026_recruits.py`
+- **Read-only:** Yes.
+- **Input file:** `python_engine/data/2026_recruits_raw.txt` (247Sports composite feed, paste-updated).
+- **When to run:** After recruit imports, during signing periods, and periodically for data quality spot checks.
+- **What it does:** Parses the 247 raw dump using the composite-rating line as an anchor (handles both 10-line and 9-line record variants). For each parsed recruit committed to a Power 4 school, fuzzy-matches against our DB and flags:
+  - **Misassignments** — player in DB on a different team than the file indicates
+  - **Missing (4/5★ only)** — high-profile recruit in file but not in DB
+  - **Potentially stale** — DB 4/5★ recruit not found in file (may indicate decommit, transfer, or stale record)
+  - **Name variants** — same player under different name spelling between sources (handled by rename-batch workflow; see §5.19-adjacent work log)
+
+### Headshot Coverage Audit
+- **Quick query:** Count valued players with NULL `headshot_url` grouped by `acquisition_type`. Portal players are the most common gap because sync scripts don't populate `espn_athlete_id`.
+- **Fix sequence (in order):**
+  1. `map_espn_athlete_ids.py` — runs globally across all 68 teams, writes both `espn_athlete_id` and `headshot_url` via ESPN CDN template. Pass 3 applies relaxed team verification for portal players (§5.19).
+  2. `scrape_247_headshots.py --year 2026` (and 2027, 2028) — 247Sports recruit headshots for HS Recruits whose ESPN profile has no photo. IMPORTANT: the scraper skips any player already holding a non-NULL `headshot_url` — so **clear broken ESPN URLs (HTTP 404) first** or the fallback won't run.
+- **Quick URL check:** ESPN combiner returns a tiny text/html error page (~1 byte body) for missing athlete IDs. Any URL whose GET response is <6KB with `Content-Type: text/html` is almost certainly a 404.
 
 ---
 

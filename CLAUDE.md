@@ -1,9 +1,9 @@
 # CollegeFrontOffice.com — Master Architecture Document
 
 ## Current Status (April 2026)
-- **68 Power 4 teams**, ~15,400 players, ~4,545 valued
-- **Valuation Engine V3.6b** — QB/DL base bumps, no-data talent penalty, star proxy widening, graduated starter multiplier
-- **86 active overrides** across 3 calibrated teams: Texas (9), Texas Tech (7), Georgia (32), plus 18 original overrides + 20 On3/reported deal overrides
+- **68 Power 4 teams**, ~15,360 players, ~4,980 valued (includes 441 uncommitted HS recruits valued with 1.00x neutral market multiplier)
+- **Valuation Engine V3.6b** — QB/DL base bumps, no-data talent penalty, star proxy widening, graduated starter multiplier, unattached-recruit pass (parity with basketball engine)
+- **96 active overrides** across calibrated teams: Texas (9), Texas Tech (7), Georgia (49), Penn State (4), Kentucky (3), LSU (+Trey'Dez Green), Texas A&M (Mario Craver), plus original market-consensus + reported-deal overrides
 - **EA Sports CFB 26 ratings** now cover all 68 Power 4 teams (expanded from 16). 4,674 ratings applied, 2,372 on-DC players with EA data (61.5% coverage)
 - **Pipeline order**: ESPN rosters → On3 transfer portal → Ourlads depth charts → valuations
 - ESPN sync runs first (base truth), On3 portal sync runs second (catches recent transfers ESPN missed)
@@ -24,7 +24,7 @@ College Front Office is a data dashboard and valuation tool for the modern colle
 * **Database:** Supabase (PostgreSQL)
 * **Hosting:** Vercel
 * **Data Pipeline:** Python (pandas, requests, BeautifulSoup) → Supabase API (service role)
-* **Testing:** Vitest (TypeScript, 147 tests), pytest (Python, 188 tests) — 335 total
+* **Testing:** Vitest (TypeScript, 586 tests), pytest (Python, 188 tests) — 774 total
 
 ## 3. Valuation Engine
 **The canonical valuation engine specification lives in `VALUATION_ENGINE.md`. All valuation logic must conform to that document.**
@@ -104,9 +104,11 @@ Key algorithm files:
 | `backfill_acquisition_type.py` | Tags players as 'retained', 'portal', or 'recruit' using CFBD transfer portal data |
 | `validate_valuations.py` | Post-valuation validation: 6 check categories (position config, sanity ceilings, rank inversions, data integrity incl. orphan check, distribution, override health). Run after every valuation recompute |
 | `parse_on3_portal.py` | Parses On3 transfer portal raw text dump into structured CSV for portal comparison workflow |
+| `audit_confusable_schools.py` | Audits 10 confusable school pairs (§5.18) for team misassignments. Cross-references CFBD + portal-verified exclusions via on3_portal_2026.csv. Fuzzy threshold 0.90 (raised from 0.80 after false-positive analysis). Read-only. |
+| `audit_2026_recruits.py` | Cross-references python_engine/data/2026_recruits_raw.txt (247Sports composite feed) against DB. Flags misassignments, 4/5★ players missing from DB, stale DB entries, and name-variant pairs. Read-only. |
 
 ### Overrides
-66 active overrides as of April 2026 (18 original + 9 Texas + 7 Texas Tech + 32 Georgia). Overrides bypass the algorithmic formula entirely. Managed via `python_engine/data/approved_overrides.csv` → `apply_overrides.py`, or directly via the comparison CSV workflow.
+96 active overrides as of April 2026. Overrides bypass the algorithmic formula entirely (§2.0 of VALUATION_ENGINE.md). Managed via `python_engine/data/approved_overrides.csv` → `apply_overrides.py`, or directly via the comparison CSV workflow.
 
 ## 4. Tracked Teams (68 — All Power 4)
 **SEC (16):** Alabama, Arkansas, Auburn, Florida, Georgia, Kentucky, LSU, Mississippi State, Missouri, Oklahoma, Ole Miss, South Carolina, Tennessee, Texas, Texas A&M, Vanderbilt
@@ -114,6 +116,23 @@ Key algorithm files:
 **Big 12 (16):** Arizona, Arizona State, Baylor, BYU, Cincinnati, Colorado, Houston, Iowa State, Kansas, Kansas State, Oklahoma State, TCU, Texas Tech, UCF, Utah, West Virginia
 **ACC (17):** Boston College, Cal, Clemson, Duke, Florida State, Georgia Tech, Louisville, Miami, NC State, North Carolina, Pittsburgh, SMU, Stanford, Syracuse, Virginia, Virginia Tech, Wake Forest
 **Independent (1):** Notre Dame
+
+### Market Multiplier Distribution (April 2026)
+
+Source of truth is the `teams.market_multiplier` column. Query `supabase.table('teams').select('university_name, market_multiplier').order('market_multiplier', desc=True)` for a live view. Snapshot as of this doc:
+
+| Multiplier | Count | Teams |
+|-----------|-------|-------|
+| **1.30** | 3 | Ohio State, Texas A&M, Texas Tech |
+| **1.25** | 9 | Alabama, Georgia, Indiana, LSU, Miami, Michigan, Oregon, Texas, USC |
+| **1.20** | 6 | Florida State, Houston, Notre Dame, Penn State, Tennessee, Vanderbilt |
+| **1.15** | 5 | Arkansas, Clemson, Florida, Michigan State, Oklahoma |
+| **1.10** | 7 | Auburn, Colorado, Iowa State, Kentucky, North Carolina, Ole Miss, South Carolina |
+| **1.05** | 6 | Iowa, Missouri, Nebraska, UCLA, Washington, Wisconsin |
+| **1.00** | 17 | Arizona State, BYU, Baylor, Georgia Tech, Illinois, Kansas State, Louisville, Maryland, Minnesota, Mississippi State, Oklahoma State, Pittsburgh, Stanford, TCU, Utah, Virginia Tech, West Virginia |
+| **0.95** | 15 | Arizona, Boston College, Cal, Cincinnati, Duke, Kansas, NC State, Northwestern, Purdue, Rutgers, SMU, Syracuse, UCF, Virginia, Wake Forest |
+
+Multipliers are clamped 0.80–1.30 in the engine (`market_multiplier()` in `calculate_cfo_valuations.py` §3.5). Recalibrated via multiple passes in April 2026 against external market data.
 
 ## 5. Data Architecture
 
@@ -126,7 +145,7 @@ Key algorithm files:
 * `experience_level` (TEXT: "High School", "Active Roster", "Portal")
 * `player_tag` (TEXT: "College Athlete" | "High School Recruit")
 * `composite_score` (NUMERIC — 247Sports composite, 0–100 scale)
-* `cfo_valuation` (INTEGER — computed by V3.5 engine)
+* `cfo_valuation` (INTEGER — computed by V3.6b engine; NULL for ineligible players)
 * `is_override` (BOOLEAN — true if nil_overrides row replaces algorithm)
 * `is_on_depth_chart` (BOOLEAN)
 * `depth_chart_rank` (INTEGER — 1=starter, 2=backup, etc.)
@@ -197,8 +216,23 @@ Aggregates active college athletes + 2026 incoming recruits per team. Excludes d
 * Player headshots use ESPN CDN: `https://a.espncdn.com/combiner/i?img=/i/headshots/college-football/players/full/{espn_id}.png&w=200&h=146`
 * Recruit headshots come from 247Sports (scraped via `scrape_247_headshots.py`).
 * All composite scores are on the 0-100 scale (not 0-1).
-* Do not display "247Sports" branding on player-facing pages.
+* **Never cite or reference On3 or 247Sports branding in any source fields, UI text, or user-facing content.** Internal scripts may reference these sources; end-user-visible text never does.
 * Run `npm test` (Vitest) and `cd python_engine && python -m pytest tests/ -v` after valuation changes.
+
+### UI Naming Conventions (enforce across all frontend changes)
+* **Player list pages** use **"Est. NIL Value"** (never "CFO Valuation" in user-facing text).
+* **Recruit list page** (`/recruits`) uses **"Proj. NIL Value"**.
+* **Recruit individual profiles** use **"Projected NIL Valuation"**.
+* **Portal team view** uses **"Acquired Value"** (never "Est. Portal Value").
+* **Page headings** are prefixed with "Football": `Top Football Player Valuations`, `Football Recruit Valuations`, `Football Team Valuations`, `Football Transfer Portal Valuations`.
+* **Tab and filter buttons do NOT show counts in parentheses**: conference filters, roster tabs (Full Roster/Portal/Recruits/Retained), portal view toggles (By Player/By Team) — just the label.
+* **No rank "#" column** on portal player tables or team-view tables.
+
+### Headshot Pipeline
+* **`map_espn_athlete_ids.py` MUST run after any bulk portal sync or transfer window.** Portal transfer scripts write team_id but not `espn_athlete_id`; without backfill, headshot URLs are never generated.
+* Pass 3 of `map_espn_athlete_ids.py` has **relaxed team verification for portal players**: accepts a name + position match from the ESPN search API regardless of the ESPN team nickname, because ESPN's roster API lags portal moves (a player's ESPN profile is still the correct person even if ESPN still shows the origin school). Safeguards: exact normalized name match, position match when ESPN provides one, skip ambiguous multi-result hits. Non-portal players retain strict team verification. See OPERATIONS.md §5.19.
+* **Recruit headshots come from 247Sports** via `scrape_247_headshots.py --year {2026|2027|2028}`.
+* **Broken ESPN URLs (HTTP 404) should be cleared before re-running the 247 scraper.** The scraper's "already has headshot" check treats non-NULL URLs as complete, so broken URLs block the fallback. Verify a suspicious URL with a quick HEAD/GET — body <6KB from the combiner endpoint is almost always the generic 404 page.
 
 ## 7. Page Structure
 
