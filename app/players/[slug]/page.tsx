@@ -9,10 +9,17 @@ export const revalidate = 300;
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const { data } = await supabase.from("players").select("name, position").eq("slug", slug).single();
+  const { data } = await supabase
+    .from("players")
+    .select("name, position, player_tag")
+    .eq("slug", slug)
+    .single();
+  const suffix = data?.player_tag === "High School Recruit"
+    ? "Projected NIL Valuation"
+    : "Est. NIL Valuation";
   return {
     title: data
-      ? `${data.name} — ${data.position} | Est. NIL Valuation`
+      ? `${data.name} — ${data.position} | ${suffix}`
       : "Player Profile | College Front Office",
     description: data
       ? `NIL valuation and profile for ${data.name}, ${data.position}`

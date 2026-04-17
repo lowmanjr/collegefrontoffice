@@ -11,12 +11,15 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const { data } = await supabase
     .from("basketball_players")
-    .select("name, position")
+    .select("name, position, player_tag")
     .eq("slug", slug)
     .single();
+  const suffix = data?.player_tag === "High School Recruit"
+    ? "Projected NIL Valuation"
+    : "Est. NIL Valuation";
   return {
     title: data
-      ? `${data.name} — ${data.position ?? "Basketball"} | CFO Basketball`
+      ? `${data.name} — ${data.position ?? "Basketball"} | ${suffix}`
       : "Player Profile | College Front Office",
     description: data
       ? `NIL valuation and profile for ${data.name}, ${data.position ?? "basketball player"}`

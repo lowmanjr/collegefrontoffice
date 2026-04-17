@@ -21,7 +21,7 @@ export default function MethodologyPage() {
             className="text-4xl sm:text-5xl font-bold uppercase tracking-tight leading-none"
             style={{ fontFamily: "var(--font-oswald), sans-serif" }}
           >
-            How CFO Valuations Work
+            How CFO Football Valuations Work
           </h1>
           <p className="mt-4 text-slate-400 text-base leading-relaxed max-w-2xl">
             College Front Office uses a proprietary multi-factor model to estimate every
