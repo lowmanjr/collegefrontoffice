@@ -252,7 +252,7 @@ Conventions apply to both football and basketball products unless explicitly fla
 
 **Known drift (flagged for future cleanup):**
 
-* Football team OG image (`app/teams/[slug]/opengraph-image.tsx`) uses `formatCurrency` for the roster total. Basketball's equivalent uses `formatCompactCurrency` per the team-aggregate convention; football should be updated to match.
+_(none currently)_
 
 ### Headshot Pipeline
 * **`map_espn_athlete_ids.py` MUST run after any bulk portal sync or transfer window.** Portal transfer scripts write team_id but not `espn_athlete_id`; without backfill, headshot URLs are never generated.
