@@ -27,7 +27,21 @@ export function basketballPositionBadgeClass(position: string | null): string {
   }
 }
 
-export function roleTierBadgeClass(tier: string | null): string {
+export function roleTierBadgeClass(
+  tier: string | null,
+  variant: "light" | "dark" = "light",
+): string {
+  if (variant === "dark") {
+    const base = "rounded px-2.5 py-0.5 text-xs font-semibold uppercase tracking-widest";
+    switch (tier) {
+      case "franchise": return `${base} bg-emerald-500 text-white`;
+      case "star":      return `${base} bg-blue-500 text-white`;
+      case "starter":   return `${base} bg-slate-200 text-slate-800`;
+      case "rotation":  return `${base} bg-slate-600 text-slate-200`;
+      case "bench":     return `${base} bg-slate-700 text-slate-300`;
+      default:          return `${base} bg-slate-700 text-slate-400`;
+    }
+  }
   switch (tier) {
     case "franchise":
       return "rounded px-1.5 py-0.5 text-[10px] font-semibold bg-emerald-500 text-white";
@@ -47,4 +61,12 @@ export function roleTierBadgeClass(tier: string | null): string {
 export function roleTierLabel(tier: string | null): string {
   if (!tier) return "";
   return tier.charAt(0).toUpperCase() + tier.slice(1);
+}
+
+export function formatDraftProjectionBadge(pick: number | null): string | null {
+  if (pick == null || pick <= 0 || pick > 60) return null;
+  if (pick <= 10) return "Top 10 Pick";
+  if (pick <= 14) return "Lottery";
+  if (pick <= 30) return "1st Round";
+  return "2nd Round";
 }
