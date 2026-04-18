@@ -6,6 +6,7 @@ import { BASE_URL } from "@/lib/constants";
 import { formatCurrency } from "@/lib/utils";
 import { basketballPositionBadgeClass } from "@/lib/ui-helpers";
 import BasketballSearchFilters from "@/components/basketball/BasketballSearchFilters";
+import BasketballClassYearFilter from "@/components/basketball/BasketballClassYearFilter";
 
 export const revalidate = 3600;
 
@@ -20,8 +21,6 @@ export const metadata: Metadata = {
   },
   alternates: { canonical: `${BASE_URL}/basketball/recruits` },
 };
-
-const CLASS_YEARS = ["2026", "2027", "2028"];
 
 interface PageProps {
   searchParams: Promise<{ q?: string; pos?: string; year?: string }>;
@@ -78,25 +77,9 @@ export default async function BasketballRecruitsPage({ searchParams }: PageProps
         <Suspense>
           <BasketballSearchFilters />
         </Suspense>
-        <div className="flex gap-1.5 flex-wrap">
-          {CLASS_YEARS.map((y) => {
-            const active = activeYear === y;
-            const href = `/basketball/recruits?year=${y}${q ? `&q=${q}` : ""}${pos ? `&pos=${pos}` : ""}`;
-            return (
-              <Link
-                key={y}
-                href={href}
-                className={`px-3 py-2 rounded-lg text-xs font-semibold transition-colors ${
-                  active
-                    ? "bg-emerald-500 text-white"
-                    : "bg-white text-slate-600 border border-gray-200 hover:border-slate-300"
-                }`}
-              >
-                Class of {y}
-              </Link>
-            );
-          })}
-        </div>
+        <Suspense>
+          <BasketballClassYearFilter />
+        </Suspense>
       </div>
 
       {/* Table */}
