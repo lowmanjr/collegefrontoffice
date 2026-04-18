@@ -26,7 +26,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       ? `NIL valuation and profile for ${data.name}, ${data.position}`
       : "Player NIL valuation profile",
     alternates: {
-      canonical: `${BASE_URL}/players/${slug}`,
+      canonical: `${BASE_URL}/football/players/${slug}`,
     },
   };
 }
@@ -110,7 +110,7 @@ export default async function PlayerProfilePage({ params }: PageProps) {
         <div className="text-center">
           <p className="text-6xl font-bold text-slate-700 mb-4">404</p>
           <p className="text-slate-400 mb-6">Player not found.</p>
-          <Link href="/players" className="text-blue-400 hover:underline text-sm">
+          <Link href="/football/players" className="text-blue-400 hover:underline text-sm">
             ← Back to Players
           </Link>
         </div>
@@ -158,7 +158,7 @@ export default async function PlayerProfilePage({ params }: PageProps) {
                     },
                   }
                 : {}),
-              url: `https://collegefrontoffice.com/players/${p.slug ?? slug}`,
+              url: `${BASE_URL}/football/players/${p.slug ?? slug}`,
             }),
           }}
         />
@@ -285,7 +285,7 @@ export default async function PlayerProfilePage({ params }: PageProps) {
         {/* ── Team link card ───────────────────────────────────────────────── */}
         {team && (
           <Link
-            href={`/teams/${team.slug ?? ""}`}
+            href={`/football/teams/${team.slug ?? ""}`}
             className="group block bg-white rounded-xl shadow-sm border border-gray-200 p-5 hover:border-slate-300 hover:shadow-md transition-all"
           >
             <div className="flex items-center justify-between">

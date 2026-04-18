@@ -113,7 +113,7 @@ export async function approveProposal(input: unknown): Promise<ActionResult> {
     }
 
     revalidatePath("/admin");
-    revalidatePath(`/players/${proposal.player_id}`);
+    revalidatePath(`/football/players/${proposal.player_id}`);
     return { success: true };
   } catch (err) {
     const message = err instanceof Error ? err.message : "Unknown error";

@@ -19,10 +19,10 @@ export default function Footer() {
             <div>
               <ul className="space-y-2">
                 {[
-                  { label: "Teams", href: "/teams" },
-                  { label: "Players", href: "/players" },
-                  { label: "Recruits", href: "/recruits" },
-                  { label: "Methodology", href: "/methodology" },
+                  { label: "Teams", href: "/football/teams" },
+                  { label: "Players", href: "/football/players" },
+                  { label: "Recruits", href: "/football/recruits" },
+                  { label: "Methodology", href: "/football/methodology" },
                 ].map(({ label, href }) => (
                   <li key={href}>
                     <Link href={href} className="text-sm text-slate-400 hover:text-white transition-colors">

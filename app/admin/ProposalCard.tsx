@@ -56,7 +56,7 @@ export default function ProposalCard({ proposal }: { proposal: ProposedEventWith
       <div className="flex flex-wrap items-start justify-between gap-3 mb-4">
         <div>
           <Link
-            href={`/players/${proposal.player_id}`}
+            href={`/football/players/${proposal.player_id}`}
             className="text-lg font-bold text-gray-900 hover:text-blue-700 transition-colors"
             style={{ fontFamily: "var(--font-oswald), sans-serif" }}
           >

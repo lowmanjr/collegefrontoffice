@@ -200,7 +200,7 @@ export default function PortalBoard({
             {displayPlayers.map((player, i) => (
               <Link
                 key={player.id}
-                href={`/players/${player.slug ?? player.id}`}
+                href={`/football/players/${player.slug ?? player.id}`}
                 className="block bg-white rounded-xl border border-gray-200 p-4 hover:border-slate-300 transition-colors shadow-sm"
               >
                 <div className="flex items-center gap-3">
@@ -265,7 +265,7 @@ export default function PortalBoard({
                             className="shrink-0"
                           />
                           <Link
-                            href={`/players/${player.slug ?? player.id}`}
+                            href={`/football/players/${player.slug ?? player.id}`}
                             className="font-semibold text-slate-900 hover:text-emerald-500 hover:underline transition-colors uppercase tracking-tight"
                             style={{ fontFamily: "var(--font-oswald), sans-serif" }}
                           >
@@ -282,7 +282,7 @@ export default function PortalBoard({
                       </td>
                       <td className="px-4 py-3">
                         <Link
-                          href={`/teams/${player.team_slug ?? ""}`}
+                          href={`/football/teams/${player.team_slug ?? ""}`}
                           className="flex items-center gap-2 hover:text-emerald-500 transition-colors"
                         >
                           {player.team_logo && (
@@ -331,7 +331,7 @@ export default function PortalBoard({
             {filteredTeams.map((team, i) => (
               <Link
                 key={team.team_slug ?? i}
-                href={`/teams/${team.team_slug ?? ""}?view=portal`}
+                href={`/football/teams/${team.team_slug ?? ""}?view=portal`}
                 className="block bg-white rounded-xl border border-gray-200 p-4 hover:border-slate-300 transition-colors shadow-sm"
               >
                 <div className="flex items-center gap-3">
@@ -377,7 +377,7 @@ export default function PortalBoard({
                     <tr key={team.team_slug ?? i} className="hover:bg-slate-50 transition-colors">
                       <td className="px-4 py-3">
                         <Link
-                          href={`/teams/${team.team_slug ?? ""}?view=portal`}
+                          href={`/football/teams/${team.team_slug ?? ""}?view=portal`}
                           className="flex items-center gap-3 hover:text-emerald-500 transition-colors"
                         >
                           {team.team_logo && (

@@ -15,7 +15,7 @@ export const metadata: Metadata = {
     description:
       "Transfer portal acquisitions ranked by estimated NIL value across all 68 Power 4 programs.",
   },
-  alternates: { canonical: `${BASE_URL}/portal` },
+  alternates: { canonical: `${BASE_URL}/football/portal` },
 };
 
 export default async function PortalPage() {
@@ -83,12 +83,12 @@ export default async function PortalPage() {
             "@type": "ItemList",
             name: "Football Transfer Portal Valuations",
             description: "College football transfer portal acquisitions ranked by estimated NIL value.",
-            url: `${BASE_URL}/portal`,
+            url: `${BASE_URL}/football/portal`,
             numberOfItems: totalCount,
             itemListElement: players.slice(0, 50).map((p, i) => ({
               "@type": "ListItem",
               position: i + 1,
-              url: `${BASE_URL}/players/${p.slug}`,
+              url: `${BASE_URL}/football/players/${p.slug}`,
               name: p.name,
             })),
           }),

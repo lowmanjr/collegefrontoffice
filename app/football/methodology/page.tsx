@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   title: "How NIL Valuations Work — CFO Methodology | College Front Office",
   description:
     "Learn how College Front Office calculates NIL valuations for college football players and recruits. Our proprietary multi-factor model explained.",
-  alternates: { canonical: `${BASE_URL}/methodology` },
+  alternates: { canonical: `${BASE_URL}/football/methodology` },
 };
 
 export default function MethodologyPage() {
@@ -310,7 +310,7 @@ export default function MethodologyPage() {
             player profiles to see the model in action.
           </p>
           <Link
-            href="/players"
+            href="/football/players"
             className="inline-flex items-center gap-2 rounded-lg bg-emerald-500 hover:bg-emerald-600 text-white font-semibold px-6 py-3 transition-colors"
           >
             View Player Valuations

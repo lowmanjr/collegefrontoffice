@@ -32,7 +32,7 @@ export const metadata: Metadata = {
     title: "College Football Team NIL Valuations | College Front Office",
     description: "College football programs ranked by estimated roster value.",
   },
-  alternates: { canonical: `${BASE_URL}/teams` },
+  alternates: { canonical: `${BASE_URL}/football/teams` },
 };
 
 // ─── skeletons ───────────────────────────────────────────────────────────────
@@ -93,12 +93,12 @@ async function TeamsGrid({ confSlug }: { confSlug: string | null }) {
             "@type": "ItemList",
             name: "Football Team Valuations",
             description: "College football programs ranked by estimated roster value.",
-            url: `${BASE_URL}/teams`,
+            url: `${BASE_URL}/football/teams`,
             numberOfItems: teams.length,
             itemListElement: teams.map((team, i) => ({
               "@type": "ListItem",
               position: i + 1,
-              url: `${BASE_URL}/teams/${slugMap[team.id] ?? team.id}`,
+              url: `${BASE_URL}/football/teams/${slugMap[team.id] ?? team.id}`,
               name: team.university_name,
             })),
           }),
@@ -134,7 +134,7 @@ async function TeamsGrid({ confSlug }: { confSlug: string | null }) {
                     {/* Program */}
                     <td className="px-4 py-3.5">
                       <Link
-                        href={`/teams/${team.slug}`}
+                        href={`/football/teams/${team.slug}`}
                         className="flex items-center gap-3 group/link"
                       >
                         {team.logo_url ? (

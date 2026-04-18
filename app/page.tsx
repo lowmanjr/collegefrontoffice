@@ -1,5 +1,6 @@
 import Link from "next/link";
 import HeroSearch from "@/components/HeroSearch";
+import { BASE_URL } from "@/lib/constants";
 
 export default function Home() {
   return (
@@ -11,11 +12,11 @@ export default function Home() {
             "@context": "https://schema.org",
             "@type": "WebSite",
             name: "College Front Office",
-            url: "https://collegefrontoffice.com",
+            url: BASE_URL,
             description: "Proprietary NIL valuations for college football and men's college basketball.",
             potentialAction: {
               "@type": "SearchAction",
-              target: "https://collegefrontoffice.com/?q={search_term_string}",
+              target: `${BASE_URL}/?q={search_term_string}`,
               "query-input": "required name=search_term_string",
             },
           }),
@@ -53,21 +54,21 @@ export default function Home() {
                 Football
               </h2>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                <Link href="/teams" className="group flex items-center justify-center bg-slate-800/50 border border-slate-700 rounded-xl px-5 py-4 hover:border-slate-500 hover:bg-slate-800 transition-all">
+                <Link href="/football/teams" className="group flex items-center justify-center bg-slate-800/50 border border-slate-700 rounded-xl px-5 py-4 hover:border-slate-500 hover:bg-slate-800 transition-all">
                   <h3 className="text-base font-bold text-white uppercase tracking-wide group-hover:text-emerald-400 transition-colors"
                     style={{ fontFamily: "var(--font-oswald), sans-serif" }}>
                     Teams <span className="text-slate-600 group-hover:text-emerald-400 transition-colors">&rarr;</span>
                   </h3>
                 </Link>
 
-                <Link href="/players" className="group flex items-center justify-center bg-slate-800/50 border border-slate-700 rounded-xl px-5 py-4 hover:border-slate-500 hover:bg-slate-800 transition-all">
+                <Link href="/football/players" className="group flex items-center justify-center bg-slate-800/50 border border-slate-700 rounded-xl px-5 py-4 hover:border-slate-500 hover:bg-slate-800 transition-all">
                   <h3 className="text-base font-bold text-white uppercase tracking-wide group-hover:text-emerald-400 transition-colors"
                     style={{ fontFamily: "var(--font-oswald), sans-serif" }}>
                     Players <span className="text-slate-600 group-hover:text-emerald-400 transition-colors">&rarr;</span>
                   </h3>
                 </Link>
 
-                <Link href="/recruits" className="group flex items-center justify-center bg-slate-800/50 border border-slate-700 rounded-xl px-5 py-4 hover:border-slate-500 hover:bg-slate-800 transition-all">
+                <Link href="/football/recruits" className="group flex items-center justify-center bg-slate-800/50 border border-slate-700 rounded-xl px-5 py-4 hover:border-slate-500 hover:bg-slate-800 transition-all">
                   <h3 className="text-base font-bold text-white uppercase tracking-wide group-hover:text-emerald-400 transition-colors"
                     style={{ fontFamily: "var(--font-oswald), sans-serif" }}>
                     Recruits <span className="text-slate-600 group-hover:text-emerald-400 transition-colors">&rarr;</span>

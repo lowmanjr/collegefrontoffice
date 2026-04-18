@@ -216,7 +216,7 @@ export default function GlobalSearch() {
               {results.teams.map((team, i) => (
                 <Link
                   key={team.id}
-                  href={`/teams/${(team as any).slug ?? team.id}`}
+                  href={`/football/teams/${(team as any).slug ?? team.id}`}
                   onClick={close}
                   role="option"
                   className={`flex items-center gap-3 px-4 py-2.5 transition-colors ${i === focusedIndex ? "bg-slate-100" : "hover:bg-slate-50"}`}
@@ -257,7 +257,7 @@ export default function GlobalSearch() {
                 return (
                   <Link
                     key={player.id}
-                    href={`/players/${(player as any).slug ?? player.id}`}
+                    href={`/football/players/${(player as any).slug ?? player.id}`}
                     onClick={close}
                     role="option"
                     className={`flex items-center justify-between gap-3 px-4 py-2.5 transition-colors ${flatIndex === focusedIndex ? "bg-slate-100" : "hover:bg-slate-50"}`}

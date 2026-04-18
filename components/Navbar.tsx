@@ -9,11 +9,11 @@ import SportSwitcher from "@/components/SportSwitcher";
 
 const NAV_LINKS = [
   { label: "Home", href: "/" },
-  { label: "Players", href: "/players" },
-  { label: "Recruits", href: "/recruits" },
-  { label: "Portal", href: "/portal" },
-  { label: "Teams", href: "/teams" },
-  { label: "Methodology", href: "/methodology" },
+  { label: "Players", href: "/football/players" },
+  { label: "Recruits", href: "/football/recruits" },
+  { label: "Portal", href: "/football/portal" },
+  { label: "Teams", href: "/football/teams" },
+  { label: "Methodology", href: "/football/methodology" },
 ];
 
 export default function Navbar() {

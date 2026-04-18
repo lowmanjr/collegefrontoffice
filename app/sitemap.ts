@@ -15,11 +15,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // Static pages — football
   const staticPages: MetadataRoute.Sitemap = [
     { url: base, changeFrequency: "daily", priority: 1.0, lastModified: new Date() },
-    { url: `${base}/players`, changeFrequency: "daily", priority: 0.9, lastModified: new Date() },
-    { url: `${base}/teams`, changeFrequency: "daily", priority: 0.9, lastModified: new Date() },
-    { url: `${base}/recruits`, changeFrequency: "daily", priority: 0.8, lastModified: new Date() },
-    { url: `${base}/portal`, changeFrequency: "daily", priority: 0.8, lastModified: new Date() },
-    { url: `${base}/methodology`, changeFrequency: "monthly", priority: 0.5 },
+    { url: `${base}/football/players`, changeFrequency: "daily", priority: 0.9, lastModified: new Date() },
+    { url: `${base}/football/teams`, changeFrequency: "daily", priority: 0.9, lastModified: new Date() },
+    { url: `${base}/football/recruits`, changeFrequency: "daily", priority: 0.8, lastModified: new Date() },
+    { url: `${base}/football/portal`, changeFrequency: "daily", priority: 0.8, lastModified: new Date() },
+    { url: `${base}/football/methodology`, changeFrequency: "monthly", priority: 0.5 },
   ];
 
   // Static pages — basketball
@@ -34,7 +34,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // Dynamic: football teams
   const { data: teams } = await supabase.from("teams").select("slug");
   const teamPages: MetadataRoute.Sitemap = (teams ?? []).map((t) => ({
-    url: `${base}/teams/${t.slug}`,
+    url: `${base}/football/teams/${t.slug}`,
     changeFrequency: "daily" as const,
     priority: 0.8,
     lastModified: new Date(),
@@ -70,7 +70,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   }
 
   const playerPages: MetadataRoute.Sitemap = allPlayers.map((p) => ({
-    url: `${base}/players/${p.slug}`,
+    url: `${base}/football/players/${p.slug}`,
     changeFrequency: "weekly" as const,
     priority: 0.6,
     lastModified: new Date(),
