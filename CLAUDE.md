@@ -201,10 +201,10 @@ Aggregates active college athletes + 2026 incoming recruits per team. Excludes d
 * Import `positionBadgeClass` from `lib/ui-helpers.ts` for position badge color coding.
 * Import `BASE_URL` from `lib/constants.ts` for canonical URLs and structured data.
 * Use `<PlayerAvatar>` from `components/PlayerAvatar.tsx` for player headshots with initials fallback.
-* Use `<TeamRoster>` from `components/TeamRoster.tsx` for team page roster tabs (Full Roster, Portal, Recruits, Retained) with URL state via `?view=`.
+* Use `<RosterTabs>` from `components/RosterTabs.tsx` as the shared primitive for team page roster tabs (Full Roster / Portal / Recruits / Retained) with URL state via `?view=`; football composes it via `<TeamRoster>` (`components/TeamRoster.tsx`), basketball via `<BasketballTeamRoster>` (`components/BasketballTeamRoster.tsx`). Both sports ship the same 4 tabs in the same order.
 * Use `<RosterDonut>` from `components/RosterDonut.tsx` for SVG donut chart showing roster value breakdown (dark/light variants).
 * Use `<PortalBoard>` from `components/PortalBoard.tsx` for the /portal page player/team leaderboard with tabs, filters, search.
-* Use `<ConferenceFilter>` from `components/ConferenceFilter.tsx` for conference pill buttons on /teams page.
+* Use `<ConferenceFilter>` from `components/ConferenceFilter.tsx` for conference pill buttons on both `/teams` and `/basketball/teams`; parameterized by a `conferences` prop (and optional `paramName`). Football passes `FOOTBALL_CONFERENCES` from `app/teams/page.tsx`; basketball passes `BASKETBALL_CONFERENCES` from `app/basketball/teams/page.tsx`.
 * All valuation math must use `lib/valuation.ts` (TypeScript) or `calculate_cfo_valuations.py` (Python). Do not implement valuation logic inline.
 * Routes use slugs, not UUIDs: `/players/[slug]` and `/teams/[slug]`.
 * The `/futures` route has been renamed to `/recruits` with a permanent redirect.

@@ -1,5 +1,6 @@
 import { ImageResponse } from "next/og";
 import { createClient } from "@supabase/supabase-js";
+import { formatCompactCurrency } from "@/lib/utils";
 
 export const runtime = "edge";
 export const alt = "Team Valuation Card";
@@ -10,14 +11,6 @@ const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
 );
-
-function formatCurrency(value: number): string {
-  return new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: "USD",
-    maximumFractionDigits: 0,
-  }).format(value);
-}
 
 export default async function OGImage(props: { params: Promise<{ slug: string }> }) {
   const { slug } = await props.params;
@@ -92,7 +85,7 @@ export default async function OGImage(props: { params: Promise<{ slug: string }>
               Total Roster Market Cap
             </span>
             <span style={{ color: "#34d399", fontSize: 64, fontWeight: 900, lineHeight: 1.1, marginTop: 4 }}>
-              {formatCurrency(totalValue)}
+              {formatCompactCurrency(totalValue)}
             </span>
             <span style={{ color: "#475569", fontSize: 18, marginTop: 8 }}>
               {playerCount} active player{playerCount !== 1 ? "s" : ""}
