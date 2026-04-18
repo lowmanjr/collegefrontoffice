@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Suspense } from "react";
 import { supabase } from "@/lib/supabase";
+import type { PostgrestError } from "@supabase/supabase-js";
 import type { Metadata } from "next";
 import { BASE_URL } from "@/lib/constants";
 import { formatCurrency, formatCompactCurrency } from "@/lib/utils";
@@ -130,17 +131,15 @@ interface PageProps {
   searchParams: Promise<{ view?: string; q?: string; pos?: string; status?: string; conf?: string }>;
 }
 
-export default async function BasketballPortalPage({ searchParams }: PageProps) {
-  const params = await searchParams;
-  const view = params.view ?? "player";
-  const search = params.q ?? "";
-  const position = params.pos ?? "";
-  const statusFilter = params.status?.toLowerCase() ?? "";
-  const confFilter = params.conf ?? "";
-
-  // Fetch entries and teams in parallel
-  const [{ data: entries, error }, { data: teams }] = await Promise.all([
-    supabase
+async function fetchAllPortalEntries(): Promise<{
+  data: PortalEntry[];
+  error: PostgrestError | null;
+}> {
+  const PAGE_SIZE = 1000;
+  const rows: PortalEntry[] = [];
+  let offset = 0;
+  while (true) {
+    const { data, error } = await supabase
       .from("basketball_portal_entries")
       .select(
         `id, player_name, position, status, star_rating,
@@ -150,7 +149,29 @@ export default async function BasketballPortalPage({ searchParams }: PageProps) 
          origin_team:origin_team_id (university_name, slug, logo_url, conference),
          destination_team:destination_team_id (university_name, slug, logo_url, conference)`
       )
-      .order("cfo_valuation", { ascending: false }),
+      .order("cfo_valuation", { ascending: false })
+      .order("id", { ascending: true })
+      .range(offset, offset + PAGE_SIZE - 1);
+    if (error) return { data: rows, error };
+    const batch = (data ?? []) as unknown as PortalEntry[];
+    rows.push(...batch);
+    if (!data || data.length < PAGE_SIZE) break;
+    offset += PAGE_SIZE;
+  }
+  return { data: rows, error: null };
+}
+
+export default async function BasketballPortalPage({ searchParams }: PageProps) {
+  const params = await searchParams;
+  const view = params.view ?? "player";
+  const search = params.q ?? "";
+  const position = params.pos ?? "";
+  const statusFilter = params.status?.toLowerCase() ?? "";
+  const confFilter = params.conf ?? "";
+
+  // Fetch entries (paginated) and teams in parallel
+  const [{ data: entries, error }, { data: teams }] = await Promise.all([
+    fetchAllPortalEntries(),
     supabase
       .from("basketball_teams")
       .select("id, university_name, slug, logo_url, conference")

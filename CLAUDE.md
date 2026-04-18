@@ -260,7 +260,7 @@ Conventions apply to both football and basketball products unless explicitly fla
 
 **Known drift (flagged for future cleanup):**
 
-* Basketball portal page fetches `basketball_portal_entries` in one query with no pagination — vulnerable to silent truncation if entries exceed Supabase's 1000-row default. Today the table is well under that; during active windows it could grow to trigger truncation. Apply the same range-based pagination pattern from `calculate_bball_valuations.py` (per CLAUDE.md §9.6) when this becomes live.
+_(none currently)_
 
 ### Headshot Pipeline
 * **`map_espn_athlete_ids.py` MUST run after any bulk portal sync or transfer window.** Portal transfer scripts write team_id but not `espn_athlete_id`; without backfill, headshot URLs are never generated.
@@ -349,9 +349,7 @@ Cross-sport UI rules (valuation copy, badge styling, override attribution, sitem
 - `00017_basketball_override_source_url.sql` — source URL attribution
 
 ### 9.6 Pagination Warning
-Supabase's PostgREST default row limit is 1,000. Basketball queries that fetch all players must paginate via `.range(offset, offset + PAGE_SIZE - 1)`. This bug was silently dropping ~500 players until caught during the 14→82 team expansion; the fix is applied in `calculate_bball_valuations.py`, `app/basketball/teams/page.tsx`, and `app/basketball/portal/page.tsx`.
-
-Note: `basketball_portal_entries` is fetched in one query without pagination on `/basketball/portal` — see §6 "Known drift" for the logged truncation vulnerability.
+Supabase's PostgREST default row limit is 1,000. Basketball queries that fetch all players must paginate via `.range(offset, offset + PAGE_SIZE - 1)`. This bug was silently dropping ~500 players until caught during the 14→82 team expansion; the fix is applied in `calculate_bball_valuations.py`, `app/basketball/teams/page.tsx`, and `app/basketball/portal/page.tsx` (which paginates both `basketball_players` and `basketball_portal_entries`, the latter with an `id ASC` secondary sort for stability under its `cfo_valuation DESC` primary order).
 
 ### 9.7 Related Docs
 - `BASKETBALL_OPERATIONS.md` — pipeline runbook
