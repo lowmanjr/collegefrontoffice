@@ -2,7 +2,11 @@
 
 import Link from "next/link";
 import { formatCurrency } from "@/lib/utils";
-import { basketballPositionBadgeClass } from "@/lib/ui-helpers";
+import {
+  basketballPositionBadgeClass,
+  roleTierBadgeClass,
+  roleTierLabel,
+} from "@/lib/ui-helpers";
 import PlayerAvatar from "@/components/PlayerAvatar";
 import RosterTabs, { type RosterTab } from "@/components/RosterTabs";
 
@@ -15,6 +19,13 @@ interface BasketballPlayer {
   is_public: boolean | null;
   headshot_url: string | null;
   acquisition_type: string;
+  ppg?: number | null;
+  role_tier?: string | null;
+}
+
+function formatPpg(ppg: number | null | undefined): string | null {
+  if (ppg == null || ppg <= 0) return null;
+  return ppg.toFixed(1);
 }
 
 interface BasketballTeamRosterProps {
@@ -57,6 +68,7 @@ export default function BasketballTeamRoster({ players }: BasketballTeamRosterPr
           <div className="md:hidden space-y-3">
             {filteredPlayers.map((player) => {
               const isPrivate = !player.is_public;
+              const ppgDisplay = formatPpg(player.ppg);
               return (
                 <Link
                   key={player.id}
@@ -71,15 +83,15 @@ export default function BasketballTeamRoster({ players }: BasketballTeamRosterPr
                       size={44}
                       className="shrink-0"
                     />
-                    <div className="flex-1 min-w-0">
-                      <div className="flex items-center justify-between gap-2">
+                    <div className="flex-1 min-w-0 flex items-start justify-between gap-3">
+                      <div className="min-w-0">
                         <h3
                           className="font-bold text-slate-900 uppercase tracking-tight truncate"
                           style={{ fontFamily: "var(--font-oswald), sans-serif" }}
                         >
                           {player.name}
                         </h3>
-                        <div className="flex gap-1 shrink-0">
+                        <div className="flex items-center gap-1 mt-1 flex-wrap">
                           {player.position && (
                             <span
                               className={`inline-block rounded px-2 py-0.5 text-xs font-semibold uppercase tracking-wide ${basketballPositionBadgeClass(player.position)}`}
@@ -87,9 +99,14 @@ export default function BasketballTeamRoster({ players }: BasketballTeamRosterPr
                               {player.position}
                             </span>
                           )}
+                          {ppgDisplay && (
+                            <span className="text-xs text-slate-500">
+                              · {ppgDisplay} PPG
+                            </span>
+                          )}
                         </div>
                       </div>
-                      <div className="flex items-center justify-end mt-1">
+                      <div className="shrink-0 flex flex-col items-end gap-1">
                         {isPrivate ? (
                           <span className="text-slate-400 text-xs italic">Private</span>
                         ) : player.cfo_valuation != null ? (
@@ -101,6 +118,11 @@ export default function BasketballTeamRoster({ players }: BasketballTeamRosterPr
                           </span>
                         ) : (
                           <span className="text-slate-400 text-xs">&mdash;</span>
+                        )}
+                        {player.role_tier && (
+                          <span className={roleTierBadgeClass(player.role_tier)}>
+                            {roleTierLabel(player.role_tier)}
+                          </span>
                         )}
                       </div>
                     </div>
@@ -122,6 +144,12 @@ export default function BasketballTeamRoster({ players }: BasketballTeamRosterPr
                     <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-widest w-16">
                       Pos
                     </th>
+                    <th className="px-4 py-3 text-right text-xs font-semibold uppercase tracking-widest w-16">
+                      PPG
+                    </th>
+                    <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-widest w-24">
+                      Role
+                    </th>
                     <th className="px-4 py-3 text-right text-xs font-semibold uppercase tracking-widest">
                       Est. NIL Value
                     </th>
@@ -130,6 +158,7 @@ export default function BasketballTeamRoster({ players }: BasketballTeamRosterPr
                 <tbody className="divide-y divide-gray-100">
                   {filteredPlayers.map((player) => {
                     const isPrivate = !player.is_public;
+                    const ppgDisplay = formatPpg(player.ppg);
                     return (
                       <tr
                         key={player.id}
@@ -177,6 +206,27 @@ export default function BasketballTeamRoster({ players }: BasketballTeamRosterPr
                             </span>
                           ) : (
                             <span className="text-slate-400">&mdash;</span>
+                          )}
+                        </td>
+                        <td className="px-4 py-3.5 text-right">
+                          {ppgDisplay ? (
+                            <span
+                              className="font-bold text-emerald-600 tabular-nums"
+                              style={{ fontFamily: "var(--font-oswald), sans-serif" }}
+                            >
+                              {ppgDisplay}
+                            </span>
+                          ) : (
+                            <span className="text-slate-400 text-xs">&mdash;</span>
+                          )}
+                        </td>
+                        <td className="px-4 py-3.5">
+                          {player.role_tier ? (
+                            <span className={roleTierBadgeClass(player.role_tier)}>
+                              {roleTierLabel(player.role_tier)}
+                            </span>
+                          ) : (
+                            <span className="text-slate-400 text-xs">&mdash;</span>
                           )}
                         </td>
                         <td className="px-4 py-3.5 text-right">

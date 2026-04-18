@@ -249,6 +249,7 @@ Conventions apply to both football and basketball products unless explicitly fla
 * **Position badge colors**: football uses `positionBadgeClass`; basketball uses `basketballPositionBadgeClass`. Both exported from `lib/ui-helpers.ts`.
 * **Inline acquisition-type badges on team roster rows**: basketball's `<BasketballTeamRoster>` shows inline **Transfer** (blue), **In Portal** (amber), and **Recruit** (purple) badges on desktop rows in the Player column. Football's `<TeamRoster>` does NOT show these — acquisition context on football is conveyed by the active tab the user is on. Divergence is intentional.
 * **`portal_evaluating` acquisition type**: basketball only. Players with this value appear on the Full Roster tab with the amber "In Portal" badge and are excluded from the Portal tab predicate, which matches `acquisition_type === "portal"` (incoming transfers) only.
+* **Team roster row columns**: basketball's `<BasketballTeamRoster>` surfaces **PPG** and **Role** columns on desktop (between Pos and Est. NIL Value) and an inline `Pos · X.X PPG` line plus a role-tier badge under the valuation on mobile. Football's `<TeamRoster>` does NOT — football rows stay Player / Pos / Est. NIL Value only. Role tier styling lives in `lib/ui-helpers.ts::roleTierBadgeClass` with a companion `roleTierLabel` for the display string (franchise/star/starter/rotation/bench, capitalized).
 
 **Known drift (flagged for future cleanup):**
 

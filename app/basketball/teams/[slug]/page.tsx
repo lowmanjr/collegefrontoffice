@@ -54,7 +54,7 @@ export default async function BasketballTeamPage({ params }: PageProps) {
   const { data: playersRaw } = await supabase
     .from("basketball_players")
     .select(
-      "id, slug, name, position, class_year, cfo_valuation, is_public, roster_status, headshot_url, acquisition_type"
+      "id, slug, name, position, class_year, cfo_valuation, is_public, roster_status, headshot_url, acquisition_type, ppg, role_tier"
     )
     .eq("team_id", team.id)
     .eq("roster_status", "active")
@@ -159,6 +159,8 @@ export default async function BasketballTeamPage({ params }: PageProps) {
             is_public: p.is_public,
             headshot_url: p.headshot_url,
             acquisition_type: p.acquisition_type ?? "retained",
+            ppg: p.ppg,
+            role_tier: p.role_tier,
           }))}
         />
       </div>
