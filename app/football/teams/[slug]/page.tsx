@@ -27,7 +27,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       ? `NIL roster valuation for ${data.university_name} (${data.conference})`
       : "Team NIL roster valuation",
     alternates: {
-      canonical: `${BASE_URL}/teams/${slug}`,
+      canonical: `${BASE_URL}/football/teams/${slug}`,
     },
   };
 }
@@ -86,7 +86,7 @@ export default async function TeamDashboardPage({ params }: PageProps) {
         <div className="text-center">
           <p className="text-6xl font-bold text-slate-700 mb-4">404</p>
           <p className="text-slate-400 mb-6">Team not found.</p>
-          <Link href="/players" className="text-blue-400 hover:underline text-sm">
+          <Link href="/football/players" className="text-blue-400 hover:underline text-sm">
             ← Back to Big Board
           </Link>
         </div>
@@ -128,7 +128,7 @@ export default async function TeamDashboardPage({ params }: PageProps) {
             name: team.university_name,
             sport: "American Football",
             ...(team.conference ? { memberOf: { "@type": "SportsOrganization", name: team.conference } } : {}),
-            url: `https://collegefrontoffice.com/teams/${slug}`,
+            url: `${BASE_URL}/football/teams/${slug}`,
           }),
         }}
       />

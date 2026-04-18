@@ -5,19 +5,18 @@ import { supabase } from "@/lib/supabase";
 import type { Metadata } from "next";
 import { BASE_URL } from "@/lib/constants";
 
-export const revalidate = 1800;
+export const revalidate = 900;
 
 export const metadata: Metadata = {
-  title: "Top Football Recruit NIL Valuations — HS Recruit Rankings | College Front Office",
-  description: "Projected NIL valuations for elite high school football recruits. Ranked by recruiting profile with position and program premiums.",
+  title: "Top College Football NIL Valuations — Player Rankings | College Front Office",
+  description: "See the most valuable college football players ranked by NIL valuation. Proprietary estimates based on production data, draft projections, and market modeling.",
   openGraph: {
-    title: "Top Football Recruit NIL Valuations | College Front Office",
-    description: "Projected NIL valuations for elite high school football recruits.",
+    title: "Top College Football NIL Valuations | College Front Office",
+    description: "See the most valuable college football players ranked by NIL valuation.",
   },
-  alternates: { canonical: `${BASE_URL}/recruits` },
+  alternates: { canonical: `${BASE_URL}/football/players` },
 };
 import SearchFilters from "@/components/SearchFilters";
-import ClassYearFilter from "@/components/ClassYearFilter";
 import PlayerAvatar from "@/components/PlayerAvatar";
 import { formatCurrency } from "@/lib/utils";
 import { positionBadgeClass } from "@/lib/ui-helpers";
@@ -26,21 +25,21 @@ import type { PlayerWithTeam } from "@/lib/database.types";
 // ─── page ────────────────────────────────────────────────────────────────────
 
 interface PageProps {
-  searchParams: Promise<{ q?: string; pos?: string; year?: string }>;
+  searchParams: Promise<{ q?: string; pos?: string }>;
 }
 
-export default async function FuturesMarketPage({ searchParams }: PageProps) {
-  const { q, pos, year } = await searchParams;
-  const activeYear = year || "2026";
+export default async function BigBoardPage({ searchParams }: PageProps) {
+  const { q, pos } = await searchParams;
 
   let query = supabase
     .from("players")
     .select("*, teams(university_name, logo_url)")
-    .eq("player_tag", "High School Recruit")
-    .gte("star_rating", 4);
+    .eq("player_tag", "College Athlete")
+    .not("cfo_valuation", "is", null);
 
   if (q) query = query.ilike("name", `%${q}%`);
   if (pos && pos !== "All") {
+    // Handle position aliases: "K" should match both "K" and "PK" in the DB
     const POS_ALIASES: Record<string, string[]> = {
       K: ["K", "PK"],
       DL: ["DL", "DT"],
@@ -51,17 +50,14 @@ export default async function FuturesMarketPage({ searchParams }: PageProps) {
       ? query.eq("position", posValues[0])
       : query.in("position", posValues);
   }
-  if (activeYear && activeYear !== "All") {
-    query = query.eq("hs_grad_year", parseInt(activeYear));
-  }
 
-  const { data: recruits, error } = await query
-    .order("composite_score", { ascending: false, nullsFirst: false })
+  const { data: players, error } = await query
+    .order("cfo_valuation", { ascending: false })
     .limit(100);
 
   if (error) console.error("Supabase Error:", error);
 
-  const rows = (recruits ?? []) as PlayerWithTeam[];
+  const rows = (players ?? []) as PlayerWithTeam[];
   const isFiltered = !!(q || (pos && pos !== "All"));
 
   return (
@@ -72,90 +68,89 @@ export default async function FuturesMarketPage({ searchParams }: PageProps) {
           __html: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "ItemList",
-            name: "Football Recruit Valuations",
-            description: "Elite high school football recruit valuations.",
-            url: `${BASE_URL}/recruits`,
+            name: "Top Football Player Valuations",
+            description: "The most valuable college football players ranked by CFO algorithmic valuation.",
+            url: `${BASE_URL}/football/players`,
             numberOfItems: rows.length,
-            itemListElement: rows.slice(0, 50).map((recruit, i) => ({
+            itemListElement: rows.slice(0, 50).map((player, i) => ({
               "@type": "ListItem",
               position: i + 1,
-              url: `${BASE_URL}/players/${recruit.slug}`,
-              name: recruit.name,
+              url: `${BASE_URL}/football/players/${player.slug}`,
+              name: player.name,
             })),
           }),
         }}
       />
       {/* ── Header ─────────────────────────────────────────────────────────── */}
-      <div className="bg-slate-900 text-white px-6 py-8">
+      <div className="bg-slate-900 text-white px-6 py-6">
         <div className="mx-auto max-w-7xl">
           <h1
             className="text-4xl sm:text-5xl font-bold uppercase tracking-tight leading-none"
             style={{ fontFamily: "var(--font-oswald), sans-serif" }}
           >
-            Football Recruit Valuations
+            Top Football Player Valuations
           </h1>
         </div>
       </div>
 
       {/* ── Table ──────────────────────────────────────────────────────────── */}
-      <div className="mx-auto max-w-7xl px-4 py-8">
-        {/* Class year pills + search & filter bar */}
-        <Suspense>
-          <ClassYearFilter />
-        </Suspense>
-        <Suspense>
-          <SearchFilters />
-        </Suspense>
+      <div className="mx-auto max-w-7xl px-4 py-6">
+        <div className="mb-4">
+          <Suspense>
+            <SearchFilters />
+          </Suspense>
+        </div>
 
         {rows.length === 0 ? (
           <div className="bg-white rounded-xl shadow-md p-16 text-center">
             <p className="text-slate-400 text-sm">
               {isFiltered
-                ? "No recruits match your search. Try adjusting the filters."
-                : "No recruits found. Check back soon."}
+                ? "No players match your search. Try adjusting the filters."
+                : "No players found. Check back soon."}
             </p>
           </div>
         ) : (
           <>
           {/* Mobile cards */}
           <div className="md:hidden space-y-3">
-            {rows.map((recruit) => {
-              const team = recruit.teams;
-              const isPrivate = !recruit.is_public;
+            {rows.map((player) => {
+              const team = player.teams;
+              const isPrivate = !player.is_public;
+              const isFrozen =
+                !isPrivate &&
+                (player.status === "Medical Exemption" || player.status === "Inactive");
 
               return (
                 <Link
-                  key={recruit.id}
-                  href={`/players/${recruit.slug}`}
+                  key={player.id}
+                  href={`/football/players/${player.slug}`}
                   className="block bg-white rounded-xl border border-gray-200 p-4 hover:border-slate-300 transition-colors shadow-sm"
                 >
                   <div className="flex items-center gap-3">
                     <PlayerAvatar
-                      headshot_url={recruit.headshot_url}
-                      name={recruit.name}
-                      position={recruit.position}
+                      headshot_url={player.headshot_url}
+                      name={player.name}
+                      position={player.position}
                       size={48}
                       className="shrink-0"
                     />
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center justify-between gap-2">
-                        <div className="min-w-0">
-                          <h3
-                            className="font-bold text-slate-900 uppercase tracking-tight truncate"
-                            style={{ fontFamily: "var(--font-oswald), sans-serif" }}
-                          >
-                            {recruit.name}
-                          </h3>
-                        </div>
-                        {recruit.position && (
-                          <span className={`shrink-0 inline-block rounded px-2 py-0.5 text-xs font-semibold uppercase tracking-wide ${positionBadgeClass(recruit.position)}`}>
-                            {recruit.position}
+                        <h3
+                          className="font-bold text-slate-900 uppercase tracking-tight truncate"
+                          style={{ fontFamily: "var(--font-oswald), sans-serif" }}
+                        >
+                          {player.name}
+                        </h3>
+                        {player.position && (
+                          <span className={`shrink-0 inline-block rounded px-2 py-0.5 text-xs font-semibold uppercase tracking-wide ${positionBadgeClass(player.position)}`}>
+                            {player.position}
                           </span>
                         )}
                       </div>
-                      <div className="flex items-center justify-between mt-2">
+                      <div className="flex items-center justify-between mt-1">
                         <div className="flex items-center gap-2">
-                          {team ? (
+                          {team && (
                             <div className="flex items-center gap-1.5">
                               {team.logo_url && (
                                 <Image
@@ -168,18 +163,18 @@ export default async function FuturesMarketPage({ searchParams }: PageProps) {
                               )}
                               <span className="text-xs text-slate-500">{team.university_name}</span>
                             </div>
-                          ) : (
-                            <span className="text-xs text-slate-400 italic">Uncommitted</span>
-                          )}
-                          {recruit.star_rating && recruit.star_rating > 0 && (
-                            <span className="text-xs text-yellow-400">{"★".repeat(Math.min(recruit.star_rating, 5))}</span>
                           )}
                         </div>
-                        <span className="font-bold text-emerald-600 tabular-nums" style={{ fontFamily: "var(--font-oswald), sans-serif" }}>
+                        <span
+                          className="font-bold text-emerald-600 tabular-nums"
+                          style={{ fontFamily: "var(--font-oswald), sans-serif" }}
+                        >
                           {isPrivate ? (
                             <span className="text-slate-400 text-xs font-normal italic">Private</span>
-                          ) : recruit.cfo_valuation != null ? (
-                            formatCurrency(recruit.cfo_valuation)
+                          ) : isFrozen ? (
+                            <span className="text-slate-400 text-xs font-normal italic">Frozen</span>
+                          ) : player.cfo_valuation != null ? (
+                            formatCurrency(player.cfo_valuation)
                           ) : "—"}
                         </span>
                       </div>
@@ -201,50 +196,48 @@ export default async function FuturesMarketPage({ searchParams }: PageProps) {
                       Player
                     </th>
                     <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-widest">
-                      Commitment
+                      Team
                     </th>
                     <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-widest w-16">
                       Pos
                     </th>
-                    <th className="px-4 py-3 text-right text-xs font-semibold uppercase tracking-widest w-28">
-                      Rating
-                    </th>
                     <th className="px-4 py-3 text-right text-xs font-semibold uppercase tracking-widest">
-                      Proj. NIL Value
+                      Est. NIL Value
                     </th>
                   </tr>
                 </thead>
 
                 <tbody className="divide-y divide-gray-100">
-                  {rows.map((recruit) => {
-                    const team = recruit.teams;
-                    const isPrivate = !recruit.is_public;
+                  {rows.map((player) => {
+                    const team = player.teams;
+                    const isPrivate = !player.is_public;
+                    const isFrozen =
+                      !isPrivate &&
+                      (player.status === "Medical Exemption" || player.status === "Inactive");
 
                     return (
-                      <tr key={recruit.id} className="hover:bg-slate-50 transition-colors group">
+                      <tr key={player.id} className="hover:bg-slate-50 transition-colors group">
                         {/* Player name */}
                         <td className="px-4 py-3.5">
                           <div className="flex items-center gap-3">
                             <PlayerAvatar
-                              headshot_url={recruit.headshot_url}
-                              name={recruit.name}
-                              position={recruit.position}
+                              headshot_url={player.headshot_url}
+                              name={player.name}
+                              position={player.position}
                               size={40}
                               className="shrink-0"
                             />
-                            <div>
-                              <Link
-                                href={`/players/${recruit.slug}`}
-                                className="font-semibold text-slate-900 hover:text-emerald-500 hover:underline transition-colors uppercase tracking-tight"
-                                style={{ fontFamily: "var(--font-oswald), sans-serif" }}
-                              >
-                                {recruit.name}
-                              </Link>
-                            </div>
+                            <Link
+                              href={`/football/players/${player.slug}`}
+                              className="font-semibold text-slate-900 hover:text-emerald-500 hover:underline transition-colors uppercase tracking-tight"
+                              style={{ fontFamily: "var(--font-oswald), sans-serif" }}
+                            >
+                              {player.name}
+                            </Link>
                           </div>
                         </td>
 
-                        {/* Commitment */}
+                        {/* Team */}
                         <td className="px-4 py-3.5">
                           {team ? (
                             <div className="flex items-center gap-2">
@@ -262,42 +255,33 @@ export default async function FuturesMarketPage({ searchParams }: PageProps) {
                               </span>
                             </div>
                           ) : (
-                            <span className="text-slate-400 text-xs italic">Uncommitted</span>
+                            <span className="text-slate-400 text-xs">—</span>
                           )}
                         </td>
 
                         {/* Position */}
                         <td className="px-4 py-3.5">
-                          {recruit.position ? (
-                            <span className={`inline-block rounded px-2 py-0.5 text-xs font-semibold uppercase tracking-wide ${positionBadgeClass(recruit.position)}`}>
-                              {recruit.position}
+                          {player.position ? (
+                            <span className={`inline-block rounded px-2 py-0.5 text-xs font-semibold uppercase tracking-wide ${positionBadgeClass(player.position)}`}>
+                              {player.position}
                             </span>
                           ) : (
                             <span className="text-slate-400">—</span>
                           )}
                         </td>
 
-                        {/* Rating (stars) */}
-                        <td className="px-4 py-3.5 text-right">
-                          {recruit.star_rating && recruit.star_rating > 0 ? (
-                            <span className="text-sm leading-none tracking-tight">
-                              <span className="text-yellow-400">{"★".repeat(Math.min(recruit.star_rating, 5))}</span>
-                            </span>
-                          ) : (
-                            <span className="text-slate-400 text-xs">—</span>
-                          )}
-                        </td>
-
-                        {/* Projected value */}
+                        {/* Valuation */}
                         <td className="px-4 py-3.5 text-right">
                           {isPrivate ? (
                             <span className="text-slate-400 text-xs italic">Private</span>
-                          ) : recruit.cfo_valuation != null ? (
+                          ) : isFrozen ? (
+                            <span className="text-slate-400 text-xs italic">Frozen</span>
+                          ) : player.cfo_valuation != null ? (
                             <span
                               className="font-bold text-emerald-600 tabular-nums"
                               style={{ fontFamily: "var(--font-oswald), sans-serif" }}
                             >
-                              {formatCurrency(recruit.cfo_valuation)}
+                              {formatCurrency(player.cfo_valuation)}
                             </span>
                           ) : (
                             <span className="text-slate-400 text-xs">—</span>

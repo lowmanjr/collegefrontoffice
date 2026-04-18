@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 const SPORTS = [
-  { label: "Football", href: "/players" },
+  { label: "Football", href: "/football/players" },
   { label: "Basketball", href: "/basketball/players" },
 ];
 
@@ -12,11 +12,7 @@ export default function SportSwitcher() {
   const pathname = usePathname();
 
   const isBasketball = pathname.startsWith("/basketball");
-  const isFootball =
-    !isBasketball &&
-    (pathname.startsWith("/players") ||
-      pathname.startsWith("/teams") ||
-      pathname.startsWith("/recruits"));
+  const isFootball = pathname.startsWith("/football");
 
   // Only render on sport-specific pages
   if (!isFootball && !isBasketball) return null;

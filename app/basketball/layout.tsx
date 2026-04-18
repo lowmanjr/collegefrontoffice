@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import BasketballSubNav from "./BasketballSubNav";
+import SportSubNav from "@/components/SportSubNav";
 
 export const metadata: Metadata = {
   title: {
@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 export default function BasketballLayout({ children }: { children: React.ReactNode }) {
   return (
     <>
-      <BasketballSubNav />
+      <SportSubNav sport="basketball" />
       {children}
     </>
   );

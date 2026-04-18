@@ -17,16 +17,25 @@ const nextConfig: NextConfig = {
   },
   async redirects() {
     return [
+      // Updated: /futures redirects now point directly to the new /football/recruits location
       {
         source: "/futures",
-        destination: "/recruits",
+        destination: "/football/recruits",
         permanent: true,
       },
       {
         source: "/futures/:path*",
-        destination: "/recruits/:path*",
+        destination: "/football/recruits/:path*",
         permanent: true,
       },
+      // Football URL migration: root football routes → /football/*
+      { source: "/players", destination: "/football/players", permanent: true },
+      { source: "/players/:path*", destination: "/football/players/:path*", permanent: true },
+      { source: "/teams", destination: "/football/teams", permanent: true },
+      { source: "/teams/:path*", destination: "/football/teams/:path*", permanent: true },
+      { source: "/portal", destination: "/football/portal", permanent: true },
+      { source: "/recruits", destination: "/football/recruits", permanent: true },
+      { source: "/methodology", destination: "/football/methodology", permanent: true },
     ];
   },
 };

@@ -31,7 +31,7 @@ export default function NotFound() {
               ← Back to Dashboard
             </Link>
             <Link
-              href="/players"
+              href="/football/players"
               className="rounded-lg border border-gray-200 bg-white px-5 py-2.5 text-sm font-semibold text-slate-700 hover:bg-gray-50 transition-colors"
             >
               Browse Players

@@ -60,7 +60,7 @@ export default function TeamRoster({ players }: TeamRosterProps) {
               return (
                 <Link
                   key={player.id}
-                  href={`/players/${player.slug ?? player.id}`}
+                  href={`/football/players/${player.slug ?? player.id}`}
                   className="block bg-white rounded-xl border border-gray-200 p-4 hover:border-slate-300 transition-colors shadow-sm"
                 >
                   <div className="flex items-center gap-3">
@@ -143,7 +143,7 @@ export default function TeamRoster({ players }: TeamRosterProps) {
                               className="shrink-0"
                             />
                             <Link
-                              href={`/players/${player.slug ?? player.id}`}
+                              href={`/football/players/${player.slug ?? player.id}`}
                               className="font-semibold text-slate-900 hover:text-emerald-500 hover:underline transition-colors uppercase tracking-tight"
                               style={{ fontFamily: "var(--font-oswald), sans-serif" }}
                             >
