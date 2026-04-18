@@ -205,6 +205,10 @@ Aggregates active college athletes + 2026 incoming recruits per team. Excludes d
 * Use `<RosterDonut>` from `components/RosterDonut.tsx` for SVG donut chart showing roster value breakdown (dark/light variants).
 * Use `<PortalBoard>` from `components/PortalBoard.tsx` for the /portal page player/team leaderboard with tabs, filters, search.
 * Use `<ConferenceFilter>` from `components/ConferenceFilter.tsx` for conference pill buttons on both `/teams` and `/basketball/teams`; parameterized by a `conferences` prop (and optional `paramName`). Football passes `FOOTBALL_CONFERENCES` from `app/teams/page.tsx`; basketball passes `BASKETBALL_CONFERENCES` from `app/basketball/teams/page.tsx`.
+* Use `<SearchFilters>` from `components/SearchFilters.tsx` for reactive search + position filters on football `/players` and `/recruits` (dual-mode via `usePathname()`, 350ms debounce on the search input). Basketball uses `<BasketballSearchFilters>` from `components/basketball/BasketballSearchFilters.tsx` with the same dual-mode pattern. Query params `q` and `pos` are load-bearing — do not rename.
+* Use `<ClassYearFilter>` from `components/ClassYearFilter.tsx` for football HS recruit class-year pills on `/recruits`. Basketball uses `<BasketballClassYearFilter>` from `components/basketball/BasketballClassYearFilter.tsx`. Both render pills for 2026/2027/2028, default `2026`, param name `year`.
+* Use `<OverrideSourceLink>` from `components/OverrideSourceLink.tsx` for "Source: hostname" attribution below the valuation on player profiles. Football reads `nil_overrides.source_url` (via join); basketball reads `basketball_players.override_source_url`. Component returns null when the source URL is empty.
+* Use `<SportSwitcher>` from `components/SportSwitcher.tsx` for the Football / Basketball toggle wired into the Navbar. Renders on sport-scoped routes only (returns `null` on `/`, `/methodology`, `/portal`, etc). Appears in both the desktop top bar and the mobile dropdown.
 * All valuation math must use `lib/valuation.ts` (TypeScript) or `calculate_cfo_valuations.py` (Python). Do not implement valuation logic inline.
 * Routes use slugs, not UUIDs: `/players/[slug]` and `/teams/[slug]`.
 * The `/futures` route has been renamed to `/recruits` with a permanent redirect.
@@ -249,7 +253,10 @@ Conventions apply to both football and basketball products unless explicitly fla
 * **Position badge colors**: football uses `positionBadgeClass`; basketball uses `basketballPositionBadgeClass`. Both exported from `lib/ui-helpers.ts`.
 * **Inline acquisition-type badges on team roster rows**: basketball's `<BasketballTeamRoster>` shows inline **Transfer** (blue), **In Portal** (amber), and **Recruit** (purple) badges on desktop rows in the Player column. Football's `<TeamRoster>` does NOT show these — acquisition context on football is conveyed by the active tab the user is on. Divergence is intentional.
 * **`portal_evaluating` acquisition type**: basketball only. Players with this value appear on the Full Roster tab with the amber "In Portal" badge and are excluded from the Portal tab predicate, which matches `acquisition_type === "portal"` (incoming transfers) only.
-* **Team roster row columns**: basketball's `<BasketballTeamRoster>` surfaces **PPG** and **Role** columns on desktop (between Pos and Est. NIL Value) and an inline `Pos · X.X PPG` line plus a role-tier badge under the valuation on mobile. Football's `<TeamRoster>` does NOT — football rows stay Player / Pos / Est. NIL Value only. Role tier styling lives in `lib/ui-helpers.ts::roleTierBadgeClass` with a companion `roleTierLabel` for the display string (franchise/star/starter/rotation/bench, capitalized). The basketball player profile hero additionally surfaces role_tier (via `roleTierBadgeClass(tier, "dark")` for hero-sized, dark-bg-appropriate pills) and a compact NBA draft projection badge (via `formatDraftProjectionBadge` in the same helper file, rendering "Top 10 Pick"/"Lottery"/"1st Round"/"2nd Round"); football's profile hero shows neither. The basketball portal page (`/basketball/portal`) also surfaces **PPG** and **Role** columns on the By Player desktop table (`hidden lg:table-cell`, gated at 1024px+ to keep tablet widths usable) and an inline draft projection badge in the Player cell; mobile cards add the same `Pos · X.X PPG` line and role-tier badge under the valuation; football's portal page (`/portal`) shows none of these. The basketball recruits page (`/basketball/recruits`) renders the same inline NBA draft projection badge on the Player cell (desktop only, via `formatDraftProjectionBadge`) for top-60-pick projections; football's recruits page (`/recruits`) does not.
+* **Team roster rows**: basketball's `<BasketballTeamRoster>` surfaces **PPG** and **Role** columns on desktop between Pos and Est. NIL Value; mobile cards show an inline `Pos · X.X PPG` line and a role-tier badge under the valuation. Football's `<TeamRoster>` stays Player / Pos / Est. NIL Value only — no new columns, no PPG/role surface. Role tier styling: `lib/ui-helpers.ts::roleTierBadgeClass` (light variant for the white-background table) with companion `roleTierLabel` for display strings (franchise/star/starter/rotation/bench, capitalized). PPG formatting is a local `formatPpg` helper inlined in the component — null/zero renders as em dash on desktop, omitted on mobile.
+* **Player profile hero**: the basketball player profile hero renders a role_tier badge via `roleTierBadgeClass(tier, "dark")` (hero-sized pills with dark-bg-appropriate colors) and a compact NBA draft projection badge via `formatDraftProjectionBadge` (rendering "Top 10 Pick" / "Lottery" / "1st Round" / "2nd Round" for picks 1–60; null or out-of-range omitted). Both appear at the end of the hero badges row, after position/acquisition/roster_status. Football's profile hero shows neither.
+* **Portal page (`/basketball/portal`)**: the By Player desktop table surfaces **PPG** and **Role** columns (`hidden lg:table-cell`, gated at 1024px+ to keep tablet widths usable given wide From/To school-name columns) and an inline purple NBA draft projection badge on the Player cell. Mobile cards add the same `Pos · X.X PPG` line and role-tier badge under the valuation as `<BasketballTeamRoster>`. By Team view is unchanged — still shows the "Acquired Value" column (sum of committed incoming transfers' `cfo_valuation` per destination team). Football's `/portal` renders none of these.
+* **Recruits page (`/basketball/recruits`)**: renders the same inline purple NBA draft projection badge on the Player cell (desktop only, via `formatDraftProjectionBadge`) for top-60-pick projections. Mobile cards added during the same pass to bring this page to consistency with every other basketball list surface (team, portal, players). Football's `/recruits` does not render draft badges.
 
 **Known drift (flagged for future cleanup):**
 
@@ -262,6 +269,8 @@ Conventions apply to both football and basketball products unless explicitly fla
 * **Broken ESPN URLs (HTTP 404) should be cleared before re-running the 247 scraper.** The scraper's "already has headshot" check treats non-NULL URLs as complete, so broken URLs block the fallback. Verify a suspicious URL with a quick HEAD/GET — body <6KB from the combiner endpoint is almost always the generic 404 page.
 
 ## 7. Page Structure
+
+Football routes only. Basketball routes are documented in §9.4.
 
 | Route | What It Shows | Data Source |
 |-------|---------------|-------------|
@@ -277,10 +286,10 @@ Conventions apply to both football and basketball products unless explicitly fla
 ## 8. SEO
 
 * All pages have canonical URLs via `alternates.canonical` (using `BASE_URL` from `lib/constants.ts`).
-* Dynamic sitemap at `/sitemap.xml` includes all teams and all public players (paginated).
+* Dynamic sitemap at `/sitemap.xml` includes all teams and all public players (paginated). (Basketball routes, teams, and public player profiles are also included — see `app/sitemap.ts`.)
 * JSON-LD structured data: Person (player profiles), SportsTeam (team profiles), ItemList (index pages).
-* Dynamic OG images for player profiles and team profiles.
-* Static OG image for homepage.
+* Dynamic OG images for player profiles and team profiles. (Applies to both football and basketball player and team profiles.)
+* Static OG image for homepage. (Sport-agnostic copy serves both products.)
 * Apple touch icon and web manifest at `/apple-icon` and `/manifest.webmanifest`.
 * `robots.txt` blocks `/admin`, `/login`, `/auth`.
 * Permanent redirect: `/futures` → `/recruits`.
@@ -319,7 +328,18 @@ Key basketball-only player columns: `role_tier`, `rotation_rank`, `usage_rate`, 
 - `sync_nba_draft_projections.py` — ESPN draft API → `nba_draft_projection`
 
 ### 9.4 Frontend Routes
-All basketball pages under `/basketball/`: `/players`, `/players/[slug]`, `/teams`, `/teams/[slug]`, `/portal`, `/recruits`, `/methodology`. Player profile pages render a "Source: hostname" link under the valuation when `override_source_url` is populated.
+
+All basketball pages live under `/basketball/`. Each route's current surface:
+
+- **`/basketball/players`** — national leaderboard of active players by `cfo_valuation`, with reactive search + position pills (via `<BasketballSearchFilters>`, 350ms debounce). Paginated `basketball_players` fetch capped at top 100.
+- **`/basketball/players/[slug]`** — player profile. Hero badges row: position, acquisition_type (Transfer / In Portal), roster_status (Departed), role_tier, compact NBA draft projection (via `formatDraftProjectionBadge`, picks 1–60). Body: Season Stats card (MPG / PPG / RPG / APG / PER) when `usage_rate > 0`; Recruiting Profile card (stars + NBA Draft tier) for recruits/incoming players; `<OverrideSourceLink>` below the valuation when `override_source_url` is populated; team link card.
+- **`/basketball/teams`** — team grid ranked by total roster value, with the unified `<ConferenceFilter>` exposing SEC / Big Ten / Big 12 / ACC / Big East / Other pills (plus an "All" default).
+- **`/basketball/teams/[slug]`** — team detail. `<RosterDonut>` in hero + `<BasketballTeamRoster>` below. Roster tabs (Full Roster / Portal / Recruits / Retained) via the shared `<RosterTabs>` primitive with `?view=` URL state. Desktop rows show Player / Pos / PPG / Role / Est. NIL Value with inline acquisition badges in the Player cell; `portal_evaluating` players surface on Full Roster only (excluded from Portal tab predicate).
+- **`/basketball/portal`** — transfer portal. By Player / By Team toggle (`?view=team`). By Player desktop renders PPG + Role at `hidden lg:table-cell` (1024px+) plus inline draft projection badge in the Player cell; mobile cards show `Pos · X.X PPG` + role-tier badge under the valuation. By Team view shows In / Out / In Portal counts + "Acquired Value" column (committed incoming transfers' `cfo_valuation` sum per destination team).
+- **`/basketball/recruits`** — 4★+ HS recruits by class year, filtered via `<BasketballClassYearFilter>` pills (2026/2027/2028, default 2026) + `<BasketballSearchFilters>` in dual-mode. Desktop table renders inline draft projection badge on the Player cell; mobile cards match the site-wide basketball pattern (avatar + name + position/stars/team line + valuation).
+- **`/basketball/methodology`** — narrative static page ("How CFO Basketball Valuations Work").
+
+Cross-sport UI rules (valuation copy, badge styling, override attribution, sitemap/OG coverage, external-branding prohibitions, currency formatting) are the source of truth in §6 "UI Naming Conventions." Basketball-specific divergences from football are enumerated under §6's "Sport-specific differences (intentional)."
 
 ### 9.5 Migrations
 - `00013_basketball_schema.sql` — initial schema
@@ -330,6 +350,8 @@ All basketball pages under `/basketball/`: `/players`, `/players/[slug]`, `/team
 
 ### 9.6 Pagination Warning
 Supabase's PostgREST default row limit is 1,000. Basketball queries that fetch all players must paginate via `.range(offset, offset + PAGE_SIZE - 1)`. This bug was silently dropping ~500 players until caught during the 14→82 team expansion; the fix is applied in `calculate_bball_valuations.py`, `app/basketball/teams/page.tsx`, and `app/basketball/portal/page.tsx`.
+
+Note: `basketball_portal_entries` is fetched in one query without pagination on `/basketball/portal` — see §6 "Known drift" for the logged truncation vulnerability.
 
 ### 9.7 Related Docs
 - `BASKETBALL_OPERATIONS.md` — pipeline runbook
