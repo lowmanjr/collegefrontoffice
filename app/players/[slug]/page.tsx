@@ -4,15 +4,23 @@ import { supabase } from "@/lib/supabase";
 import { formatCurrency } from "@/lib/utils";
 import { BASE_URL } from "@/lib/constants";
 import PlayerAvatar from "@/components/PlayerAvatar";
+import OverrideSourceLink from "@/components/OverrideSourceLink";
 
 export const revalidate = 300;
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const { data } = await supabase.from("players").select("name, position").eq("slug", slug).single();
+  const { data } = await supabase
+    .from("players")
+    .select("name, position, player_tag")
+    .eq("slug", slug)
+    .single();
+  const suffix = data?.player_tag === "High School Recruit"
+    ? "Projected NIL Valuation"
+    : "Est. NIL Valuation";
   return {
     title: data
-      ? `${data.name} — ${data.position} | Est. NIL Valuation`
+      ? `${data.name} — ${data.position} | ${suffix}`
       : "Player Profile | College Front Office",
     description: data
       ? `NIL valuation and profile for ${data.name}, ${data.position}`
@@ -243,32 +251,9 @@ export default async function PlayerProfilePage({ params }: PageProps) {
                             <span>{formatCurrency(bestOverride.total_value)} total</span>
                           </>
                         )}
-                        {nilOverrides.some(ov => ov.source_url || ov.source_name) && (
-                          <>
-                            <span className="text-slate-600">·</span>
-                            {nilOverrides.map((ov, i) => {
-                              const displayName = (ov.source_name ?? "")
-                                .replace(" (algorithmic)", "")
-                                .replace(" (pending verification)", "");
-                              if (!displayName) return null;
-                              const isAlgorithmic = (ov.source_name ?? "").includes("(algorithmic)") ||
-                                (ov.source_name ?? "").includes("(pending verification)");
-                              const hasRealUrl = ov.source_url != null && !isAlgorithmic;
-
-                              if (hasRealUrl) {
-                                return (
-                                  <a key={i} href={ov.source_url!} target="_blank" rel="noopener noreferrer"
-                                    className="text-slate-400 hover:text-white underline transition-colors">
-                                    {displayName}
-                                  </a>
-                                );
-                              }
-                              return <span key={i}>{displayName}</span>;
-                            })}
-                          </>
-                        )}
                       </div>
                     )}
+                    <OverrideSourceLink sourceUrl={bestOverride?.source_url} />
                   </div>
                 )}
               </div>

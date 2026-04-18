@@ -15,21 +15,28 @@ const supabase = createClient(
 export default async function OGImage(props: { params: Promise<{ slug: string }> }) {
   const { slug } = await props.params;
 
-  const teamResp = await supabase.from("teams").select("id, university_name, conference").eq("slug", slug).single();
+  const teamResp = await supabase
+    .from("basketball_teams")
+    .select("id, university_name, conference")
+    .eq("slug", slug)
+    .single();
   const teamId = teamResp.data?.id;
 
   const rosterResp = teamId
-    ? await supabase.from("players")
+    ? await supabase
+        .from("basketball_players")
         .select("cfo_valuation, is_public")
         .eq("team_id", teamId)
-        .eq("player_tag", "College Athlete")
         .eq("roster_status", "active")
         .not("cfo_valuation", "is", null)
     : { data: [] };
 
   const team = teamResp.data;
   const players = rosterResp.data ?? [];
-  const totalValue = players.reduce((sum, p) => sum + (p.is_public !== false && p.cfo_valuation ? p.cfo_valuation : 0), 0);
+  const totalValue = players.reduce(
+    (sum, p) => sum + (p.is_public !== false && p.cfo_valuation ? p.cfo_valuation : 0),
+    0
+  );
   const playerCount = players.length;
 
   if (!team) {
@@ -69,7 +76,7 @@ export default async function OGImage(props: { params: Promise<{ slug: string }>
 
         <div style={{ display: "flex", flexDirection: "column", marginTop: 40, flex: 1 }}>
           <span style={{ color: "#64748b", fontSize: 20, fontWeight: 600, textTransform: "uppercase" as const, letterSpacing: "0.1em" }}>
-            Team Dashboard
+            Basketball Team Dashboard
           </span>
           <span style={{
             color: "white", fontSize: 72, fontWeight: 800,

@@ -1,10 +1,8 @@
 import Link from "next/link";
 import { supabase } from "@/lib/supabase";
-import { formatCurrency, formatCompactCurrency } from "@/lib/utils";
 import { BASE_URL } from "@/lib/constants";
-import { basketballPositionBadgeClass } from "@/lib/ui-helpers";
-import PlayerAvatar from "@/components/PlayerAvatar";
 import RosterDonut from "@/components/RosterDonut";
+import BasketballTeamRoster from "@/components/BasketballTeamRoster";
 
 export const revalidate = 900;
 
@@ -56,7 +54,7 @@ export default async function BasketballTeamPage({ params }: PageProps) {
   const { data: playersRaw } = await supabase
     .from("basketball_players")
     .select(
-      "id, slug, name, position, class_year, cfo_valuation, is_public, roster_status, headshot_url, usage_rate, ppg, rpg, apg, acquisition_type"
+      "id, slug, name, position, class_year, cfo_valuation, is_public, roster_status, headshot_url, acquisition_type, ppg, role_tier"
     )
     .eq("team_id", team.id)
     .eq("roster_status", "active")
@@ -151,168 +149,20 @@ export default async function BasketballTeamPage({ params }: PageProps) {
           Active Roster
         </h2>
 
-        {roster.length === 0 ? (
-          <div className="bg-white rounded-xl shadow-md border border-gray-100 p-12 text-center">
-            <p className="text-sm font-semibold text-slate-400">
-              No players currently tracked for this team.
-            </p>
-          </div>
-        ) : (
-          <>
-            {/* Mobile cards */}
-            <div className="md:hidden space-y-3">
-              {roster.map((player) => {
-                const isPrivate = !player.is_public;
-                return (
-                  <Link
-                    key={player.id}
-                    href={`/basketball/players/${player.slug}`}
-                    className="block bg-white rounded-xl border border-gray-200 p-4 hover:border-slate-300 transition-colors shadow-sm"
-                  >
-                    <div className="flex items-center gap-3">
-                      <PlayerAvatar
-                        headshot_url={player.headshot_url}
-                        name={player.name}
-                        position={player.position}
-                        size={44}
-                        className="shrink-0"
-                      />
-                      <div className="flex-1 min-w-0">
-                        <div className="flex items-center justify-between gap-2">
-                          <h3
-                            className="font-bold text-slate-900 uppercase tracking-tight truncate"
-                            style={{ fontFamily: "var(--font-oswald), sans-serif" }}
-                          >
-                            {player.name}
-                          </h3>
-                          <div className="flex gap-1 shrink-0">
-                            {player.position && (
-                              <span
-                                className={`inline-block rounded px-2 py-0.5 text-xs font-semibold uppercase tracking-wide ${basketballPositionBadgeClass(player.position)}`}
-                              >
-                                {player.position}
-                              </span>
-                            )}
-                          </div>
-                        </div>
-                        <div className="flex items-center justify-end mt-1">
-                          {isPrivate ? (
-                            <span className="text-slate-400 text-xs italic">Private</span>
-                          ) : player.cfo_valuation != null ? (
-                            <span
-                              className="font-bold text-emerald-600 tabular-nums"
-                              style={{ fontFamily: "var(--font-oswald), sans-serif" }}
-                            >
-                              {formatCurrency(player.cfo_valuation)}
-                            </span>
-                          ) : (
-                            <span className="text-slate-400 text-xs">—</span>
-                          )}
-                        </div>
-                      </div>
-                    </div>
-                  </Link>
-                );
-              })}
-            </div>
-
-            {/* Desktop table */}
-            <div className="hidden md:block bg-white rounded-xl shadow-md border border-gray-200 overflow-hidden">
-              <div className="overflow-x-auto">
-                <table className="w-full text-sm">
-                  <thead className="sticky top-0 z-10 bg-slate-900 text-slate-300">
-                    <tr>
-                      <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-widest">
-                        Player
-                      </th>
-                      <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-widest w-16">
-                        Pos
-                      </th>
-                      <th className="px-4 py-3 text-right text-xs font-semibold uppercase tracking-widest">
-                        Est. NIL Value
-                      </th>
-                    </tr>
-                  </thead>
-
-                  <tbody className="divide-y divide-gray-100">
-                    {roster.map((player) => {
-                      const isPrivate = !player.is_public;
-                      return (
-                        <tr
-                          key={player.id}
-                          className="hover:bg-slate-50 transition-colors group"
-                        >
-                          <td className="px-4 py-3.5">
-                            <div className="flex items-center gap-3">
-                              <PlayerAvatar
-                                headshot_url={player.headshot_url}
-                                name={player.name}
-                                position={player.position}
-                                size={40}
-                                className="shrink-0"
-                              />
-                              <Link
-                                href={`/basketball/players/${player.slug}`}
-                                className="font-semibold text-slate-900 hover:text-emerald-500 hover:underline transition-colors uppercase tracking-tight"
-                                style={{ fontFamily: "var(--font-oswald), sans-serif" }}
-                              >
-                                {player.name}
-                              </Link>
-                              {player.acquisition_type === "portal" && (
-                                <span className="inline-block rounded px-1.5 py-0.5 text-[10px] font-semibold bg-blue-100 text-blue-800 ml-1.5">Transfer</span>
-                              )}
-                              {player.acquisition_type === "portal_evaluating" && (
-                                <span className="inline-block rounded px-1.5 py-0.5 text-[10px] font-semibold bg-amber-100 text-amber-800 ml-1.5">In Portal</span>
-                              )}
-                              {player.acquisition_type === "recruit" && (
-                                <span className="inline-block rounded px-1.5 py-0.5 text-[10px] font-semibold bg-purple-100 text-purple-800 ml-1.5">Recruit</span>
-                              )}
-                            </div>
-                          </td>
-
-                          <td className="px-4 py-3.5">
-                            {player.position ? (
-                              <span
-                                className={`inline-block rounded px-2 py-0.5 text-xs font-semibold uppercase tracking-wide ${basketballPositionBadgeClass(player.position)}`}
-                              >
-                                {player.position}
-                              </span>
-                            ) : (
-                              <span className="text-slate-400">—</span>
-                            )}
-                          </td>
-
-                          <td className="px-4 py-3.5 text-right">
-                            {isPrivate ? (
-                              <span className="text-slate-400 text-xs italic">Private</span>
-                            ) : player.cfo_valuation != null ? (
-                              <span
-                                className="font-bold text-emerald-600 tabular-nums"
-                                style={{ fontFamily: "var(--font-oswald), sans-serif" }}
-                              >
-                                {formatCurrency(player.cfo_valuation)}
-                              </span>
-                            ) : (
-                              <span className="text-slate-400 text-xs">—</span>
-                            )}
-                          </td>
-                        </tr>
-                      );
-                    })}
-                  </tbody>
-                </table>
-              </div>
-
-              <div className="border-t border-gray-100 bg-slate-50 px-4 py-3 flex items-center justify-between">
-                <p className="text-xs text-slate-400">
-                  <span className="font-semibold text-slate-600">{roster.length}</span>{" "}
-                  players
-                </p>
-                <p className="text-xs text-slate-400">Basketball V1</p>
-              </div>
-            </div>
-          </>
-        )}
+        <BasketballTeamRoster
+          players={roster.map((p) => ({
+            id: p.id,
+            slug: p.slug,
+            name: p.name,
+            position: p.position,
+            cfo_valuation: p.cfo_valuation,
+            is_public: p.is_public,
+            headshot_url: p.headshot_url,
+            acquisition_type: p.acquisition_type ?? "retained",
+            ppg: p.ppg,
+            role_tier: p.role_tier,
+          }))}
+        />
       </div>
     </div>
   );

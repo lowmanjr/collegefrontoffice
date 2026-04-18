@@ -92,7 +92,7 @@ export default async function BasketballBigBoardPage({ searchParams }: PageProps
       {/* ── Table ──────────────────────────────────────────────────────────── */}
       <div className="mx-auto max-w-7xl px-4 py-6">
         <Suspense>
-          <BasketballSearchFilters initialQuery={q ?? ""} initialPosition={pos ?? "All"} />
+          <BasketballSearchFilters />
         </Suspense>
 
         {rows.length === 0 ? (

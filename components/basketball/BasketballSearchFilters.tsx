@@ -3,21 +3,20 @@
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import { useCallback, useRef } from "react";
 
-const POSITIONS = ["All", "PG", "SG", "SF", "PF", "C", "G", "F"];
+const POSITIONS_PLAYERS = ["All", "PG", "SG", "SF", "PF", "C", "G", "F"];
+const POSITIONS_RECRUITS = ["All", "PG", "SG", "SF", "PF", "C"];
 
-interface Props {
-  initialQuery: string;
-  initialPosition: string;
-}
-
-export default function BasketballSearchFilters({ initialQuery, initialPosition }: Props) {
+export default function BasketballSearchFilters() {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
+  const isRecruits = pathname.includes("/recruits");
+  const positions = isRecruits ? POSITIONS_RECRUITS : POSITIONS_PLAYERS;
+  const placeholder = isRecruits ? "Search recruits..." : "Search players...";
+
   const debounceTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  // Build a new query string from current params + overrides
   const buildUrl = useCallback(
     (overrides: Record<string, string>) => {
       const params = new URLSearchParams(searchParams.toString());
@@ -46,6 +45,7 @@ export default function BasketballSearchFilters({ initialQuery, initialPosition 
     router.replace(buildUrl({ pos: position }), { scroll: false });
   }
 
+  const currentQ = searchParams.get("q") ?? "";
   const currentPos = searchParams.get("pos") ?? "All";
 
   return (
@@ -66,8 +66,8 @@ export default function BasketballSearchFilters({ initialQuery, initialPosition 
         </svg>
         <input
           type="text"
-          placeholder="Search players..."
-          defaultValue={initialQuery}
+          placeholder={placeholder}
+          defaultValue={currentQ}
           onChange={handleNameChange}
           className="w-full rounded-lg border border-gray-300 bg-white py-2.5 pl-9 pr-4 text-sm text-slate-900 placeholder-slate-400 focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 outline-none transition-colors"
         />
@@ -75,7 +75,7 @@ export default function BasketballSearchFilters({ initialQuery, initialPosition 
 
       {/* Position filter pills */}
       <div className="flex gap-1.5 flex-wrap">
-        {POSITIONS.map((p) => {
+        {positions.map((p) => {
           const active = currentPos === p;
           return (
             <button

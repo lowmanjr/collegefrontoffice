@@ -201,10 +201,6 @@ export default async function TeamDashboardPage({ params }: PageProps) {
             headshot_url: p.headshot_url,
             acquisition_type: p.acquisition_type ?? "retained",
           }))}
-          retainedValue={retainedValue}
-          portalValue={portalValue}
-          recruitValue={recruitValue}
-          totalValuation={total_valuation}
         />
         </Suspense>
       </div>

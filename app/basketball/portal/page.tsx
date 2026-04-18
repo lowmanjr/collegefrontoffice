@@ -4,7 +4,12 @@ import { supabase } from "@/lib/supabase";
 import type { Metadata } from "next";
 import { BASE_URL } from "@/lib/constants";
 import { formatCurrency, formatCompactCurrency } from "@/lib/utils";
-import { basketballPositionBadgeClass } from "@/lib/ui-helpers";
+import {
+  basketballPositionBadgeClass,
+  roleTierBadgeClass,
+  roleTierLabel,
+  formatDraftProjectionBadge,
+} from "@/lib/ui-helpers";
 import PortalFilters from "@/components/PortalFilters";
 
 export const revalidate = 300;
@@ -152,17 +157,24 @@ export default async function BasketballPortalPage({ searchParams }: PageProps) 
       .order("university_name"),
   ]);
 
-  // Paginate player slug lookup — Supabase default limit is 1,000 rows
+  // Paginate basketball_players — widen the SELECT to carry slug + stats in
+  // the same round trip. Two maps are built from the same iteration (F3a).
   const PAGE_SIZE = 1000;
-  let allPlayerSlugs: { name: string; slug: string }[] = [];
+  type PlayerRow = {
+    name: string;
+    slug: string | null;
+    role_tier: string | null;
+    ppg: number | null;
+    nba_draft_projection: number | null;
+  };
+  const allPlayerRows: PlayerRow[] = [];
   let offset = 0;
   while (true) {
     const { data } = await supabase
       .from("basketball_players")
-      .select("name, slug")
-      .neq("slug", "")
+      .select("name, slug, role_tier, ppg, nba_draft_projection")
       .range(offset, offset + PAGE_SIZE - 1);
-    allPlayerSlugs.push(...(data ?? []));
+    allPlayerRows.push(...((data ?? []) as PlayerRow[]));
     if (!data || data.length < PAGE_SIZE) break;
     offset += PAGE_SIZE;
   }
@@ -172,16 +184,37 @@ export default async function BasketballPortalPage({ searchParams }: PageProps) 
   const allRows = (entries ?? []) as unknown as PortalEntry[];
   const allTeams = (teams ?? []) as TeamInfo[];
 
-  // Build slug lookup
-  const slugMap = new Map(
-    allPlayerSlugs
-      .filter((p) => p.slug)
-      .map((p) => [p.name.toLowerCase().trim(), p.slug]),
-  );
+  // Build slug + stats lookups in one pass.
+  type PlayerStats = {
+    role_tier: string | null;
+    ppg: number | null;
+    draft: number | null;
+  };
+  const slugMap = new Map<string, string>();
+  const statsMap = new Map<string, PlayerStats>();
+  for (const p of allPlayerRows) {
+    const norm = p.name.toLowerCase().trim();
+    if (p.slug) slugMap.set(norm, p.slug);
+    statsMap.set(norm, {
+      role_tier: p.role_tier,
+      ppg: p.ppg,
+      draft: p.nba_draft_projection,
+    });
+  }
 
   function getPlayerSlug(name: string): string | null {
     const norm = name.toLowerCase().trim();
     return slugMap.get(norm) ?? slugMap.get(NAME_ALIASES[norm] ?? "") ?? null;
+  }
+
+  function getPlayerStats(name: string): PlayerStats | undefined {
+    const norm = name.toLowerCase().trim();
+    return statsMap.get(norm) ?? statsMap.get(NAME_ALIASES[norm] ?? "");
+  }
+
+  function formatPpg(ppg: number | null | undefined): string | null {
+    if (ppg == null || ppg <= 0) return null;
+    return ppg.toFixed(1);
   }
 
   // Conference team IDs for filtering
@@ -340,6 +373,8 @@ export default async function BasketballPortalPage({ searchParams }: PageProps) 
             <div className="md:hidden space-y-3">
               {sorted.map((entry) => {
                 const mobileSlug = getPlayerSlug(entry.player_name);
+                const mobileStats = getPlayerStats(entry.player_name);
+                const mobilePpg = formatPpg(mobileStats?.ppg);
                 return (
                 <div
                   key={entry.id}
@@ -360,26 +395,44 @@ export default async function BasketballPortalPage({ searchParams }: PageProps) 
                       <Initials name={entry.player_name} size={44} />
                     )}
                     <div className="flex-1 min-w-0">
-                      <div className="flex items-center justify-between gap-2">
-                        {mobileSlug ? (
-                          <Link
-                            href={`/basketball/players/${mobileSlug}`}
-                            className="font-bold text-slate-900 uppercase tracking-tight truncate hover:text-emerald-600 hover:underline transition-colors"
-                            style={{ fontFamily: "var(--font-oswald), sans-serif" }}
-                          >
-                            {entry.player_name}
-                          </Link>
-                        ) : (
-                          <h3
-                            className="font-bold text-slate-900 uppercase tracking-tight truncate"
-                            style={{ fontFamily: "var(--font-oswald), sans-serif" }}
-                          >
-                            {entry.player_name}
-                          </h3>
-                        )}
+                      <div className="flex items-start justify-between gap-2">
+                        <div className="min-w-0">
+                          {mobileSlug ? (
+                            <Link
+                              href={`/basketball/players/${mobileSlug}`}
+                              className="font-bold text-slate-900 uppercase tracking-tight truncate hover:text-emerald-600 hover:underline transition-colors block"
+                              style={{ fontFamily: "var(--font-oswald), sans-serif" }}
+                            >
+                              {entry.player_name}
+                            </Link>
+                          ) : (
+                            <h3
+                              className="font-bold text-slate-900 uppercase tracking-tight truncate"
+                              style={{ fontFamily: "var(--font-oswald), sans-serif" }}
+                            >
+                              {entry.player_name}
+                            </h3>
+                          )}
+                          {(entry.position || mobilePpg) && (
+                            <div className="flex items-center gap-1 mt-0.5 flex-wrap">
+                              {entry.position && (
+                                <span
+                                  className={`inline-block rounded px-2 py-0.5 text-xs font-semibold uppercase tracking-wide ${basketballPositionBadgeClass(entry.position)}`}
+                                >
+                                  {entry.position}
+                                </span>
+                              )}
+                              {mobilePpg && (
+                                <span className="text-xs text-slate-500">
+                                  · {mobilePpg} PPG
+                                </span>
+                              )}
+                            </div>
+                          )}
+                        </div>
                         <StatusBadge status={entry.status} />
                       </div>
-                      <div className="flex items-center justify-between mt-1">
+                      <div className="flex items-center justify-between gap-2 mt-1">
                         <span className="text-xs text-slate-500 truncate flex items-center gap-1">
                           {/* eslint-disable-next-line @next/next/no-img-element */}
                           {(entry.origin_team?.logo_url || schoolLogo(entry.origin_school)) && (
@@ -397,14 +450,21 @@ export default async function BasketballPortalPage({ searchParams }: PageProps) 
                           )}
                           {entry.status === "committed" ? (entry.destination_team?.university_name ?? entry.destination_school ?? "\u2014") : "\u2014"}
                         </span>
-                        <span
-                          className="font-bold text-emerald-600 tabular-nums shrink-0"
-                          style={{ fontFamily: "var(--font-oswald), sans-serif" }}
-                        >
-                          {entry.cfo_valuation != null
-                            ? formatCurrency(entry.cfo_valuation)
-                            : "\u2014"}
-                        </span>
+                        <div className="shrink-0 flex flex-col items-end gap-1">
+                          <span
+                            className="font-bold text-emerald-600 tabular-nums"
+                            style={{ fontFamily: "var(--font-oswald), sans-serif" }}
+                          >
+                            {entry.cfo_valuation != null
+                              ? formatCurrency(entry.cfo_valuation)
+                              : "\u2014"}
+                          </span>
+                          {mobileStats?.role_tier && (
+                            <span className={roleTierBadgeClass(mobileStats.role_tier, "light")}>
+                              {roleTierLabel(mobileStats.role_tier)}
+                            </span>
+                          )}
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -421,6 +481,8 @@ export default async function BasketballPortalPage({ searchParams }: PageProps) 
                     <tr>
                       <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-widest">Player</th>
                       <th className="px-3 py-3 text-left text-xs font-semibold uppercase tracking-widest w-14">Pos</th>
+                      <th className="hidden lg:table-cell px-3 py-3 text-right text-xs font-semibold uppercase tracking-widest w-16">PPG</th>
+                      <th className="hidden lg:table-cell px-3 py-3 text-left text-xs font-semibold uppercase tracking-widest w-24">Role</th>
                       <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-widest">From</th>
                       <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-widest">To</th>
                       <th className="px-3 py-3 text-center text-xs font-semibold uppercase tracking-widest w-24">Status</th>
@@ -433,6 +495,9 @@ export default async function BasketballPortalPage({ searchParams }: PageProps) 
                       const originTeam = entry.origin_team;
                       const destTeam = entry.destination_team;
                       const playerSlug = getPlayerSlug(entry.player_name);
+                      const stats = getPlayerStats(entry.player_name);
+                      const ppgDisplay = formatPpg(stats?.ppg);
+                      const draftLabel = formatDraftProjectionBadge(stats?.draft ?? null);
                       return (
                         <tr key={entry.id} className="hover:bg-slate-50 transition-colors">
                           <td className="px-4 py-3">
@@ -466,6 +531,11 @@ export default async function BasketballPortalPage({ searchParams }: PageProps) 
                                   {entry.player_name}
                                 </span>
                               )}
+                              {draftLabel && (
+                                <span className="inline-block rounded px-1.5 py-0.5 text-[10px] font-semibold bg-purple-500 text-white ml-1.5">
+                                  {draftLabel}
+                                </span>
+                              )}
                             </div>
                           </td>
                           <td className="px-3 py-3">
@@ -477,6 +547,27 @@ export default async function BasketballPortalPage({ searchParams }: PageProps) 
                               </span>
                             ) : (
                               <span className="text-slate-400">&mdash;</span>
+                            )}
+                          </td>
+                          <td className="hidden lg:table-cell px-3 py-3 text-right">
+                            {ppgDisplay ? (
+                              <span
+                                className="font-bold text-emerald-600 tabular-nums"
+                                style={{ fontFamily: "var(--font-oswald), sans-serif" }}
+                              >
+                                {ppgDisplay}
+                              </span>
+                            ) : (
+                              <span className="text-slate-400 text-xs">&mdash;</span>
+                            )}
+                          </td>
+                          <td className="hidden lg:table-cell px-3 py-3">
+                            {stats?.role_tier ? (
+                              <span className={roleTierBadgeClass(stats.role_tier, "light")}>
+                                {roleTierLabel(stats.role_tier)}
+                              </span>
+                            ) : (
+                              <span className="text-slate-400 text-xs">&mdash;</span>
                             )}
                           </td>
                           <td className="px-4 py-3 text-xs text-slate-600">

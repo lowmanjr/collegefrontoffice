@@ -27,14 +27,46 @@ export function basketballPositionBadgeClass(position: string | null): string {
   }
 }
 
-export function roleTierBadgeClass(tier: string | null): string {
-  switch (tier) {
-    case "franchise": return "bg-yellow-100 text-yellow-800";
-    case "star":      return "bg-purple-100 text-purple-800";
-    case "starter":   return "bg-green-100 text-green-800";
-    case "rotation":  return "bg-blue-100 text-blue-800";
-    case "bench":     return "bg-gray-100 text-gray-600";
-    case "incoming":  return "bg-orange-100 text-orange-800";
-    default:          return "bg-gray-100 text-gray-600";
+export function roleTierBadgeClass(
+  tier: string | null,
+  variant: "light" | "dark" = "light",
+): string {
+  if (variant === "dark") {
+    const base = "rounded px-2.5 py-0.5 text-xs font-semibold uppercase tracking-widest";
+    switch (tier) {
+      case "franchise": return `${base} bg-emerald-500 text-white`;
+      case "star":      return `${base} bg-blue-500 text-white`;
+      case "starter":   return `${base} bg-slate-200 text-slate-800`;
+      case "rotation":  return `${base} bg-slate-600 text-slate-200`;
+      case "bench":     return `${base} bg-slate-700 text-slate-300`;
+      default:          return `${base} bg-slate-700 text-slate-400`;
+    }
   }
+  switch (tier) {
+    case "franchise":
+      return "rounded px-1.5 py-0.5 text-[10px] font-semibold bg-emerald-500 text-white";
+    case "star":
+      return "rounded px-1.5 py-0.5 text-[10px] font-semibold bg-blue-500 text-white";
+    case "starter":
+      return "rounded px-1.5 py-0.5 text-[10px] font-semibold bg-white text-slate-700 border border-slate-300";
+    case "rotation":
+      return "rounded px-1.5 py-0.5 text-[10px] font-semibold bg-slate-100 text-slate-600";
+    case "bench":
+      return "text-[10px] font-semibold text-slate-500";
+    default:
+      return "text-[10px] font-semibold text-slate-400";
+  }
+}
+
+export function roleTierLabel(tier: string | null): string {
+  if (!tier) return "";
+  return tier.charAt(0).toUpperCase() + tier.slice(1);
+}
+
+export function formatDraftProjectionBadge(pick: number | null): string | null {
+  if (pick == null || pick <= 0 || pick > 60) return null;
+  if (pick <= 10) return "Top 10 Pick";
+  if (pick <= 14) return "Lottery";
+  if (pick <= 30) return "1st Round";
+  return "2nd Round";
 }

@@ -7,11 +7,20 @@ import type { Metadata } from "next";
 import { BASE_URL } from "@/lib/constants";
 import ConferenceFilter from "@/components/ConferenceFilter";
 
+const FOOTBALL_CONFERENCES = [
+  { label: "SEC", slug: "sec" },
+  { label: "Big Ten", slug: "big-ten" },
+  { label: "Big 12", slug: "big-12" },
+  { label: "ACC", slug: "acc" },
+  { label: "Independent", slug: "independent" },
+];
+
 const CONF_SLUG_TO_DB: Record<string, string> = {
   sec: "SEC",
   "big-ten": "Big Ten",
   "big-12": "Big 12",
   acc: "ACC",
+  independent: "Independent",
 };
 
 export const revalidate = 3600;
@@ -95,7 +104,7 @@ async function TeamsGrid({ confSlug }: { confSlug: string | null }) {
           }),
         }}
       />
-      <ConferenceFilter activeConf={confSlug} />
+      <ConferenceFilter conferences={FOOTBALL_CONFERENCES} activeConf={confSlug} />
 
       {teams.length === 0 ? (
         <div className="bg-white rounded-xl shadow-md p-16 text-center">

@@ -158,6 +158,9 @@ export default function Navbar() {
               {label}
             </Link>
           ))}
+          <div className="px-4 pt-3 pb-1" onClick={() => setIsOpen(false)}>
+            <SportSwitcher />
+          </div>
           <div className="px-4 pt-3 pb-1">
             <GlobalSearch />
           </div>

@@ -4,7 +4,16 @@ import { supabase } from "@/lib/supabase";
 import { formatCompactCurrency } from "@/lib/utils";
 import type { Metadata } from "next";
 import { BASE_URL } from "@/lib/constants";
-import BasketballConferenceFilter from "@/components/basketball/BasketballConferenceFilter";
+import ConferenceFilter from "@/components/ConferenceFilter";
+
+const BASKETBALL_CONFERENCES = [
+  { label: "SEC", slug: "sec" },
+  { label: "Big Ten", slug: "big-ten" },
+  { label: "Big 12", slug: "big-12" },
+  { label: "ACC", slug: "acc" },
+  { label: "Big East", slug: "big-east" },
+  { label: "Other", slug: "other" },
+];
 
 const CONF_SLUG_TO_DB: Record<string, string> = {
   sec: "SEC",
@@ -104,7 +113,7 @@ async function TeamsGrid({ confSlug }: { confSlug: string | null }) {
 
   return (
     <>
-      <BasketballConferenceFilter activeConf={confSlug ?? null} />
+      <ConferenceFilter conferences={BASKETBALL_CONFERENCES} activeConf={confSlug ?? null} />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
